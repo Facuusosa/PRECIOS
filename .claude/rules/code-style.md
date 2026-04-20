@@ -24,3 +24,7 @@
 - No feature flags ni shims cuando se puede cambiar directo el código
 - No manejo de errores para escenarios que no pueden pasar
 - Funcional > perfecto. Si corre, es suficiente hasta que no lo sea.
+
+## Windows / Python
+- Nunca usar caracteres Unicode no-ASCII (`→`, `✓`, `←`) en `print()` — Windows cp1252 no los soporta.
+- Usar equivalentes ASCII: `->`, `OK`, `<-`. Aplica a todos los scripts Python del proyecto.

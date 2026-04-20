@@ -28,8 +28,9 @@ YAGUAR_DIR      = os.path.join(BASE_DIR, "targets", "yaguar")
 MAXICARRE_DIR   = os.path.join(BASE_DIR, "targets", "maxicarrefour")
 MAXICONSUMO_DIR = os.path.join(BASE_DIR, "targets", "maxiconsumo")
 RAW_DIR         = os.path.join(BASE_DIR, "data", "raw")
-CODIGOS_FILE    = os.path.join(RAW_DIR, "CODIGOS.xlsx")
-MAESTRO_FILE    = os.path.join(RAW_DIR, "Listado Maestro 09-03.xlsx")
+CODIGOS_FILE         = os.path.join(RAW_DIR, "CODIGOS.xlsx")
+MAESTRO_FILE         = os.path.join(RAW_DIR, "Listado Maestro 09-03.xlsx")
+FAMILIAS_CUSTOM_FILE = os.path.join(RAW_DIR, "FAMILIAS_CUSTOM.xlsx")
 OUTPUT_FILE     = os.path.join(BASE_DIR, "BRUJULA-DE-PRECIOS", "data", "processed", "catalogo_unificado.json")
 
 # ---------------------------------------------------------------------------
@@ -103,6 +104,10 @@ def clave_nombre(nombre):
     n = re.sub(r"(\d+\.?\d*)\s*kgs?\b", lambda m: str(int(float(m.group(1))*1000))+"gr", n)
     # UNIDADES: "uni" → "un" (variante larga, ej "X 2 Uni", "12 Uni")
     n = re.sub(r"(\d+)\s*uni\b", lambda m: m.group(1)+"un", n)
+    # "u" suelto después de número → "un" (pack count, ej "5 u", "5u")
+    n = re.sub(r"(\d+)\s*u\b", lambda m: m.group(1)+"un", n)
+    # "g" suelto después de número → "gr" (gramos, ej "108 g", "500g")
+    n = re.sub(r"(\d+)\s*g\b", lambda m: m.group(1)+"gr", n)
     # Pegar dígito+unidad (sin espacio) para matching exacto
     n = re.sub(r"(\d+)\s*(cc|ml|gr|kg|un|ul)\b", r"\1\2", n)
     # Eliminar puntos residuales
@@ -161,10 +166,11 @@ def cargar_excel_referencia():
     Retorna:
       yag_sku_to_ean  : SKU Yaguar  -> EAN
       mco_sku_to_ean  : SKU Maxiconsumo -> EAN
-      ean_to_yag_sku  : EAN -> SKU Yaguar   (NUEVO - para matching desde MaxiCarrefour)
-      ean_to_mco_sku  : EAN -> SKU Maxiconsumo (NUEVO)
-      ean_to_master   : EAN -> {nombre, sector, categoria, abc}
-      nombre_norm_to_ean : nombre_normalizado -> EAN  (NUEVO - fallback por nombre)
+      ean_to_yag_sku  : EAN -> SKU Yaguar   (para matching desde MaxiCarrefour)
+      ean_to_mco_sku  : EAN -> SKU Maxiconsumo
+      ean_to_master   : EAN -> {nombre, sector, categoria, abc, familia}
+      nombre_norm_to_ean : nombre_normalizado -> EAN  (fallback por nombre)
+      ean_to_familia  : EAN -> familia_norm   (constraint de matching de presentaciones)
     """
     yag_sku_to_ean  = {}
     mco_sku_to_ean  = {}
@@ -172,9 +178,10 @@ def cargar_excel_referencia():
     ean_to_mco_sku  = {}
     ean_to_master   = {}
     nombre_norm_to_ean = {}
+    ean_to_familia  = {}
 
     if not EXCEL_DISPONIBLE:
-        return yag_sku_to_ean, mco_sku_to_ean, ean_to_yag_sku, ean_to_mco_sku, ean_to_master, nombre_norm_to_ean
+        return yag_sku_to_ean, mco_sku_to_ean, ean_to_yag_sku, ean_to_mco_sku, ean_to_master, nombre_norm_to_ean, ean_to_familia
 
     # --- CODIGOS.xlsx ---
     if os.path.isfile(CODIGOS_FILE):
@@ -243,12 +250,16 @@ def cargar_excel_referencia():
                 continue
 
             nombre_str = str(nombre).strip()
+            fam_str = str(familia or "").strip()
+            fam_norm = fam_str.lower() if fam_str not in ("-", "", "None") else ""
+            ean_to_familia[ean_val] = fam_norm
             ean_to_master[ean_val] = {
                 "nombre":    normalizar_nombre_display(nombre_str),
                 "sector":    normalizar_sector(str(sector or "")),
                 "categoria": str(categ or familia or "").strip().title(),
                 "marca":     str(marca or "").strip().title(),
                 "abc":       abc,
+                "familia":   fam_norm,
             }
 
             # Índice por nombre normalizado -> EAN (para fallback)
@@ -261,7 +272,33 @@ def cargar_excel_referencia():
     else:
         print(f"  [WARN] No encontrado: {MAESTRO_FILE}")
 
-    return yag_sku_to_ean, mco_sku_to_ean, ean_to_yag_sku, ean_to_mco_sku, ean_to_master, nombre_norm_to_ean
+    # --- FAMILIAS_CUSTOM.xlsx (fuente propia — override sobre el Maestro) ---
+    familias_custom_loaded = 0
+    if os.path.isfile(FAMILIAS_CUSTOM_FILE):
+        wb = openpyxl.load_workbook(FAMILIAS_CUSTOM_FILE, read_only=True, data_only=True)
+        if "FAMILIAS" in wb.sheetnames:
+            for row in wb["FAMILIAS"].iter_rows(min_row=2, values_only=True):
+                ean_raw   = row[0]
+                fam_raw   = row[1]
+                if not ean_raw or not fam_raw:
+                    continue
+                try:
+                    ean = str(int(float(str(ean_raw)))).strip()
+                except (ValueError, TypeError):
+                    ean = str(ean_raw).strip()
+                fam = str(fam_raw).strip().lower()
+                if not ean or not fam or fam in ("-", ""):
+                    continue
+                ean_to_familia[ean] = fam   # override: FAMILIAS_CUSTOM tiene prioridad
+                if ean in ean_to_master:
+                    ean_to_master[ean]["familia"] = fam
+                familias_custom_loaded += 1
+        wb.close()
+        print(f"  FAMILIAS_CUSTOM: {familias_custom_loaded} EANs cargados (override sobre Maestro)")
+    else:
+        print(f"  [INFO] FAMILIAS_CUSTOM.xlsx no encontrado — usando solo Maestro para FAMILIAs")
+
+    return yag_sku_to_ean, mco_sku_to_ean, ean_to_yag_sku, ean_to_mco_sku, ean_to_master, nombre_norm_to_ean, ean_to_familia
 
 # ---------------------------------------------------------------------------
 # Carga de scrapers
@@ -471,7 +508,11 @@ def cargar_hunterprice():
 def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                        yag_sku_to_ean, mco_sku_to_ean,
                        ean_to_yag_sku, ean_to_mco_sku,
-                       ean_to_master, nombre_norm_to_ean):
+                       ean_to_master, nombre_norm_to_ean,
+                       ean_to_familia=None):
+
+    if ean_to_familia is None:
+        ean_to_familia = {}
 
     catalogo = {}   # prod_id -> entry
 
@@ -553,11 +594,27 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         for _fw in _ws:
             _fuzz_word_idx[_fw].append(_fi)
 
+    _QTY_RE = re.compile(r"^\d+(?:gr|ml|kg|cc|un|ul)$")
+    _PACK_UN_RE = re.compile(r"(\d+)un\b")
+
+    def _pack_count(clave):
+        m = _PACK_UN_RE.search(clave)
+        return m.group(1) if m else ""
+
+    def _familia_compat(id_a: str, id_b: str) -> bool:
+        """False solo si ambos EANs tienen FAMILIA conocida y distinta."""
+        fa = ean_to_familia.get(id_a, "")
+        fb = ean_to_familia.get(id_b, "")
+        if not fa or not fb:
+            return True
+        return fa == fb
+
     def _fuzzy_ean_1b(nombre_prod):
         _cl   = clave_nombre(nombre_prod)
         _ws_p = {w for w in _cl.split() if len(w) > 1 and w not in _FUZZ1B_STOP}
         if not _ws_p:
             return ""
+        _qty_p = {w for w in _ws_p if _QTY_RE.match(w)}
         _cands = set()
         for _w in _ws_p:
             for _i in _fuzz_word_idx.get(_w, []):
@@ -565,7 +622,15 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         _best_sim = 0.0
         _best_ean = ""
         for _i in _cands:
-            _, _ws_m, _ean = _fuzz_entries[_i]
+            _clave_m, _ws_m, _ean = _fuzz_entries[_i]
+            # Si ambos tienen tokens de cantidad (ej "500gr", "1500ml"), deben coincidir
+            if _qty_p:
+                _qty_m = {w for w in _ws_m if _QTY_RE.match(w)}
+                if _qty_m and not (_qty_p & _qty_m):
+                    continue
+            # Pack count debe coincidir: "5un" vs "" → rechazar
+            if _pack_count(_cl) != _pack_count(_clave_m):
+                continue
             _inter = len(_ws_p & _ws_m)
             _union = len(_ws_p | _ws_m)
             _sim   = _inter / _union if _union else 0.0
@@ -590,7 +655,29 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             yag_sku_set.add(sku)
             ean_yag_nuevos += 1
 
+    def _ean_brand_conflict(nombre_prod, ean):
+        """Devuelve True si el EAN del scraper mapea a un nombre de marca diferente.
+        Evita que un producto MOLTO quede asociado a un EAN de MATARAZZO, etc.
+        """
+        master_info = ean_to_master.get(ean, {})
+        if not master_info:
+            return False
+        nombre_master = master_info.get("nombre", "")
+        if not nombre_master:
+            return False
+        cl_p = clave_nombre(nombre_prod)
+        cl_m = clave_nombre(nombre_master)
+        ws_p = {w for w in cl_p.split() if len(w) > 2}
+        ws_m = {w for w in cl_m.split() if len(w) > 2}
+        if not ws_p or not ws_m:
+            return False
+        only_p = ws_p - ws_m
+        only_m = ws_m - ws_p
+        has_brand = lambda tokens: any(len(t) >= 4 and t.isalpha() for t in tokens)
+        return has_brand(only_p) and has_brand(only_m)
+
     ean_mco_nuevos = 0
+    ean_mco_brand_skip = 0
     mco_sku_set = set(ean_to_mco_sku.values())
     for p in maxiconsumo_data:
         sku = str(p.get("sku", "")).strip()
@@ -599,6 +686,9 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         ean_resuelto = str(p.get("ean", "") or "").strip()
         if not ean_resuelto or ean_resuelto in ("0", "None", "nan"):
             ean_resuelto = nombre_norm_to_ean.get(clave_nombre(p.get("nombre", "")), "")
+        elif _ean_brand_conflict(p.get("nombre", ""), ean_resuelto):
+            ean_mco_brand_skip += 1
+            ean_resuelto = _fuzzy_ean_1b(p.get("nombre", ""))
         if not ean_resuelto:
             ean_resuelto = _fuzzy_ean_1b(p.get("nombre", ""))
         if ean_resuelto and ean_resuelto not in ean_to_mco_sku:
@@ -606,7 +696,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             mco_sku_set.add(sku)
             ean_mco_nuevos += 1
 
-    print(f"  Paso 1b: +{ean_yag_nuevos} EANs Yaguar via Maestro, +{ean_mco_nuevos} EANs Maxiconsumo via Maestro")
+    print(f"  Paso 1b: +{ean_yag_nuevos} EANs Yaguar via Maestro, +{ean_mco_nuevos} EANs Maxiconsumo via Maestro ({ean_mco_brand_skip} descartados por conflicto de marca)")
 
     # ------------------------------------------------------------------
     # PASO 2: MaxiCarrefour como HUB (100% EAN)
@@ -868,6 +958,9 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 _mc_numeros = _nums(_clave_c)
                 if _mc_numeros and not (hp_numeros & _mc_numeros):
                     continue  # cantidades incompatibles
+            # Pack count debe coincidir
+            if _clave_c and _pack_count(_ref) != _pack_count(_clave_c):
+                continue
             if _sim > mejor_sim:
                 mejor_sim = _sim
                 mejor_val = _val
@@ -966,15 +1059,19 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 yag_prod, _ = _mejor_match(hp_ps, yag_entries_hp, yag_word_idx, _TH, hp_clave, qty_ref=_qty_ref)
                 yag_sku = str(yag_prod.get("sku", "")).strip() if yag_prod else ""
             if yag_prod and yag_prod.get("precio", 0) > 0:
-                entry["precios"]["yaguar"] = yag_prod["precio"]
-                entry["fuentes"]["yaguar"] = {
-                    "nombre": yag_prod.get("nombre", ""),
-                    "imagen": yag_prod.get("imagen", ""),
-                    "sku":    yag_sku,
-                }
-                if yag_sku:
-                    yag_merged.add(yag_sku)
-                stats_hp["completados_yag"] += 1
+                _yag_ean = yag_sku_to_ean.get(yag_sku, "")
+                if not _familia_compat(ean, _yag_ean):
+                    pass  # FAMILIA incompatible
+                else:
+                    entry["precios"]["yaguar"] = yag_prod["precio"]
+                    entry["fuentes"]["yaguar"] = {
+                        "nombre": yag_prod.get("nombre", ""),
+                        "imagen": yag_prod.get("imagen", ""),
+                        "sku":    yag_sku,
+                    }
+                    if yag_sku:
+                        yag_merged.add(yag_sku)
+                    stats_hp["completados_yag"] += 1
 
         # PASO C: Completar Maxiconsumo si falta
         if hp_tiene_mco and entry["precios"].get("maxiconsumo", 0) == 0:
@@ -984,15 +1081,19 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 mco_prod, _ = _mejor_match(hp_ps, mco_entries_hp, mco_word_idx, _TH, hp_clave, qty_ref=_qty_ref)
                 mco_sku = str(mco_prod.get("sku", "")).strip() if mco_prod else ""
             if mco_prod and mco_prod.get("precio", 0) > 0:
-                entry["precios"]["maxiconsumo"] = mco_prod["precio"]
-                entry["fuentes"]["maxiconsumo"] = {
-                    "nombre": mco_prod.get("nombre", ""),
-                    "imagen": mco_prod.get("imagen", ""),
-                    "sku":    mco_sku,
-                }
-                if mco_sku:
-                    mco_merged.add(mco_sku)
-                stats_hp["completados_mco"] += 1
+                _mco_ean = mco_sku_to_ean.get(mco_sku, "")
+                if not _familia_compat(ean, _mco_ean):
+                    pass  # FAMILIA incompatible
+                else:
+                    entry["precios"]["maxiconsumo"] = mco_prod["precio"]
+                    entry["fuentes"]["maxiconsumo"] = {
+                        "nombre": mco_prod.get("nombre", ""),
+                        "imagen": mco_prod.get("imagen", ""),
+                        "sku":    mco_sku,
+                    }
+                    if mco_sku:
+                        mco_merged.add(mco_sku)
+                    stats_hp["completados_mco"] += 1
 
     print(f"  Hunterprice bridge: +{stats_hp['completados_yag']} Yaguar, "
           f"+{stats_hp['completados_mco']} Maxiconsumo | "
@@ -1007,6 +1108,20 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
     # ------------------------------------------------------------------
     lista = list(catalogo.values())
 
+    # ------ Filtro de precio mínimo absoluto ------
+    # En Argentina 2026 ningún producto mayorista cuesta < $200.
+    # Precios inferiores son artefactos de parsing (ej: "1.052701" en lugar de "1052.70").
+    PRECIO_MINIMO = 200
+    bajos_eliminados = 0
+    for p in lista:
+        for fuente in list(p["precios"]):
+            if 0 < p["precios"][fuente] < PRECIO_MINIMO:
+                p["precios"][fuente] = 0
+                p["fuentes"].pop(fuente, None)
+                bajos_eliminados += 1
+    if bajos_eliminados:
+        print(f"  Filtro mínimo (${PRECIO_MINIMO}): {bajos_eliminados} precios bajos eliminados")
+
     # ------ Validación cruzada de precios ------
     # Si un producto tiene múltiples fuentes y un precio es >5x más barato
     # que el resto, se descarta como outlier (scraping error).
@@ -1020,8 +1135,13 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         mediana = sorted(vals)[len(vals) // 2]
         for fuente, precio in list(precios_activos.items()):
             # Outlier hacia abajo: precio < mediana/4 (más de 4x más barato que la mediana)
-            # No aplicar si la mediana es muy baja (producto genuinamente barato)
             if precio < mediana / 4 and mediana > 800:
+                p["precios"][fuente] = 0
+                if fuente in p["fuentes"]:
+                    del p["fuentes"][fuente]
+                precios_descartados += 1
+            # Outlier hacia arriba: precio > mediana*7 (posible Yaguar en centavos u otro error)
+            elif precio > mediana * 7 and mediana > 0:
                 p["precios"][fuente] = 0
                 if fuente in p["fuentes"]:
                     del p["fuentes"][fuente]
@@ -1090,8 +1210,16 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             # Todos tienen EAN real → SKUs genuinamente distintos, mantener separados
             lista_final.extend(items)
         else:
-            lista_final.append(_fusionar_grupo(items))
-            fusiones_norm += 1
+            ids = [p["id_unificado"] for p in items]
+            familia_ok = all(
+                _familia_compat(ids[i], ids[j])
+                for i in range(len(ids)) for j in range(i + 1, len(ids))
+            )
+            if not familia_ok:
+                lista_final.extend(items)
+            else:
+                lista_final.append(_fusionar_grupo(items))
+                fusiones_norm += 1
 
     if fusiones_norm:
         print(f"  Paso 6b: {fusiones_norm} duplicados por nombre normalizado fusionados")
@@ -1120,7 +1248,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
 
     _TH6 = 0.65
 
-    def _buscar_candidato(ws_p, ns_p, index_entries, index_wi, usados):
+    def _buscar_candidato(ws_p, ns_p, index_entries, index_wi, usados, cl_p="", id_p=""):
         """Devuelve (idx_en_lista_final, sim) del mejor match fuzzy."""
         cands = set()
         for w in ws_p:
@@ -1139,6 +1267,11 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 continue
             if ns_p and ns_c and not (ns_p & ns_c):
                 continue  # cantidades incompatibles
+            if _pack_count(cl_p) != _pack_count(cl_c):
+                continue  # pack count incompatible
+            id_c = lista_final[lf_idx]["id_unificado"]
+            if not _familia_compat(id_p, id_c):
+                continue  # FAMILIAs distintas → presentaciones incompatibles
             if sim > mejor_sim:
                 mejor_sim = sim
                 mejor_idx = lf_idx
@@ -1199,7 +1332,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             if pr.get(fuente_falt, 0) > 0:
                 continue  # ya tiene esta fuente
 
-            lf_idx, sim = _buscar_candidato(ws_p, ns_p, entries_f, wi_f, usados_como_base | set(parches.keys()) | {idx_p})
+            lf_idx, sim = _buscar_candidato(ws_p, ns_p, entries_f, wi_f, usados_como_base | set(parches.keys()) | {idx_p}, cl_p=cl_p, id_p=p["id_unificado"])
             if lf_idx is None:
                 continue
 
@@ -1322,6 +1455,38 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
     # Eliminar productos que quedaron sin precio tras la limpieza 6d
     lista_final = [p for p in lista_final if any(v > 0 for v in p["precios"].values())]
 
+    # ------------------------------------------------------------------
+    # PASO 6e: Segunda validación cruzada post-fusiones
+    #   Paso 6c puede crear pares (precio_correcto, precio_malformado).
+    #   La primera validación (antes de 6c) no los ve. Esta segunda pasada
+    #   los elimina con el mismo criterio: outlier < mediana/4 o > mediana*10.
+    # ------------------------------------------------------------------
+    post_descartados = 0
+    for p in lista_final:
+        precios_activos = {k: v for k, v in p["precios"].items() if v > 0}
+        if len(precios_activos) < 2:
+            continue
+        vals = list(precios_activos.values())
+        mediana = sorted(vals)[len(vals) // 2]
+        for fuente, precio in list(precios_activos.items()):
+            if precio < mediana / 2.5 and mediana > 800:
+                p["precios"][fuente] = 0
+                p["fuentes"].pop(fuente, None)
+                post_descartados += 1
+            elif precio > mediana * 7 and mediana > 0:
+                p["precios"][fuente] = 0
+                p["fuentes"].pop(fuente, None)
+                post_descartados += 1
+    if post_descartados:
+        print(f"  Paso 6e: {post_descartados} outliers post-fusión descartados")
+
+    lista_final = [p for p in lista_final if any(v > 0 for v in p["precios"].values())]
+
+    for p in lista_final:
+        if "familia" not in p:
+            ean = p.get("id_unificado", "")
+            p["familia"] = ean_to_master.get(ean, {}).get("familia", "")
+
     return lista_final
 
 
@@ -1337,7 +1502,8 @@ def main():
     print("\nCargando tablas de referencia (Excel)...")
     (yag_sku_to_ean, mco_sku_to_ean,
      ean_to_yag_sku, ean_to_mco_sku,
-     ean_to_master, nombre_norm_to_ean) = cargar_excel_referencia()
+     ean_to_master, nombre_norm_to_ean,
+     ean_to_familia) = cargar_excel_referencia()
 
     print("\nCargando datos de scrapers (mejor archivo por cantidad)...")
     yaguar      = cargar_yaguar()
@@ -1350,6 +1516,7 @@ def main():
         yag_sku_to_ean, mco_sku_to_ean,
         ean_to_yag_sku, ean_to_mco_sku,
         ean_to_master, nombre_norm_to_ean,
+        ean_to_familia,
     )
 
     # Stats

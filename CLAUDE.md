@@ -19,3 +19,18 @@
 ## Instrucciones detalladas
 - Reglas del proyecto → `.claude/rules/`
 - Arquitectura, tiers, operaciones → `.claude/docs/`
+- Gestión de contexto y tokens → `.claude/rules/03-contexto.md`
+
+## Skills disponibles (/nombre)
+`/contexto-check` `/status-proyecto` `/bucle-optimizador` `/disenar-pantalla` `/auditoria-seguridad`
+`/pipeline-datos` `/verificar-precios` `/actualizar-familias` `/cerrar-sesion` `/railway-deploy`
+`/investigar-y-contactar` `/buscar-comercios` `/enviar-outreach` `/verificar-app`
+
+## Agentes disponibles
+Invocar: "Actua como el agente definido en `.claude/agents/[nombre].md`"
+- `auditor.md` — auditoría completa del proyecto (calidad, seguridad, deuda técnica)
+- `auditor-catalogo.md` — auditoría específica del catálogo de precios
+
+## Próxima fase (cuando haya tracción)
+Ver `.claude/docs/proxima-fase.md` — auth, Railway cron, pagos, vistas de login y tiers.
+Railway plan Hobby ($5/mes) ya contratado — usar para scrapers automáticos en la nube.

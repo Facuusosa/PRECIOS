@@ -8,11 +8,12 @@ def main():
     print("=== SCRAPER YAGUAR ===")
     print(f"Iniciando: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
-    result = subprocess.run(["python", "targets/yaguar/scraper_pro.py"], cwd=os.getcwd())
+    env = {**os.environ, "PYTHONUTF8": "1"}
+    result = subprocess.run(["python", "targets/yaguar/scraper_pro.py"], cwd=os.getcwd(), env=env)
 
     if result.returncode == 0:
         print("\n=== UNIFICANDO DATOS ===")
-        subprocess.run(["python", "actualizar_catalogo.py"], cwd=os.getcwd())
+        subprocess.run(["python", "actualizar_catalogo.py"], cwd=os.getcwd(), env=env)
         print("\nPara iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev")
     else:
         print("ERROR EN SCRAPER YAGUAR")

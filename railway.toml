@@ -1,0 +1,7 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+cronSchedule = "0 9 * * *"
+startCommand = "python railway_pipeline.py"
+restartPolicyType = "never"

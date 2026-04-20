@@ -1,21 +1,4 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(python*)",
-      "Bash(pip*)",
-      "Bash(npm*)",
-      "Bash(npx*)",
-      "Bash(node*)",
-      "Bash(git status)",
-      "Bash(git log*)",
-      "Bash(git diff*)",
-      "Bash(set PYTHONUTF8=1)",
-      "Bash(ls*)",
-      "Bash(find*)",
-      "Bash(cat*)",
-      "Bash(type*)"
-    ]
-  },
   "hooks": {
     "Stop": [
       {
@@ -23,6 +6,33 @@
           {
             "type": "command",
             "command": "powershell -Command \"[console]::Beep(880, 300); Start-Sleep -Milliseconds 100; [console]::Beep(1100, 200)\""
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git commit*)",
+            "command": "python \"c:/Users/Facun/OneDrive/Escritorio/PROYECTOS PERSONALES/PRECIOS/check_env_leak.py\"",
+            "timeout": 30,
+            "statusMessage": "Verificando credenciales antes de commitear..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash(python scrape_*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"c:/Users/Facun/OneDrive/Escritorio/PROYECTOS PERSONALES/PRECIOS/scripts/validar_catalogo.py\"",
+            "timeout": 60,
+            "statusMessage": "Validando calidad del catalogo..."
           }
         ]
       }
