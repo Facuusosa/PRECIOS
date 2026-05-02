@@ -3,8 +3,8 @@
 ## Frontend — `/BRUJULA-DE-PRECIOS/`
 - Next.js 16 App Router, React 19, TypeScript estricto
 - Estado centralizado: `app/page.tsx` → `vistaActiva`, `listaGuardados`, `sectorInicial`
-- 4 vistas en `components/`: `vista-inicio.tsx`, `vista-comparar.tsx`, `vista-lista.tsx`, `vista-cuenta.tsx`
-- Componentes clave: `calculadora.tsx`, `modal-producto.tsx`, `header.tsx`, `bottom-nav.tsx`
+- 9 vistas en `components/`: `vista-inicio.tsx`, `vista-catalogo.tsx`, `vista-detalle.tsx`, `vista-comparativa.tsx`, `vista-comparar.tsx`, `vista-lista.tsx`, `vista-ofertas.tsx`, `vista-cuenta.tsx`, `vista-showcase.tsx`
+- Componentes clave: `calculadora.tsx`, `header.tsx`, `bottom-nav.tsx`, `desktop-sidebar.tsx`, `product-card.tsx`, `bomba-card.tsx`
 - Data: `lib/data.ts` (tipos, queryMap, calcularBombas, formatearPrecio) + `data/processed/catalogo_unificado.json`
 - UI: Radix UI + Tailwind CSS v4 + Framer Motion + lucide-react
 

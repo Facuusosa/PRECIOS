@@ -24,7 +24,7 @@ Auditor técnico + PM. Busca problemas reales que impacten negocio o estabilidad
 - Correr `npx tsc --noEmit` en `BRUJULA-DE-PRECIOS/`
 - Reportar cualquier error TypeScript
 - Verificar que `lib/data.ts` importa del catálogo correcto
-- Verificar que los 4 componentes de vista existen y no están vacíos
+- Verificar que las vistas principales existen en `components/`: `vista-inicio.tsx`, `vista-catalogo.tsx`, `vista-detalle.tsx`, `vista-comparativa.tsx`, `vista-lista.tsx`, `vista-cuenta.tsx`
 
 ### 4. Seguridad
 - Verificar que `.env` está en `.gitignore`

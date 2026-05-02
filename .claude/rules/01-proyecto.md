@@ -3,14 +3,13 @@
 ## Qué es Brújula
 App web para comerciantes (kioscos, almacenes, minimercados) que centraliza precios de 3 mayoristas con calculador de margen automático.
 
-## MVP — incluye (22/04/2026)
+## MVP — incluye (rediseño completo 26/04/2026)
 - Calculador de margen funcional
 - 3 mayoristas: Yaguar, Maxicarrefour, Maxiconsumo
-- 4 vistas: Inicio, Comparar, Lista, Cuenta
+- 6 vistas: Inicio, Catálogo, Detalle, Comparativa, Herramientas, Perfil
 - FEATURE GATING: FREE = 2 mayoristas, TIER2+ = 3
 
 ## MVP — NO incluye
-- NINI (sin scraper implementado — post-MVP)
 - Mapa/direcciones (Tier3)
 - Historial de precios (Tier2)
 - Alertas (post-estabilización)

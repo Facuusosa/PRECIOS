@@ -9,8 +9,8 @@ Busca comercios potenciales (kioscos, almacenes, minimercados) en una zona espec
 ## Pasos
 
 1. **Leer base existente**
-   - Verificar si existe `Comercios_Villa_Pueyrredon.xlsx` en la raíz
-   - Si existe → leerlo, ver cuántos contactos ya hay y cuáles tienen email/teléfono
+   - Buscar archivos JSON en `data/outreach/comercios_*.json` — leer el más reciente
+   - Ver cuántos contactos ya hay y cuáles tienen estado "contactado"
    - Evitar duplicados en la nueva búsqueda
 
 2. **Buscar en Google Maps** (via WebSearch o browser)

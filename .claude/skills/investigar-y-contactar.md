@@ -127,11 +127,11 @@ Esperar confirmacion. No crear draft sin OK explicito.
 
 ## Ejecucion en lote
 Para procesar multiples comercios:
-- Leer Comercios_Villa_Pueyrredon.xlsx
+- Buscar archivos JSON en `data/outreach/comercios_*.json` — usar el más reciente
 - Filtrar tipo == 'Kiosco' O 'Almacen' O 'Minimercado' (excluir Mayorista)
-- Filtrar Estado == 'Pendiente'
+- Filtrar los que no tengan estado "contactado"
 - Procesar de a 5 por vez — mostrar reporte + pedir OK antes de los siguientes 5
-- Al terminar cada lote: actualizar columna "Estado" en el xlsx
+- Al terminar cada lote: actualizar campo "estado" en el JSON
 
 ## Tokens y eficiencia
 - Usar WebSearch (1 query) + WebFetch (1 URL max) por comercio

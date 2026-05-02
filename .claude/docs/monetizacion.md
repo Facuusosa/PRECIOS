@@ -25,7 +25,7 @@
 - Soporte prioritario: SÍ
 
 ## Feature gating en código
-Implementado en `lib/data.ts` con flag `userTier` — MVP usa dummy auth, Tier2+ requiere auth real (post-MVP).
+No implementado aún. MVP usa acceso completo sin restricciones. Implementar cuando haya al menos 1 usuario dispuesto a pagar — ver `proxima-fase.md` para el stack de auth.
 
 ## Métricas objetivo
 - Semana 2: 3-5 usuarios pagando

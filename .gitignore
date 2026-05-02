@@ -33,6 +33,20 @@ coverage.xml
 .v0-trash/
 archive/
 
+# Config local (credenciales y settings locales)
+config/
+
 # Large Data (Optional keep outputs)
-# *.xlsx
+*.xlsx
 # *.csv
+
+# Scraper outputs (4-10MB cada uno, temporales)
+targets/*/output_*.json
+targets/*/scraper_log.txt
+
+# QA temporal
+data/quality/*.json
+
+# Documentos y extensiones
+*.docx
+*.vsix

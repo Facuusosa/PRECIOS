@@ -12,26 +12,20 @@
 - [x] Vista Comparar: ABC=A + 3 precios primero en cada sector
 - [x] Catálogo: 16,825 productos, 3,018 con 2+ precios comparables
 
-## Pendiente CRÍTICO — esta semana (antes 22/04)
-- [ ] Script Python: Google Maps scraping de comercios (kioscos/almacenes Villa Pueyrredón)
-- [ ] Gmail Mail Merge setup
-- [ ] Primeros 50 contactos outreach
+## Completado al 26/04/2026 (rediseño)
+- [x] Rediseño completo frontend — 9 vistas, sistema de diseño completo
+- [x] Deploy en Vercel (v0-brujula-de-precios.vercel.app)
+- [x] Railway pipeline configurado (cron 6am UTC diario)
+- [x] Catálogo 16,462 productos, actualizado 28/04
 
-## Semana 1 (22-28 Abril) — LANZAMIENTO
-- [ ] 200+ contactos via script + Mail Merge
-- [ ] Primeros 5-10 demos con comerciantes
-- [ ] Deploy en producción (Vercel o similar)
+## Pendiente — Mayo 2026
+- [ ] Primeros mensajes outreach enviados (WhatsApps listos en data/outreach/ desde 20/04)
+- [ ] Feature gating FREE vs TIER2 (ver monetizacion.md)
+- [ ] Persistencia localStorage (lista de compras se pierde al refrescar)
+- [ ] Auth real con Supabase (activar cuando haya 1 usuario dispuesto a pagar)
 
-## Semana 2 (29 Abril - 5 Mayo)
-- [ ] Ajustes basados en feedback real
-- [ ] 300+ contactos nuevos
-- [ ] Target: 3-5 usuarios pagando
-- [ ] Documentar qué funciona, qué no
-
-## Semana 3+ (6 Mayo en adelante)
-- [ ] Escalar: 10+ usuarios/semana
-- [ ] Mejorar scrapers si >2 crashes/día
-- [ ] Features post-MVP solo si usuarios lo piden
+## Próximo hito
+**3-5 usuarios pagando.** Todo lo técnico está listo. El único paso que falta es outreach.
 
 ## Bloqueador real
-**Ventas.** Sin ingresos el proyecto muere. Prioridad #1: script de contactos + outreach.
+**Ventas.** Sin ingresos el proyecto muere. Prioridad #1: enviar los WhatsApps del lote 1.

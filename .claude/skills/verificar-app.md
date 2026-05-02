@@ -17,28 +17,25 @@ puppeteer_navigate: https://v0-brujula-de-precios.vercel.app
 puppeteer_screenshot: guardar como evidencia inicial
 ```
 
-### 2. Verificar las 4 vistas
+### 2. Verificar las vistas principales (chequeo rápido)
 
 **Vista Inicio**
 - Screenshot completo
 - Verificar que carguen las "Bombas del dia" (top productos con mayor ahorro)
-- Confirmar que Heineken 473ml aparece con precio ~$1.738 en Yaguar
 - ROJO si no hay productos, AMARILLO si hay menos de 3, VERDE si hay 3+
 
-**Vista Comparar**
-- Buscar "Rexona" → verificar que NO aparezcan comparaciones con ratio >200% entre fuentes
-- Buscar "Heineken" → precio Yaguar debe ser ~$1.738
-- Buscar "Coca Cola" → verificar que tenga 2+ precios comparables
-- ROJO si los resultados tienen precios absurdos, VERDE si son coherentes
+**Vista Catálogo**
+- Verificar que carguen productos en el grid
+- Buscar un producto genérico (ej: "Coca Cola") → debe aparecer con precio > 0
+- ROJO si no aparece nada, VERDE si hay resultados con precios
 
 **Calculadora de margen**
-- Ingresar precio compra: 1000
-- Ingresar margen deseado: 30
+- Ingresar precio compra: 1000, margen: 30
 - Verificar que el precio sugerido sea ~$1.429 (1000 / 0.70)
-- ROJO si no calcula, AMARILLO si el calculo es incorrecto, VERDE si funciona
+- ROJO si no calcula o devuelve NaN, VERDE si funciona
 
-**Vista Lista (guardados)**
-- Guardar 1 producto desde Vista Comparar
+**Vista Lista (herramientas)**
+- Guardar 1 producto desde cualquier vista
 - Ir a Vista Lista → verificar que aparece
 - ROJO si no guarda o no aparece, VERDE si funciona
 

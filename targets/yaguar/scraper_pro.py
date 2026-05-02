@@ -70,8 +70,12 @@ def login(session):
             if name:
                 payload[name] = value
 
-        payload["username"] = os.getenv("YAGUAR_USERNAME", "Martin")
-        payload["password"] = os.getenv("YAGUAR_PASSWORD", "Martin2025")
+        username = os.getenv("YAGUAR_USERNAME")
+        password = os.getenv("YAGUAR_PASSWORD")
+        if not username or not password:
+            raise ValueError("YAGUAR_USERNAME y YAGUAR_PASSWORD son obligatorias en .env")
+        payload["username"] = username
+        payload["password"] = password
         payload["login"] = "Ingresar"
 
         r2 = session.post(

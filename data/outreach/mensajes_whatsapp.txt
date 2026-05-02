@@ -1,0 +1,88 @@
+========================================
+MENSAJES WHATSAPP - BRUJULA DE PRECIOS
+Generado: 19/04/2026
+========================================
+
+INSTRUCCIONES:
+- Copiar el mensaje segun el tipo de negocio
+- Reemplazar [Nombre] con el nombre del comercio si lo tenes
+- Enviar desde tu WhatsApp personal (mas confianza que numero desconocido)
+- Horario recomendado: 10-12hs o 16-18hs (no interrumpir hora de almuerzo)
+- Si no responden en 48hs, reenviar UNA sola vez
+
+========================================
+TIPO: KIOSCO
+========================================
+
+Hola [Nombre]! Te escribo porque arme una herramienta que compara los precios de Yaguar, MaxiCarrefour y Maxiconsumo en tiempo real.
+
+Vi que muchos kioscos de la zona estan pagando de mas en algunos productos sin saberlo.
+
+Te mando el link por si queres verlo: https://v0-brujula-de-precios.vercel.app
+
+Es gratis para probar. Si te sirve te cuento mas.
+
+========================================
+TIPO: ALMACEN
+========================================
+
+Hola [Nombre]! Te escribo porque arme una herramienta para almaceneros que compara precios entre Yaguar, MaxiCarrefour y Maxiconsumo.
+
+La idea es simple: antes de ir a comprar al mayorista, entras al sitio y ves en cual esta mas barato cada producto. Tambien tiene calculadora de margen para fijar el precio de venta.
+
+Es gratis para probar: https://v0-brujula-de-precios.vercel.app
+
+Cualquier duda me avisas!
+
+========================================
+TIPO: MINIMERCADO / AUTOSERVICIO
+========================================
+
+Hola [Nombre]! Arme una herramienta para autoservicios y minimercados que compara los precios de los 3 mayoristas principales: Yaguar, MaxiCarrefour y Maxiconsumo.
+
+Sirve para saber donde comprar mas barato y tambien para calcular el margen de ganancia de cada producto.
+
+Lo podes ver aca: https://v0-brujula-de-precios.vercel.app
+
+Si te parece util hablamos!
+
+========================================
+SEGUIMIENTO (si no responden en 48hs)
+========================================
+
+Hola [Nombre], te vuelvo a escribir por la herramienta de comparacion de precios mayoristas. Entiendo que estas ocupado, solo queria saber si lo pudiste ver. Por las dudas el link: https://v0-brujula-de-precios.vercel.app
+
+========================================
+LISTA DE ENVIO - VILLA PUEYRREDON (marcar con X cuando enviado)
+========================================
+
+KIOSCOS (16):
+[ ] Penhamil - +54 11 4573-0998
+[ ] El Mundo del Kiosco - +54 11 4571-3234
+[ ] Maria del Valle Caceres - +54 11 4571-6185
+[ ] Planeta Nash - +54 11 4571-1482
+[ ] Pereyra Mariana - +54 11 4571-1251
+[ ] Ordoniez Susana Celia - +54 11 4572-0841
+[ ] Almonte Brito Teresa - +54 11 4571-6702
+[ ] Kiosko Artigas - +54 11 4572-6054
+[ ] Nicolini - +54 11 4572-9019
+[ ] Kiosco Ibarra - +54 11 4572-4338
+[ ] Elena I Juarez - +54 11 4572-2434
+[ ] Las Delicias - +54 11 4571-8691
+[ ] Vicente Angeletti - +54 11 4574-3141
+[ ] Los Sobrinos - +54 11 4571-4459
+[ ] Fuentes Christian Martin - +54 11 4573-3874
+[ ] A Mi Manera - +54 11 4574-3161
+
+ALMACENES (2):
+[ ] Bazar Artigas - +54 11 3100-0873 (tiene web: bazarartigas.com - buscar email)
+[ ] Neme OK - +54 11 4572-6709 (tiene Facebook: facebook.com/NemeOK)
+
+MINIMERCADOS VP (7):
+[ ] Iris Supermercado - +54 11 4573-5255
+[ ] Chan Yu Hsin - +54 11 4574-1641
+[ ] Guo Songyu - +54 11 4572-5212
+[ ] Supermercado Luna - +54 11 4571-6033
+[ ] Tsai Supermercado - +54 11 4571-0074
+[ ] Mako - +54 11 4572-8032
+[ ] Don Yako - +54 11 4571-8406
