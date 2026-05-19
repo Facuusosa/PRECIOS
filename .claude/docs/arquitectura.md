@@ -1,3 +1,5 @@
+> ⚠️ ARCHIVADO — referencia técnica histórica. Ver `.claude/docs/plan.md` para el estado actual.
+
 # Docs: Arquitectura
 
 ## Frontend — `/BRUJULA-DE-PRECIOS/`

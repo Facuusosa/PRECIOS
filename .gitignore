@@ -33,8 +33,14 @@ coverage.xml
 .v0-trash/
 archive/
 
+# Claude Code — carpeta interna de skills del SDK (generada automáticamente)
+.agents/
+
 # Config local (credenciales y settings locales)
 config/
+
+# Maestro de Vital — datos confidenciales, nunca al repo
+.claude/docs/MAESTRO.xlsx
 
 # Large Data (Optional keep outputs)
 *.xlsx

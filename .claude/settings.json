@@ -31,6 +31,43 @@
       "mcp__chrome-devtools__*"
     ]
   },
+  "hooks": {
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -c \"[console]::beep(880,300)\"",
+            "description": "Beep cuando Claude termina — saber cuándo mirar la pestaña"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -c \"[console]::beep(440,100)\"",
+            "description": "Beep corto por cada comando Bash ejecutado"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "Write-Output '{\"systemMessage\":\"AUTO-REVIEW antes de declarar terminado: (1) Todas las herramientas disponibles usadas? (2) Sin duplicacion? (3) Pasos con rutas y lineas especificas? (4) Criterio de verificacion por paso? (5) Modelo correcto por tarea? (6) Que senalaria un revisor senior? — Si algo falta: mejorarlo ahora, no mencionarlo despues.\"}'",
+            "shell": "powershell",
+            "description": "Recordatorio auto-review despues de cada Write o Edit"
+          }
+        ]
+      }
+    ]
+  },
   "mcpServers": {
     "chrome-devtools": {
       "command": "npx",

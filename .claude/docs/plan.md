@@ -29,3 +29,39 @@
 
 ## Bloqueador real
 **Ventas.** Sin ingresos el proyecto muere. Prioridad #1: enviar los WhatsApps del lote 1.
+
+---
+
+## Mapa de fases (reemplaza proxima-fase.md y monetizacion.md)
+
+### FASE 0 → criterio de salida: 1 usuario pagando
+No construir nada nuevo salvo vista-cuenta.tsx. Foco total en outreach.
+
+### FASE 1 → criterio de salida: $50k ARS/mes
+Supabase Auth → migrar localStorage → feature gating real → cobro manual primero → MercadoPago cuando >10 pagadores.
+
+### FASE 2 → criterio de salida: $200k ARS/mes
+Historial, mapa, alertas, Excel, automatización cobros.
+
+---
+
+## Tiers de precios (fuente: monetizacion.md — archivado)
+
+| Tier | Precio | Features principales |
+|---|---|---|
+| FREE | $0 | 2 mayoristas (Yaguar + Maxiconsumo), hasta 10 guardados, sin login |
+| TIER 2 | $6.999 ARS/mes | 3 mayoristas, listas ilimitadas, alertas, login real |
+| TIER 3 | $14.999 ARS/mes | TIER2 + mapa, historial, reportes Excel, soporte prioritario |
+
+**Análisis CFO:** necesitás 29 usuarios TIER2 (o 14 TIER3) para $200k/mes. Mix realista: 22 usuarios entre ambos tiers.
+
+---
+
+## Decisiones fijadas
+
+| Decisión | Respuesta |
+|---|---|
+| Supabase | SÍ, cuando haya 1 pagador. Nunca antes. |
+| Auth stack | Supabase Auth |
+| Pagos | Manual primero → MercadoPago en ~10 pagadores |
+| FREE vs TIER2 | FREE = Yaguar + Maxiconsumo. MaxiCarrefour en TIER2+ |

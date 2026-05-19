@@ -19,6 +19,19 @@
 - MVP: modo oscuro por defecto (comerciantes usan en ambientes variados)
 - Clases `dark:` para overrides si se agrega toggle después
 
+## Design tokens de Brújula (colores reales del proyecto)
+
+```
+#0a0a0a  — negro principal (fondos oscuros, botones primarios, texto principal)
+#f7f7f7  — gris muy claro (fondos de página, secciones neutras)
+#d4a574  — gold/acento (badge FREE, CTA de upgrade, elementos de conversión)
+#16a34a  — verde (checkmarks, confirmación, "Guardado", éxito)
+#6b7280  — gris medio (texto secundario, iconos Lock, subtítulos)
+#e5e7eb  — gris borde (separadores, borders de cards en modo claro)
+```
+
+Usar estos valores siempre que sea posible. No inventar variantes nuevas sin justificación.
+
 ## Accesibilidad
 - Usar Radix UI para cualquier componente interactivo — ya tiene aria labels y keyboard nav
 - Contraste: mínimo WCAG AA para texto sobre fondo

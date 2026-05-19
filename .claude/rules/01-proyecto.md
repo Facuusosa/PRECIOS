@@ -20,7 +20,7 @@ App web para comerciantes (kioscos, almacenes, minimercados) que centraliza prec
 - "Agregar IA predictiva" → Tier3, después de v1
 - "App móvil nativa" → web responsive es suficiente
 - "Agregar más mayoristas ahora" → primero estabilizar 3
-- "Perfeccionar scrapers" → si funciona, next. Solo tocar si >2 crashes/día
+- "Perfeccionar scrapers" → si funciona, next. Solo tocar si falla más de 2 veces por semana
 
 ## Guardrails
 - Si scraper falla → log, skip, continuar con los que quedan

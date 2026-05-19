@@ -1,3 +1,5 @@
+> ⚠️ ARCHIVADO — tiers y precios fusionados en `.claude/docs/plan.md`. Ver plan.md para el estado actual.
+
 # Docs: Monetización
 
 ## Tiers

@@ -12,6 +12,7 @@ Estrategia de matching optimizada:
 import os, json, glob, re, unicodedata
 from datetime import datetime
 from collections import defaultdict
+from urllib.parse import quote_plus
 
 try:
     import openpyxl
@@ -147,16 +148,24 @@ def normalizar_nombre_display(nombre):
     n = re.sub(r"\s+", " ", n).strip().strip(".")
     return n
 
+def _es_placeholder(url):
+    return not url or "/0000-" in url or "base.png" in url
+
 def mejor_imagen(imagenes):
-    """Elige la primera imagen que no sea placeholder 0000-."""
+    """Prioridad: Carrefour CDN > Maxiconsumo > Yaguar. Descarta placeholders conocidos."""
+    for img in imagenes:
+        if not _es_placeholder(img):
+            return img
     for img in imagenes:
         if img and "/0000-" not in img:
             return img
-    # Fallback: la primera que no esté vacía
     for img in imagenes:
         if img:
             return img
     return ""
+
+def _carrefour_search_link(ean):
+    return "https://comerciante.carrefour.com.ar/buscar?q=" + ean
 
 # ---------------------------------------------------------------------------
 # Carga de Excel
@@ -297,6 +306,53 @@ def cargar_excel_referencia():
         print(f"  FAMILIAS_CUSTOM: {familias_custom_loaded} EANs cargados (override sobre Maestro)")
     else:
         print(f"  [INFO] FAMILIAS_CUSTOM.xlsx no encontrado — usando solo Maestro para FAMILIAs")
+
+    # --- mapeo_brujula.json (Capa 0 — matching exacto por SKU desde Maestro de Vital) ---
+    mapeo_brujula_file = os.path.join(RAW_DIR, "mapeo_brujula.json")
+    if os.path.isfile(mapeo_brujula_file):
+        with open(mapeo_brujula_file, encoding="utf-8") as f:
+            mb = json.load(f)
+
+        nuevos_yag = nuevos_mco = nuevos_master = 0
+
+        # Enriquecer SKU -> EAN (solo agrega, nunca sobreescribe CODIGOS.xlsx)
+        for sku, ean in mb.get("por_sku_yaguar", {}).items():
+            if sku not in yag_sku_to_ean:
+                yag_sku_to_ean[sku] = ean
+                ean_to_yag_sku.setdefault(ean, sku)
+                nuevos_yag += 1
+
+        for sku, ean in mb.get("por_sku_maxiconsumo", {}).items():
+            if sku not in mco_sku_to_ean:
+                mco_sku_to_ean[sku] = ean
+                ean_to_mco_sku.setdefault(ean, sku)
+                nuevos_mco += 1
+
+        # Enriquecer ean_to_master con sector y subcategoria del mapeo
+        for ean, datos in mb.get("por_ean", {}).items():
+            if ean not in ean_to_master:
+                ean_to_master[ean] = {
+                    "nombre":    datos.get("nombre_verificacion", ""),
+                    "sector":    datos.get("sector", ""),
+                    "categoria": datos.get("subcategoria", ""),
+                    "marca":     "",
+                    "abc":       datos.get("abc", ""),
+                    "familia":   "",
+                }
+                nuevos_master += 1
+            else:
+                # Si ya existe pero le falta sector/categoria, completar desde mapeo
+                entry = ean_to_master[ean]
+                if not entry.get("sector") and datos.get("sector"):
+                    entry["sector"] = datos["sector"]
+                if not entry.get("categoria") and datos.get("subcategoria"):
+                    entry["categoria"] = datos["subcategoria"]
+                if not entry.get("abc") and datos.get("abc"):
+                    entry["abc"] = datos["abc"]
+
+        print(f"  mapeo_brujula.json: +{nuevos_yag} SKUs Yaguar, +{nuevos_mco} SKUs Maxiconsumo, +{nuevos_master} EANs al Maestro")
+    else:
+        print(f"  [INFO] mapeo_brujula.json no encontrado en {mapeo_brujula_file}")
 
     return yag_sku_to_ean, mco_sku_to_ean, ean_to_yag_sku, ean_to_mco_sku, ean_to_master, nombre_norm_to_ean, ean_to_familia
 
@@ -522,7 +578,8 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
     def info_master(ean, fb_nombre, fb_sector):
         if ean and ean in ean_to_master:
             m = ean_to_master[ean]
-            return m["nombre"], m["sector"], m["categoria"], m["abc"]
+            nombre = m["nombre"] if m["nombre"] and len(m["nombre"]) >= 3 else normalizar_nombre_display(fb_nombre)
+            return nombre, m["sector"], m["categoria"], m["abc"]
         return normalizar_nombre_display(fb_nombre), normalizar_sector(fb_sector), "", ""
 
     def nuevo_producto(prod_id, ean, nombre, imagen, sector, subcategoria, abc=""):
@@ -610,10 +667,11 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         return fa == fb
 
     def _fuzzy_ean_1b(nombre_prod):
+        """Devuelve (ean, score). ean='' y score=0.0 si no supera el threshold."""
         _cl   = clave_nombre(nombre_prod)
         _ws_p = {w for w in _cl.split() if len(w) > 1 and w not in _FUZZ1B_STOP}
         if not _ws_p:
-            return ""
+            return "", 0.0
         _qty_p = {w for w in _ws_p if _QTY_RE.match(w)}
         _cands = set()
         for _w in _ws_p:
@@ -637,7 +695,11 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             if _sim > _best_sim:
                 _best_sim = _sim
                 _best_ean = _ean
-        return _best_ean if _best_sim >= _FUZZ1B_TH else ""
+        return (_best_ean, _best_sim) if _best_sim >= _FUZZ1B_TH else ("", 0.0)
+
+    _APRENDIZAJE_TH = 0.85
+    _aprendizaje_yag = {}   # sku -> ean (matches fuzzy score >= 0.85)
+    _aprendizaje_mco = {}   # sku -> ean
 
     ean_yag_nuevos = 0
     yag_sku_set = set(ean_to_yag_sku.values())
@@ -649,7 +711,9 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         if not ean_resuelto or ean_resuelto in ("0", "None", "nan"):
             ean_resuelto = nombre_norm_to_ean.get(clave_nombre(p.get("nombre", "")), "")
         if not ean_resuelto:
-            ean_resuelto = _fuzzy_ean_1b(p.get("nombre", ""))
+            ean_resuelto, _score = _fuzzy_ean_1b(p.get("nombre", ""))
+            if ean_resuelto and _score >= _APRENDIZAJE_TH:
+                _aprendizaje_yag[sku] = ean_resuelto
         if ean_resuelto and ean_resuelto not in ean_to_yag_sku:
             ean_to_yag_sku[ean_resuelto] = sku
             yag_sku_set.add(sku)
@@ -684,13 +748,18 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         if not sku or sku in mco_sku_set:
             continue
         ean_resuelto = str(p.get("ean", "") or "").strip()
+        _from_fuzzy = False
         if not ean_resuelto or ean_resuelto in ("0", "None", "nan"):
             ean_resuelto = nombre_norm_to_ean.get(clave_nombre(p.get("nombre", "")), "")
         elif _ean_brand_conflict(p.get("nombre", ""), ean_resuelto):
             ean_mco_brand_skip += 1
-            ean_resuelto = _fuzzy_ean_1b(p.get("nombre", ""))
+            ean_resuelto, _score = _fuzzy_ean_1b(p.get("nombre", ""))
+            _from_fuzzy = True
         if not ean_resuelto:
-            ean_resuelto = _fuzzy_ean_1b(p.get("nombre", ""))
+            ean_resuelto, _score = _fuzzy_ean_1b(p.get("nombre", ""))
+            _from_fuzzy = True
+        if _from_fuzzy and ean_resuelto and _score >= _APRENDIZAJE_TH:
+            _aprendizaje_mco[sku] = ean_resuelto
         if ean_resuelto and ean_resuelto not in ean_to_mco_sku:
             ean_to_mco_sku[ean_resuelto] = sku
             mco_sku_set.add(sku)
@@ -718,7 +787,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
 
         entry = nuevo_producto(ean, ean, nombre_display, imagen_mc, sector, subcategoria, abc)
         entry["precios"]["maxicarrefour"] = precio
-        entry["fuentes"]["maxicarrefour"] = {"nombre": nombre, "imagen": imagen_mc}
+        entry["fuentes"]["maxicarrefour"] = {"nombre": nombre, "imagen": imagen_mc, "link": _carrefour_search_link(ean)}
 
         # Buscar Yaguar via mapa inverso EAN->SKU
         yag_sku = ean_to_yag_sku.get(ean)
@@ -731,6 +800,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 "nombre": yag_p.get("nombre", ""),
                 "imagen": yag_p.get("imagen", ""),
                 "sku":    yag_sku,
+                "link":   yag_p.get("link", ""),
             }
             yag_merged.add(yag_sku)
             stats_mc["match_yag"] += 1
@@ -746,16 +816,17 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 "nombre": mco_p.get("nombre", ""),
                 "imagen": mco_p.get("imagen", ""),
                 "sku":    mco_sku,
+                "link":   mco_p.get("link", ""),
             }
             mco_merged.add(mco_sku)
             stats_mc["match_mco"] += 1
 
-        # Elegir la mejor imagen (no placeholder)
+        # Elegir la mejor imagen: Carrefour > Maxiconsumo > Yaguar (sin placeholders)
         candidatas = [imagen_mc]
-        if yag_sku and yag_sku in yag_by_sku:
-            candidatas.append(yag_by_sku[yag_sku].get("imagen", ""))
         if mco_sku and mco_sku in mco_by_sku:
             candidatas.append(mco_by_sku[mco_sku].get("imagen", ""))
+        if yag_sku and yag_sku in yag_by_sku:
+            candidatas.append(yag_by_sku[yag_sku].get("imagen", ""))
         entry["imagen"] = mejor_imagen(candidatas)
 
         # Si la imagen sigue siendo 0000- pero hay EAN, usar CDN Carrefour
@@ -795,8 +866,8 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         if ean and ean in catalogo:
             # El EAN ya existe en catálogo (poco probable, pero por si acaso)
             catalogo[ean]["precios"]["yaguar"] = precio
-            catalogo[ean]["fuentes"]["yaguar"] = {"nombre": nombre, "imagen": imagen, "sku": sku}
-            if not catalogo[ean]["imagen"] or "/0000-" in catalogo[ean]["imagen"]:
+            catalogo[ean]["fuentes"]["yaguar"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", "")}
+            if not catalogo[ean]["imagen"] or _es_placeholder(catalogo[ean]["imagen"]):
                 catalogo[ean]["imagen"] = mejor_imagen([imagen, catalogo[ean]["imagen"]])
             if ean in nombre_norm_to_ean.values():
                 stats_yag["match_ean_catalogo"] += 1
@@ -804,14 +875,14 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             prod_id = ean if ean else f"yaguar_{sku}"
             if prod_id not in catalogo:
                 img_final = imagen
-                if "/0000-" in img_final and ean:
+                if _es_placeholder(img_final) and ean:
                     img_final = f"https://tupedido.carrefour.com.ar/imagenesPDA/{ean}.jpg"
                 entry = nuevo_producto(prod_id, ean, nombre_display, img_final, sector, subcategoria, abc)
                 catalogo[prod_id] = entry
                 stats_yag["nuevo"] += 1
 
             catalogo[prod_id]["precios"]["yaguar"] = precio
-            catalogo[prod_id]["fuentes"]["yaguar"] = {"nombre": nombre, "imagen": imagen, "sku": sku}
+            catalogo[prod_id]["fuentes"]["yaguar"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", "")}
             if ean:
                 stats_yag["match_nombre_maestro"] += 1
 
@@ -855,8 +926,8 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         if ean and ean in catalogo:
             # EAN ya en catálogo
             catalogo[ean]["precios"]["maxiconsumo"] = precio
-            catalogo[ean]["fuentes"]["maxiconsumo"] = {"nombre": nombre, "imagen": imagen, "sku": sku}
-            if not catalogo[ean]["imagen"] or "/0000-" in catalogo[ean]["imagen"]:
+            catalogo[ean]["fuentes"]["maxiconsumo"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", "")}
+            if not catalogo[ean]["imagen"] or _es_placeholder(catalogo[ean]["imagen"]):
                 catalogo[ean]["imagen"] = mejor_imagen([imagen, catalogo[ean]["imagen"]])
             stats_mco["match_ean_catalogo"] += 1
             mco_merged.add(sku)
@@ -867,7 +938,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         if clave in yag_clave_a_id:
             prod_id = yag_clave_a_id[clave]
             catalogo[prod_id]["precios"]["maxiconsumo"] = precio
-            catalogo[prod_id]["fuentes"]["maxiconsumo"] = {"nombre": nombre, "imagen": imagen, "sku": sku}
+            catalogo[prod_id]["fuentes"]["maxiconsumo"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", "")}
             if not catalogo[prod_id]["imagen"]:
                 catalogo[prod_id]["imagen"] = imagen
             stats_mco["match_nombre_yaguar"] += 1
@@ -882,7 +953,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             stats_mco["nuevo"] += 1
 
         catalogo[prod_id]["precios"]["maxiconsumo"] = precio
-        catalogo[prod_id]["fuentes"]["maxiconsumo"] = {"nombre": nombre, "imagen": imagen, "sku": sku}
+        catalogo[prod_id]["fuentes"]["maxiconsumo"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", "")}
         mco_merged.add(sku)
 
     print(f"  Maxiconsumo (restantes): {stats_mco['nuevo']} nuevos, "
@@ -1068,6 +1139,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                         "nombre": yag_prod.get("nombre", ""),
                         "imagen": yag_prod.get("imagen", ""),
                         "sku":    yag_sku,
+                        "link":   yag_prod.get("link", ""),
                     }
                     if yag_sku:
                         yag_merged.add(yag_sku)
@@ -1090,6 +1162,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                         "nombre": mco_prod.get("nombre", ""),
                         "imagen": mco_prod.get("imagen", ""),
                         "sku":    mco_sku,
+                        "link":   mco_prod.get("link", ""),
                     }
                     if mco_sku:
                         mco_merged.add(mco_sku)
@@ -1156,7 +1229,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
     for p in lista:
         img = p.get("imagen", "")
         ean = p.get("ean", "")
-        if ("/0000-" in img or not img) and ean:
+        if _es_placeholder(img) and ean:
             p["imagen"] = f"https://tupedido.carrefour.com.ar/imagenesPDA/{ean}.jpg"
 
     def _fusionar_grupo(items):
@@ -1169,8 +1242,8 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             for fuente, info in item.get("fuentes", {}).items():
                 if fuente not in base["fuentes"]:
                     base["fuentes"][fuente] = info
-            if not base.get("imagen") or "/0000-" in base.get("imagen", ""):
-                if item.get("imagen") and "/0000-" not in item.get("imagen", ""):
+            if _es_placeholder(base.get("imagen", "")):
+                if item.get("imagen") and not _es_placeholder(item.get("imagen", "")):
                     base["imagen"] = item["imagen"]
             if not base.get("abc") and item.get("abc"):
                 base["abc"] = item["abc"]
@@ -1487,7 +1560,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             ean = p.get("id_unificado", "")
             p["familia"] = ean_to_master.get(ean, {}).get("familia", "")
 
-    return lista_final
+    return lista_final, _aprendizaje_yag, _aprendizaje_mco
 
 
 # ---------------------------------------------------------------------------
@@ -1511,7 +1584,7 @@ def main():
     maxiconsumo = cargar_maxiconsumo()
 
     print("\nConstruyendo catálogo unificado...")
-    catalogo = construir_catalogo(
+    catalogo, aprendizaje_yag, aprendizaje_mco = construir_catalogo(
         yaguar, maxicarre, maxiconsumo,
         yag_sku_to_ean, mco_sku_to_ean,
         ean_to_yag_sku, ean_to_mco_sku,
@@ -1546,6 +1619,57 @@ def main():
         json.dump(catalogo, f, ensure_ascii=False, indent=2)
 
     print(f"\n  Guardado en: {OUTPUT_FILE}")
+
+    # ------------------------------------------------------------------
+    # Auto-aprendizaje: guardar matches fuzzy de alta confianza (>= 0.85)
+    # en mapeo_brujula.json para que la próxima corrida los use como Capa 0.
+    # Condición extra: el EAN debe estar confirmado en MaxiCarrefour (precio > 0).
+    # Nunca sobreescribe entradas existentes.
+    # ------------------------------------------------------------------
+    mapeo_brujula_file = os.path.join(RAW_DIR, "mapeo_brujula.json")
+    if (aprendizaje_yag or aprendizaje_mco) and os.path.isfile(mapeo_brujula_file):
+        with open(mapeo_brujula_file, encoding="utf-8") as f:
+            mb = json.load(f)
+
+        mc_eans = {
+            str(p.get("ean", "")).strip()
+            for p in maxicarre
+            if p.get("ean") and p.get("precio", 0) > 0
+        }
+
+        nuevas_yag = nuevas_mco = 0
+
+        for sku, ean in aprendizaje_yag.items():
+            if ean not in mc_eans:
+                continue
+            if sku not in mb["por_sku_yaguar"]:
+                mb["por_sku_yaguar"][sku] = ean
+                nuevas_yag += 1
+                if ean not in mb["por_ean"]:
+                    mb["por_ean"][ean] = {
+                        "sector": "", "subcategoria": "", "abc": "", "nombre_verificacion": ""
+                    }
+
+        for sku, ean in aprendizaje_mco.items():
+            if ean not in mc_eans:
+                continue
+            if sku not in mb["por_sku_maxiconsumo"]:
+                mb["por_sku_maxiconsumo"][sku] = ean
+                nuevas_mco += 1
+                if ean not in mb["por_ean"]:
+                    mb["por_ean"][ean] = {
+                        "sector": "", "subcategoria": "", "abc": "", "nombre_verificacion": ""
+                    }
+
+        if nuevas_yag + nuevas_mco > 0:
+            with open(mapeo_brujula_file, "w", encoding="utf-8") as f:
+                json.dump(mb, f, ensure_ascii=False, indent=2)
+            print(f"\nAprendizaje: +{nuevas_yag} SKUs Yaguar, +{nuevas_mco} SKUs Maxiconsumo nuevos al mapeo")
+        else:
+            print("\nAprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)")
+    elif not os.path.isfile(mapeo_brujula_file):
+        print("\nAprendizaje: mapeo_brujula.json no encontrado, saltando")
+
     print("=" * 60)
 
 

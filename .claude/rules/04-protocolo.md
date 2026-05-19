@@ -16,6 +16,11 @@ Manual si no está disponible:
 3. Guardar decisiones y el por qué — lo que NO está en el código ni en git
 4. Podar reglas viejas — los rules/ son código vivo, no un archivo histórico
 
+## Buscar en X antes de disenar
+Antes de implementar cualquier animacion nueva o componente UI, correr `/buscar-x [tema]`.
+Objetivo: encontrar la tecnica mas actual en 5 minutos o menos antes de construir desde cero.
+Si no se encuentra nada mejor en 3 queries → continuar con el plan sin bloquearse.
+
 ## Auditoría profunda
 Correr el agente `auditor` cuando hay dudas de calidad o antes de release:
 "Actúa como el agente definido en `.claude/agents/auditor.md` y auditá el proyecto completo"
@@ -52,6 +57,22 @@ Para prompts muy largos que van a consumir muchos tokens:
 2. Pedirle: "Resumí esto en un prompt conciso y claro para Sonnet"
 3. Copiar el resumen → pegar en la sesión principal con Sonnet
 Esto ahorra tokens sin perder información.
+
+## Mantenimiento automático de HERRAMIENTAS.md
+
+Cada vez que se crea o modifica una skill en `.claude/skills/` o un agente en `.claude/agents/`, actualizar `HERRAMIENTAS.md` en la raíz del proyecto **sin que Facu tenga que pedirlo**.
+
+HERRAMIENTAS.md es la referencia de Facu para entender qué herramientas tiene. Debe estar siempre al día.
+
+## Cuándo invocar el agente de seguridad
+
+Invocar `experto-seguridad` antes de:
+- Cada release importante o deploy
+- Agregar credenciales nuevas al proyecto
+- Modificar `.env` o `config.py`
+- Una vez por mes como auditoría preventiva
+
+"Actúa como el agente definido en `.claude/agents/experto-seguridad.md`"
 
 ## Patrón antagónico (decisiones de arquitectura importantes)
 Cuando hay una decisión difícil (ej: elegir entre dos enfoques técnicos):

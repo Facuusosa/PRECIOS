@@ -1,3 +1,5 @@
+> ⚠️ ARCHIVADO — la información útil fue fusionada en `.claude/docs/plan.md`. Ver plan.md para el estado actual.
+
 # Próxima Fase — Auth, Pagos y Vistas (POST-MVP)
 
 > Este plan se activa cuando haya al menos 1 usuario pagando.
