@@ -48,10 +48,30 @@ def main():
 
     criticos.sort(key=lambda x: x["ratio"], reverse=True)
 
+    # Metricas de cobertura por fuente
+    con_yaguar   = sum(1 for p in prods if p.get("precios", {}).get("yaguar", 0) > 0)
+    con_maxicarr = sum(1 for p in prods if p.get("precios", {}).get("maxicarrefour", 0) > 0)
+    con_maxicons = sum(1 for p in prods if p.get("precios", {}).get("maxiconsumo", 0) > 0)
+    sin_imagen   = sum(
+        1 for p in prods
+        if not p.get("imagen") or any(ph in p.get("imagen", "") for ph in ["base.png", "/0000-", "noimage"])
+    )
+    con_link_yag = sum(1 for p in prods if p.get("fuentes", {}).get("yaguar", {}).get("link"))
+    con_link_mco = sum(1 for p in prods if p.get("fuentes", {}).get("maxiconsumo", {}).get("link"))
+
     print(f"\n[VALIDADOR CATALOGO]")
     print(f"  Total productos:       {total:,}")
+    print(f"  ---- Cobertura por fuente ----")
+    print(f"  Yaguar:                {con_yaguar:,} ({con_yaguar/total*100:.1f}%)")
+    print(f"  MaxiCarrefour:         {con_maxicarr:,} ({con_maxicarr/total*100:.1f}%)")
+    print(f"  Maxiconsumo:           {con_maxicons:,} ({con_maxicons/total*100:.1f}%)")
+    print(f"  ---- Comparabilidad ----")
     print(f"  Con 2+ precios:        {con_2_precios:,} ({con_2_precios/total*100:.1f}%)")
-    print(f"  Con 3 precios:         {con_3_precios:,}")
+    print(f"  Con 3 precios:         {con_3_precios:,} ({con_3_precios/total*100:.1f}%)")
+    print(f"  ---- Calidad ----")
+    print(f"  Sin imagen valida:     {sin_imagen:,} ({sin_imagen/total*100:.1f}%)")
+    print(f"  Con link Yaguar:       {con_link_yag:,}")
+    print(f"  Con link Maxiconsumo:  {con_link_mco:,}")
     print(f"  Ratio sospechoso >{RATIO_CRITICO}x: {len(criticos)}")
 
     if criticos:

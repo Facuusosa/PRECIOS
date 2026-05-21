@@ -38,6 +38,9 @@ CATEGORIAS = [
 ]
 
 
+PRECIO_MIN = 100
+PRECIO_MAX = 500_000
+
 def limpiar_precio(texto):
     if not texto:
         return 0.0
@@ -51,7 +54,10 @@ def limpiar_precio(texto):
         else:
             limpio = limpio.replace(",", "")
     try:
-        return float(limpio)
+        precio = float(limpio)
+        if not (PRECIO_MIN <= precio <= PRECIO_MAX):
+            return 0.0
+        return precio
     except ValueError:
         return 0.0
 

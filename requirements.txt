@@ -12,3 +12,6 @@ openpyxl>=3.1.0
 
 # Environment variables
 python-dotenv>=1.0.0
+
+# Browser automation (renovacion cookies MaxiCarrefour)
+playwright>=1.40.0

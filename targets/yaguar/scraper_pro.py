@@ -113,8 +113,11 @@ def obtener_max_pagina(soup):
     return max_page
 
 
+PRECIO_MIN = 100
+PRECIO_MAX = 500_000
+
 def limpiar_precio(texto):
-    """Convierte '$5.719' o '5719' a float."""
+    """Convierte '$19.599' o '5719' a float. Rechaza outliers fuera de rango razonable."""
     limpio = re.sub(r"[^\d,.]", "", texto)
     if "," in limpio and "." in limpio:
         limpio = limpio.replace(",", "")
@@ -124,8 +127,17 @@ def limpiar_precio(texto):
             limpio = limpio.replace(",", ".")
         else:
             limpio = limpio.replace(",", "")
+    elif "." in limpio:
+        # Punto como separador de miles (ej: "19.599" -> 19599, "1.500.000" -> 1500000)
+        # Si todos los grupos separados por punto tienen 3 digitos excepto el primero -> miles
+        partes = limpio.split(".")
+        if all(len(p) == 3 for p in partes[1:]):
+            limpio = limpio.replace(".", "")
     try:
-        return float(limpio)
+        precio = float(limpio)
+        if not (PRECIO_MIN <= precio <= PRECIO_MAX):
+            return 0.0
+        return precio
     except ValueError:
         return 0.0
 
@@ -227,7 +239,17 @@ def scrapear_categoria(session, slug, nombre, idx, total):
                     print(f"    Pag {pagina}/{max_pagina}: {len(todos)} unicos acumulados")
                 time.sleep(DELAY_ENTRE_PAGINAS)
             except Exception as e:
-                print(f"  ❌ Error en página {pagina}: {e}")
+                print(f"  ❌ Error en página {pagina}: {e} — reintentando...")
+                time.sleep(2)
+                try:
+                    r = _get_page(pagina)
+                    prods = parsear_productos(BeautifulSoup(r.text, "html.parser"), nombre)
+                    if prods:
+                        todos.extend(prods)
+                        continue
+                except Exception:
+                    pass
+                print(f"  AVISO: Paginacion truncada en pag {pagina}/{max_pagina}")
                 break
 
         print(f"  {nombre.lower()}: {len(todos)} productos totales")

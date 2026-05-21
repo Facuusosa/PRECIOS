@@ -47,6 +47,15 @@ def main():
 
         print("\n=== UNIFICANDO DATOS ===")
         subprocess.run(["python", "actualizar_catalogo.py"], cwd=os.getcwd(), env=env)
+
+        print("\n=== VERIFICANDO PRECIOS EN VIVO (top 20 ABC=A) ===")
+        result_verif = subprocess.run(
+            ["python", "scripts/verificar_precios_real.py", "20"],
+            cwd=os.getcwd(), env=env
+        )
+        if result_verif.returncode != 0:
+            print("ALERTA: Tasa de precios correctos < 80% — revisar antes de publicar")
+
         print("\nPara iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev")
     else:
         print("ERROR EN SCRAPER MAXICONSUMO")

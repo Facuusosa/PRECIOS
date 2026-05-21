@@ -8,6 +8,7 @@ Cookies necesarias: PHPSESSID y cf_clearance (se renuevan logueandose en el siti
 """
 
 import os
+import sys
 import json
 import re
 import time
@@ -48,6 +49,9 @@ SECTORES = [
 ]
 
 
+PRECIO_MIN = 100
+PRECIO_MAX = 500_000
+
 def limpiar_precio(texto):
     if not texto:
         return 0.0
@@ -61,7 +65,10 @@ def limpiar_precio(texto):
         else:
             limpio = limpio.replace(",", "")
     try:
-        return float(limpio)
+        precio = float(limpio)
+        if not (PRECIO_MIN <= precio <= PRECIO_MAX):
+            return 0.0
+        return precio
     except ValueError:
         return 0.0
 
@@ -106,6 +113,15 @@ def parsear_pagina(html, sector_display):
             imagen = (img.get("src", "") if img
                       else f"https://tupedido.carrefour.com.ar/imagenesPDA/{ean}.jpg")
 
+            link = ""
+            a_tag = item.find("a", href=True)
+            if a_tag:
+                href = a_tag.get("href", "")
+                if href.startswith("/"):
+                    link = BASE_URL + href
+                elif href.startswith("http"):
+                    link = href
+
             sector = sector_display
             subcategoria = ""
             cart = item.find(class_="cart_button")
@@ -125,6 +141,7 @@ def parsear_pagina(html, sector_display):
                 "sector": sector,
                 "subcategoria": subcategoria,
                 "imagen": imagen,
+                "link": link,
                 "fuente": "MaxiCarrefour",
                 "stock": True,
                 "fecha_scraping": datetime.now().strftime("%Y-%m-%d"),
@@ -193,7 +210,7 @@ def main():
 
     if not PHPSESSID or not CF_CLEARANCE:
         print("ERROR: Cookies no configuradas. Verificá el archivo .env")
-        return
+        sys.exit(1)
 
     session = requests.Session()
     session.cookies.update({"PHPSESSID": PHPSESSID, "cf_clearance": CF_CLEARANCE})
@@ -213,8 +230,8 @@ def main():
     productos_lista = list(todos_los_productos.values())
 
     if len(productos_lista) < MIN_PRODUCTS_EXPECTED:
-        print(f"ERROR: Productos insuficientes: {len(productos_lista)} < {MIN_PRODUCTS_EXPECTED}")
-        return
+        print(f"ERROR: Solo {len(productos_lista)} productos (min esperado: {MIN_PRODUCTS_EXPECTED}) — probablemente cookies expiradas.")
+        sys.exit(1)
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     output_file = os.path.join(os.path.dirname(__file__), f"output_maxicarrefour_{timestamp}.json")

@@ -1,46 +1,50 @@
-# Skill: Verificar Precios de Bombas
+# Skill: Verificar Precios en Vivo
 
-Verifica en vivo los precios de las top N bombas del catálogo actual. Usar con `/verificar-precios`.
+Verifica los precios del catálogo contra los sitios reales de los mayoristas. Usa `/verificar-precios`.
 
 ## Cuándo usar
 - Antes de salir a comercializar (parte del /pre-launch-check)
-- Cuando hay dudas sobre si los precios del catálogo están desactualizados
+- Cuando hay dudas sobre si los precios del catálogo están actualizados
 - Después de renovar cookies de MaxiCarrefour
-- Spot-check periódico de calidad de datos
+- Spot-check periódico semanal de calidad de datos
 
 ## Motor
-Usa `scripts/verificar_bombas.py` — HTTP puro, sin browser.
-- **Yaguar**: WooCommerce API con login curl_cffi (HTTP, sin abrir browser)
-- **MaxiCarrefour**: busca en el output JSON local más reciente (sin cookies, sin browser)
-- **Maxiconsumo**: curl_cffi con impersonación Safari (igual que el scraper real)
+`scripts/verificar_precios_real.py` — HTTP puro, sin browser, curl_cffi con impersonación Safari.
+- **Yaguar**: navega la URL del producto (WooCommerce), extrae precio con BeautifulSoup
+- **MaxiCarrefour**: VTEX API `/api/catalog_system/pub/products/search/{ean}` con cookies del .env
+- **Maxiconsumo**: navega la URL del producto con curl_cffi impersonando Safari
 
-**Chrome DevTools MCP**: útil para inspección visual manual si los precios no coinciden y querés ver el DOM del sitio. No forma parte del flujo automático.
+Tolerancia aceptable: 10% de diferencia entre catálogo y web real.
+Umbral de aprobación: ≥80% de productos verificados con estado OK.
 
 ## Pasos
 
 1. **Correr el script**
    ```bash
-   python scripts/verificar_bombas.py 10
+   python scripts/verificar_precios_real.py 20
    ```
-   Argumentos opcionales: número de bombas a verificar (default: 10).
+   Verifica las top 20 bombas con clasificación ABC=A. Argumento opcional: N de productos a verificar.
 
 2. **Interpretar resultados**
-   - `OK` → precio web coincide con catálogo (diferencia <5%)
-   - `DIFF_X%` → diferencia entre 5-20% → correr el scraper de ese mayorista
-   - `ERROR_X%` → diferencia >20% → bug de matching en el catálogo
-   - `NO_ENCONTRADO` → producto no aparece en el buscador o cookies expiradas
-   - `N/A (output_viejo_Xh)` → output de MaxiCarrefour tiene más de 48h → correr scraper
+   - `ok` → precio web coincide con catálogo (diferencia ≤10%)
+   - `diverge` → diferencia >10% → correr el scraper de ese mayorista
+   - `error_http` / `excepcion` → URL inaccesible o cookies expiradas
+   - `sin_link` → el producto no tiene URL → no verificable
 
-3. **Si MaxiCarrefour devuelve output_viejo o sin_output**
-   Correr: `python scrape_maxicarrefour.py`
-   Si sigue sin funcionar → cookies expiradas → renovar PHPSESSID y cf_clearance en .env
+3. **Acciones según resultado**
+   - Si MaxiCarrefour devuelve `error_http 401/403` → cookies expiradas → renovar PHPSESSID y cf_clearance en .env
+   - Si Yaguar devuelve `excepcion` o `sin_link` en todos → revisar que el scraper corrió recientemente
+   - Si >20% con `diverge` → priorizar scraping del mayorista con más discrepancias
 
-4. **Si Yaguar devuelve N/A en todos**
-   Verificar credenciales: `python -c "from dotenv import load_dotenv; import os; load_dotenv(); print(os.getenv('YAGUAR_USERNAME'))"`
+4. **Reporte automático**
+   El script guarda el resultado en `data/quality/verificacion_precios_YYYYMMDD_HHMMSS.json`
+   Exit code 1 si tasa de aprobación <80%.
 
-5. **Reporte automático**
-   El script guarda el resultado en `data/quality/verificacion_bombas_YYYYMMDD_HHMMSS.json`
+## Integración en pipeline
+
+Ya integrado en `scrape_maxiconsumo.py` — corre automáticamente al final del pipeline completo.
+Si el exit code es 1, el pipeline imprime "ALERTA: revisar antes de publicar".
 
 ## Resultado esperado
-- 8/10 o más bombas con estado OK → datos confiables para comercializar
-- Si <80% OK → no salir a comercializar hasta corregir los scrapers que fallan
+- ≥16/20 productos con estado `ok` → datos confiables para comercializar
+- Si <80% `ok` → no salir a comercializar hasta corregir los scrapers que fallan

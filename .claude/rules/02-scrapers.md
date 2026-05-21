@@ -27,13 +27,14 @@ python scrape_maxiconsumo.py    → scraper + enriquecer_precios.py + actualizar
 ## Anti-bloqueo — reglas permanentes
 - Yaguar (WordPress): delay mínimo 0.5s entre requests, sin headers raros
 - MaxiCarrefour (Cloudflare): cookies PHPSESSID + cf_clearance, renovar cada ~30 días. Si devuelve `data-price="private"` → cookies expiradas, no tocar el código
+- MaxiCarrefour LINKS: imposible obtener URLs de producto. La VTEX API (`/api/catalog_system/pub/products/search/{ean}`) devuelve HTML (login page) incluso con cookies válidas y curl_cffi. El endpoint `/busca/?q=` devuelve 404. No hay URL pública accesible — no gastar tiempo en esto.
 - Maxiconsumo (Magento): curl_cffi con `impersonate="safari15_3"` — NUNCA usar requests normal, Cloudflare lo bloquea
 - Si scraper devuelve 0 productos: primero sospechar bloqueo/cookies, no tocar código
 
 ## Cuellos de botella conocidos
 - Yaguar y Maxiconsumo NO tienen EAN → matching via Listado Maestro (fuzzy Jaccard) + CODIGOS.xlsx
 - MaxiCarrefour 100% EAN
-- Fuzzy threshold Paso 1b: `_FUZZ1B_TH = 0.60` | Fuzzy Paso 6c: `_TH6 = 0.65`
+- Fuzzy threshold Paso 1b: `_FUZZ1B_TH = 0.60` | Fuzzy Paso 6c: `_TH6 = 0.75` (subido de 0.65 el 21/05 para evitar falsos matches tipo Fernet 1882 ↔ Fernet Branca)
 - Yaguar: combina 8 archivos (multi-file, igual que Maxiconsumo) para maximizar cobertura
 - Tasa de matching actual: ~18% de productos con 2+ precios comparables (3,018 productos)
 - Con 3 precios: 772 | ABC=A con 3 precios: 94 (estos son los Top Bombas)

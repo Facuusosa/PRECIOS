@@ -94,6 +94,7 @@ def clave_nombre(nombre):
     # CM3 y CC son equivalentes a ML
     n = re.sub(r"(\d+)\s*cm3\b",  lambda m: m.group(1)+"ml",  n)
     n = re.sub(r"(\d+)\s*ccm\b",  lambda m: m.group(1)+"ml",  n)
+    n = re.sub(r"(\d+)\s*cc\b",   lambda m: m.group(1)+"ml",  n)  # CC = ML
     # Litros → ml para unificar comparaciones de cantidad
     n = re.sub(r"(\d+\.?\d*)\s*lts?\b", lambda m: str(int(float(m.group(1))*1000))+"ml", n)
     n = re.sub(r"(\d+\.?\d*)\s*lt\b",   lambda m: str(int(float(m.group(1))*1000))+"ml", n)
@@ -148,8 +149,13 @@ def normalizar_nombre_display(nombre):
     n = re.sub(r"\s+", " ", n).strip().strip(".")
     return n
 
-def _es_placeholder(url):
-    return not url or "/0000-" in url or "base.png" in url
+_PLACEHOLDERS = {"/0000-", "base.png", "noimage", "placeholder", "no-image", "sin-imagen", "default"}
+
+def _es_placeholder(url: str) -> bool:
+    if not url:
+        return True
+    url_lower = url.lower()
+    return any(p in url_lower for p in _PLACEHOLDERS)
 
 def mejor_imagen(imagenes):
     """Prioridad: Carrefour CDN > Maxiconsumo > Yaguar. Descarta placeholders conocidos."""
@@ -165,7 +171,7 @@ def mejor_imagen(imagenes):
     return ""
 
 def _carrefour_search_link(ean):
-    return "https://comerciante.carrefour.com.ar/buscar?q=" + ean
+    return ""  # sitio requiere login de cuenta comerciante — no hay URL pública accesible
 
 # ---------------------------------------------------------------------------
 # Carga de Excel
@@ -637,7 +643,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
     #   con threshold 0.60 — igual que enriquecer_eans.py pero sin depender del
     #   archivo preseleccionado por encontrar_mejor().
     # ------------------------------------------------------------------
-    _FUZZ1B_TH   = 0.60
+    _FUZZ1B_TH   = 0.65
     _FUZZ1B_STOP = {"de", "la", "el", "en", "y", "x", "con", "por", "para",
                     "un", "una", "del", "los", "las", "al", "ml", "gr", "cc", "kg"}
     _fuzz_entries  = []   # (clave, word_set, ean)
@@ -666,6 +672,22 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             return True
         return fa == fb
 
+    _CATEGORIA_TOKENS = {"gaseosa", "agua", "soda", "jugo", "cerveza", "vino", "aceite",
+                         "arroz", "azucar", "harina", "leche", "yogur", "manteca", "queso",
+                         "yerba", "cafe", "te", "sal", "fideos", "galletita", "galleta",
+                         "chocolate", "caramelo", "golosina", "snack", "papel", "detergente",
+                         "jabon", "shampoo", "desodorante", "lavandina", "suavizante", "servilleta",
+                         "gin", "whisky", "fernet", "vodka", "ron", "sidra", "champagne",
+                         "mayonesa", "ketchup", "mostaza", "salsa", "vinagre", "gelatina",
+                         "polvo", "preparado", "mix", "pack", "combo", "duo"}
+
+    def _primer_token_marca(clave_norm):
+        """Primer token significativo que no sea categoria comun ni stop word."""
+        for w in clave_norm.split():
+            if len(w) > 2 and w not in _FUZZ1B_STOP and w not in _CATEGORIA_TOKENS:
+                return w
+        return ""
+
     def _fuzzy_ean_1b(nombre_prod):
         """Devuelve (ean, score). ean='' y score=0.0 si no supera el threshold."""
         _cl   = clave_nombre(nombre_prod)
@@ -673,6 +695,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         if not _ws_p:
             return "", 0.0
         _qty_p = {w for w in _ws_p if _QTY_RE.match(w)}
+        _marca_p = _primer_token_marca(_cl)
         _cands = set()
         for _w in _ws_p:
             for _i in _fuzz_word_idx.get(_w, []):
@@ -689,6 +712,11 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             # Pack count debe coincidir: "5un" vs "" → rechazar
             if _pack_count(_cl) != _pack_count(_clave_m):
                 continue
+            # Marca (primer token significativo) debe coincidir — evita MANAOS vs IVESS
+            if _marca_p:
+                _marca_m = _primer_token_marca(_clave_m)
+                if _marca_m and _marca_p != _marca_m:
+                    continue
             _inter = len(_ws_p & _ws_m)
             _union = len(_ws_p | _ws_m)
             _sim   = _inter / _union if _union else 0.0
@@ -787,7 +815,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
 
         entry = nuevo_producto(ean, ean, nombre_display, imagen_mc, sector, subcategoria, abc)
         entry["precios"]["maxicarrefour"] = precio
-        entry["fuentes"]["maxicarrefour"] = {"nombre": nombre, "imagen": imagen_mc, "link": _carrefour_search_link(ean)}
+        entry["fuentes"]["maxicarrefour"] = {"nombre": nombre, "imagen": imagen_mc, "link": p.get("link", ""), "fecha_scraping": p.get("fecha_scraping", "")}
 
         # Buscar Yaguar via mapa inverso EAN->SKU
         yag_sku = ean_to_yag_sku.get(ean)
@@ -866,7 +894,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         if ean and ean in catalogo:
             # El EAN ya existe en catálogo (poco probable, pero por si acaso)
             catalogo[ean]["precios"]["yaguar"] = precio
-            catalogo[ean]["fuentes"]["yaguar"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", "")}
+            catalogo[ean]["fuentes"]["yaguar"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", ""), "fecha_scraping": p.get("fecha_scraping", "")}
             if not catalogo[ean]["imagen"] or _es_placeholder(catalogo[ean]["imagen"]):
                 catalogo[ean]["imagen"] = mejor_imagen([imagen, catalogo[ean]["imagen"]])
             if ean in nombre_norm_to_ean.values():
@@ -882,7 +910,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 stats_yag["nuevo"] += 1
 
             catalogo[prod_id]["precios"]["yaguar"] = precio
-            catalogo[prod_id]["fuentes"]["yaguar"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", "")}
+            catalogo[prod_id]["fuentes"]["yaguar"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", ""), "fecha_scraping": p.get("fecha_scraping", "")}
             if ean:
                 stats_yag["match_nombre_maestro"] += 1
 
@@ -926,7 +954,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         if ean and ean in catalogo:
             # EAN ya en catálogo
             catalogo[ean]["precios"]["maxiconsumo"] = precio
-            catalogo[ean]["fuentes"]["maxiconsumo"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", "")}
+            catalogo[ean]["fuentes"]["maxiconsumo"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", ""), "fecha_scraping": p.get("fecha_scraping", "")}
             if not catalogo[ean]["imagen"] or _es_placeholder(catalogo[ean]["imagen"]):
                 catalogo[ean]["imagen"] = mejor_imagen([imagen, catalogo[ean]["imagen"]])
             stats_mco["match_ean_catalogo"] += 1
@@ -938,7 +966,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         if clave in yag_clave_a_id:
             prod_id = yag_clave_a_id[clave]
             catalogo[prod_id]["precios"]["maxiconsumo"] = precio
-            catalogo[prod_id]["fuentes"]["maxiconsumo"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", "")}
+            catalogo[prod_id]["fuentes"]["maxiconsumo"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", ""), "fecha_scraping": p.get("fecha_scraping", "")}
             if not catalogo[prod_id]["imagen"]:
                 catalogo[prod_id]["imagen"] = imagen
             stats_mco["match_nombre_yaguar"] += 1
@@ -1319,7 +1347,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 result.add(n)
         return result
 
-    _TH6 = 0.65
+    _TH6 = 0.75  # subido de 0.65 — evita fusionar "Fernet 1882" con "Fernet Branca"
 
     def _buscar_candidato(ws_p, ns_p, index_entries, index_wi, usados, cl_p="", id_p=""):
         """Devuelve (idx_en_lista_final, sim) del mejor match fuzzy."""
@@ -1447,7 +1475,8 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 p_base["precios"][fuente] = precio
         for fuente, info in p_elim.get("fuentes", {}).items():
             if fuente not in p_base["fuentes"]:
-                p_base["fuentes"][fuente] = info
+                # En fusion fuzzy no copiar link — evita que link de otro producto contamine
+                p_base["fuentes"][fuente] = {k: v for k, v in info.items() if k != "link"}
         if not p_base.get("abc") and p_elim.get("abc"):
             p_base["abc"] = p_elim["abc"]
         p_elim["_eliminar"] = True
