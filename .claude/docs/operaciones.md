@@ -40,7 +40,7 @@ Nunca en el código. Siempre en `.env` (está en `.gitignore`).
 3. ¿Precios > 0 en la mayoría?
 4. ¿`catalogo_unificado.json` tiene fecha de hoy?
 
-**Última renovación de cookies:** 07/05/2026. Próxima: ~07/06/2026.
+**Última renovación de cookies:** 22/05/2026. Próxima: ~22/06/2026.
 
 ## NINI
 Removido del MVP. No tiene scraper implementado. Agregar post-v1 si hay demanda.

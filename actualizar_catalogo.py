@@ -717,6 +717,12 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 _marca_m = _primer_token_marca(_clave_m)
                 if _marca_m and _marca_p != _marca_m:
                     continue
+            # Identificadores numéricos de variante (>=3 dígitos) deben coincidir — evita "1882" vs "Branca"
+            _ids_num_p = {w for w in _ws_p if w.isdigit() and len(w) >= 3}
+            if _ids_num_p:
+                _ids_num_m = {w for w in _ws_m if w.isdigit() and len(w) >= 3}
+                if _ids_num_m and not (_ids_num_p & _ids_num_m):
+                    continue
             _inter = len(_ws_p & _ws_m)
             _union = len(_ws_p | _ws_m)
             _sim   = _inter / _union if _union else 0.0
@@ -1223,6 +1229,25 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
     if bajos_eliminados:
         print(f"  Filtro mínimo (${PRECIO_MINIMO}): {bajos_eliminados} precios bajos eliminados")
 
+    # ------ Filtro: unidades pequeñas con precios absurdos ------
+    # Sachets <100ml o <50g con precio >$10,000 son errores de scraping (ej: Pantene 10ml a $190k)
+    _SMALL_UNIT_RE = re.compile(r'\b([0-9]+)\s*(ml|cc|g|gr)\b', re.IGNORECASE)
+    _PRECIO_UNITARIO_MAX = 10_000
+    techo_unitario = 0
+    for p in lista:
+        m = _SMALL_UNIT_RE.search(p.get("nombre_display", ""))
+        if not m:
+            continue
+        cant, unidad = int(m.group(1)), m.group(2).lower()
+        if (unidad in ('ml', 'cc') and cant < 100) or (unidad in ('g', 'gr') and cant < 50):
+            for fuente in list(p["precios"].keys()):
+                if p["precios"][fuente] > _PRECIO_UNITARIO_MAX:
+                    p["precios"][fuente] = 0
+                    p["fuentes"].pop(fuente, None)
+                    techo_unitario += 1
+    if techo_unitario:
+        print(f"  Filtro tamaño pequeño (<100ml/<50g >$10k): {techo_unitario} precios absurdos eliminados")
+
     # ------ Validación cruzada de precios ------
     # Si un producto tiene múltiples fuentes y un precio es >5x más barato
     # que el resto, se descarta como outlier (scraping error).
@@ -1373,6 +1398,12 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             id_c = lista_final[lf_idx]["id_unificado"]
             if not _familia_compat(id_p, id_c):
                 continue  # FAMILIAs distintas → presentaciones incompatibles
+            # Identificadores numéricos de variante (>=3 dígitos) deben coincidir — evita "1882" vs "Branca"
+            _ids_num_p = {w for w in cl_p.split() if w.isdigit() and len(w) >= 3}
+            if _ids_num_p:
+                _ids_num_c = {w for w in cl_c.split() if w.isdigit() and len(w) >= 3}
+                if _ids_num_c and not (_ids_num_p & _ids_num_c):
+                    continue
             if sim > mejor_sim:
                 mejor_sim = sim
                 mejor_idx = lf_idx
