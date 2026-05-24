@@ -29,6 +29,13 @@ def verificar_output():
     if con_precio < total * 0.9:
         print(f"  ⚠️  MÁS DEL 10% SIN PRECIO — revisar scraper")
 
+def encontrar_output_reciente():
+    """Busca el output más reciente por timestamp en el nombre, no por mtime."""
+    patron = os.path.join("targets", "maxiconsumo", "output_maxiconsumo_*.json")
+    archivos = sorted(glob.glob(patron), reverse=True)  # orden lexicográfico = cronológico por timestamp en nombre
+    return archivos[0] if archivos else None
+
+
 def main():
     print("=== SCRAPER MAXICONSUMO ===")
     print(f"Iniciando: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
@@ -37,9 +44,18 @@ def main():
     result = subprocess.run(["python", "targets/maxiconsumo/scraper_pro.py"], cwd=os.getcwd(), env=env)
 
     if result.returncode == 0:
-        print("\n=== ENRIQUECIENDO PRECIOS Y EANs ===")
-        subprocess.run(["python", "targets/maxiconsumo/enriquecer_precios.py"], cwd=os.getcwd(), env=env)
+        # Encontrar el output recién generado por timestamp en el nombre (no mtime — enriquecer_eans lo toca después)
+        output_nuevo = encontrar_output_reciente()
+        if not output_nuevo:
+            print("ERROR: No se encontro archivo output del scraper")
+            return
+        print(f"  Output del scraper: {os.path.basename(output_nuevo)}")
 
+        print("\n=== ENRIQUECIENDO PRECIOS Y EANs ===")
+        subprocess.run(["python", "targets/maxiconsumo/enriquecer_precios.py", output_nuevo], cwd=os.getcwd(), env=env)
+
+        # Re-buscar: enriquecer_precios escribe un nuevo archivo enriquecido
+        output_enriquecido = encontrar_output_reciente()
         print("\n=== ENRIQUECIENDO EANs VÍA MAESTRO ===")
         subprocess.run(["python", "enriquecer_eans.py"], cwd=os.getcwd(), env=env)
 

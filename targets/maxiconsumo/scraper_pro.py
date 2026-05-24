@@ -10,15 +10,27 @@ import json
 import re
 import time
 import sys
+import threading
 from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from curl_cffi import requests as curl_requests
 from bs4 import BeautifulSoup
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 BASE_URL = "https://maxiconsumo.com/sucursal_burzaco"
-DELAY = 0.4
+DELAY = 0.3   # reducido de 0.4 — con impersonation es seguro
 MIN_PRODUCTS_EXPECTED = 500
 IMPERSONATE = "safari15_3"
+CAT_WORKERS = 3   # categorias en paralelo
+
+_cat_thread_local = threading.local()
+
+def _get_cat_session():
+    if not hasattr(_cat_thread_local, "session"):
+        s = curl_requests.Session()
+        s.headers.update(HEADERS)
+        _cat_thread_local.session = s
+    return _cat_thread_local.session
 
 HEADERS = {
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -100,7 +112,8 @@ def parsear_pagina(html, sector):
     return productos
 
 
-def scrape_categoria(session, nombre_display, slug, idx, total):
+def scrape_categoria(session_ignored, nombre_display, slug, idx, total):
+    session = _get_cat_session()  # session persistente por thread
     print(f"\n[{idx}/{total}] Sector: {nombre_display}")
     url_base = f"{BASE_URL}/{slug}.html"
 
@@ -149,16 +162,21 @@ def main():
     print(f"Categorias: {len(CATEGORIAS)}")
     print("=" * 50)
 
-    session = curl_requests.Session()
-    session.headers.update(HEADERS)
-
     todos = {}
+    lock = threading.Lock()
+    total = len(CATEGORIAS)
 
-    for idx, (nombre, slug) in enumerate(CATEGORIAS, start=1):
-        prods = scrape_categoria(session, nombre, slug, idx, len(CATEGORIAS))
-        for key, prod in prods.items():
-            if key not in todos:
-                todos[key] = prod
+    with ThreadPoolExecutor(max_workers=CAT_WORKERS) as executor:
+        futuros = {
+            executor.submit(scrape_categoria, None, nombre, slug, idx, total): nombre
+            for idx, (nombre, slug) in enumerate(CATEGORIAS, start=1)
+        }
+        for fut in as_completed(futuros):
+            prods = fut.result()
+            with lock:
+                for key, prod in prods.items():
+                    if key not in todos:
+                        todos[key] = prod
 
     productos_lista = list(todos.values())
 

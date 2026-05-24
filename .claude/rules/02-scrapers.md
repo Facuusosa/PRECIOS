@@ -27,7 +27,7 @@ python scrape_maxiconsumo.py    → scraper + enriquecer_precios.py + actualizar
 ## Anti-bloqueo — reglas permanentes
 - Yaguar (WordPress): delay mínimo 0.5s entre requests, sin headers raros
 - MaxiCarrefour (Cloudflare): cookies PHPSESSID + cf_clearance, renovar cada ~30 días. Si devuelve `data-price="private"` → cookies expiradas, no tocar el código
-- MaxiCarrefour LINKS: imposible obtener URLs de producto. La VTEX API (`/api/catalog_system/pub/products/search/{ean}`) devuelve HTML (login page) incluso con cookies válidas y curl_cffi. El endpoint `/busca/?q=` devuelve 404. No hay URL pública accesible — no gastar tiempo en esto.
+- MaxiCarrefour LINKS: no hay URLs de producto individuales sin login. SOLUCIÓN: URL de búsqueda por EAN → `https://comerciante.carrefour.com.ar/search/{ean}` — funciona sin login (muestra producto sin precio). El scraper y `actualizar_catalogo.py` la generan automáticamente. El endpoint `/busca/?q=` da 404, la VTEX API requiere auth — no tocar eso.
 - Maxiconsumo (Magento): curl_cffi con `impersonate="safari15_3"` — NUNCA usar requests normal, Cloudflare lo bloquea
 - Si scraper devuelve 0 productos: primero sospechar bloqueo/cookies, no tocar código
 

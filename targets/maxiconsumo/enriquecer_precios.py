@@ -21,8 +21,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 TARGETS_DIR = os.path.dirname(os.path.abspath(__file__))
 CACHE_PATH = os.path.join(TARGETS_DIR, "cache_enriquecimiento.json")
 
-WORKERS   = 3     # workers paralelos (safe para Cloudflare con curl_cffi)
-DELAY     = 0.1   # delay por worker — 3 workers x 0.1s = ~0.33s efectivo global
+WORKERS   = 6     # 6 workers — curl_cffi impersonation aguanta mas sin ser detectado
+DELAY     = 0.1   # delay por worker — 6 workers x 0.1s = ~0.017s efectivo global
 SAVE_EACH = 200
 IMPERSONATE = "safari15_3"
 
@@ -31,6 +31,14 @@ HEADERS = {
     "Accept-Language": "es-ES,es;q=0.9",
     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 }
+
+# Session persistente por thread — evita TLS handshake por cada producto
+_thread_local = threading.local()
+
+def _get_session():
+    if not hasattr(_thread_local, "session"):
+        _thread_local.session = crear_sesion()
+    return _thread_local.session
 
 
 def encontrar_archivo_input(path_arg=None):
@@ -100,7 +108,7 @@ def extraer_precio_detalle(session, url: str) -> tuple[float, str]:
 
 
 def _procesar_uno(idx: int, producto: dict) -> tuple[int, float, str]:
-    session = crear_sesion()
+    session = _get_session()  # reusar session del thread — sin TLS handshake por producto
     url = producto.get("link", "")
     if not url:
         return idx, 0.0, ""

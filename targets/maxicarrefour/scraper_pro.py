@@ -113,14 +113,7 @@ def parsear_pagina(html, sector_display):
             imagen = (img.get("src", "") if img
                       else f"https://tupedido.carrefour.com.ar/imagenesPDA/{ean}.jpg")
 
-            link = ""
-            a_tag = item.find("a", href=True)
-            if a_tag:
-                href = a_tag.get("href", "")
-                if href.startswith("/"):
-                    link = BASE_URL + href
-                elif href.startswith("http"):
-                    link = href
+            link = f"https://comerciante.carrefour.com.ar/search/{ean}" if ean else ""
 
             sector = sector_display
             subcategoria = ""

@@ -171,7 +171,9 @@ def mejor_imagen(imagenes):
     return ""
 
 def _carrefour_search_link(ean):
-    return ""  # sitio requiere login de cuenta comerciante — no hay URL pública accesible
+    if not ean:
+        return ""
+    return f"https://comerciante.carrefour.com.ar/search/{ean}"
 
 # ---------------------------------------------------------------------------
 # Carga de Excel
@@ -461,6 +463,12 @@ def cargar_yaguar():
                     precio_ex = existing.get("precio", 0)
                     if precio > 200 and precio_ex < 200:
                         sku_to_mejor[sku] = p
+                    elif precio > 200 and precio_ex > 200:
+                        # Ambos válidos — preferir el que tiene link e imagen
+                        tiene_datos = bool(p.get("link") or p.get("imagen"))
+                        existing_tiene_datos = bool(existing.get("link") or existing.get("imagen"))
+                        if tiene_datos and not existing_tiene_datos:
+                            sku_to_mejor[sku] = p
         except Exception:
             pass
 
@@ -821,7 +829,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
 
         entry = nuevo_producto(ean, ean, nombre_display, imagen_mc, sector, subcategoria, abc)
         entry["precios"]["maxicarrefour"] = precio
-        entry["fuentes"]["maxicarrefour"] = {"nombre": nombre, "imagen": imagen_mc, "link": p.get("link", ""), "fecha_scraping": p.get("fecha_scraping", "")}
+        entry["fuentes"]["maxicarrefour"] = {"nombre": nombre, "imagen": imagen_mc, "link": _carrefour_search_link(ean), "fecha_scraping": p.get("fecha_scraping", "")}
 
         # Buscar Yaguar via mapa inverso EAN->SKU
         yag_sku = ean_to_yag_sku.get(ean)
@@ -1506,8 +1514,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 p_base["precios"][fuente] = precio
         for fuente, info in p_elim.get("fuentes", {}).items():
             if fuente not in p_base["fuentes"]:
-                # En fusion fuzzy no copiar link — evita que link de otro producto contamine
-                p_base["fuentes"][fuente] = {k: v for k, v in info.items() if k != "link"}
+                p_base["fuentes"][fuente] = info.copy()
         if not p_base.get("abc") and p_elim.get("abc"):
             p_base["abc"] = p_elim["abc"]
         p_elim["_eliminar"] = True
