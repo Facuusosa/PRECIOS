@@ -362,6 +362,18 @@ def cargar_excel_referencia():
     else:
         print(f"  [INFO] mapeo_brujula.json no encontrado en {mapeo_brujula_file}")
 
+    # Maestro dinamico (EANs de MaxiCarrefour no presentes en el estatico)
+    maestro_din_file = os.path.join(RAW_DIR, "maestro_dinamico.json")
+    if os.path.isfile(maestro_din_file):
+        with open(maestro_din_file, encoding="utf-8") as f:
+            _dm = json.load(f)
+        _dm_nuevos = 0
+        for clave, ean in _dm.get("por_nombre", {}).items():
+            if clave not in nombre_norm_to_ean:
+                nombre_norm_to_ean[clave] = ean
+                _dm_nuevos += 1
+        print(f"  maestro_dinamico.json: +{_dm_nuevos} nombres adicionales al indice")
+
     return yag_sku_to_ean, mco_sku_to_ean, ean_to_yag_sku, ean_to_mco_sku, ean_to_master, nombre_norm_to_ean, ean_to_familia
 
 # ---------------------------------------------------------------------------
@@ -752,6 +764,8 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         ean_resuelto = str(p.get("ean", "") or "").strip()
         if not ean_resuelto or ean_resuelto in ("0", "None", "nan"):
             ean_resuelto = nombre_norm_to_ean.get(clave_nombre(p.get("nombre", "")), "")
+            if ean_resuelto:
+                _aprendizaje_yag[sku] = ean_resuelto  # lookup exacto -> guardar en mapeo
         if not ean_resuelto:
             ean_resuelto, _score = _fuzzy_ean_1b(p.get("nombre", ""))
             if ean_resuelto and _score >= _APRENDIZAJE_TH:
@@ -793,6 +807,8 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         _from_fuzzy = False
         if not ean_resuelto or ean_resuelto in ("0", "None", "nan"):
             ean_resuelto = nombre_norm_to_ean.get(clave_nombre(p.get("nombre", "")), "")
+            if ean_resuelto:
+                _aprendizaje_mco[sku] = ean_resuelto  # lookup exacto -> guardar en mapeo
         elif _ean_brand_conflict(p.get("nombre", ""), ean_resuelto):
             ean_mco_brand_skip += 1
             ean_resuelto, _score = _fuzzy_ean_1b(p.get("nombre", ""))

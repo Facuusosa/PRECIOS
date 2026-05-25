@@ -159,6 +159,23 @@ def main():
 
     entries, word_index = cargar_maestro()
 
+    # Extender con maestro dinamico (EANs de MaxiCarrefour no en el estatico)
+    dm_path = os.path.join(BASE_DIR, "data", "raw", "maestro_dinamico.json")
+    if os.path.isfile(dm_path):
+        with open(dm_path, encoding="utf-8") as _f:
+            _dm = json.load(_f)
+        _dm_count = 0
+        for cl, ean in _dm.get("por_nombre", {}).items():
+            ws = palabras(cl)
+            if not ws:
+                continue
+            idx = len(entries)
+            entries.append((cl, ws, ean))
+            for w in ws:
+                word_index[w].append(idx)
+            _dm_count += 1
+        print(f"  Maestro dinamico: +{_dm_count} entradas adicionales")
+
     # Yaguar — archivo más reciente
     yaguar_files = sorted(
         glob.glob(os.path.join(BASE_DIR, "targets/yaguar/output_yaguar_*.json")),
