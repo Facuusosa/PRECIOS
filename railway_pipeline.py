@@ -7,6 +7,19 @@ Variables de entorno requeridas en Railway:
   CARREFOUR_PHPSESSID, CARREFOUR_CF_CLEARANCE
   GITHUB_TOKEN  (Personal Access Token con scope repo)
   DISCORD_WEBHOOK_URL  (opcional — para alertas)
+
+Variables para renovacion automatica de cookies MC en Railway (sin estas, si
+las cookies expiran en Railway el scraper falla hasta renovacion manual):
+  CARREFOUR_CUIT, CARREFOUR_NOMBRE, CARREFOUR_EMAIL
+  CARREFOUR_TELEFONO, CARREFOUR_PROVINCIA, CARREFOUR_SUCURSAL
+  CAPSOLVER_API_KEY  (capsolver.com — resuelve reCAPTCHA sin Chrome)
+
+Variables para sincronizar cookies renovadas localmente hacia Railway:
+  RAILWAY_TOKEN          (railway.app -> Account Settings -> Tokens)
+  RAILWAY_PROJECT_ID     (URL del proyecto en Railway)
+  RAILWAY_ENVIRONMENT_ID (ID del environment, ver en Railway dashboard)
+  Agregar estas 3 al .env local para que renovar_cookies_carrefour.py
+  actualice Railway automaticamente cada vez que renueva localmente.
 """
 import json
 import os

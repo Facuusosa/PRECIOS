@@ -389,8 +389,9 @@ def precios_validos(data):
 
 def encontrar_mejor(directorio, patron, max_check=8):
     """
-    Evalua los ultimos max_check archivos y elige el mejor por:
-      score = productos_con_precio_valido (>$200)
+    Evalua los ultimos max_check archivos y elige el mejor por recencia + score.
+    Regla: si el archivo mas reciente tiene un score dentro del 5% del maximo,
+    gana el mas reciente (no el que tiene 2 productos mas de un dia viejo).
     Descarta archivos con precio promedio < $200 (bug x1000).
     """
     archivos = sorted(
@@ -401,10 +402,8 @@ def encontrar_mejor(directorio, patron, max_check=8):
     if not archivos:
         return None, []
 
-    mejor_archivo = None
-    mejor_data    = []
-    mejor_score   = -1
-
+    scores = []
+    datos  = []
     for f in archivos:
         try:
             with open(f, encoding="utf-8") as fh:
@@ -418,23 +417,31 @@ def encontrar_mejor(directorio, patron, max_check=8):
                 for p in data:
                     if 0 < p.get("precio", 0) < 100:
                         p["precio"] = round(p["precio"] * 100, 2)
-            score = precios_validos(data)
-            if score > mejor_score:
-                mejor_score   = score
-                mejor_archivo = f
-                mejor_data    = data
+            scores.append(precios_validos(data))
+            datos.append((f, data))
         except Exception:
-            pass
+            scores.append(-1)
+            datos.append((f, []))
 
-    return mejor_archivo, mejor_data
+    max_score = max(scores) if scores else 0
+    umbral    = max_score * 0.95  # 5% de tolerancia para preferir recencia
+
+    # El primer archivo de la lista ya es el mas reciente (sorted por mtime desc)
+    for i, (f, data) in enumerate(datos):
+        if scores[i] >= umbral:
+            return f, data
+
+    return datos[0][0], datos[0][1]
 
 
 def cargar_yaguar():
     """
     Combina los últimos max_check archivos de Yaguar por SKU único.
     Para cada SKU, usa el producto del archivo más reciente con precio válido (>$200).
-    Esto maximiza la cobertura de productos sin requerir scraping perfecto en cada run.
+    Regla de frescura: SKUs que solo aparecen en archivos >30 dias se descartan —
+    si Yaguar no lo scrapeo en un mes, probablemente ya no lo tiene.
     """
+    from datetime import datetime as _dt
     archivos = sorted(
         glob.glob(os.path.join(YAGUAR_DIR, "output_yaguar_*.json")),
         key=os.path.getmtime, reverse=True
@@ -444,11 +451,17 @@ def cargar_yaguar():
         print("  [SKIP] No se encontró output de Yaguar")
         return []
 
-    sku_to_mejor = {}
+    hoy_ts = _dt.now().timestamp()
+    LIMITE_DIAS = 30
+    LIMITE_TS   = hoy_ts - LIMITE_DIAS * 86400
+
+    sku_to_mejor  = {}
+    sku_tiene_reciente = set()  # SKUs vistos en archivos de <= 30 dias
     archivos_validos = 0
 
     for f in archivos:
         try:
+            es_reciente = os.path.getmtime(f) >= LIMITE_TS
             with open(f, encoding="utf-8") as fh:
                 data = json.load(fh)
             if not data:
@@ -468,6 +481,8 @@ def cargar_yaguar():
                 precio = p.get("precio", 0)
                 if not sku or precio <= 0:
                     continue
+                if es_reciente:
+                    sku_tiene_reciente.add(sku)
                 existing = sku_to_mejor.get(sku)
                 if existing is None:
                     sku_to_mejor[sku] = p
@@ -484,21 +499,73 @@ def cargar_yaguar():
         except Exception:
             pass
 
+    # Descartar SKUs que solo aparecen en archivos viejos (>30 dias)
+    skus_descartados = [s for s in sku_to_mejor if s not in sku_tiene_reciente]
+    for s in skus_descartados:
+        del sku_to_mejor[s]
+
     combined = list(sku_to_mejor.values())
     con_precio = precios_validos(combined)
-    print(f"  Yaguar: {archivos_validos} archivos combinados -> {len(combined)} prods únicos ({con_precio} válidos)")
+    if skus_descartados:
+        print(f"  Yaguar: {archivos_validos} archivos combinados -> {len(combined)} prods únicos ({con_precio} válidos) | {len(skus_descartados)} SKUs viejos descartados (>30 dias sin aparecer)")
+    else:
+        print(f"  Yaguar: {archivos_validos} archivos combinados -> {len(combined)} prods únicos ({con_precio} válidos)")
     return combined
+
+
+def _fallback_mc_desde_catalogo():
+    # Cuando el scraper de MC falla en Railway (container efimero, sin outputs previos),
+    # lee el catalogo_unificado.json ya commiteado y reconstruye los productos de MC.
+    # Usa fecha de hoy para que el sistema de stale-detection no los marque de inmediato.
+    catalogo_path = os.path.join(
+        BASE_DIR, "BRUJULA-DE-PRECIOS", "data", "processed", "catalogo_unificado.json"
+    )
+    if not os.path.exists(catalogo_path):
+        print("  [MC-FALLBACK] No hay catalogo previo disponible - MC queda vacio")
+        return []
+    try:
+        with open(catalogo_path, encoding="utf-8") as f:
+            catalogo = json.load(f)
+    except Exception as e:
+        print(f"  [MC-FALLBACK] Error leyendo catalogo previo: {e}")
+        return []
+
+    hoy = datetime.now().strftime("%Y-%m-%d")
+    reconstruidos = []
+    fecha_original = ""
+    for prod in catalogo:
+        precio_mc = prod.get("precios", {}).get("maxicarrefour", 0)
+        if not precio_mc or precio_mc <= 0:
+            continue
+        fuente = prod.get("fuentes", {}).get("maxicarrefour", {})
+        if not fecha_original:
+            fecha_original = fuente.get("fecha_scraping", "?")
+        reconstruidos.append({
+            "ean":             prod.get("ean") or prod.get("id_unificado", ""),
+            "nombre":          fuente.get("nombre") or prod.get("nombre_display", ""),
+            "precio":          precio_mc,
+            "link":            fuente.get("link", ""),
+            "imagen":          fuente.get("imagen", prod.get("imagen", "")),
+            "sector":          prod.get("sector", ""),
+            "fecha_scraping":  hoy,
+            "fallback_fuente": fecha_original,
+            "stock":           True,
+        })
+
+    print(f"  [MC-FALLBACK] {len(reconstruidos)} productos del catalogo anterior (scraping original: {fecha_original})")
+    return reconstruidos
 
 
 def cargar_maxicarrefour():
     archivo, data = encontrar_mejor(MAXICARRE_DIR, "output_maxicarrefour_*.json")
     if not archivo:
-        print("  [SKIP] No se encontró output de MaxiCarrefour")
-        return []
+        print("  [SKIP] No se encontro output de MaxiCarrefour - activando fallback")
+        return _fallback_mc_desde_catalogo()
     con_precio = sum(1 for p in data if p.get("precio", 0) > 0)
     print(f"  MaxiCarrefour: {os.path.basename(archivo)} -> {len(data)} productos ({con_precio} con precio)")
     if con_precio == 0:
-        print("  [WARN] Todos los precios son 0 - cookies probablemente vencidas")
+        print("  [WARN] Todos los precios son 0 - cookies vencidas - activando fallback")
+        return _fallback_mc_desde_catalogo()
     return data
 
 
@@ -845,7 +912,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
 
         entry = nuevo_producto(ean, ean, nombre_display, imagen_mc, sector, subcategoria, abc)
         entry["precios"]["maxicarrefour"] = precio
-        entry["fuentes"]["maxicarrefour"] = {"nombre": nombre, "imagen": imagen_mc, "link": _carrefour_search_link(ean), "fecha_scraping": p.get("fecha_scraping", "")}
+        entry["fuentes"]["maxicarrefour"] = {"nombre": nombre, "imagen": imagen_mc, "link": _carrefour_search_link(ean), "fecha_scraping": p.get("fecha_scraping") or p.get("fecha", "")}
 
         # Buscar Yaguar via mapa inverso EAN->SKU
         yag_sku = ean_to_yag_sku.get(ean)
@@ -924,7 +991,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         if ean and ean in catalogo:
             # El EAN ya existe en catálogo (poco probable, pero por si acaso)
             catalogo[ean]["precios"]["yaguar"] = precio
-            catalogo[ean]["fuentes"]["yaguar"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", ""), "fecha_scraping": p.get("fecha_scraping", "")}
+            catalogo[ean]["fuentes"]["yaguar"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", ""), "fecha_scraping": p.get("fecha_scraping") or p.get("fecha", "")}
             if not catalogo[ean]["imagen"] or _es_placeholder(catalogo[ean]["imagen"]):
                 catalogo[ean]["imagen"] = mejor_imagen([imagen, catalogo[ean]["imagen"]])
             if ean in nombre_norm_to_ean.values():
@@ -940,7 +1007,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 stats_yag["nuevo"] += 1
 
             catalogo[prod_id]["precios"]["yaguar"] = precio
-            catalogo[prod_id]["fuentes"]["yaguar"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", ""), "fecha_scraping": p.get("fecha_scraping", "")}
+            catalogo[prod_id]["fuentes"]["yaguar"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", ""), "fecha_scraping": p.get("fecha_scraping") or p.get("fecha", "")}
             if ean:
                 stats_yag["match_nombre_maestro"] += 1
 
@@ -984,7 +1051,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         if ean and ean in catalogo:
             # EAN ya en catálogo
             catalogo[ean]["precios"]["maxiconsumo"] = precio
-            catalogo[ean]["fuentes"]["maxiconsumo"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", ""), "fecha_scraping": p.get("fecha_scraping", "")}
+            catalogo[ean]["fuentes"]["maxiconsumo"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", ""), "fecha_scraping": p.get("fecha_scraping") or p.get("fecha", "")}
             if not catalogo[ean]["imagen"] or _es_placeholder(catalogo[ean]["imagen"]):
                 catalogo[ean]["imagen"] = mejor_imagen([imagen, catalogo[ean]["imagen"]])
             stats_mco["match_ean_catalogo"] += 1
@@ -996,7 +1063,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         if clave in yag_clave_a_id:
             prod_id = yag_clave_a_id[clave]
             catalogo[prod_id]["precios"]["maxiconsumo"] = precio
-            catalogo[prod_id]["fuentes"]["maxiconsumo"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", ""), "fecha_scraping": p.get("fecha_scraping", "")}
+            catalogo[prod_id]["fuentes"]["maxiconsumo"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", ""), "fecha_scraping": p.get("fecha_scraping") or p.get("fecha", "")}
             if not catalogo[prod_id]["imagen"]:
                 catalogo[prod_id]["imagen"] = imagen
             stats_mco["match_nombre_yaguar"] += 1
@@ -1011,7 +1078,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             stats_mco["nuevo"] += 1
 
         catalogo[prod_id]["precios"]["maxiconsumo"] = precio
-        catalogo[prod_id]["fuentes"]["maxiconsumo"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", "")}
+        catalogo[prod_id]["fuentes"]["maxiconsumo"] = {"nombre": nombre, "imagen": imagen, "sku": sku, "link": p.get("link", ""), "fecha_scraping": p.get("fecha_scraping") or p.get("fecha", "")}
         mco_merged.add(sku)
 
     print(f"  Maxiconsumo (restantes): {stats_mco['nuevo']} nuevos, "
@@ -1283,15 +1350,18 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             continue
         vals = list(precios_activos.values())
         mediana = sorted(vals)[len(vals) // 2]
+        min_val = min(vals)
         for fuente, precio in list(precios_activos.items()):
-            # Outlier hacia abajo: precio < mediana/4 (más de 4x más barato que la mediana)
-            if precio < mediana / 4 and mediana > 800:
+            # Outlier hacia abajo: solo con 3+ precios para evitar descartar el precio
+            # correcto cuando el outlier alto (ej. Yaguar display) distorsiona la mediana.
+            if len(vals) >= 3 and precio < mediana / 4 and mediana > 800:
                 p["precios"][fuente] = 0
                 if fuente in p["fuentes"]:
                     del p["fuentes"][fuente]
                 precios_descartados += 1
-            # Outlier hacia arriba: precio > mediana*7 (posible Yaguar en centavos u otro error)
-            elif precio > mediana * 7 and mediana > 0:
+            # Outlier hacia arriba: usa min_val como referencia (50x cubre displays/cajas
+            # de 500-1300x sin afectar variaciones legítimas entre mayoristas de < 5x).
+            elif precio > min_val * 50 and min_val > 0:
                 p["precios"][fuente] = 0
                 if fuente in p["fuentes"]:
                     del p["fuentes"][fuente]
@@ -1546,8 +1616,23 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
     #   incompatibles con el "ancla" (MC > Yaguar > MCO), la elimina.
     #   Sólo actúa cuando hay diferencia > 2x para evitar falsos positivos
     #   en variantes con nombres levemente distintos (ej. 950ml vs 930ml).
+    #
+    #   Sub-filtro de pack NxM: si una fuente usa formato "N x M unidad"
+    #   (ej. "32UNX13GR", "24X10 GR") y el ancla no, son unidades distintas
+    #   (pack vs unidad individual) -> eliminar esa fuente directamente.
     # ------------------------------------------------------------------
     _QTY_RE = re.compile(r"(\d+)(?:ml|gr|kg|un|cc)\b|\b(\d{2,5})\b")
+    # Patron de pack multiplo: N (UN opcionalmente) x M unidad
+    # Ejemplos: '32UNX13GR', '24X10 GR', '6X1L', '12X500ML'
+    _PACK_NxM_RE = re.compile(
+        r"(\d+)\s*(?:[uU][nN])?\s*[xX]\s*(\d+)\s*"
+        r"(?:[gG][rR]?[sS]?|[mM][lL]|[cC][cC]|[kK][gG]|[lL][tT]?[sS]?)",
+        re.IGNORECASE
+    )
+
+    def _tiene_pack_nxm(nombre_crudo):
+        """True si el nombre contiene formato pack multiplo (NxM con unidad)."""
+        return bool(_PACK_NxM_RE.search(nombre_crudo or ""))
 
     def _src_nums(nombre):
         """Extrae numeros de cantidad del nombre crudo de una fuente."""
@@ -1580,6 +1665,30 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         ancla_nombre = fuentes.get(ancla, {}).get("nombre", "")
         if not ancla_nombre:
             continue
+
+        ancla_es_pack = _tiene_pack_nxm(ancla_nombre)
+
+        for fuente in list(precios_activos.keys()):
+            if fuente == ancla:
+                continue
+            src_nombre = fuentes.get(fuente, {}).get("nombre", "")
+            if not src_nombre:
+                continue
+
+            # Sub-filtro pack NxM: si una fuente es pack y la otra no -> mismatch
+            src_es_pack = _tiene_pack_nxm(src_nombre)
+            if src_es_pack != ancla_es_pack:
+                p["precios"][fuente] = 0
+                if fuente in p["fuentes"]:
+                    del p["fuentes"][fuente]
+                fuentes_eliminadas_6d += 1
+                continue
+
+        # Re-leer precios activos tras el filtro de pack (puede haber cambiado)
+        precios_activos = {k: v for k, v in p["precios"].items() if v > 0}
+        if len(precios_activos) < 2:
+            continue
+
         ancla_nums = _src_nums(ancla_nombre)
         if not ancla_nums:
             continue  # ancla sin info de cantidad: no validar
@@ -1595,7 +1704,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             src_nums = _src_nums(src_nombre)
             if not src_nums:
                 continue  # fuente sin cantidad: no sancionar
-            # Si no comparten ningún número Y la diferencia máxima es > 2x → mismatch
+            # Si no comparten ningún número Y la diferencia máxima es > 2x -> mismatch
             if not (ancla_nums & src_nums):
                 src_max = max(src_nums)
                 ratio = max(ancla_max, src_max) / max(1, min(ancla_max, src_max))
@@ -1624,12 +1733,13 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             continue
         vals = list(precios_activos.values())
         mediana = sorted(vals)[len(vals) // 2]
+        min_val = min(vals)
         for fuente, precio in list(precios_activos.items()):
-            if precio < mediana / 2.5 and mediana > 800:
+            if len(vals) >= 3 and precio < mediana / 2.5 and mediana > 800:
                 p["precios"][fuente] = 0
                 p["fuentes"].pop(fuente, None)
                 post_descartados += 1
-            elif precio > mediana * 7 and mediana > 0:
+            elif precio > min_val * 50 and min_val > 0:
                 p["precios"][fuente] = 0
                 p["fuentes"].pop(fuente, None)
                 post_descartados += 1
@@ -1674,6 +1784,52 @@ def main():
         ean_to_master, nombre_norm_to_ean,
         ean_to_familia,
     )
+
+    # ------ ABC fallback algorítmico ------
+    # Productos sin ABC del Maestro → clasificar por precio promedio (percentiles 30/40/30).
+    # abc_fuente="calculado" distingue estos del Maestro para análisis posterior.
+    sin_abc = [p for p in catalogo if not p.get("abc")]
+    if sin_abc:
+        precios_prom = []
+        for p in sin_abc:
+            vals = [v for v in p["precios"].values() if v > 0]
+            if vals:
+                precios_prom.append((p, sum(vals) / len(vals)))
+        precios_prom.sort(key=lambda x: x[1])
+        n = len(precios_prom)
+        for i, (p, _) in enumerate(precios_prom):
+            if i >= n * 0.7:
+                p["abc"] = "A"
+            elif i >= n * 0.3:
+                p["abc"] = "B"
+            else:
+                p["abc"] = "C"
+            p["abc_fuente"] = "calculado"
+        abc_calc_total = len(precios_prom)
+        print(f"  ABC fallback calculado:       {abc_calc_total} productos sin clasificacion Maestro")
+
+    # Marcar precios stale (fuente con fecha_scraping >30 dias)
+    from datetime import date as _date
+    hoy = _date.today()
+    _mayoristas = ("yaguar", "maxicarrefour", "maxiconsumo")
+    precios_stale = 0
+    for p in catalogo:
+        fuentes = p.get("fuentes", {})
+        for mayorista in _mayoristas:
+            fuente = fuentes.get(mayorista, {})
+            fecha_str = fuente.get("fecha_scraping", "")
+            if fecha_str:
+                try:
+                    fecha = _date.fromisoformat(fecha_str)
+                    dias = (hoy - fecha).days
+                    if dias > 30:
+                        fuente["precio_stale"] = True
+                        fuente["dias_desde_scraping"] = dias
+                        precios_stale += 1
+                except ValueError:
+                    pass
+    if precios_stale:
+        print(f"  Precios stale (>30 dias):     {precios_stale}")
 
     # Stats
     con_yag  = sum(1 for p in catalogo if p["precios"]["yaguar"] > 0)
