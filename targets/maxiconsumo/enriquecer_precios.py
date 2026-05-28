@@ -12,7 +12,7 @@ Si no se pasa archivo, usa el mas reciente output_maxiconsumo*.json
 """
 
 import os, sys, json, re, time, glob, threading
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from curl_cffi import requests as curl_requests
 from bs4 import BeautifulSoup
@@ -25,6 +25,10 @@ WORKERS   = 6     # 6 workers — curl_cffi impersonation aguanta mas sin ser de
 DELAY     = 0.1   # delay por worker — 6 workers x 0.1s = ~0.017s efectivo global
 SAVE_EACH = 200
 IMPERSONATE = "safari15_3"
+
+PRECIO_MIN     = 100
+PRECIO_MAX     = 500_000
+PRECIO_TTL_DIAS = 7   # precios se re-consultan si tienen >7 dias; EANs son permanentes
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Safari/605.1.15",
@@ -79,6 +83,29 @@ def extraer_ean_detalle(html: str) -> str:
     return ""
 
 
+def _extraer_precio_bulto_cerrado(soup) -> float:
+    # Estructura real de Maxiconsumo:
+    # <span class="price-label">Precio unitario por bulto cerrado</span>
+    # <span class="price-wrapper price-including-tax" data-label="con iva">
+    #   <span class="price">$\xa02.149,89</span>
+    # </span>
+    label = soup.find("span", class_="price-label",
+                      string=re.compile(r"bulto cerrado", re.IGNORECASE))
+    if label:
+        container = label.parent  # span.price-container
+        wrapper = container.find("span", class_="price-including-tax") if container else None
+        price_span = wrapper.find("span", class_="price") if wrapper else None
+        if price_span:
+            # Formato argentino: "$\xa02.149,89" -> 2149.89
+            txt = re.sub(r"[^\d,]", "", price_span.get_text(strip=True))
+            txt = txt.replace(",", ".")
+            try:
+                return float(txt)
+            except ValueError:
+                pass
+    return 0.0
+
+
 def extraer_precio_detalle(session, url: str) -> tuple[float, str]:
     try:
         r = session.get(url, impersonate=IMPERSONATE, timeout=20)
@@ -87,12 +114,20 @@ def extraer_precio_detalle(session, url: str) -> tuple[float, str]:
         html = r.text
         soup = BeautifulSoup(html, "html.parser")
         precio = 0.0
-        meta = soup.find("meta", property="product:price:amount")
-        if meta and meta.get("content"):
-            try:
-                precio = float(meta["content"])
-            except ValueError:
-                pass
+
+        # Prioridad 1: precio de bulto cerrado (correcto para productos multi-unidad)
+        precio = _extraer_precio_bulto_cerrado(soup)
+
+        # Prioridad 2: meta tag (correcto para productos de unidad individual)
+        if not precio:
+            meta = soup.find("meta", property="product:price:amount")
+            if meta and meta.get("content"):
+                try:
+                    precio = float(meta["content"])
+                except ValueError:
+                    pass
+
+        # Prioridad 3: JSON de Magento con finalPrice
         if not precio:
             for s in soup.find_all("script", type="text/x-magento-init"):
                 txt = s.get_text()
@@ -101,6 +136,7 @@ def extraer_precio_detalle(session, url: str) -> tuple[float, str]:
                     if m:
                         precio = float(m.group(1))
                         break
+
         ean = extraer_ean_detalle(html)
         return precio, ean
     except Exception:
@@ -115,6 +151,18 @@ def _procesar_uno(idx: int, producto: dict) -> tuple[int, float, str]:
     precio, ean = extraer_precio_detalle(session, url)
     time.sleep(DELAY)
     return idx, precio, ean
+
+
+def _precio_vigente(entrada: dict) -> bool:
+    """El precio del cache es usable solo si tiene menos de PRECIO_TTL_DIAS dias."""
+    fecha_str = entrada.get("fecha_precio", "")
+    if not fecha_str:
+        return False  # sin fecha = precio sin TTL del cache viejo -> forzar re-consulta
+    try:
+        fecha = date.fromisoformat(fecha_str)
+        return (date.today() - fecha).days < PRECIO_TTL_DIAS
+    except ValueError:
+        return False
 
 
 def cargar_cache() -> dict:
@@ -144,16 +192,23 @@ def main():
 
     cache = cargar_cache()
     cache_hits = 0
+    precios_expirados = 0
     for p in productos:
         sku = p.get("sku", "")
         if sku and sku in cache:
             entrada = cache[sku]
-            if not p.get("precio") and entrada.get("precio"):
-                p["precio"] = entrada["precio"]
+            # EAN: permanente, no expira nunca
             if not p.get("ean") and entrada.get("ean"):
                 p["ean"] = entrada["ean"]
-            cache_hits += 1
-    print(f"Cache: {len(cache)} SKUs guardados, {cache_hits} aplicados", flush=True)
+            # Precio: solo si tiene fecha y es reciente
+            precio_cache = entrada.get("precio", 0)
+            if not p.get("precio") and PRECIO_MIN <= precio_cache <= PRECIO_MAX:
+                if _precio_vigente(entrada):
+                    p["precio"] = precio_cache
+                    cache_hits += 1
+                else:
+                    precios_expirados += 1  # sera re-consultado
+    print(f"Cache: {len(cache)} SKUs | precios vigentes aplicados: {cache_hits} | expirados (re-consultar): {precios_expirados}", flush=True)
 
     sin_precio = [i for i, p in enumerate(productos) if not p.get("precio") or p["precio"] == 0]
     sin_ean = [i for i, p in enumerate(productos) if not p.get("ean")]
@@ -192,7 +247,7 @@ def main():
             p = productos[idx]
             with lock:
                 contador += 1
-                if precio > 0:
+                if PRECIO_MIN <= precio <= PRECIO_MAX:
                     productos[idx]["precio"] = precio
                     precios_actualizados += 1
                 if ean:
@@ -203,9 +258,14 @@ def main():
 
                 sku = p.get("sku", "")
                 if sku:
+                    entrada_vieja = cache.get(sku, {})
+                    precio_valido = precio if PRECIO_MIN <= precio <= PRECIO_MAX else 0
                     cache[sku] = {
-                        "precio": precio if precio > 0 else cache.get(sku, {}).get("precio", 0),
-                        "ean": ean or cache.get(sku, {}).get("ean", ""),
+                        # Precio nuevo con fecha de hoy; si no hubo precio, preservar el viejo solo si sigue vigente
+                        "precio": precio_valido or (entrada_vieja.get("precio", 0) if _precio_vigente(entrada_vieja) else 0),
+                        "fecha_precio": date.today().isoformat() if precio_valido else entrada_vieja.get("fecha_precio", ""),
+                        # EAN permanente: tomar el nuevo si existe, sino preservar el viejo
+                        "ean": ean or entrada_vieja.get("ean", ""),
                     }
 
                 if contador <= 5 or contador % 200 == 0:
