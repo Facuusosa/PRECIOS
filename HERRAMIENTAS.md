@@ -230,6 +230,18 @@ Los agentes son subagentes que corren fuera del contexto principal. Consumen má
 
 ---
 
+## SKILLS DE DISEÑO INSTALADAS (09/06/2026)
+
+### emil-design-eng (skill — invocable como /emil-design-eng)
+**Qué hace:** Filosofía de Emil Kowalski (creador de Sonner/Vaul) con números exactos: animaciones <300ms, easing custom `cubic-bezier(0.23,1,0.32,1)`, nunca ease-in, press `scale(0.97)` 160ms, stagger 30-80ms, prefers-reduced-motion siempre.
+**Cuándo:** SIEMPRE que se escriba o revise una animación/transición/micro-interacción.
+
+### impeccable (skill — invocable como /impeccable)
+**Qué hace:** 23 comandos de polish de diseño de Paul Bakaus (36.8k stars). Crítica de jerarquía, ruido visual, anti-patrones de IA, accesibilidad, estados vacíos.
+**Cuándo:** Auditoría de calidad visual de una vista antes de darla por terminada.
+
+---
+
 ## ROLES DE CLAUDE — Cuándo se activan
 
 | Rol | Se activa cuando... | Podés pedirlo con... |

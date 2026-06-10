@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brújula — Propuesta Perfil</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --gray: #808080;
+    --line: #ececec;
+    --plate: #f6f5f3;
+    --gold: #c89055;
+    --green: #15803d;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #d9d9d9;
+    font-family: 'Poppins', sans-serif;
+    color: var(--ink);
+    display: flex; justify-content: center;
+    padding: 24px 0;
+  }
+  .phone { width: 390px; background: #fff; min-height: 100dvh; }
+  .num { font-variant-numeric: tabular-nums; }
+  a { color: inherit; text-decoration: none; }
+
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  .anim { opacity: 0; transform: translateY(10px); animation: rise 380ms var(--ease-out) forwards; }
+  .pressable { transition: transform 160ms var(--ease-out); cursor: pointer; }
+  .pressable:active { transform: scale(0.97); }
+  @media (prefers-reduced-motion: reduce) {
+    .anim { transform: none; animation-duration: 150ms; }
+    .pressable:active { transform: none; }
+  }
+
+  header { display: flex; align-items: center; gap: 14px; padding: 16px 20px 10px; }
+  .burger { display: flex; flex-direction: column; gap: 5px; }
+  .burger i { display: block; width: 22px; height: 2.5px; background: var(--ink); border-radius: 2px; }
+  .wordmark { display: flex; align-items: center; gap: 8px; flex: 1; }
+  .wordmark .sq { width: 34px; height: 34px; display: flex; }
+  .wordmark .sq svg { width: 100%; height: 100%; }
+  .wordmark .t { font-size: 18.5px; font-weight: 700; letter-spacing: -0.4px; white-space: nowrap; }
+  .wordmark .t span { color: #9a9a9a; font-weight: 400; font-size: 15.5px; }
+  .head-icons { display: flex; gap: 16px; color: var(--ink); }
+  .head-icons svg { width: 22px; height: 22px; }
+
+  /* Header rico — identidad + valor recibido */
+  .me { display: flex; align-items: center; gap: 16px; padding: 20px 20px 0; }
+  .avatar {
+    width: 60px; height: 60px; border-radius: 999px;
+    background: var(--plate);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 25px; font-weight: 600; color: var(--gold);
+    flex-shrink: 0;
+  }
+  .me h1 { font-size: 21.4px; font-weight: 600; letter-spacing: -0.3px; }
+  .me .sub { font-size: 12.5px; color: var(--gray); font-weight: 300; margin-top: 1px; }
+  .me .plan {
+    display: inline-flex; margin-top: 6px;
+    background: #111; color: #fff;
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em;
+    border-radius: 999px; padding: 3px 11px;
+  }
+  .stats { display: flex; gap: 10px; padding: 18px 20px 0; }
+  .stat {
+    flex: 1;
+    background: var(--plate); border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .stat .v { font-size: 17px; font-weight: 600; white-space: nowrap; }
+  .stat .v.green { color: var(--green); }
+  .stat .l { font-size: 10px; color: var(--gray); font-weight: 400; margin-top: 1px; line-height: 1.3; }
+
+  /* Banner de upgrade — lleva a la pantalla de planes */
+  .up-banner {
+    margin: 18px 20px 0;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    border: 1.5px solid var(--gold); border-radius: 12px;
+    padding: 14px 16px;
+    background: linear-gradient(100deg, rgba(200,144,85,0.07), transparent 70%);
+  }
+  .up-banner .t { font-size: 13.5px; font-weight: 600; line-height: 1.35; }
+  .up-banner .s { font-size: 11.5px; color: var(--gray); font-weight: 300; margin-top: 2px; }
+  .up-banner .go {
+    flex-shrink: 0;
+    width: 34px; height: 34px; border-radius: 99px;
+    background: var(--gold); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .up-banner .go svg { width: 16px; height: 16px; }
+
+  /* Grupos estilo iOS Settings */
+  .group-label {
+    padding: 28px 20px 8px;
+    font-size: 10.7px; font-weight: 600; letter-spacing: 0.14em;
+    color: var(--gray); text-transform: uppercase;
+  }
+  .group { margin: 0 20px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .gr {
+    display: flex; align-items: center; gap: 12px;
+    min-height: 54px;
+    padding: 8px 16px;
+    border-bottom: 1px solid #f4f4f4;
+    background: #fff;
+  }
+  .gr:last-child { border-bottom: none; }
+  .gr .ic { width: 20px; height: 20px; color: var(--ink); flex-shrink: 0; }
+  .gr .ic.lock { color: var(--gray); }
+  .gr .ic.gold { color: var(--gold); }
+  .gr .tx { flex: 1; min-width: 0; }
+  .gr .t { font-size: 14px; font-weight: 400; }
+  .gr .s { font-size: 11px; color: var(--gray); font-weight: 300; margin-top: 1px; }
+  .gr .val { font-size: 13px; color: var(--gray); font-weight: 300; }
+  .gr .chev { width: 16px; height: 16px; color: #c0c0c0; flex-shrink: 0; }
+  .gr .logo-chip {
+    width: 56px; height: 24px; border-radius: 5px;
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .gr .logo-chip img { max-width: 46px; max-height: 15px; object-fit: contain; }
+  .pro-pill {
+    font-size: 9.5px; font-weight: 600; letter-spacing: 0.08em;
+    color: var(--gold); border: 1px solid var(--gold);
+    border-radius: 999px; padding: 2px 8px;
+    flex-shrink: 0;
+  }
+  .switch { width: 44px; height: 26px; border-radius: 99px; background: #e2e2e2; position: relative; flex-shrink: 0; transition: background 200ms ease; }
+  .switch::after {
+    content: ''; position: absolute; top: 3px; left: 3px;
+    width: 20px; height: 20px; border-radius: 99px; background: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    transition: transform 200ms var(--ease-out);
+  }
+  .switch.on { background: var(--green); }
+  .switch.on::after { transform: translateX(18px); }
+  .switch.off-locked { opacity: 0.45; }
+
+  .danger-zone { padding: 30px 20px 0; }
+  .danger-zone .del { font-size: 13px; color: #b91c1c; font-weight: 400; }
+  .danger-zone .ver { font-size: 11px; color: #bbb; margin-top: 8px; }
+
+  .foot-pad { height: 40px; }
+
+  .navbar {
+    position: sticky; bottom: 0;
+    display: flex;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+    padding: 10px 0 14px;
+  }
+  .navbar .it { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 10.5px; color: var(--gray); font-weight: 500; }
+  .navbar .it svg { width: 22px; height: 22px; }
+  .navbar .it.on { color: var(--ink); }
+  .navbar .it.on::after { content: ''; width: 4px; height: 4px; border-radius: 99px; background: var(--gold); margin-top: 1px; }
+
+  /* Desktop: una sola columna centrada, liviana */
+  @media (min-width: 1000px) {
+    body { background: #fff; padding: 0; display: block; }
+    .phone { width: 100%; max-width: 700px; margin: 0 auto; padding: 0 20px; }
+    .navbar { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <header class="anim">
+    <div class="burger"><i></i><i></i><i></i></div>
+    <div class="wordmark">
+      <div class="sq">
+        <svg viewBox="0 0 64 64">
+          <rect width="64" height="64" rx="15" fill="#1a1a1a"/>
+          <text x="32" y="44" text-anchor="middle" font-family="Poppins, sans-serif" font-size="36" font-weight="700" fill="#fff">B</text>
+          <g transform="translate(46 18) rotate(45)"><path d="M0,-9 L4,0 L0,2.5 L-4,0 Z" fill="#c89055"/><path d="M0,9 L4,0 L0,2.5 L-4,0 Z" fill="#c89055" opacity="0.45"/></g>
+        </svg>
+      </div>
+      <div class="t">Brújula <span>de precios</span></div>
+    </div>
+    <div class="head-icons">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+    </div>
+  </header>
+
+  <div class="me anim" style="animation-delay: 50ms">
+    <div class="avatar">F</div>
+    <div>
+      <h1>Facundo</h1>
+      <div class="sub">Kiosco · Buenos Aires</div>
+      <span class="plan">PLAN FREE</span>
+    </div>
+  </div>
+
+  <div class="stats anim" style="animation-delay: 100ms">
+    <div class="stat">
+      <div class="v num">142</div>
+      <div class="l">productos comparados</div>
+    </div>
+    <div class="stat">
+      <div class="v green num">$ 48.300</div>
+      <div class="l">ahorro encontrado este mes</div>
+    </div>
+    <div class="stat">
+      <div class="v num">2</div>
+      <div class="l">listas activas</div>
+    </div>
+  </div>
+
+  <a href="propuesta-planes.html">
+    <div class="up-banner pressable anim" style="animation-delay: 150ms">
+      <div>
+        <div class="t">Te estás perdiendo el más barato</div>
+        <div class="s">Maxiconsumo tuvo el mejor precio en 38 de tus productos</div>
+      </div>
+      <span class="go">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <div class="group-label anim" style="animation-delay: 180ms">Mi negocio</div>
+  <div class="group anim" style="animation-delay: 180ms">
+    <div class="gr pressable">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+      <div class="tx"><div class="t">Nombre</div></div>
+      <span class="val">Facundo</span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+    </div>
+    <div class="gr pressable">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 9.5 5 4h14l2 5.5M4 9.5V20h16V9.5M9 20v-6h6v6"/></svg>
+      <div class="tx"><div class="t">Rubro</div></div>
+      <span class="val">Kiosco</span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+    </div>
+    <a href="propuesta-planes.html">
+    <div class="gr pressable">
+      <svg class="ic gold" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="m12 3 2.5 5.5L20 9l-4 4 1 5.5-5-2.7-5 2.7 1-5.5-4-4 5.5-.5L12 3z"/></svg>
+      <div class="tx"><div class="t">Mi plan</div><div class="s">Gratis · 2 de 3 mayoristas</div></div>
+      <span class="pro-pill">VER PLANES</span>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+    </div>
+    </a>
+    <div class="gr pressable">
+      <svg class="ic lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+      <div class="tx"><div class="t">Email y contraseña</div><div class="s">Accedé desde cualquier dispositivo</div></div>
+      <span class="pro-pill">PRO</span>
+    </div>
+  </div>
+
+  <div class="group-label anim" style="animation-delay: 210ms">Mis mayoristas</div>
+  <div class="group anim" style="animation-delay: 210ms">
+    <div class="gr">
+      <span class="logo-chip"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/maxicarrefour.jpg" alt="MaxiCarrefour"></span>
+      <div class="tx"><div class="t">MaxiCarrefour</div><div class="s num">Actualizado hace 2 días</div></div>
+      <span class="switch on pressable"></span>
+    </div>
+    <div class="gr">
+      <span class="logo-chip"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/yaguar.png" alt="Yaguar"></span>
+      <div class="tx"><div class="t">Yaguar</div><div class="s num">Actualizado hace 2 días</div></div>
+      <span class="switch on pressable"></span>
+    </div>
+    <div class="gr">
+      <span class="logo-chip"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/maxiconsumo.webp" alt="Maxiconsumo"></span>
+      <div class="tx"><div class="t">Maxiconsumo</div><div class="s">Desbloquealo con PRO</div></div>
+      <span class="pro-pill">PRO</span>
+      <span class="switch off-locked"></span>
+    </div>
+  </div>
+
+  <div class="group-label anim" style="animation-delay: 240ms">Avisos</div>
+  <div class="group anim" style="animation-delay: 240ms">
+    <div class="gr">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 9a6 6 0 1 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21a2 2 0 0 0 4 0"/></svg>
+      <div class="tx"><div class="t">Avisarme de bombas nuevas</div><div class="s">Cuando un producto tuyo baje fuerte</div></div>
+      <span class="switch on pressable"></span>
+    </div>
+  </div>
+
+  <div class="group-label anim" style="animation-delay: 270ms">Ayuda</div>
+  <div class="group anim" style="animation-delay: 270ms">
+    <div class="gr pressable">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.6 8.6 0 0 1-3.9-.9L3 20l1-4.9a8.4 8.4 0 1 1 17-3.6z"/></svg>
+      <div class="tx"><div class="t">Sugerir un producto o mayorista</div><div class="s">Por WhatsApp, te respondemos en el día</div></div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+    </div>
+    <div class="gr pressable">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M9.2 9a3 3 0 0 1 5.8 1c0 2-3 2.4-3 4"/><circle cx="12" cy="17.5" r="0.5" fill="currentColor"/></svg>
+      <div class="tx"><div class="t">Cómo funcionan los precios</div><div class="s">De dónde salen y cada cuánto se actualizan</div></div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+    </div>
+    <div class="gr pressable">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 2h9l5 5v15H6V2z"/><path d="M14 2v6h6"/></svg>
+      <div class="tx"><div class="t">Términos y privacidad</div></div>
+      <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 6 6 6-6 6"/></svg>
+    </div>
+  </div>
+
+  <div class="danger-zone anim" style="animation-delay: 300ms">
+    <div class="del pressable">Borrar mis datos de este dispositivo</div>
+    <div class="ver num">Brújula de precios · v1.0 · datos actualizados 09/06/2026</div>
+  </div>
+
+  <div class="foot-pad"></div>
+
+  <nav class="navbar">
+    <div class="it pressable">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+      Para Ti
+    </div>
+    <div class="it pressable">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      Catálogo
+    </div>
+    <div class="it pressable">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 7h12l1 14H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+      Mi Lista
+    </div>
+    <div class="it on pressable">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+      Perfil
+    </div>
+  </nav>
+
+</div>
+
+<script>
+  // Count Up (ReactBits, ya integrado en la app) — los números de valor suben al entrar
+  function countUp(el, target, fmt, dur = 900) {
+    const t0 = performance.now();
+    const ease = x => 1 - Math.pow(1 - x, 3);
+    function tick(now) {
+      const p = Math.min((now - t0) / dur, 1);
+      el.textContent = fmt(Math.round(target * ease(p)));
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  const fmtMiles = n => '$ ' + n.toLocaleString('es-AR');
+  const stats = document.querySelectorAll('.stat .v');
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    setTimeout(() => {
+      countUp(stats[0], 142, n => String(n));
+      countUp(stats[1], 48300, fmtMiles);
+      countUp(stats[2], 2, n => String(n), 500);
+    }, 350);
+  }
+</script>
+</body>
+</html>

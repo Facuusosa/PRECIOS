@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brújula — Propuesta estilo Trolley (claro)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Tokens medidos de trolley.co.uk con getComputedStyle (04/05/2026) */
+  :root {
+    --ink: #1a1a1a;
+    --gray: #808080;
+    --line: #ececec;
+    --plate: #f6f5f3;       /* fondo de imagen de producto */
+    --gold: #c89055;        /* acento Brújula, saturado para fondo claro */
+    --green: #15803d;       /* solo ahorro */
+    /* Easing custom (emil-design-eng): los defaults del browser son débiles */
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #d9d9d9;
+    font-family: 'Poppins', sans-serif;
+    color: var(--ink);
+    display: flex; justify-content: center;
+    padding: 24px 0;
+  }
+  .phone { width: 390px; background: #ffffff; min-height: 100dvh; overflow: hidden; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* ── Animaciones (reglas emil-design-eng) ── */
+  /* Entrada: stagger 60ms, translateY corto + fade, <400ms, ease-out fuerte */
+  @keyframes rise {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .anim {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: rise 380ms var(--ease-out) forwards;
+  }
+  /* Press feedback en todo lo tocable: 160ms, scale 0.97 */
+  .pressable {
+    transition: transform 160ms var(--ease-out);
+    cursor: pointer;
+  }
+  .pressable:active { transform: scale(0.97); }
+  /* Hover solo con mouse real — en touch genera falsos positivos */
+  @media (hover: hover) and (pointer: fine) {
+    .cat .im-img { transition: transform 450ms var(--ease-out); }
+    .cat:hover .im-img { transform: scale(1.06); }
+    .rowi { transition: background 150ms ease; }
+    .rowi:hover { background: #fafafa; }
+  }
+  /* Reduced motion: fade sin movimiento, nada de transforms */
+  @media (prefers-reduced-motion: reduce) {
+    .anim { transform: none; animation-duration: 150ms; }
+    .pressable:active { transform: none; }
+    .cat:hover .im-img { transform: none; }
+  }
+
+  /* Header — calco estructural de Trolley */
+  header {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 20px;
+  }
+  .burger { display: flex; flex-direction: column; gap: 5px; }
+  .burger i { display: block; width: 22px; height: 2.5px; background: var(--ink); border-radius: 2px; }
+  .wordmark { display: flex; align-items: center; gap: 8px; flex: 1; }
+  .wordmark .sq { width: 34px; height: 34px; display: flex; }
+  .wordmark .sq svg { width: 100%; height: 100%; }
+  .wordmark .t { font-size: 18.5px; font-weight: 700; letter-spacing: -0.4px; white-space: nowrap; }
+  .wordmark .t span { color: #9a9a9a; font-weight: 400; font-size: 15.5px; }
+  .head-icons { display: flex; gap: 16px; color: var(--ink); }
+  .head-icons svg { width: 22px; height: 22px; }
+
+  /* Sección */
+  h2 { font-size: 23.58px; font-weight: 600; letter-spacing: -0.3px; padding: 10px 20px 0; }
+
+  /* Strip de mayoristas — Logo Loop infinito (ReactBits) en vez de carrusel cortado */
+  .stores { padding: 16px 0 4px; overflow: hidden; position: relative; }
+  .stores::before, .stores::after {
+    content: ''; position: absolute; top: 0; bottom: 0; width: 36px; z-index: 1;
+    pointer-events: none;
+  }
+  .stores::before { left: 0; background: linear-gradient(90deg, #fff, transparent); }
+  .stores::after { right: 0; background: linear-gradient(-90deg, #fff, transparent); }
+  .stores-track {
+    display: flex; gap: 12px; width: max-content;
+    animation: marquee 22s linear infinite;
+  }
+  .stores:hover .stores-track { animation-play-state: paused; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .stores-track { animation: none; } }
+  .store {
+    flex-shrink: 0;
+    width: 148px; height: 86px;
+    border: 1px solid var(--line); border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    background: #fff;
+  }
+  .store img { max-width: 104px; max-height: 40px; object-fit: contain; }
+
+  /* Deal card #1 — calco de la card de Trolley home */
+  .deal { margin-top: 22px; }
+  .deal-img {
+    position: relative;
+    margin: 0 20px;
+    background: linear-gradient(180deg, #f7f6f4 0%, #efedea 100%);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 34px 20px;
+  }
+  .deal-img img { height: 230px; mix-blend-mode: multiply; }
+  .rank {
+    position: absolute; top: 0; left: 0;
+    width: 42px; height: 42px;
+    background: var(--gold); color: #fff;
+    border-radius: 6px 0 14px 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 19px; font-weight: 600;
+  }
+  .pills { position: absolute; top: 12px; right: 12px; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+  .pill {
+    background: #111; color: #fff;
+    font-size: 13.9px; font-weight: 600;
+    border-radius: 999px; padding: 7px 14px;
+    white-space: nowrap;
+  }
+  .deal-actions { display: flex; justify-content: center; gap: 34px; padding: 16px 0 4px; }
+  .deal-actions .act { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 12px; color: var(--ink); }
+  .deal-actions svg { width: 24px; height: 24px; }
+
+  .deal-body { padding: 6px 20px 0; }
+  .brand { font-size: 21.44px; font-weight: 600; letter-spacing: -0.2px; }
+  .pname { font-size: 19.3px; font-weight: 400; color: var(--ink); line-height: 1.3; }
+  .size-pill {
+    display: inline-block; margin-top: 8px;
+    background: #111; color: #fff;
+    font-size: 12px; font-weight: 600;
+    border-radius: 999px; padding: 4px 12px;
+  }
+
+  .avail { padding: 22px 20px 0; }
+  .avail .h { font-size: 16px; font-weight: 600; }
+  .avail-row { display: flex; margin-top: 14px; }
+  .avail-item { flex: 1; }
+  .avail-item img { height: 17px; object-fit: contain; display: block; }
+  .avail-item .pr { font-size: 17px; font-weight: 500; margin-top: 7px; }
+  .avail-item.best .pr { font-weight: 600; }
+  .avail-item .tag { font-size: 10.7px; font-weight: 600; color: var(--green); letter-spacing: 0.04em; }
+  .avail-item .more { font-size: 12px; font-weight: 500; color: var(--gray); line-height: 1.3; padding-top: 2px; }
+
+  .what { padding: 22px 20px 0; }
+  .what .h { font-size: 16px; font-weight: 600; }
+  .what .line { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+  .stars { color: #f5a623; font-size: 15px; letter-spacing: 1px; }
+  .what .meta { font-size: 12.8px; color: var(--green); font-weight: 500; }
+  .quote { margin-top: 10px; font-size: 14px; font-weight: 300; line-height: 1.55; color: var(--ink); }
+
+  .divider { height: 8px; background: #f4f4f4; margin-top: 26px; }
+
+  /* Bombas 2-4 — filas editoriales con hairline */
+  .rows { padding: 6px 20px 0; }
+  .rowi { display: flex; gap: 14px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .rowi:last-child { border-bottom: none; }
+  .rowi .ph {
+    width: 64px; height: 64px; flex-shrink: 0;
+    background: var(--plate); border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .rowi .ph img { width: 54px; height: 54px; object-fit: contain; mix-blend-mode: multiply; }
+  .rowi .inf { flex: 1; min-width: 0; }
+  .rowi .b { font-size: 15px; font-weight: 600; }
+  .rowi .n { font-size: 13.9px; font-weight: 300; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rowi .sv { font-size: 11.8px; color: var(--green); font-weight: 600; margin-top: 3px; }
+  .rowi .p { text-align: right; }
+  .rowi .p .v { font-size: 19px; font-weight: 600; }
+  .rowi .p .d { font-size: 11.8px; color: var(--gray); font-weight: 300; }
+
+  .cta-row { padding: 8px 20px 0; }
+  .cta {
+    width: 100%;
+    background: #111; color: #fff;
+    border: none; border-radius: 999px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px; font-weight: 500;
+    padding: 15px 0;
+  }
+
+  /* Categorías — foto con overlay (efecto del mockup anterior) */
+  .cats { padding: 30px 0 44px; }
+  .cats h2 { padding-top: 0; }
+  .cat-scroll { display: flex; gap: 12px; padding: 16px 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .cat-scroll::-webkit-scrollbar { display: none; }
+  .cat {
+    position: relative;
+    flex-shrink: 0;
+    width: 132px; height: 168px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .cat .im-img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    filter: contrast(1.05) saturate(0.9);
+  }
+  .cat::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.2) 48%, rgba(10,10,10,0) 100%);
+  }
+  .cat .label {
+    position: absolute; bottom: 11px; left: 13px; right: 13px; z-index: 1;
+    font-size: 14px; font-weight: 600; color: #fff; letter-spacing: -0.2px;
+  }
+  .cat .count {
+    position: absolute; bottom: 31px; left: 13px; z-index: 1;
+    font-size: 10.5px; font-weight: 400; color: rgba(255,255,255,0.8);
+  }
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <header class="anim">
+    <div class="burger"><i></i><i></i><i></i></div>
+    <div class="wordmark">
+      <div class="sq">
+        <svg viewBox="0 0 64 64">
+          <rect width="64" height="64" rx="15" fill="#1a1a1a"/>
+          <text x="32" y="44" text-anchor="middle" font-family="Poppins, sans-serif" font-size="36" font-weight="700" fill="#ffffff">B</text>
+          <g transform="translate(46 18) rotate(45)">
+            <path d="M0,-9 L4,0 L0,2.5 L-4,0 Z" fill="#c89055"/>
+            <path d="M0,9 L4,0 L0,2.5 L-4,0 Z" fill="#c89055" opacity="0.45"/>
+          </g>
+        </svg>
+      </div>
+      <div class="t">Brújula <span>de precios</span></div>
+    </div>
+    <div class="head-icons">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+    </div>
+  </header>
+
+  <h2 class="anim" style="animation-delay: 60ms">Bombas de hoy</h2>
+
+  <div class="stores anim" style="animation-delay: 120ms">
+    <div class="stores-track">
+      <div class="store"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/maxicarrefour.jpg" alt="MaxiCarrefour"></div>
+      <div class="store"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/yaguar.png" alt="Yaguar"></div>
+      <div class="store"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/maxiconsumo.webp" alt="Maxiconsumo"></div>
+      <div class="store"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/maxicarrefour.jpg" alt=""></div>
+      <div class="store"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/yaguar.png" alt=""></div>
+      <div class="store"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/maxiconsumo.webp" alt=""></div>
+    </div>
+  </div>
+
+  <div class="deal anim" style="animation-delay: 180ms">
+    <div class="deal-img">
+      <span class="rank num">1</span>
+      <div class="pills">
+        <span class="pill num">Ahorrás $ 411 en MAXI</span>
+        <span class="pill num">42% más barato</span>
+      </div>
+      <img src="https://tupedido.carrefour.com.ar/imagenesPDA/7790070320285.jpg?v=2805262035" alt="Fideos Favorita">
+    </div>
+    <div class="deal-actions">
+      <div class="act pressable">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+        Lista
+      </div>
+      <div class="act pressable">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m13 5 7 7-7 7M20 12H8a5 5 0 0 0-5 5"/></svg>
+        Compartir
+      </div>
+    </div>
+    <div class="deal-body">
+      <div class="brand">Favorita</div>
+      <div class="pname">Fideos Spaghetti</div>
+      <span class="size-pill">500G</span>
+    </div>
+
+    <div class="avail">
+      <div class="h">Dónde comprarlo</div>
+      <div class="avail-row">
+        <div class="avail-item best">
+          <img src="../BRUJULA-DE-PRECIOS/public/mayoristas/maxicarrefour.jpg" alt="MaxiCarrefour">
+          <div class="pr num">$ 569</div>
+          <div class="tag">MÁS BARATO</div>
+        </div>
+        <div class="avail-item">
+          <img src="../BRUJULA-DE-PRECIOS/public/mayoristas/yaguar.png" alt="Yaguar">
+          <div class="pr num">$ 599</div>
+        </div>
+        <div class="avail-item">
+          <img src="../BRUJULA-DE-PRECIOS/public/mayoristas/maxiconsumo.webp" alt="Maxiconsumo">
+          <div class="pr num">$ 980</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="what">
+      <div class="h">Datos del producto</div>
+      <div class="line">
+        <span class="meta num">EAN 7790070320285 · Clase A · 3 mayoristas lo venden</span>
+      </div>
+      <p class="quote">El precio de Maxiconsumo está 72% por encima del mejor — revisalo antes de reponer stock de pastas.</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="rows anim" style="animation-delay: 220ms">
+    <div class="rowi pressable">
+      <div class="ph"><img src="https://tupedido.carrefour.com.ar/imagenesPDA/7790070320285.jpg?v=2805262035" alt=""></div>
+      <div class="inf">
+        <div class="b">Buhero Negro</div>
+        <div class="n">Fernet 700cc</div>
+        <div class="sv num">Ahorrás $ 3.515 (35%)</div>
+      </div>
+      <div class="p"><div class="v num">$ 6.500</div><div class="d">desde</div></div>
+    </div>
+    <div class="rowi pressable">
+      <div class="ph"><img src="https://tupedido.carrefour.com.ar/imagenesPDA/7790070320285.jpg?v=2805262035" alt=""></div>
+      <div class="inf">
+        <div class="b">Don Satur</div>
+        <div class="n">Bizcochos agridulces 200g</div>
+        <div class="sv num">Ahorrás $ 401 (31%)</div>
+      </div>
+      <div class="p"><div class="v num">$ 899</div><div class="d">desde</div></div>
+    </div>
+    <div class="rowi pressable">
+      <div class="ph"><img src="https://tupedido.carrefour.com.ar/imagenesPDA/7790070320285.jpg?v=2805262035" alt=""></div>
+      <div class="inf">
+        <div class="b">La Paulina</div>
+        <div class="n">Queso rallado 40g</div>
+        <div class="sv num">Ahorrás $ 530 (26%)</div>
+      </div>
+      <div class="p"><div class="v num">$ 1.539</div><div class="d">desde</div></div>
+    </div>
+  </div>
+
+  <div class="cta-row anim" style="animation-delay: 240ms">
+    <button class="cta num pressable">Ver el Top 20 de hoy</button>
+  </div>
+
+  <div class="cats anim" style="animation-delay: 300ms">
+    <h2>Explorá por categoría</h2>
+    <div class="cat-scroll">
+      <div class="cat pressable">
+        <img class="im-img" src="../BRUJULA-DE-PRECIOS/public/categories/almacen.png" alt="">
+        <span class="count num">6.420 productos</span>
+        <span class="label">Almacén</span>
+      </div>
+      <div class="cat pressable">
+        <img class="im-img" src="../BRUJULA-DE-PRECIOS/public/categories/bebidas_real.png" alt="">
+        <span class="count num">2.180 productos</span>
+        <span class="label">Bebidas</span>
+      </div>
+      <div class="cat pressable">
+        <img class="im-img" src="../BRUJULA-DE-PRECIOS/public/categories/limpieza_real.png" alt="">
+        <span class="count num">1.940 productos</span>
+        <span class="label">Limpieza</span>
+      </div>
+      <div class="cat pressable">
+        <img class="im-img" src="../BRUJULA-DE-PRECIOS/public/categories/frescos.png" alt="">
+        <span class="count num">1.310 productos</span>
+        <span class="label">Frescos</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brújula — Propuesta Mi Lista (ticket)</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --gray: #808080;
+    --line: #ececec;
+    --plate: #f6f5f3;
+    --gold: #c89055;
+    --green: #15803d;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #d9d9d9;
+    font-family: 'Poppins', sans-serif;
+    color: var(--ink);
+    display: flex; justify-content: center;
+    padding: 24px 0;
+  }
+  .phone { width: 390px; background: #fff; min-height: 100dvh; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  .anim { opacity: 0; transform: translateY(10px); animation: rise 380ms var(--ease-out) forwards; }
+  .pressable { transition: transform 160ms var(--ease-out); cursor: pointer; }
+  .pressable:active { transform: scale(0.97); }
+  @media (prefers-reduced-motion: reduce) {
+    .anim { transform: none; animation-duration: 150ms; }
+    .pressable:active { transform: none; }
+  }
+
+  header { display: flex; align-items: center; gap: 14px; padding: 16px 20px 10px; }
+  .burger { display: flex; flex-direction: column; gap: 5px; }
+  .burger i { display: block; width: 22px; height: 2.5px; background: var(--ink); border-radius: 2px; }
+  .wordmark { display: flex; align-items: center; gap: 8px; flex: 1; }
+  .wordmark .sq { width: 34px; height: 34px; display: flex; }
+  .wordmark .sq svg { width: 100%; height: 100%; }
+  .wordmark .t { font-size: 18.5px; font-weight: 700; letter-spacing: -0.4px; white-space: nowrap; }
+  .wordmark .t span { color: #9a9a9a; font-weight: 400; font-size: 15.5px; }
+  .head-icons { display: flex; gap: 16px; color: var(--ink); }
+  .head-icons svg { width: 22px; height: 22px; }
+
+  /* Selector de listas */
+  .tabs { display: flex; gap: 9px; padding: 10px 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab {
+    border: 1px solid #dcdcdc; border-radius: 999px;
+    padding: 9px 16px;
+    font-size: 13.5px; font-weight: 500;
+    white-space: nowrap; background: #fff;
+  }
+  .tab.on { background: #111; color: #fff; border-color: #111; }
+  .tab.new { display: flex; align-items: center; gap: 6px; color: var(--gray); border-style: dashed; }
+  .tab.new svg { width: 13px; height: 13px; }
+
+  /* Header sticky del ticket — el total nunca desaparece */
+  .ticket-head {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(255,255,255,0.94);
+    backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 16px 20px 12px;
+    border-bottom: 1px solid var(--line);
+    margin-top: 12px;
+  }
+  .ticket-head .name { display: flex; align-items: center; gap: 8px; min-width: 0; }
+  .ticket-head h1 { font-size: 19px; font-weight: 600; letter-spacing: -0.3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .ticket-head .name svg { width: 15px; height: 15px; color: var(--gray); flex-shrink: 0; }
+  .ticket-head .meta { font-size: 11px; color: var(--gray); font-weight: 300; margin-top: 1px; }
+  .ticket-head .tot { text-align: right; flex-shrink: 0; }
+  .ticket-head .v { font-size: 21.4px; font-weight: 700; }
+  .ticket-head .save {
+    display: inline-flex;
+    background: rgba(21,128,61,0.1); color: var(--green);
+    font-size: 11px; font-weight: 600;
+    border-radius: 999px; padding: 3px 10px;
+    margin-top: 3px;
+  }
+
+  /* Toggle de modo — armar vs ejecutar la compra */
+  .mode { display: flex; gap: 0; margin: 14px 20px 0; background: #f2f2f2; border-radius: 999px; padding: 4px; }
+  .mode button {
+    flex: 1; border: none; background: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px; font-weight: 500; color: var(--gray);
+    padding: 9px 0; border-radius: 999px;
+    transition: background 180ms var(--ease-out), color 180ms var(--ease-out);
+  }
+  .mode button.on { background: #111; color: #fff; font-weight: 600; }
+
+  .view { display: none; }
+  .view.show { display: block; animation: rise 280ms var(--ease-out); opacity: 1; transform: none; }
+
+  /* ── Modo Plan de compra ── */
+  .eyebrow {
+    padding: 22px 20px 0;
+    font-size: 10.7px; font-weight: 600; letter-spacing: 0.14em;
+    color: var(--gray); text-transform: uppercase;
+  }
+  .rank { padding: 6px 20px 0; }
+  .rank-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .rank-row:last-child { border-bottom: none; }
+  .rank-row .who { display: flex; align-items: center; gap: 10px; }
+  .rank-row .chip {
+    width: 64px; height: 28px; border-radius: 6px;
+    border: 1px solid var(--line); background: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .rank-row .chip img { max-width: 54px; max-height: 18px; object-fit: contain; }
+  .rank-row .tag { font-size: 10.5px; font-weight: 600; color: var(--green); letter-spacing: 0.05em; }
+  .rank-row .diff { font-size: 11.5px; color: var(--gray); font-weight: 300; }
+  .rank-row .v { font-size: 16.5px; font-weight: 500; }
+  .rank-row.best .v { font-weight: 600; }
+
+  /* Card del plan mixto — borde dorado como la app actual */
+  .plan-card {
+    margin: 22px 20px 0;
+    border: 1.5px solid var(--gold);
+    border-radius: 12px;
+    padding: 18px 18px 8px;
+    position: relative;
+  }
+  .plan-card .badge {
+    position: absolute; top: -11px; left: 16px;
+    background: var(--gold); color: #fff;
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em;
+    border-radius: 999px; padding: 4px 12px;
+  }
+  .plan-card .head { display: flex; align-items: baseline; justify-content: space-between; margin-top: 4px; }
+  .plan-card .t { font-size: 14.5px; font-weight: 600; }
+  .plan-card .total { font-size: 23px; font-weight: 700; }
+  .plan-card .sv { font-size: 12.5px; color: var(--green); font-weight: 600; margin-top: 2px; }
+
+  .stop { margin-top: 16px; }
+  .stop-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .stop-head .who { display: flex; align-items: center; gap: 9px; }
+  .stop-head .chip {
+    width: 60px; height: 26px; border-radius: 6px;
+    border: 1px solid var(--line); background: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .stop-head .chip img { max-width: 50px; max-height: 17px; object-fit: contain; }
+  .stop-head .n { font-size: 11.5px; color: var(--gray); font-weight: 300; }
+  .stop-head .v { font-size: 15.5px; font-weight: 600; }
+  .stop-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 9px 0 9px 4px;
+    border-bottom: 1px solid #f4f4f4;
+  }
+  .stop-item:last-child { border-bottom: none; }
+  .stop-item .n { font-size: 13px; font-weight: 300; }
+  .stop-item .n b { font-weight: 600; }
+  .stop-item .q { font-size: 11.5px; color: var(--gray); }
+  .stop-item .v { font-size: 13.5px; font-weight: 500; }
+
+  /* Cuerpo del ticket — una sola superficie */
+  .ticket { padding: 4px 20px 0; }
+  .row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .row .ph {
+    width: 46px; height: 46px; flex-shrink: 0;
+    background: var(--plate); border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .row .ph img { width: 38px; height: 38px; object-fit: contain; mix-blend-mode: multiply; }
+  .row .inf { flex: 1; min-width: 0; }
+  .row .n { font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .row .d { font-size: 12px; color: var(--gray); font-weight: 300; margin-top: 2px; display: flex; align-items: center; gap: 7px; }
+  .row .d .qty { display: inline-flex; align-items: center; gap: 9px; }
+  .row .d .qty button {
+    width: 21px; height: 21px; border-radius: 99px;
+    border: 1.2px solid #d5d5d5; background: #fff;
+    font-size: 12px; line-height: 1; color: var(--ink);
+    font-family: 'Poppins', sans-serif;
+  }
+  .row .d .qty b { font-weight: 600; color: var(--ink); font-size: 12.5px; }
+  .row .right { text-align: right; flex-shrink: 0; }
+  .row .p { font-size: 15.5px; font-weight: 600; }
+  /* Mini-badge del mayorista en cada fila — acá vive el "dónde" */
+  .where {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 9.5px; font-weight: 600; letter-spacing: 0.06em;
+    color: #fff; background: #111;
+    border-radius: 999px; padding: 2.5px 9px;
+    margin-top: 4px;
+  }
+
+  /* Pie del ticket — mismo bloque, divisor punteado como un recibo */
+  .ticket-foot { padding: 0 20px; }
+  .dashed { border-top: 2px dashed #ddd; margin: 16px 0 0; }
+  .sub { display: flex; align-items: center; justify-content: space-between; padding: 13px 0 0; }
+  .sub .who { display: flex; align-items: center; gap: 9px; }
+  .sub .chip {
+    width: 58px; height: 26px; border-radius: 6px;
+    border: 1px solid var(--line); background: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .sub .chip img { max-width: 48px; max-height: 17px; object-fit: contain; }
+  .sub .who .d { font-size: 11.5px; color: var(--gray); font-weight: 300; }
+  .sub .v { font-size: 15.5px; font-weight: 600; }
+
+  .total-row { display: flex; align-items: baseline; justify-content: space-between; padding: 16px 0 0; }
+  .total-row .l { font-size: 13px; font-weight: 600; letter-spacing: 0.14em; }
+  .total-row .v { font-size: 28px; font-weight: 700; }
+  .save-line {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0 0;
+    font-size: 13px;
+  }
+  .save-line .l { color: var(--gray); font-weight: 300; }
+  .save-line .v { color: var(--green); font-weight: 600; }
+
+  .cta-row { padding: 22px 20px 0; display: flex; gap: 10px; }
+  .cta {
+    flex: 1;
+    background: #111; color: #fff;
+    border: none; border-radius: 999px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14.5px; font-weight: 500;
+    padding: 14px 0;
+  }
+  .cta.sec { background: #fff; color: var(--ink); border: 1.5px solid var(--ink); flex: 0 0 auto; padding: 14px 22px; display: flex; align-items: center; gap: 7px; }
+  .cta.sec svg { width: 16px; height: 16px; }
+
+  .foot-pad { height: 40px; }
+
+  .navbar {
+    position: sticky; bottom: 0;
+    display: flex;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+    padding: 10px 0 14px;
+  }
+  .navbar .it { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 10.5px; color: var(--gray); font-weight: 500; }
+  .navbar .it svg { width: 22px; height: 22px; }
+  .navbar .it.on { color: var(--ink); }
+  .navbar .it.on::after { content: ''; width: 4px; height: 4px; border-radius: 99px; background: var(--gold); margin-top: 1px; }
+
+  /* Desktop: el ticket centrado, más ancho — sigue siendo UNA vista */
+  @media (min-width: 1000px) {
+    body { background: #fff; padding: 0; display: block; }
+    .phone { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 44px; }
+    .navbar { display: none; }
+    .ticket-head h1 { font-size: 23px; }
+    .ticket-head .v { font-size: 25.7px; }
+  }
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <header class="anim">
+    <div class="burger"><i></i><i></i><i></i></div>
+    <div class="wordmark">
+      <div class="sq">
+        <svg viewBox="0 0 64 64">
+          <rect width="64" height="64" rx="15" fill="#1a1a1a"/>
+          <text x="32" y="44" text-anchor="middle" font-family="Poppins, sans-serif" font-size="36" font-weight="700" fill="#fff">B</text>
+          <g transform="translate(46 18) rotate(45)"><path d="M0,-9 L4,0 L0,2.5 L-4,0 Z" fill="#c89055"/><path d="M0,9 L4,0 L0,2.5 L-4,0 Z" fill="#c89055" opacity="0.45"/></g>
+        </svg>
+      </div>
+      <div class="t">Brújula <span>de precios</span></div>
+    </div>
+    <div class="head-icons">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+    </div>
+  </header>
+
+  <div class="tabs anim" style="animation-delay: 50ms">
+    <div class="tab on pressable">Reposición semanal</div>
+    <div class="tab pressable">Bebidas finde</div>
+    <div class="tab new pressable">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+      Nueva
+    </div>
+  </div>
+
+  <!-- Header sticky: el total nunca se va de pantalla -->
+  <div class="ticket-head anim" style="animation-delay: 100ms">
+    <div>
+      <div class="name">
+        <h1>Reposición semanal</h1>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.8 2.8 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+      </div>
+      <div class="meta num">3 productos · 28 unidades · hoy</div>
+    </div>
+    <div class="tot">
+      <div class="v num">$ 24.577</div>
+      <span class="save num">Ahorrás $ 6.073</span>
+    </div>
+  </div>
+
+  <div class="mode anim" style="animation-delay: 130ms">
+    <button class="on" onclick="setMode('producto', this)">Productos</button>
+    <button onclick="setMode('plan', this)">Dónde comprar</button>
+  </div>
+
+  <div class="view show" id="view-producto">
+  <!-- El ticket: items con su mayorista en cada fila -->
+  <div class="ticket anim" style="animation-delay: 150ms">
+
+    <div class="row">
+      <div class="ph"><img src="https://tupedido.carrefour.com.ar/imagenesPDA/7790070320285.jpg?v=2805262035" alt=""></div>
+      <div class="inf">
+        <div class="n">Fideos Favorita spaghetti 500g</div>
+        <div class="d">
+          <span class="qty"><button class="pressable">−</button><b class="num">10</b><button class="pressable">+</button></span>
+          <span class="num">× $ 569</span>
+        </div>
+      </div>
+      <div class="right">
+        <div class="p num">$ 5.690</div>
+        <span class="where">MAXICARREFOUR</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="ph"><img src="https://tupedido.carrefour.com.ar/imagenesPDA/7791813888468.jpg?v=2805262034" alt=""></div>
+      <div class="inf">
+        <div class="n">Pepsi cola 2L</div>
+        <div class="d">
+          <span class="qty"><button class="pressable">−</button><b class="num">6</b><button class="pressable">+</button></span>
+          <span class="num">× $ 1.349,90</span>
+        </div>
+      </div>
+      <div class="right">
+        <div class="p num">$ 8.099</div>
+        <span class="where">MAXICONSUMO</span>
+      </div>
+    </div>
+
+    <div class="row" style="border-bottom: none">
+      <div class="ph"><img src="https://tupedido.carrefour.com.ar/imagenesPDA/7795735000335.jpg?v=2805262035" alt=""></div>
+      <div class="inf">
+        <div class="n">Bizcochos Don Satur 200g</div>
+        <div class="d">
+          <span class="qty"><button class="pressable">−</button><b class="num">12</b><button class="pressable">+</button></span>
+          <span class="num">× $ 899</span>
+        </div>
+      </div>
+      <div class="right">
+        <div class="p num">$ 10.788</div>
+        <span class="where">MAXICARREFOUR</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Pie del ticket: subtotal por mayorista + total + ahorro, mismo bloque -->
+  <div class="ticket-foot anim" style="animation-delay: 200ms">
+    <div class="dashed"></div>
+
+    <div class="sub">
+      <div class="who">
+        <div class="chip"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/maxicarrefour.jpg" alt="MaxiCarrefour"></div>
+        <span class="d num">2 productos · 22 unidades</span>
+      </div>
+      <span class="v num">$ 16.478</span>
+    </div>
+    <div class="sub">
+      <div class="who">
+        <div class="chip"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/maxiconsumo.webp" alt="Maxiconsumo"></div>
+        <span class="d num">1 producto · 6 unidades</span>
+      </div>
+      <span class="v num">$ 8.099</span>
+    </div>
+
+    <div class="dashed" style="margin-top: 16px"></div>
+
+    <div class="total-row">
+      <span class="l">TOTAL</span>
+      <span class="v num">$ 24.577</span>
+    </div>
+    <div class="save-line">
+      <span class="l">vs. comprar todo en un solo mayorista</span>
+      <span class="v num">−$ 6.073 (20%)</span>
+    </div>
+  </div>
+  </div><!-- /view-producto -->
+
+  <!-- ── Modo Plan de compra: cómo organiza la app actual, en el estilo nuevo ── -->
+  <div class="view" id="view-plan">
+
+    <div class="eyebrow">Si comprás todo en el mismo lugar</div>
+    <div class="rank">
+      <div class="rank-row best">
+        <div class="who">
+          <div class="chip"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/maxicarrefour.jpg" alt="MaxiCarrefour"></div>
+          <span class="tag">MÁS BARATO</span>
+        </div>
+        <span class="v num">$ 30.650</span>
+      </div>
+      <div class="rank-row">
+        <div class="who">
+          <div class="chip"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/maxiconsumo.webp" alt="Maxiconsumo"></div>
+          <span class="diff num">+$ 1.047 más caro</span>
+        </div>
+        <span class="v num">$ 31.697</span>
+      </div>
+      <div class="rank-row">
+        <div class="who">
+          <div class="chip"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/yaguar.png" alt="Yaguar"></div>
+          <span class="diff num">+$ 7.300 más caro</span>
+        </div>
+        <span class="v num">$ 37.950</span>
+      </div>
+    </div>
+
+    <div class="plan-card">
+      <span class="badge">COMPRÁ EN VARIOS PARA AHORRAR MÁS</span>
+      <div class="head">
+        <span class="t">2 mayoristas</span>
+        <span class="total num">$ 24.577</span>
+      </div>
+      <div class="sv num">Ahorrás $ 6.073 comprando en varios lugares</div>
+
+      <div class="stop">
+        <div class="stop-head">
+          <div class="who">
+            <div class="chip"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/maxicarrefour.jpg" alt="MaxiCarrefour"></div>
+            <span class="n num">2 productos</span>
+          </div>
+          <span class="v num">$ 16.478</span>
+        </div>
+        <div class="stop-item">
+          <span class="n">Fideos Favorita spaghetti 500g <span class="q num">×10</span></span>
+          <span class="v num">$ 5.690</span>
+        </div>
+        <div class="stop-item">
+          <span class="n">Bizcochos Don Satur 200g <span class="q num">×12</span></span>
+          <span class="v num">$ 10.788</span>
+        </div>
+      </div>
+
+      <div class="stop">
+        <div class="stop-head">
+          <div class="who">
+            <div class="chip"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/maxiconsumo.webp" alt="Maxiconsumo"></div>
+            <span class="n num">1 producto</span>
+          </div>
+          <span class="v num">$ 8.099</span>
+        </div>
+        <div class="stop-item">
+          <span class="n">Pepsi cola 2L <span class="q num">×6</span></span>
+          <span class="v num">$ 8.099</span>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /view-plan -->
+
+  <div class="cta-row anim" style="animation-delay: 250ms">
+    <button class="cta sec pressable" aria-label="Compartir">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
+      Compartir
+    </button>
+    <button class="cta pressable" id="cta-main" onclick="setMode('plan', document.querySelectorAll('.mode button')[1])">Ver dónde comprar</button>
+  </div>
+
+  <script>
+    function setMode(mode, btn) {
+      document.querySelectorAll('.mode button').forEach(b => b.classList.remove('on'));
+      btn.classList.add('on');
+      document.getElementById('view-producto').classList.toggle('show', mode === 'producto');
+      document.getElementById('view-plan').classList.toggle('show', mode === 'plan');
+      const cta = document.getElementById('cta-main');
+      cta.textContent = mode === 'plan' ? 'Enviar por WhatsApp' : 'Ver dónde comprar';
+      if (mode === 'producto') cta.onclick = () => setMode('plan', document.querySelectorAll('.mode button')[1]);
+      else cta.onclick = null;
+    }
+  </script>
+
+  <div class="foot-pad"></div>
+
+  <nav class="navbar">
+    <div class="it pressable">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+      Para Ti
+    </div>
+    <div class="it pressable">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      Catálogo
+    </div>
+    <div class="it on pressable">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 7h12l1 14H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+      Mi Lista
+    </div>
+    <div class="it pressable">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+      Perfil
+    </div>
+  </nav>
+
+</div>
+</body>
+</html>

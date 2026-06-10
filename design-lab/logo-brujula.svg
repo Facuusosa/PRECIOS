@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <!-- Brújula de precios — Monograma B (concepto C, elegido 09/06/2026) -->
+  <rect width="64" height="64" rx="15" fill="#1a1a1a"/>
+  <text x="32" y="44" text-anchor="middle" font-family="Poppins, sans-serif" font-size="36" font-weight="700" fill="#ffffff">B</text>
+  <g transform="translate(46 18) rotate(45)">
+    <path d="M0,-9 L4,0 L0,2.5 L-4,0 Z" fill="#c89055"/>
+    <path d="M0,9 L4,0 L0,2.5 L-4,0 Z" fill="#c89055" opacity="0.45"/>
+  </g>
+</svg>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brújula — Propuesta Catálogo</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --gray: #808080;
+    --line: #ececec;
+    --plate: #f6f5f3;
+    --gold: #c89055;
+    --green: #15803d;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #d9d9d9;
+    font-family: 'Poppins', sans-serif;
+    color: var(--ink);
+    display: flex; justify-content: center;
+    padding: 24px 0;
+  }
+  .phone { width: 390px; background: #fff; min-height: 100dvh; overflow: hidden; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  .anim { opacity: 0; transform: translateY(10px); animation: rise 380ms var(--ease-out) forwards; }
+  .pressable { transition: transform 160ms var(--ease-out); cursor: pointer; }
+  .pressable:active { transform: scale(0.97); }
+  @media (prefers-reduced-motion: reduce) {
+    .anim { transform: none; animation-duration: 150ms; }
+    .pressable:active { transform: none; }
+  }
+
+  /* Header */
+  header { display: flex; align-items: center; gap: 14px; padding: 16px 20px 10px; }
+  .burger { display: flex; flex-direction: column; gap: 5px; }
+  .burger i { display: block; width: 22px; height: 2.5px; background: var(--ink); border-radius: 2px; }
+  .wordmark { display: flex; align-items: center; gap: 8px; flex: 1; }
+  .wordmark .sq { width: 34px; height: 34px; display: flex; }
+  .wordmark .sq svg { width: 100%; height: 100%; }
+  .wordmark .t { font-size: 18.5px; font-weight: 700; letter-spacing: -0.4px; white-space: nowrap; }
+  .wordmark .t span { color: #9a9a9a; font-weight: 400; font-size: 15.5px; }
+  .head-icons { display: flex; gap: 16px; color: var(--ink); }
+  .head-icons svg { width: 22px; height: 22px; }
+
+  /* Búsqueda — UNA sola */
+  .search {
+    margin: 4px 20px 0;
+    display: flex; align-items: center; gap: 10px;
+    background: #f2f2f2;
+    border-radius: 999px;
+    padding: 13px 18px;
+    color: var(--gray); font-size: 14px;
+  }
+  .search svg { width: 17px; height: 17px; flex-shrink: 0; }
+
+  /* Filtros — chips dropdown estilo Trolley (reemplazan sidebar + chips duplicados) */
+  .filters { display: flex; gap: 9px; padding: 14px 20px 0; overflow-x: auto; scrollbar-width: none; }
+  .filters::-webkit-scrollbar { display: none; }
+  .filter {
+    display: flex; align-items: center; gap: 7px;
+    border: 1px solid #dcdcdc; border-radius: 999px;
+    padding: 9px 16px;
+    font-size: 13.5px; font-weight: 500;
+    white-space: nowrap;
+    background: #fff;
+  }
+  .filter svg { width: 13px; height: 13px; }
+  .filter.active { background: #111; color: #fff; border-color: #111; }
+
+  /* Meta línea */
+  .meta { padding: 16px 20px 4px; display: flex; align-items: baseline; justify-content: space-between; }
+  .meta h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.3px; }
+  .meta .count { font-size: 12px; color: var(--gray); font-weight: 400; }
+
+  /* Grid 2 col — celdas divididas por hairlines, sin cards */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; margin-top: 10px; }
+  .cell {
+    padding: 18px 16px 20px;
+    border-top: 1px solid var(--line);
+    position: relative;
+  }
+  .cell:nth-child(odd) { border-right: 1px solid var(--line); }
+  .cell .plus {
+    position: absolute; top: 14px; right: 12px; z-index: 2;
+    width: 30px; height: 30px; border-radius: 999px;
+    border: 1.5px solid var(--ink); background: #fff;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cell .plus svg { width: 14px; height: 14px; }
+  .cell .ph {
+    height: 130px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 12px;
+  }
+  .cell .ph img { max-height: 124px; max-width: 100%; object-fit: contain; mix-blend-mode: multiply; }
+  .size-pill {
+    display: inline-block;
+    background: #111; color: #fff;
+    font-size: 10.7px; font-weight: 600;
+    border-radius: 999px; padding: 3px 10px;
+    margin-bottom: 7px;
+  }
+  .cell .brand { font-size: 15px; font-weight: 600; }
+  .cell .name { font-size: 13.9px; font-weight: 300; line-height: 1.35; margin-top: 1px; min-height: 38px; }
+  .cell .price { font-size: 20px; font-weight: 600; margin-top: 8px; }
+  .cell .compare { font-size: 11.8px; margin-top: 2px; color: var(--gray); font-weight: 400; }
+  .cell .compare b { color: var(--green); font-weight: 600; }
+
+  /* Bottom nav */
+  .navbar {
+    position: sticky; bottom: 0;
+    display: flex;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--line);
+    padding: 10px 0 14px;
+    margin-top: 8px;
+  }
+  .navbar .it { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 10.5px; color: var(--gray); font-weight: 500; }
+  .navbar .it svg { width: 22px; height: 22px; }
+  .navbar .it.on { color: var(--ink); }
+  .navbar .it.on::after { content: ''; width: 4px; height: 4px; border-radius: 99px; background: var(--gold); margin-top: 1px; }
+
+  /* ── Drawer de categorías (hamburguesa) — curva iOS, emil-design-eng ── */
+  .overlay {
+    position: fixed; inset: 0; z-index: 40;
+    background: rgba(10,10,10,0.4);
+    opacity: 0; pointer-events: none;
+    transition: opacity 300ms ease;
+  }
+  .drawer {
+    position: fixed; top: 0; left: 0; bottom: 0; z-index: 50;
+    width: 300px; background: #fff;
+    transform: translateX(-100%);
+    transition: transform 400ms cubic-bezier(0.32, 0.72, 0, 1);
+    display: flex; flex-direction: column;
+    padding: 20px 0;
+  }
+  body.menu-open .overlay { opacity: 1; pointer-events: auto; }
+  body.menu-open .drawer { transform: translateX(0); }
+  .drawer .d-head { display: flex; align-items: center; justify-content: space-between; padding: 0 22px 14px; }
+  .drawer .d-title { font-size: 17px; font-weight: 600; }
+  .drawer .d-close { background: none; border: none; padding: 6px; cursor: pointer; }
+  .drawer .d-close svg { width: 20px; height: 20px; }
+  .drawer .d-label { padding: 14px 22px 6px; font-size: 10.7px; font-weight: 600; letter-spacing: 0.14em; color: var(--gray); text-transform: uppercase; }
+  .drawer a {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 22px;
+    font-size: 14.5px; font-weight: 400; color: var(--ink);
+    text-decoration: none;
+    transition: background 120ms ease;
+  }
+  .drawer a:active { background: #f5f5f5; }
+  .drawer a .n { font-size: 11.5px; color: var(--gray); }
+  .drawer a.all { font-weight: 600; }
+
+  /* ── Desktop estilo Trolley /deals/: sidebar + grid de placas con aire ── */
+  .side { display: none; }
+  .stores-row { display: none; }
+  @media (min-width: 1000px) {
+    body { background: #fff; padding: 0; display: block; }
+    .phone {
+      width: 100%; max-width: 1500px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      column-gap: 60px;
+      padding: 0 44px;
+      align-items: start;
+    }
+    header { grid-column: 1 / -1; padding: 20px 0 26px; }
+    .navbar { display: none; }
+
+    /* Sidebar de navegación — como For You / Explore / Deals */
+    .side {
+      display: flex; flex-direction: column; gap: 6px;
+      position: sticky; top: 24px;
+      padding-top: 8px;
+    }
+    .side a {
+      display: flex; align-items: center; gap: 14px;
+      padding: 11px 12px;
+      font-size: 14.5px; font-weight: 400; color: var(--ink);
+      text-decoration: none; border-radius: 8px;
+      transition: background 140ms ease;
+    }
+    .side a.on { font-weight: 600; }
+    .side a:hover { background: #f6f6f6; }
+    .side a svg { width: 21px; height: 21px; }
+
+    .content { min-width: 0; }
+    .search { margin: 0; max-width: 640px; }
+
+    /* Cards de mayoristas — "Filter by store" */
+    .stores-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 26px; }
+    .stores-row .st {
+      border: 1px solid var(--line); border-radius: 4px;
+      height: 110px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .stores-row .st img { max-width: 150px; max-height: 48px; object-fit: contain; }
+
+    .filters { padding: 22px 0 0; }
+    .meta { padding: 28px 0 4px; }
+    .meta h2 { font-size: 25.7px; }
+
+    /* Grid de placas: 4 columnas grandes como Trolley /deals/ */
+    .grid { grid-template-columns: repeat(4, 1fr); gap: 34px 24px; margin-top: 18px; }
+    .cell { border: none !important; padding: 0; }
+    .cell .ph {
+      background: var(--plate); border-radius: 4px;
+      height: 280px; margin-bottom: 16px;
+      position: relative;
+    }
+    .cell .ph img { max-height: 228px; }
+    .cell .plus { top: 14px; right: 14px; width: 34px; height: 34px; }
+    .cell .brand { font-size: 16.5px; }
+    .cell .name { font-size: 15px; min-height: 42px; }
+    .cell .price { font-size: 23px; }
+    .cell .compare { font-size: 13px; }
+    .size-pill { font-size: 11.5px; padding: 4px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="overlay" onclick="document.body.classList.remove('menu-open')"></div>
+<aside class="drawer">
+  <div class="d-head">
+    <span class="d-title">Categorías</span>
+    <button class="d-close" onclick="document.body.classList.remove('menu-open')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <a href="#" class="all">Todas las categorías <span class="n num">17.874</span></a>
+  <a href="#">Almacén <span class="n num">6.420</span></a>
+  <a href="#">Bebidas <span class="n num">2.180</span></a>
+  <a href="#">Frescos <span class="n num">1.310</span></a>
+  <a href="#">Limpieza <span class="n num">1.940</span></a>
+  <a href="#">Cuidado Personal <span class="n num">980</span></a>
+  <a href="#">Bazar <span class="n num">740</span></a>
+  <a href="#">Congelados <span class="n num">410</span></a>
+  <a href="#">Kiosco <span class="n num">1.860</span></a>
+  <a href="#">Mascotas <span class="n num">350</span></a>
+  <a href="#">Desayuno y Merienda <span class="n num">1.684</span></a>
+  <div class="d-label">Mi cuenta</div>
+  <a href="#">Mi Lista</a>
+  <a href="#">Perfil</a>
+</aside>
+
+<div class="phone">
+
+  <header class="anim">
+    <div class="burger pressable" onclick="document.body.classList.add('menu-open')"><i></i><i></i><i></i></div>
+    <div class="wordmark">
+      <div class="sq">
+        <svg viewBox="0 0 64 64">
+          <rect width="64" height="64" rx="15" fill="#1a1a1a"/>
+          <text x="32" y="44" text-anchor="middle" font-family="Poppins, sans-serif" font-size="36" font-weight="700" fill="#fff">B</text>
+          <g transform="translate(46 18) rotate(45)"><path d="M0,-9 L4,0 L0,2.5 L-4,0 Z" fill="#c89055"/><path d="M0,9 L4,0 L0,2.5 L-4,0 Z" fill="#c89055" opacity="0.45"/></g>
+        </svg>
+      </div>
+      <div class="t">Brújula <span>de precios</span></div>
+    </div>
+    <div class="head-icons">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+    </div>
+  </header>
+
+  <aside class="side">
+    <a href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+      Para Ti
+    </a>
+    <a href="#" class="on">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      Catálogo
+    </a>
+    <a href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 7h12l1 14H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+      Mi Lista
+    </a>
+    <a href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+      Perfil
+    </a>
+  </aside>
+
+  <div class="content">
+
+  <div class="search anim" style="animation-delay: 60ms">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    Buscar entre 17.874 productos
+  </div>
+
+  <div class="stores-row anim" style="animation-delay: 90ms">
+    <div class="st pressable"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/maxicarrefour.jpg" alt="MaxiCarrefour"></div>
+    <div class="st pressable"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/yaguar.png" alt="Yaguar"></div>
+    <div class="st pressable"><img src="../BRUJULA-DE-PRECIOS/public/mayoristas/maxiconsumo.webp" alt="Maxiconsumo"></div>
+  </div>
+
+  <div class="filters anim" style="animation-delay: 120ms">
+    <div class="filter pressable">Ordenar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></div>
+    <div class="filter pressable active">Bebidas <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg></div>
+    <div class="filter pressable">Mayorista <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></div>
+    <div class="filter pressable">Solo comparables</div>
+  </div>
+
+  <div class="meta anim" style="animation-delay: 180ms">
+    <h2>Ofertas del día</h2>
+    <span class="count num">2.917 comparables</span>
+  </div>
+
+  <div class="grid anim" style="animation-delay: 220ms">
+
+    <div class="cell pressable">
+      <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></span>
+      <div class="ph"><img src="https://tupedido.carrefour.com.ar/imagenesPDA/7791813888468.jpg?v=2805262034" alt=""></div>
+      <span class="size-pill">2 L</span>
+      <div class="brand">Pepsi</div>
+      <div class="name">Gaseosa cola</div>
+      <div class="price num">$ 1.349,90</div>
+      <div class="compare num"><b>Ahorrás 52%</b> · 3 precios</div>
+    </div>
+
+    <div class="cell pressable">
+      <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></span>
+      <div class="ph"><img src="https://tupedido.carrefour.com.ar/imagenesPDA/7790240042108.jpg?v=2805262034" alt=""></div>
+      <span class="size-pill">750 ML</span>
+      <div class="brand">Alma Mora</div>
+      <div class="name">Vino tinto malbec</div>
+      <div class="price num">$ 4.085</div>
+      <div class="compare num"><b>Ahorrás 23%</b> · 3 precios</div>
+    </div>
+
+    <div class="cell pressable">
+      <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></span>
+      <div class="ph"><img src="https://tupedido.carrefour.com.ar/imagenesPDA/7790070509123.jpg?v=2805262035" alt=""></div>
+      <span class="size-pill">500 G</span>
+      <div class="brand">Chamigo</div>
+      <div class="name">Yerba mate</div>
+      <div class="price num">$ 1.079,20</div>
+      <div class="compare num"><b>Ahorrás 35%</b> · 3 precios</div>
+    </div>
+
+    <div class="cell pressable">
+      <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></span>
+      <div class="ph"><img src="https://tupedido.carrefour.com.ar/imagenesPDA/7795735000335.jpg?v=2805262035" alt=""></div>
+      <span class="size-pill">200 G</span>
+      <div class="brand">Don Satur</div>
+      <div class="name">Bizcochos agridulces</div>
+      <div class="price num">$ 899</div>
+      <div class="compare num"><b>Ahorrás 31%</b> · 3 precios</div>
+    </div>
+
+    <div class="cell pressable">
+      <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></span>
+      <div class="ph"><img src="https://tupedido.carrefour.com.ar/imagenesPDA/7792900000138.jpg?v=2805262034" alt=""></div>
+      <span class="size-pill">500 G</span>
+      <div class="brand">Dos Anclas</div>
+      <div class="name">Sal fina estuche</div>
+      <div class="price num">$ 1.084</div>
+      <div class="compare num"><b>Ahorrás 31%</b> · 3 precios</div>
+    </div>
+
+    <div class="cell pressable">
+      <span class="plus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg></span>
+      <div class="ph"><img src="https://tupedido.carrefour.com.ar/imagenesPDA/7790070320285.jpg?v=2805262035" alt=""></div>
+      <span class="size-pill">500 G</span>
+      <div class="brand">Favorita</div>
+      <div class="name">Fideos spaghetti</div>
+      <div class="price num">$ 569</div>
+      <div class="compare num"><b>Ahorrás 29%</b> · 3 precios</div>
+    </div>
+
+  </div>
+
+  </div><!-- /content -->
+
+  <nav class="navbar">
+    <div class="it pressable">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+      Para Ti
+    </div>
+    <div class="it on pressable">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      Catálogo
+    </div>
+    <div class="it pressable">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 7h12l1 14H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+      Mi Lista
+    </div>
+    <div class="it pressable">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>
+      Perfil
+    </div>
+  </nav>
+
+</div>
+
+<script>
+  // Click Spark (ReactBits) — chispa dorada al agregar a lista. Feedback, no decoración.
+  document.querySelectorAll('.plus').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
+      const r = btn.getBoundingClientRect();
+      for (let i = 0; i < 6; i++) {
+        const s = document.createElement('span');
+        const a = (i / 6) * Math.PI * 2;
+        s.style.cssText = `position:fixed;left:${r.left + r.width/2}px;top:${r.top + r.height/2}px;width:4px;height:4px;border-radius:99px;background:#c89055;pointer-events:none;z-index:99;`;
+        document.body.appendChild(s);
+        s.animate([
+          { transform: 'translate(0,0) scale(1)', opacity: 1 },
+          { transform: `translate(${Math.cos(a)*24}px, ${Math.sin(a)*24}px) scale(0.3)`, opacity: 0 }
+        ], { duration: 320, easing: 'cubic-bezier(0.23,1,0.32,1)' }).onfinish = () => s.remove();
+      }
+    });
+  });
+</script>
+</body>
+</html>
