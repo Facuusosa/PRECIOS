@@ -518,7 +518,9 @@ def cargar_yaguar():
 def _fallback_mc_desde_catalogo():
     # Cuando el scraper de MC falla en Railway (container efimero, sin outputs previos),
     # lee el catalogo_unificado.json ya commiteado y reconstruye los productos de MC.
-    # Usa fecha de hoy para que el sistema de stale-detection no los marque de inmediato.
+    # CRITICO: conservar la fecha_scraping ORIGINAL. Pisar la fecha con "hoy" creaba
+    # un bucle de reciclaje invisible — precios de hace 14 dias mostrados como frescos
+    # (detectado 11/06: 5.128 precios MC identicos al scraping del 28/05).
     catalogo_path = os.path.join(
         BASE_DIR, "BRUJULA-DE-PRECIOS", "data", "processed", "catalogo_unificado.json"
     )
@@ -532,7 +534,6 @@ def _fallback_mc_desde_catalogo():
         print(f"  [MC-FALLBACK] Error leyendo catalogo previo: {e}")
         return []
 
-    hoy = datetime.now().strftime("%Y-%m-%d")
     reconstruidos = []
     fecha_original = ""
     for prod in catalogo:
@@ -540,8 +541,9 @@ def _fallback_mc_desde_catalogo():
         if not precio_mc or precio_mc <= 0:
             continue
         fuente = prod.get("fuentes", {}).get("maxicarrefour", {})
+        fecha_fuente = fuente.get("fecha_scraping", "")
         if not fecha_original:
-            fecha_original = fuente.get("fecha_scraping", "?")
+            fecha_original = fecha_fuente or "?"
         reconstruidos.append({
             "ean":             prod.get("ean") or prod.get("id_unificado", ""),
             "nombre":          fuente.get("nombre") or prod.get("nombre_display", ""),
@@ -549,12 +551,14 @@ def _fallback_mc_desde_catalogo():
             "link":            fuente.get("link", ""),
             "imagen":          fuente.get("imagen", prod.get("imagen", "")),
             "sector":          prod.get("sector", ""),
-            "fecha_scraping":  hoy,
+            "fecha_scraping":  fecha_fuente,
             "fallback_fuente": fecha_original,
             "stock":           True,
         })
 
-    print(f"  [MC-FALLBACK] {len(reconstruidos)} productos del catalogo anterior (scraping original: {fecha_original})")
+    print(f"  [MC-FALLBACK] ATENCION: scraper MC fallo - reciclando {len(reconstruidos)} "
+          f"precios del catalogo anterior (fecha real: {fecha_original}). "
+          f"Si esto se repite varios dias, renovar cookies MC en Railway.")
     return reconstruidos
 
 

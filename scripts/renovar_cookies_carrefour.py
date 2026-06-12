@@ -434,6 +434,14 @@ def renovar_con_chrome() -> bool:
                     print("  Formulario completo.")
                 except Exception as e:
                     print(f"  No se pudo autocompletar ({e}). Completalo manualmente.")
+                    # Screenshot de diagnostico: si el form cambio de estructura,
+                    # esto muestra que estaba viendo Playwright al fallar
+                    try:
+                        DEBUG_SCREENSHOT.parent.mkdir(parents=True, exist_ok=True)
+                        page.screenshot(path=str(DEBUG_SCREENSHOT))
+                        print(f"  Screenshot de debug: {DEBUG_SCREENSHOT}")
+                    except Exception:
+                        pass
 
                 # --- Intento automatico: click con Chrome real + delays humanos ---
                 print("  Intentando click automatico (Chrome real)...")
