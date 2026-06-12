@@ -28,6 +28,7 @@ BASE_DIR        = os.path.dirname(os.path.abspath(__file__))
 YAGUAR_DIR      = os.path.join(BASE_DIR, "targets", "yaguar")
 MAXICARRE_DIR   = os.path.join(BASE_DIR, "targets", "maxicarrefour")
 MAXICONSUMO_DIR = os.path.join(BASE_DIR, "targets", "maxiconsumo")
+HISTORY_DIR     = os.path.join(BASE_DIR, "data", "history")
 RAW_DIR         = os.path.join(BASE_DIR, "data", "raw")
 CODIGOS_FILE         = os.path.join(RAW_DIR, "CODIGOS.xlsx")
 MAESTRO_FILE         = os.path.join(RAW_DIR, "Listado Maestro 09-03.xlsx")
@@ -443,7 +444,8 @@ def cargar_yaguar():
     """
     from datetime import datetime as _dt
     archivos = sorted(
-        glob.glob(os.path.join(YAGUAR_DIR, "output_yaguar_*.json")),
+        glob.glob(os.path.join(YAGUAR_DIR, "output_yaguar_*.json")) +
+        glob.glob(os.path.join(HISTORY_DIR, "yaguar", "output_yaguar_*.json")),
         key=os.path.getmtime, reverse=True
     )[:8]
 
@@ -580,7 +582,8 @@ def cargar_maxiconsumo():
         return []
 
     archivos = sorted(
-        glob.glob(os.path.join(MAXICONSUMO_DIR, "output_maxiconsumo_*.json")),
+        glob.glob(os.path.join(MAXICONSUMO_DIR, "output_maxiconsumo_*.json")) +
+        glob.glob(os.path.join(HISTORY_DIR, "maxiconsumo", "output_maxiconsumo_*.json")),
         key=os.path.getmtime, reverse=True
     )[:8]
     if not archivos:
@@ -1359,9 +1362,9 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 if fuente in p["fuentes"]:
                     del p["fuentes"][fuente]
                 precios_descartados += 1
-            # Outlier hacia arriba: usa min_val como referencia (50x cubre displays/cajas
-            # de 500-1300x sin afectar variaciones legítimas entre mayoristas de < 5x).
-            elif precio > min_val * 50 and min_val > 0:
+            # Outlier hacia arriba: 10x cubre packs/displays (22x-1300x) sin afectar
+            # variaciones legítimas entre mayoristas (< 3x en la práctica).
+            elif precio > min_val * 10 and min_val > 0:
                 p["precios"][fuente] = 0
                 if fuente in p["fuentes"]:
                     del p["fuentes"][fuente]
@@ -1739,7 +1742,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 p["precios"][fuente] = 0
                 p["fuentes"].pop(fuente, None)
                 post_descartados += 1
-            elif precio > min_val * 50 and min_val > 0:
+            elif precio > min_val * 10 and min_val > 0:
                 p["precios"][fuente] = 0
                 p["fuentes"].pop(fuente, None)
                 post_descartados += 1
@@ -1747,6 +1750,47 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         print(f"  Paso 6e: {post_descartados} outliers post-fusión descartados")
 
     lista_final = [p for p in lista_final if any(v > 0 for v in p["precios"].values())]
+
+    # ------------------------------------------------------------------
+    # PASO 6f: Outlier Maxiconsumo (.claude/rules/08-precios-sin-stock.md)
+    #   MC muestra precio aunque el producto este sin stock, y a veces el
+    #   scraper captura precio de bulto. Auditoria 11/06: 23 casos donde
+    #   MC era 2.5x-11x la mediana de las otras fuentes.
+    # ------------------------------------------------------------------
+    OUTLIER_MC_RATIO = 2.5
+    mc_descartados = 0
+    for p in lista_final:
+        precio_mc = p["precios"].get("maxiconsumo", 0)
+        if precio_mc <= 0:
+            continue
+        otras = [v for k, v in p["precios"].items() if k != "maxiconsumo" and v > 0]
+        if not otras:
+            continue
+        mediana_otras = sorted(otras)[len(otras) // 2]
+        if mediana_otras > 0 and precio_mc > mediana_otras * OUTLIER_MC_RATIO:
+            print(f"  Outlier MC descartado: {p.get('nombre_display', '')[:55]} "
+                  f"MC=${precio_mc:,.0f} vs mediana otras=${mediana_otras:,.0f}")
+            p["precios"]["maxiconsumo"] = 0
+            p["fuentes"].pop("maxiconsumo", None)
+            mc_descartados += 1
+    print(f"  PRECIOS SOSPECHOSOS MC descartados: {mc_descartados}")
+
+    lista_final = [p for p in lista_final if any(v > 0 for v in p["precios"].values())]
+
+    # ------------------------------------------------------------------
+    # PASO 6g: Flag de comparacion sospechosa (ahorro > 60% entre fuentes)
+    #   Casi siempre es un match incorrecto o un precio mal capturado, pero
+    #   con 2 fuentes no se sabe cual esta mal -> no descartar, flagear.
+    #   El frontend excluye estos productos de Top Bombas (lib/data.ts).
+    # ------------------------------------------------------------------
+    sospechosos = 0
+    for p in lista_final:
+        vals = [v for v in p["precios"].values() if v > 0]
+        if len(vals) >= 2 and min(vals) < max(vals) * 0.4:
+            p["precio_sospechoso"] = True
+            sospechosos += 1
+    if sospechosos:
+        print(f"  Paso 6g: {sospechosos} productos con ahorro >60% flageados (excluidos de bombas)")
 
     for p in lista_final:
         if "familia" not in p:
