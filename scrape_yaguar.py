@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import os
 import subprocess
+import sys
 from datetime import datetime
 
 def main():
@@ -17,6 +18,7 @@ def main():
         print("\nPara iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev")
     else:
         print("ERROR EN SCRAPER YAGUAR")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

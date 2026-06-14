@@ -1,11 +1,57 @@
 # Estado Vivo — Brújula de Precios
-**Última actualización:** 12/06/2026 (madrugada — crisis precios MC resuelta, todo deployado y verificado en producción)
+**Última actualización:** 14/06/2026 (DEPLOYADO: 3 mayoristas frescos + frescura visible en producción; Railway dado de baja)
 
-## Verificar HOY 12/06 (primera prioridad de la próxima sesión)
-El cron de Railway de las 6 AM debe scrapear MC con las cookies renovadas anoche.
-Chequeo: commit `data: actualizacion automatica 12/06/2026 [Railway]` en BRUJULA-DE-PRECIOS
-+ precios MC con `fecha_scraping: 2026-06-12`. Si MC vuelve a fallar, el fallback ahora
-muestra la fecha real (no miente) — investigar cookies en Railway env.
+## RETOMAR ACÁ (próxima sesión) — 2 pendientes + 1 backlog
+1. **Tarea automática de la mañana (Programador de Windows)** — lo único que falta para autonomía
+   total. Crear tarea que corra `actualizar_brujula.bat` ~7-9 AM con "ejecutar lo antes posible
+   si se perdió el inicio". El .bat ya está probado y funciona.
+2. **Link "Ver" de Maxiconsumo da "Forbidden"** al usuario (afecta ~9.500 productos). A mí desde
+   afuera me carga; a Facu no → Maxiconsumo bloquea el deep-link sin sesión de sucursal. Para
+   arreglar: que Facu pruebe la home `https://maxiconsumo.com/` y vea si pide elegir sucursal,
+   y según eso cambiar el formato del link en `actualizar_catalogo.py`.
+3. (backlog) **Sector Bebidas de Yaguar da 404** — cambió la URL; el scraper recicla los viejos.
+   Revisar la URL del sector Bebidas en `targets/yaguar/scraper_pro.py`.
+
+## Hecho 14/06 (deployado y verificado)
+- ✅ **Railway dado de baja** (subscription cancelada, vence 28/06, no se renueva).
+- ✅ **Los 3 mayoristas frescos** desde la PC: MaxiCarrefour 100% (14/06), Maxiconsumo 97%,
+   Yaguar 90%. Stale total bajó de ~13.900 a ~870. Catálogo: 17.875 productos.
+- ✅ **Cookies MaxiCarrefour renovadas** (14/06) — el modo Chrome automático SÍ puede pasar la
+   traba solo (hoy salió). Si falla, un click de Facu en la ventana alcanza.
+- ✅ **Carteles de frescura DEPLOYADOS** en producción (commit `aeebc67`).
+- 🐛 2 bugs cazados y arreglados: (a) crash de encoding cp1252 (emojis) → `set PYTHONUTF8=1` en
+   `.bat` y `pipeline_local.py`; (b) `encontrar_mejor()` priorizaba archivo viejo grande sobre
+   fresco → cambiado a tolerancia 70% (recencia manda).
+- ⚠️ Aprendizaje: NO mergear `catalogo_unificado.json` con git (mezcla 2 versiones). Si el
+   remoto avanzó, regenerar con `actualizar_catalogo.py` y pisar, no `git pull -X ours`.
+
+## Trabajo 13/06 — Autonomía y confiabilidad de datos (plan aprobado, 3 fases hechas)
+
+## Trabajo 13/06 — Autonomía y confiabilidad de datos (plan aprobado, 3 fases hechas)
+
+**Causa raíz de "mi app dice X, el link dice Y":** matching de cantidad + datos viejos
+mostrados como frescos + scraping no confiable en la nube. Resuelto así:
+
+- ✅ **Fase 1 — Confiabilidad (Python).** `actualizar_catalogo.py`: helper
+  `extraer_fecha_de_timestamp()` inyecta fecha del nombre del archivo cuando el producto
+  no la trae → fuentes sin fecha de ~1.900 a **0**. Umbral stale 30→**14 días**.
+  `dias_desde_scraping` se setea siempre. Exit codes arreglados en `scrape_yaguar.py` y
+  `scrape_maxiconsumo.py`. (Paso 6d de cantidad canónica ya estaba del trabajo previo.)
+- ✅ **Fase 2 — Frescura visible (React).** `lib/data.ts`: interfaz `Precio` con
+  `precioStale`/`diasDesdeScraping` + helper `frescuraDe()`. Componente
+  `components/frescura-pill.tsx` (punto verde "Hoy" / gris "Hace N d" / ámbar viejo).
+  Integrado en vista-detalle, bomba-list-item (inicio), vista-catalogo, vista-lista.
+  `tsc --noEmit` OK. Bombas: no se excluyen por stale (vaciaría la home con datos viejos);
+  el badge avisa y el re-scrapeo lo resuelve.
+- ✅ **Fase 3 — Autonomía local, sin Railway.** `pipeline_local.py` (raíz): corre los 3
+  scrapers (vía wrappers, que manejan cookies y enriquecimiento) → `actualizar_catalogo.py`
+  → chequeo anti-reciclaje (aborta si el total cae >15% o una fuente queda en 0) → git push.
+  `actualizar_brujula.bat` lo ejecuta (doble-click o Task Scheduler). Railway archivado en
+  `archive/` (no borrado).
+
+## Backlog (no urgente)
+- ~34 `nombre_display` mal escritos (Quitamanchas "1.5 ml" → "1.5 L"). Cosmético, precio OK.
+- Fase 4: nube 24/7 con proxy + CapSolver — solo cuando haya pagadores. Ver `archive/README.md`.
 
 ---
 
@@ -23,7 +69,7 @@ Primer comerciante pagador. Todo lo que no acerque a eso es ruido.
 | **Scraper Maxiconsumo** | OK | Última corrida: 28/05/2026 — 9.775 productos. 9.616 precios re-verificados con selector correcto |
 | **Catálogo unificado** | ✅ DEPLOYADO | 18.075 productos, 2.917 con 2+ precios. Fix precios bulto MC aplicado. En producción. |
 | **Frontend** | ✅ DISEÑO v2 EN PRODUCCIÓN | Deployado 11/06 (commit `64b336f`, Vercel READY). 6 vistas + mejoras post-aprobación: Inicio desktop calco Trolley (placa 360px medida con getComputedStyle), Top 20 rankeado (clase A × 3 precios × ahorro) con 6 deals + "Ver más", reveal de pills on-scroll 650ms, drawer con thumbnails + drill-down de subcategorías, LogoLoop en todas las resoluciones. Bug fuente Poppins resuelto. Nota: `npm run lint` no funciona — eslint nunca estuvo instalado (preexistente). |
-| **Railway scrapers automáticos** | ❌ SIN CONFIGURAR | Hobby $5/mes pagado, sin cron activo |
+| **Scraping automático** | 🟡 LOCAL (pendiente Task Scheduler) | `pipeline_local.py` + `actualizar_brujula.bat`. Railway dado de baja (archivado en `archive/`) — fallaba en la nube. Falta crear la tarea en Programador de Windows. |
 | **Cookies MaxiCarrefour** | OK | Auto-renovación implementada 27/05/2026 — Chrome real + auto-click |
 | **Outreach comerciantes** | 🔴 PENDIENTE | BLOQUEADOR REAL — nunca enviado |
 

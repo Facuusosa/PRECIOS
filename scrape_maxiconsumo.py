@@ -4,6 +4,7 @@ import os
 import json
 import glob
 import subprocess
+import sys
 from datetime import datetime
 
 def verificar_output():
@@ -48,7 +49,7 @@ def main():
         output_nuevo = encontrar_output_reciente()
         if not output_nuevo:
             print("ERROR: No se encontro archivo output del scraper")
-            return
+            sys.exit(1)
         print(f"  Output del scraper: {os.path.basename(output_nuevo)}")
 
         print("\n=== ENRIQUECIENDO PRECIOS Y EANs ===")
@@ -75,6 +76,7 @@ def main():
         print("\nPara iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev")
     else:
         print("ERROR EN SCRAPER MAXICONSUMO")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main()

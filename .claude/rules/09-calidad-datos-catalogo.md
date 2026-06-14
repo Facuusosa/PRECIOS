@@ -1,5 +1,27 @@
 # Regla: Calidad de datos del catálogo
 
+## Matching de cantidad: comparar SIEMPRE en cantidad canónica (13/06/2026)
+
+Síntoma reportado por Facu: "mi página muestra una cosa y el link del mayorista muestra
+otra". Causa raíz verificada (caso Agua Glaciar): la app mostraba 1.5L a $1.700 pero el
+link de Maxiconsumo iba a Glaciar **2L** a $1.405 — fuente mal matcheada a otro tamaño.
+
+El `Paso 6d` de `actualizar_catalogo.py` dejaba pasar 75 casos así (Yaguar 35, MaxiCarrefour
+24, Maxiconsumo 16) por dos fallas: (1) umbral `ratio >= 2.0` — Glaciar 1.5↔2L es 1.33x y no
+se detectaba; (2) extracción de números con `_QTY_RE` sobre `clave_nombre`, que no entiende
+`L`/`LT` ni decimales.
+
+**Fix aplicado:** `_cantidad_canonica()` extrae del nombre CRUDO (no `clave_nombre`) y
+normaliza volumen->ml y peso->g. El 6d ahora elimina la fuente si difiere >10% del ancla en
+la misma dimensión. El 10% tolera ruido de parsing (950↔930ml = 2%) sin dejar pasar tamaños
+distintos. Resultado: 103 fuentes incompatibles eliminadas, casos fuente-vs-fuente a 0.
+
+- Para comparar tamaños SIEMPRE normalizar a unidad canónica; nunca comparar "números
+  compartidos" en el string (2L y 2u comparten el 2 y no son lo mismo).
+- Quedan ~34 casos display-vs-fuente: el PRECIO es correcto (las fuentes coinciden entre sí)
+  pero el `nombre_display` está mal escrito (ej. Quitamanchas "1.5 ml" debió ser "1.5 L") o
+  expresa la cantidad distinto (Bon o Bon "18u x 15g" = 270g). Es cosmético, no de precio.
+
 ## Regla de oro (12/06/2026): ningún fallback puede alterar metadata de frescura
 
 `_fallback_mc_desde_catalogo()` pisaba `fecha_scraping` con la fecha de hoy "para que el
