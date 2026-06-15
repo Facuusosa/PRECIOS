@@ -1,18 +1,36 @@
 # Estado Vivo — Brújula de Precios
-**Última actualización:** 14/06/2026 (DEPLOYADO: 3 mayoristas frescos + frescura visible en producción; Railway dado de baja)
+**Última actualización:** 14/06/2026 (tarde) — PRODUCTO LISTO Y VERIFICADO EN PROD. Foco pasa a VENTAS.
 
-## RETOMAR ACÁ (próxima sesión) — 2 pendientes + 1 backlog
-1. **Tarea automática de la mañana (Programador de Windows)** — lo único que falta para autonomía
-   total. Crear tarea que corra `actualizar_brujula.bat` ~7-9 AM con "ejecutar lo antes posible
-   si se perdió el inicio". El .bat ya está probado y funciona.
-2. **Link "Ver" de Maxiconsumo da "Forbidden"** al usuario (afecta ~9.500 productos). A mí desde
-   afuera me carga; a Facu no → Maxiconsumo bloquea el deep-link sin sesión de sucursal. Para
-   arreglar: que Facu pruebe la home `https://maxiconsumo.com/` y vea si pide elegir sucursal,
-   y según eso cambiar el formato del link en `actualizar_catalogo.py`.
-3. (backlog) **Sector Bebidas de Yaguar da 404** — cambió la URL; el scraper recicla los viejos.
-   Revisar la URL del sector Bebidas en `targets/yaguar/scraper_pro.py`.
+## RETOMAR ACÁ (próxima sesión) — ARRANCAR OUTREACH
+**El producto está terminado y deployado. El único bloqueador es comercial: nadie lo vio aún.**
+Arrancar el flujo de outreach para el primer pagador (ver memoria `project_outreach_primer_pagador`):
+1. **Definir ICP** con agente `pm-implacable` (a quién apuntar — hipótesis: comercios que compran
+   a 2-3 mayoristas, margen apretado: autoservicios chicos, almacenes, despensas en Gran BsAs).
+2. `/buscar-comercios` con ese perfil → lista real con contactos.
+3. `/investigar-y-contactar` → mensaje personalizado por comercio → `/enviar-outreach`.
+Hacerlo en sesión nueva con contexto fresco (Facu lo pidió: investigación minuciosa y personalizada).
 
-## Hecho 14/06 (deployado y verificado)
+(backlog técnico) Sector Bebidas de Yaguar da 404 — cambió la URL; revisar en `targets/yaguar/scraper_pro.py`.
+
+## Hecho 14/06 (TARDE) — deployado y verificado en navegador real
+- ✅ **Tarea automática CREADA** en Programador de Windows: "Brujula - Actualizar precios", diaria
+   10:00, StartWhenAvailable (corre apenas se prende la PC si se perdió la hora), usuario Facun.
+   Facu no tiene que tocar nada. Autonomía total lograda.
+- ✅ **Railway BORRADO** (proyecto eliminado, no solo cancelado). Limpieza: borrado
+   `scripts/notify_railway.py` (huérfano) + `_sincronizar_railway()` de `renovar_cookies_carrefour.py`.
+- ✅ **Indicador de frescura FUNCIONANDO en prod** — estaba muerto porque Railway subía catálogo SIN
+   `dias_desde_scraping` (0/18.662 fuentes). El catálogo local sí lo trae → puntito "Hoy" visible.
+- ✅ **Título de pestaña** cambiado a "Brújula de Precios" (era "Brújula Mayorista").
+- ✅ **Links de los 3 mayoristas arreglados y verificados:**
+   - Yaguar: directo a ficha (ya estaba).
+   - Maxiconsumo: directo a ficha SIN prefijo `/sucursal_burzaco/` (eso daba Forbidden). Verificado por Facu.
+   - MaxiCarrefour: HÍBRIDO. Carrefour rota EANs, su buscador resuelve ~48%. `_carrefour_links_hibrido()`
+     verifica cada EAN contra la API del buscador → `/search/{ean}` directo si existe, `/search/{nombre}`
+     si no (nunca pantalla vacía). 2.366 directo / 2.487 fallback. Integrado en el pipeline.
+- ⚠️ Lección: NO generalizar de 1 caso. Probé el link MC con el Buhero (caso raro de EAN cambiado),
+   concluí mal que `/search/{ean}` estaba roto y cambié todo a nombre = regresión. Medir con muestra.
+
+## Hecho 14/06 (mañana, deployado y verificado)
 - ✅ **Railway dado de baja** (subscription cancelada, vence 28/06, no se renueva).
 - ✅ **Los 3 mayoristas frescos** desde la PC: MaxiCarrefour 100% (14/06), Maxiconsumo 97%,
    Yaguar 90%. Stale total bajó de ~13.900 a ~870. Catálogo: 17.875 productos.
@@ -69,7 +87,7 @@ Primer comerciante pagador. Todo lo que no acerque a eso es ruido.
 | **Scraper Maxiconsumo** | OK | Última corrida: 28/05/2026 — 9.775 productos. 9.616 precios re-verificados con selector correcto |
 | **Catálogo unificado** | ✅ DEPLOYADO | 18.075 productos, 2.917 con 2+ precios. Fix precios bulto MC aplicado. En producción. |
 | **Frontend** | ✅ DISEÑO v2 EN PRODUCCIÓN | Deployado 11/06 (commit `64b336f`, Vercel READY). 6 vistas + mejoras post-aprobación: Inicio desktop calco Trolley (placa 360px medida con getComputedStyle), Top 20 rankeado (clase A × 3 precios × ahorro) con 6 deals + "Ver más", reveal de pills on-scroll 650ms, drawer con thumbnails + drill-down de subcategorías, LogoLoop en todas las resoluciones. Bug fuente Poppins resuelto. Nota: `npm run lint` no funciona — eslint nunca estuvo instalado (preexistente). |
-| **Scraping automático** | 🟡 LOCAL (pendiente Task Scheduler) | `pipeline_local.py` + `actualizar_brujula.bat`. Railway dado de baja (archivado en `archive/`) — fallaba en la nube. Falta crear la tarea en Programador de Windows. |
+| **Scraping automático** | ✅ LOCAL AUTOMÁTICO | Tarea Windows "Brujula - Actualizar precios" diaria 10:00 (StartWhenAvailable). `pipeline_local.py` + `actualizar_brujula.bat`. Railway BORRADO. |
 | **Cookies MaxiCarrefour** | OK | Auto-renovación implementada 27/05/2026 — Chrome real + auto-click |
 | **Outreach comerciantes** | 🔴 PENDIENTE | BLOQUEADOR REAL — nunca enviado |
 

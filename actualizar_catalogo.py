@@ -172,9 +172,65 @@ def mejor_imagen(imagenes):
     return ""
 
 def _carrefour_search_link(ean):
+    # /search/{ean} da 1 resultado exacto CUANDO el buscador conoce ese EAN. Carrefour rota
+    # EANs y su buscador solo resuelve ~48%; _carrefour_links_hibrido() verifica cada uno y
+    # cae a busqueda por nombre si el EAN da 0. Este es el default antes de esa verificacion.
     if not ean:
         return ""
     return f"https://comerciante.carrefour.com.ar/search/{ean}"
+
+def _carrefour_links_hibrido(catalogo):
+    # Verifica cada EAN de Carrefour contra la API del buscador. Si lo encuentra -> link
+    # directo /search/{ean} (1 resultado). Si no -> busqueda por nombre (asi nunca queda
+    # pantalla vacia). Robusto: ante cualquier error de red deja el /search/{ean} ya puesto.
+    from urllib.parse import quote
+    from concurrent.futures import ThreadPoolExecutor
+    try:
+        from curl_cffi import requests as _rq
+    except Exception:
+        return
+    mc = [(k, p) for k, p in catalogo.items()
+          if p.get("fuentes", {}).get("maxicarrefour") and p.get("ean")]
+    if not mc:
+        return
+
+    def _ok(ean):
+        url = (f"https://comerciante.carrefour.com.ar/products?currentUrl=search/{ean}"
+               f"&filters=&orderBy=default&currentPage=1&itemsPerPage=12&method=productsList")
+        try:
+            return "item_card" in _rq.get(url, impersonate="chrome120", timeout=12).text
+        except Exception:
+            return True  # ante duda, conservar el /search/{ean} (no romper)
+
+    eans = [p["ean"] for _, p in mc]
+    try:
+        with ThreadPoolExecutor(max_workers=16) as ex:
+            ok = dict(zip(eans, ex.map(_ok, eans)))
+    except Exception:
+        return
+    fb = 0
+    for _, p in mc:
+        if not ok.get(p["ean"], True):
+            nombre = p["fuentes"]["maxicarrefour"].get("nombre") or p.get("nombre_display") or ""
+            p["fuentes"]["maxicarrefour"]["link"] = f"https://comerciante.carrefour.com.ar/search/{quote(nombre)}"
+            fb += 1
+    print(f"  Links Carrefour: {len(mc)-fb} EAN directo, {fb} fallback a nombre")
+
+def _maxiconsumo_product_link(link):
+    # Link directo a la ficha del producto, pero SIN el prefijo de sucursal: la URL del
+    # scraper trae /sucursal_burzaco/ hardcodeado y da Forbidden si la sesion del usuario
+    # no tiene esa sucursal. Sin el segmento, Magento aplica la sucursal de la sesion.
+    if not link:
+        return ""
+    return re.sub(r"/sucursal_[^/]+/", "/", link)
+
+def _maxiconsumo_product_link(link):
+    # Link directo a la ficha del producto, pero SIN el prefijo de sucursal: la URL del
+    # scraper trae /sucursal_burzaco/ hardcodeado y da Forbidden si la sesion del usuario
+    # no tiene esa sucursal. Sin el segmento, Magento aplica la sucursal de la sesion.
+    if not link:
+        return ""
+    return re.sub(r"/sucursal_[^/]+/", "/", link)
 
 # ---------------------------------------------------------------------------
 # Carga de Excel
@@ -1979,6 +2035,16 @@ def main():
     print(f"  Con 3 precios:                {tres}")
     print(f"  ABC=A con 2+ precios:         {abc_a_multi}")
     print(f"  Sin imagen:                   {sin_img}")
+
+    # Normalizar link de Maxiconsumo: ficha directa sin el prefijo de sucursal (ver
+    # _maxiconsumo_product_link).
+    for _p in catalogo.values():
+        _mco = _p.get("fuentes", {}).get("maxiconsumo")
+        if _mco and _mco.get("link"):
+            _mco["link"] = _maxiconsumo_product_link(_mco["link"])
+
+    # Links Carrefour: verificar cada EAN y caer a busqueda por nombre si el buscador da 0.
+    _carrefour_links_hibrido(catalogo)
 
     os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:

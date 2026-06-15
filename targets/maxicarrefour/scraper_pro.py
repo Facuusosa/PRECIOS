@@ -13,7 +13,7 @@ import json
 import re
 import time
 from datetime import datetime
-import requests
+from curl_cffi import requests
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
@@ -205,7 +205,7 @@ def main():
         print("ERROR: Cookies no configuradas. Verificá el archivo .env")
         sys.exit(1)
 
-    session = requests.Session()
+    session = requests.Session(impersonate="chrome131")
     session.cookies.update({"PHPSESSID": PHPSESSID, "cf_clearance": CF_CLEARANCE})
     session.headers.update(HEADERS)
 

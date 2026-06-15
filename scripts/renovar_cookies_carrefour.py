@@ -57,7 +57,7 @@ CAMPOS_REQUERIDOS = {
 
 
 # ---------------------------------------------------------------------------
-# Helpers de .env y Railway
+# Helpers de .env
 # ---------------------------------------------------------------------------
 
 def _actualizar_env(key: str, value: str):
@@ -77,42 +77,7 @@ def _guardar_cookies(phpsessid: str, cf_clearance: str):
         _actualizar_env("CARREFOUR_CF_CLEARANCE", cf_clearance)
     fecha_hoy = datetime.date.today().isoformat()
     _actualizar_env("CARREFOUR_COOKIE_DATE", fecha_hoy)
-    _sincronizar_railway(phpsessid, cf_clearance, fecha_hoy)
     print(f"  OK: PHPSESSID ({phpsessid[:16]}...) guardado.")
-
-
-def _sincronizar_railway(phpsessid: str, cf_clearance: str, fecha: str):
-    import urllib.request, json as _json
-    token          = os.getenv("RAILWAY_TOKEN", "")
-    project_id     = os.getenv("RAILWAY_PROJECT_ID", "")
-    environment_id = os.getenv("RAILWAY_ENVIRONMENT_ID", "")
-    if not token or not project_id or not environment_id:
-        return
-    mutation = "mutation($input: VariableCollectionUpsertInput!) { variableCollectionUpsert(input: $input) }"
-    payload = _json.dumps({
-        "query": mutation,
-        "variables": {"input": {
-            "projectId": project_id, "environmentId": environment_id,
-            "variables": {
-                "CARREFOUR_PHPSESSID":    phpsessid,
-                "CARREFOUR_CF_CLEARANCE": cf_clearance,
-                "CARREFOUR_COOKIE_DATE":  fecha,
-            },
-        }}
-    }).encode()
-    req = urllib.request.Request(
-        "https://backboard.railway.app/graphql/v2", data=payload,
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Content-Type": "application/json",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-        },
-    )
-    try:
-        urllib.request.urlopen(req, timeout=10)
-        print("  Railway: env vars actualizadas.")
-    except Exception as e:
-        print(f"  Railway sync (no critico): {e}")
 
 
 def cookies_necesitan_renovacion() -> bool:
