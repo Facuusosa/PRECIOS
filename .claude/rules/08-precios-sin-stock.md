@@ -22,26 +22,22 @@ Cuando en `actualizar_catalogo.py` se procesa un precio de Maxiconsumo, marcarlo
 - El producto no tiene `fecha_scraping` en la fuente Maxiconsumo
 - El precio de MC es > 0 pero el producto estaba en "disponibilidad crítica" en la web
 
-## Fix pendiente en scraper_pro.py
+## Fixes — IMPLEMENTADOS (verificado en código el 01/07/2026)
 
-En `parsear_pagina()` (línea 77), después de extraer el precio, buscar indicador de sin stock:
-```python
-# Detectar disponibilidad crítica: buscar texto o clase CSS en el item
-sin_stock = bool(item.find(string=re.compile(r"disponibilidad cr[ií]tica", re.IGNORECASE)))
-# Guardar en el producto para que actualizar_catalogo.py pueda filtrarlo
-"stock": not sin_stock,
-```
+1. **Scraper saltea sin stock**: `targets/maxiconsumo/scraper_pro.py:91-93` detecta
+   "disponibilidad crítica" en el item y lo saltea directamente (no lo captura).
+2. **Filtro outlier por mediana**: `actualizar_catalogo.py:1886-1902` — si el precio MC
+   es > 2.5x la mediana de las otras fuentes (`OUTLIER_MC_RATIO = 2.5`), se descarta y
+   se loguea "PRECIOS SOSPECHOSOS MC descartados: N". Corre en cada corrida del catálogo.
+3. Existe además validación cruzada general (~línea 1439): outlier < mediana/4 o > 2.5x
+   con 3 fuentes se descarta; con 2 fuentes y ratio >2.5x se marca sospechoso para revisión.
 
-## Fix pendiente en actualizar_catalogo.py
+Si el log del pipeline muestra "PRECIOS SOSPECHOSOS MC descartados: N" con N alto (>20),
+revisar si Maxiconsumo cambió el HTML del indicador de stock.
 
-Agregar filtro outlier antes de consolidar precios de Maxiconsumo:
-- Si hay 2+ mayoristas con precio, calcular mediana
-- Si el precio de MC es > 2.5x la mediana → descartarlo (poner a 0) y loguear
-- Esto captura automáticamente precios de bulto mal capturados Y precios de productos sin stock
+## Capa extra desde 01/07/2026
 
-## Cómo detectar este patrón antes de que lo reporte Facu
-
-En cada corrida de `actualizar_catalogo.py`, imprimir al final:
-"PRECIOS SOSPECHOSOS MC: N productos donde precio MC > 2x mediana de otras fuentes"
-
-Si N > 0 → revisar manualmente antes de actualizar el catálogo.
+La verificación en vivo (`scripts/verificar_precios_real.py`, integrada como gate pre-push
+en `pipeline_local.py`) compara el top 20 ABC=A contra la web real de los 3 mayoristas.
+Un precio sin stock inflado que se cuele por las capas anteriores diverge contra la web
+y bloquea la publicación.

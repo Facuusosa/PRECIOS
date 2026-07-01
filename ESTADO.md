@@ -1,16 +1,87 @@
 # Estado Vivo — Brújula de Precios
-**Última actualización:** 14/06/2026 (tarde) — PRODUCTO LISTO Y VERIFICADO EN PROD. Foco pasa a VENTAS.
+**Última actualización:** 01/07/2026 — Incidente MCF resuelto + pipeline endurecido. Catálogo 100% verificado contra la web en vivo (60/60) y publicado.
 
-## RETOMAR ACÁ (próxima sesión) — ARRANCAR OUTREACH
-**El producto está terminado y deployado. El único bloqueador es comercial: nadie lo vio aún.**
-Arrancar el flujo de outreach para el primer pagador (ver memoria `project_outreach_primer_pagador`):
-1. **Definir ICP** con agente `pm-implacable` (a quién apuntar — hipótesis: comercios que compran
-   a 2-3 mayoristas, margen apretado: autoservicios chicos, almacenes, despensas en Gran BsAs).
-2. `/buscar-comercios` con ese perfil → lista real con contactos.
-3. `/investigar-y-contactar` → mensaje personalizado por comercio → `/enviar-outreach`.
-Hacerlo en sesión nueva con contexto fresco (Facu lo pidió: investigación minuciosa y personalizada).
+## ESTADO ACTUAL — Scrapers y catálogo (01/07/2026)
+- ✅ **Yaguar**: 6.587 precios — fresco de hoy, verificado 20/20 contra la web
+- ✅ **MaxiCarrefour**: 4.735 precios — **fresco de hoy** (cookies renovadas automáticamente, auto-click OK), verificado 20/20
+- ✅ **Maxiconsumo**: 4.052 precios — fresco de hoy, verificado 20/20
+- ✅ **Catálogo**: 13.186 con precio, 1.885 con 2+ precios, 303 con 3 precios
+- ✅ **Verificación en vivo**: 60/60 (100%) — primera vez con las 3 fuentes verificadas
+- ✅ **Push a Vercel**: hecho (commit 9589305 en submódulo)
+
+## INCIDENTE RESUELTO 01/07 — MCF publicó 11 días precios del 20/06
+Cadena de 4 agujeros alineados (detalle en `.claude/rules/02-scrapers.md`):
+Carrefour cambió la señal de sesión muerta (`item_card_public` → `data-price="private"`)
+→ `_cookies_vigentes()` daba falso vigente → scraper fallaba a diario → catálogo reciclaba
+output viejo con fecha honesta → anti-reciclaje (cuenta precios, no frescura) publicaba
+→ verificador MCF roto (endpoint VTEX muerto) + exit code ignorado = nadie se enteró.
+
+## PIPELINE ENDURECIDO 01/07 — qué cambió
+- **`scrape_maxicarrefour.py`**: `_cookies_vigentes()` detecta `data-price="private"` → auto-renovación pre-scrape (sin humano en el caso común)
+- **`scripts/verificar_precios_real.py`**: parsers arreglados (MCO: dataLayer GTM; MCF: endpoint buscador + formato inglés de precio), exit codes 0/1/2, desglose de no-verificados
+- **`pipeline_local.py`**: gate pre-push (diverge → NO publica), frescura por fuente (>3 días → alerta), `alertar()` → `data/quality/ALERTA.md` + beep
+- **`/inicio-sesion`**: paso 0 = leer ALERTA.md
+- **Tarea Windows**: WakeToRun activado + wake timers habilitados (AC) — corre 10am aunque la PC duerma
+- La verificación ya NO corre dentro de `scrape_maxiconsumo.py` (corría 2 veces, exit ignorado)
+
+## PRÓXIMOS PASOS
+1. 🟢 Mañana 10am: primera corrida del pipeline endurecido — revisar `data/quality/pipeline_local.log` y `ALERTA.md`
+2. 🟡 Yaguar Bebidas da 404 en pág 9 — URL cambió, revisar en `targets/yaguar/scraper_pro.py` (backlog)
+
+## RETOMAR ACÁ — DISPARADOR: "continuemos con el mensaje para los clientes"
+**Sistema de outreach con PANEL de control (ver memoria `project_outreach_primer_pagador` + `.claude/docs/playbook-outreach.md`).**
+
+**PANEL DE OUTREACH v3 (15/06 tarde) — COMPLETO:** `scripts/generar_panel_outreach.py` genera
+`data/outreach/panel_outreach.html` (autocontenido, se abre solo, portable al celu). Estética Brújula v2
+(Poppins, hairlines, placas, dorado sparse). Por comercio:
+- **Foto REAL del local** (scrapeada de Google Maps con Puppeteer MCP, sin API key, bajada a `data/outreach/fotos/`).
+- Datos, dirección, **logo Google Maps clickeable**, redes y teléfono.
+- **Material con buscador autocompletado** sobre POOL de ~759 productos validados (escribís → saltan opciones).
+  Al elegir: mensaje, foto del producto, ahorro y **los 3 links de mayoristas (Yaguar/Maxiconsumo/MaxiCarrefour)
+  con precio** se actualizan solos. Cada link verifica el precio en vivo. + chips de atajo por comercio.
+- **Botón "Reportar precio incorrecto"** → entra en el Exportar para que Claude lo verifique.
+- Mensaje editable + Aprobar / Copiar / **Abrir canal** (wa.me con texto cargado / ig.me / m.me) / Marcar enviado.
+- Estado, material, ediciones y reportes sincronizados en **Vercel Blob** (cloud) — accesible desde cualquier dispositivo.
+- Fallback a localStorage si hay error de red.
+- API route: `BRUJULA-DE-PRECIOS/app/api/outreach/route.ts` (GET/POST, protegida por `OUTREACH_PW` env var).
+- **URL en producción:** `https://v0-brujula-de-precios.vercel.app/outreach.html?pw=[clave]`
+- Para regenerar el panel (ej: nuevos comercios): `python scripts/generar_panel_outreach.py` → genera en `data/outreach/` Y en `BRUJULA-DE-PRECIOS/public/` → commitear y pushear.
+- Rediseño desktop (18/06): 2 columnas, ficha de cliente a la derecha (foto 220px, filas de contacto con íconos, badge principal/celular/fijo), trabajo a la izquierda. Mobile: compacto con foto pequeña.
+Verificado con screenshot (Puppeteer): se ve impecable. Las 3 fachadas confirmadas (HLY, San Cayetano, Urquiza).
+
+**AMPLIACIÓN DE COMERCIOS (16-17/06):** barrido masivo con subagentes (Maps + directorios web + redes
+sociales) en zona cercana a la casa de Facu (ver memoria PRIVADA `user_direccion_facu`). Resultado
+consolidado en `data/outreach/comercios_consolidado.json`: **105 comercios únicos** → **27 contactables
+por DM** (WhatsApp/IG/FB), 54 solo fijo, 24 sin contacto.
+- `scripts/consolidar_candidatos.py` une las 4 fuentes (zonanorte + candidatos_web1/maps/web2), dedup por
+  nombre+zona y por dirección (cazó HLY duplicado), rankea digitales primero. Genera comercios_consolidado.json.
+- El panel ahora carga `comercios_consolidado.json` (preferido si existe): **27 digitales** rankeados.
+- Fotos del local: subagente sacó 17 `foto_url`; descargadas a `data/outreach/fotos/` y seteado `foto_local`.
+  **Panel regenerado y verificado: 27 comercios, 17 con foto del local.** Los 10 sin foto muestran botón a Maps.
+  Búsqueda CORTADA por Facu (suficientes para arrancar). Para sumar más: re-correr barrido + `consolidar_candidatos.py`.
+- OJO (aviso del agente Maps): de los 14 WhatsApp, solo 2 son celular 100% confirmado; el resto inferido
+  por prefijo. VERIFICAR cada número antes de mandar el primer mensaje.
+
+Base anterior: `data/outreach/comercios_zonanorte_20260615.json` (10, los 3 originales con foto ya verificada).
+
+Próximos pasos (en orden):
+1. **Facu revisa el panel ampliado** (27 comercios) y **EMPIEZA A MANDAR** (Abrir WhatsApp/DM → enviar → Marcar enviado).
+   Verificar el número de WhatsApp antes de cada envío. Follow-up 1 vez a los 3-4 días.
+3. Si reporta precios → exportar JSON → Claude verifica y corrige catálogo.
+4. Pendiente estratégico (NO ahora): palanca de grupos de comerciantes en FB/WhatsApp + video de ahorro.
 
 (backlog técnico) Sector Bebidas de Yaguar da 404 — cambió la URL; revisar en `targets/yaguar/scraper_pro.py`.
+
+(backlog técnico) Sector Bebidas de Yaguar da 404 — cambió la URL; revisar en `targets/yaguar/scraper_pro.py`.
+
+## Hecho 17/06 — iconos del drawer de catálogo (deployado a prod)
+- ✅ **Menú de categorías con iconos de línea uniformes.** `components/category-drawer.tsx`:
+   fuera thumbnails PNG + emoji (inconsistentes) → iconos lucide, uno por sector, dentro de chip
+   con tinte pastel ATENUADO (B2 atenuado, aprobado por Facu tras comparar 3 variantes en preview HTML).
+   Mapa `SECTOR_ICONS` (icono + bg + fg por sector) + fallback neutro `Package`.
+- Los PNG de `/categories/` NO se borraron: `vista-inicio.tsx` los sigue usando.
+- Verificado: `npx tsc --noEmit` OK + deploy Vercel `dpl_GQKV7R4...` BUILDING→prod con commit `74691fe`.
+- Deploy del frontend = push a `main` del SUBMÓDULO `BRUJULA-DE-PRECIOS` (repo propio, Vercel linkeado ahí).
 
 ## Hecho 14/06 (TARDE) — deployado y verificado en navegador real
 - ✅ **Tarea automática CREADA** en Programador de Windows: "Brujula - Actualizar precios", diaria
@@ -121,6 +192,7 @@ Primer comerciante pagador. Todo lo que no acerque a eso es ruido.
 
 | Fecha | Qué se hizo |
 |---|---|
+| 19/06/2026 | **Panel outreach v4 — JS bug resuelto, en producción.** Causa raíz: en Python `'''...'''`, `\'` → `'` (backslash consumido), rompiendo todos los `onclick="fn(\'...\')"`. Fix definitivo: JS extraído a `scripts/panel_outreach_app.js` (sin Python de por medio), `rebuild_panel.py` lo lee e inyecta. Fix adicional: `checkPw()` usaba `.value` del input vacío en lugar del URL param → `|| params.get("pw")`. Verificado con Puppeteer: JS OK, 70 comercios, detalle abre, guarda en Vercel Blob. Todo listo para empezar a enviar. |
 | 12/06/2026 (madrugada) | **CRISIS DATOS MC RESUELTA + todo deployado.** Facu detectó precios MC incorrectos → investigación: scraper MC fallaba en Railway desde 28/05 y `_fallback_mc_desde_catalogo()` reciclaba precios viejos PISANDO fecha con "hoy" (5.128 precios del 28/05 disfrazados de frescos). Fixes: (1) fallback conserva fecha real, (2) cookies renovadas + sincronizadas a Railway, (3) scraper MC local corrido (5.031 con precio) + parche quirúrgico `scripts/parchear_mc_catalogo.py` (solo MC, sin tocar Yaguar/MCO frescos de Railway) → 4.504 precios MC de hoy en producción (commit `297b692`). Branca confirmado: $15.349→$16.425. Diferencia residual Buhero ($10.015 vs $10.315 del portal de Facu) = percepciones IIBB +3% según CUIT del cliente → nota fiscal agregada al detalle (commit `da77e5a`, verificada en prod). RENOVACIÓN COOKIES GRATIS (Facu no quiere pagar CapSolver): tarea programada Windows diaria 20:00 (`renovar_cookies_diario.bat`) — chequea fecha, renueva solo si >25 días, beep si necesita click. FOTOS SIN CUENTAS: propuesta GitHub repo + jsDelivr CDN (gratis, sin registro nuevo) — pendiente OK de Facu. Verificación previa: 96.4% precios OK vs webs (27/28), trampa Yaguar pack x3 documentada en memoria. |
 | 11/06/2026 (noche) | **6 FIXES UX + CALIDAD DE DATOS — commiteados, pendiente push.** Frontend (commit `1718999`): sidebar desktop con categorías desplegables (accordion), favoritos persistentes (localStorage + corazón header + chip Favoritos en catálogo), Mi Lista rehidratada contra catálogo del día (cálculos usaban precios congelados del snapshot), Toaster montado (el "+Lista" del Inicio funcionaba pero sin feedback — sonner nunca estuvo montado), labels del rango de precios anclados (se cortaban en mobile), `calcularBombas()` excluye ahorros >60%. Todo verificado con Chrome headless (`scripts/verificar-ux.mjs`, puppeteer-core nuevo devDep). Pipeline (commit `fca072a`): auditoría con agente auditor-catalogo encontró 23 outliers MC (bulto/sin stock, ej. Tulipán 11.3x) + 58 ahorros imposibles → paso 6f (MC >2.5x mediana → descartar, regla 08) + paso 6g (ahorro >60% → flag `precio_sospechoso`) + umbral 50x→10x commiteado al fin (estaba local desde 28/05 — POR ESO producción mostraba outliers). Reporte: `data/quality/auditoria_catalogo_2026-06-11.md`. Verificado: catálogo regenerado local con 0 ahorros >60% sin flag; catálogo fresco de Railway restaurado después de la prueba. PENDIENTE: push de ambos repos (BRUJULA → deploy Vercel con rebase previo por catálogos Railway; PRECIOS → rebuild imagen Railway para el cron de 6 AM). Facu debe crear cuenta Cloudflare R2 para la tanda fotos+nombres. |
 | 11/06/2026 (cierre) | **DISEÑO v2 DEPLOYADO A PRODUCCIÓN.** Post-aprobación de Facu: Inicio desktop rediseñado calco Trolley (proporciones medidas con getComputedStyle en trolley.co.uk: placa 360×418 + gap 40 + info), Top 20 rankeado (clase A × 3 precios × ahorro) con 6 deals + "Ver más", reveal de pills on-scroll (650ms, pedido de Facu: lento), drawer v2 con thumbnails de categorías + drill-down de subcategorías (accordion grid-rows), LogoLoop restaurado en desktop (pedido de Facu), fixes de superposición (categorías flex-column, labels rango con fondo). Deploy: build local OK → commit → rebase sobre 14 días de catálogos Railway (conflicto resuelto a favor de Railway) → push → Vercel READY verificado por API. DESCUBRIMIENTO: el cron Railway corre hace 14 días commiteando catálogo diario (ESTADO decía "sin configurar" — corregido). Memoria actualizada: colaboración (proyecto de ambos), plan fotos R2, regla de rebase pre-push. PRÓXIMA SESIÓN: Facu define rumbo — recomendado outreach > pipeline nombres/fotos. |

@@ -32,8 +32,14 @@ CATALOGO_PATH = BASE_DIR / "BRUJULA-DE-PRECIOS/data/processed/catalogo_unificado
 OUTPUT_DIR = BASE_DIR / "data/quality"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-TOLERANCIA = 0.10  # diferencia de precio aceptable: 10%
-DELAY = 1.5        # segundos entre requests
+TOLERANCIA = 0.10      # diferencia de precio aceptable: 10%
+DELAY = 1.5            # segundos entre requests
+MIN_VERIFICADOS = 10   # con menos comparaciones efectivas la tasa es ruido, no señal
+
+# Exit codes (pipeline_local.py decide con esto si publica):
+#   0 = ok (tasa >= 80% con >= MIN_VERIFICADOS comparados)
+#   1 = divergencia real -> NO publicar
+#   2 = inconcluso (pocos comparados: red caida, sesion expirada) -> publicar + alertar
 
 try:
     from curl_cffi import requests as cf_requests
@@ -104,37 +110,23 @@ def _verificar_maxiconsumo(link: str, precio_catalogo: float) -> dict:
         if r.status_code != 200:
             return {"estado": "error_http", "codigo": r.status_code}
 
-        soup = BeautifulSoup(r.text, "html.parser")
-        # Precio Magento
-        precio_elem = (
-            soup.select_one(".price-box .price") or
-            soup.select_one("[data-price-type='finalPrice'] .price") or
-            soup.select_one(".product-info-price .price")
-        )
-        if not precio_elem:
-            # Intentar JSON-LD
-            for tag in soup.find_all("script", type="application/ld+json"):
-                try:
-                    data = json.loads(tag.string or "")
-                    if isinstance(data, dict) and data.get("price"):
-                        precio_real = float(data["price"])
-                        diferencia = abs(precio_real - precio_catalogo) / precio_catalogo if precio_catalogo > 0 else 1
-                        return {
-                            "estado": "ok" if diferencia <= TOLERANCIA else "diverge",
-                            "precio_catalogo": precio_catalogo,
-                            "precio_real": precio_real,
-                            "diferencia_pct": round(diferencia * 100, 1),
-                        }
-                except Exception:
-                    pass
-            return {"estado": "precio_no_encontrado"}
+        # NO parsear el DOM: el cache de Magento a veces sirve la ficha sin el precio
+        # renderizado, y el primer .price-box puede ser de un producto relacionado del
+        # carrusel (falso DIVERGE, caso Canuelas 900cc 01/07/2026). El dataLayer de GTM
+        # embebido trae el precio del producto principal server-side y es estable.
+        m = re.search(r'"price_unit_package":[\d.]+,"price":([\d.]+)', r.text)
+        if not m:
+            candidatos = re.findall(r'"price":([\d.]+)', r.text)
+            if len(candidatos) != 1:
+                return {"estado": "precio_no_encontrado"}
+            m_precio = candidatos[0]
+        else:
+            m_precio = m.group(1)
 
-        texto = precio_elem.get_text(strip=True)
-        limpio = re.sub(r"[^\d,.]", "", texto).replace(".", "").replace(",", ".")
         try:
-            precio_real = float(limpio)
+            precio_real = float(m_precio)
         except ValueError:
-            return {"estado": "precio_no_parseable", "texto": texto}
+            return {"estado": "precio_no_parseable", "texto": m_precio}
 
         diferencia = abs(precio_real - precio_catalogo) / precio_catalogo if precio_catalogo > 0 else 1
         return {
@@ -147,8 +139,36 @@ def _verificar_maxiconsumo(link: str, precio_catalogo: float) -> dict:
         return {"estado": "excepcion", "error": str(e)[:100]}
 
 
+def _limpiar_precio_carrefour(texto: str) -> float:
+    """Copia de limpiar_precio() de targets/maxicarrefour/scraper_pro.py.
+
+    El data-price de Carrefour viene en formato ingles ("10,869.00" / "899.00"):
+    coma de miles y punto decimal. La limpieza estilo argentino (punto=miles)
+    lo rompe: "899.00" -> 89900 (bug 01/07/2026, 20 falsos DIVERGE).
+    """
+    limpio = re.sub(r"[^\d,.]", "", str(texto))
+    if "," in limpio and "." in limpio:
+        limpio = limpio.replace(",", "")
+    elif "," in limpio:
+        partes = limpio.split(",")
+        if len(partes) == 2 and len(partes[1]) <= 2:
+            limpio = limpio.replace(",", ".")
+        else:
+            limpio = limpio.replace(",", "")
+    try:
+        return float(limpio)
+    except ValueError:
+        return 0.0
+
+
 def _verificar_maxicarrefour(ean: str, precio_catalogo: float) -> dict:
-    """Verifica precio de MaxiCarrefour buscando por EAN con las cookies actuales."""
+    """Verifica precio de MaxiCarrefour buscando por EAN via la API del buscador.
+
+    IMPORTANTE: solo funciona con la sesion PHP viva — PHPSESSID expira por
+    inactividad a las pocas horas del scrape (medido 01/07/2026: scrape 16:52 OK,
+    a las 19:47 todo el sitio devolvia data-price="private"). Correr esta
+    verificacion PEGADA al pipeline, no como script suelto horas despues.
+    """
     if not ean:
         return {"estado": "sin_ean"}
     try:
@@ -157,36 +177,56 @@ def _verificar_maxicarrefour(ean: str, precio_catalogo: float) -> dict:
         if not phpsessid:
             return {"estado": "sin_cookies"}
 
-        session = cf_requests.Session(impersonate="safari15_3") if CURL_DISPONIBLE else cf_requests.Session()
+        # Receta identica al scraper (impersonate chrome131 + estos headers):
+        # otras combinaciones pasan Cloudflare pero el precio viene "private".
+        session = cf_requests.Session(impersonate="chrome131") if CURL_DISPONIBLE else cf_requests.Session()
         session.cookies.update({"PHPSESSID": phpsessid, "cf_clearance": cf_clearance})
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "text/html,application/xhtml+xml,*/*;q=0.8",
+            "Accept-Language": "es-ES,es;q=0.9",
             "Referer": "https://comerciante.carrefour.com.ar/",
         }
-        url = f"https://comerciante.carrefour.com.ar/api/catalog_system/pub/products/search/{ean}"
+        # La API VTEX (/api/catalog_system/...) requiere auth propia y esta muerta
+        # para nosotros; este es el mismo endpoint del buscador que usa
+        # _carrefour_links_hibrido en actualizar_catalogo.py.
+        url = (f"https://comerciante.carrefour.com.ar/products?currentUrl=search/{ean}"
+               f"&filters=&orderBy=default&currentPage=1&itemsPerPage=12&method=productsList")
         r = session.get(url, headers=headers, timeout=20)
 
-        if r.status_code == 401 or "/login" in r.url:
+        if r.status_code == 401 or "/login" in str(r.url):
             return {"estado": "cookies_expiradas"}
         if r.status_code != 200:
             return {"estado": "error_http", "codigo": r.status_code}
 
-        data = r.json()
-        if not data:
+        soup = BeautifulSoup(r.text, "html.parser")
+        item = soup.find(class_="item_card") or soup.find(class_="item_card_public")
+        if not item:
             return {"estado": "producto_no_encontrado"}
 
-        # Extraer precio del primer resultado
-        try:
-            precio_real = data[0]["items"][0]["sellers"][0]["commertialOffer"]["Price"]
-            diferencia = abs(precio_real - precio_catalogo) / precio_catalogo if precio_catalogo > 0 else 1
-            return {
-                "estado": "ok" if diferencia <= TOLERANCIA else "diverge",
-                "precio_catalogo": precio_catalogo,
-                "precio_real": precio_real,
-                "diferencia_pct": round(diferencia * 100, 1),
-            }
-        except (KeyError, IndexError):
-            return {"estado": "precio_no_parseable"}
+        # Mismo parsing que el scraper: number_price (texto) o data-price del boton
+        precio_texto = ""
+        price_div = item.find(class_="number_price")
+        if price_div:
+            precio_texto = price_div.get_text(strip=True)
+        if not precio_texto:
+            cart = item.find(class_="cart_button")
+            if cart:
+                precio_texto = cart.get("data-price", "")
+
+        if precio_texto == "private":
+            return {"estado": "sesion_expirada"}
+        precio_real = _limpiar_precio_carrefour(precio_texto)
+        if precio_real <= 0:
+            return {"estado": "precio_no_parseable", "texto": precio_texto[:40]}
+
+        diferencia = abs(precio_real - precio_catalogo) / precio_catalogo if precio_catalogo > 0 else 1
+        return {
+            "estado": "ok" if diferencia <= TOLERANCIA else "diverge",
+            "precio_catalogo": precio_catalogo,
+            "precio_real": precio_real,
+            "diferencia_pct": round(diferencia * 100, 1),
+        }
     except Exception as e:
         return {"estado": "excepcion", "error": str(e)[:100]}
 
@@ -287,7 +327,25 @@ def main():
     tasa = ok_total / verificados_total * 100 if verificados_total > 0 else 0
     print(f"\n{'=' * 55}")
     print(f"RESUMEN: {ok_total}/{verificados_total} precios correctos ({tasa:.1f}%)")
-    if tasa < 80:
+
+    # Desglose de lo que NO se pudo comparar — sin esto, una fuente entera puede
+    # quedar ciega en silencio (01/07/2026: 20/20 'excepcion' en MCF y el resumen
+    # igual decia 97.5% OK). Un estado raro repetido = esa fuente no se verifico.
+    no_verificados = {}
+    for rp in resultados:
+        for fuente, res in rp["fuentes"].items():
+            if res.get("estado") not in ("ok", "diverge"):
+                clave = f"{fuente}:{res.get('estado')}"
+                no_verificados[clave] = no_verificados.get(clave, 0) + 1
+    if no_verificados:
+        print("NO VERIFICADOS (no cuentan para la tasa):")
+        for clave, cant in sorted(no_verificados.items(), key=lambda x: -x[1]):
+            print(f"  {clave}: {cant}")
+
+    if verificados_total < MIN_VERIFICADOS:
+        print(f"INCONCLUSO: solo {verificados_total} precios comparados (minimo: {MIN_VERIFICADOS}) — "
+              "no hay evidencia suficiente para aprobar ni bloquear.")
+    elif tasa < 80:
         print("ALERTA: Mas del 20% de precios divergen — el catalogo puede estar desactualizado.")
     else:
         print("OK: Precios dentro del rango esperado.")
@@ -306,6 +364,8 @@ def main():
         }, f, ensure_ascii=False, indent=2)
     print(f"Reporte guardado: {out_path}")
 
+    if verificados_total < MIN_VERIFICADOS:
+        sys.exit(2)
     sys.exit(0 if tasa >= 80 else 1)
 
 
