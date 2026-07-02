@@ -9,3 +9,8 @@ Una vez resueltas, se mueven a la sección de abajo.
 ---
 
 ## Resueltas
+
+- 01/07 23:04 — Scrapers maxicarrefour y maxiconsumo FALLARON en la corrida de las 21:15.
+  Causa: segunda corrida del mismo día (renovación de cookies desconfió + rate-limit MCO).
+  El pipeline usó los outputs frescos de la tarde, verificó 39/39 y publicó OK. No aplica
+  a la corrida diaria normal de las 10am. Visto con Facu 01/07.

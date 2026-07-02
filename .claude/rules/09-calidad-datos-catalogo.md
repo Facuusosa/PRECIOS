@@ -1,5 +1,22 @@
 # Regla: Calidad de datos del catálogo
 
+## Cache público de Yaguar ≠ precio real (01/07/2026 — caso Fernet Branca 750)
+
+Síntoma: Facu (anónimo, browser real) veía $17.772 en la ficha de Yaguar; el catálogo
+decía $15.131. Medido con test A/B: la vista anónima venía de Cloudflare con
+`cf-cache-status: HIT, age=217.422s` (2.5 días) — precio VIEJO cacheado. El server real
+(`BYPASS`, y también la vista logueada — confirmado por Facu logueándose) da $15.131.
+
+- **El precio real de Yaguar es el del server/logueado, NO el de la vista pública anónima**
+  (que puede estar cacheada días). El scraper entra logueado → captura el real. Correcto.
+- Si un usuario reporta "Yaguar muestra otro precio": preguntar si está logueado ANTES de
+  tocar nada. Anónimo + precio distinto = casi seguro cache viejo de Cloudflare.
+- Test rápido para confirmar: request con cookie `wordpress_logged_in_test=test` (bypasea
+  cache) vs request anónimo puro; mirar `cf-cache-status` y `age` en los headers.
+- Mejora pendiente (encolada, no urgente): "modo percepción" en el verificador — leer
+  también la vista anónima cacheada y reportar productos donde cache ≠ server, para saber
+  qué precios van a confundir a comerciantes que navegan sin loguearse.
+
 ## Matching de cantidad: comparar SIEMPRE en cantidad canónica (13/06/2026)
 
 Síntoma reportado por Facu: "mi página muestra una cosa y el link del mayorista muestra
