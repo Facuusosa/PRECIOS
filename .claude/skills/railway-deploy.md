@@ -1,66 +1,22 @@
-# Skill: /railway-deploy
-## Descripcion
-Configura y administra el deployment de scrapers en Railway. Convierte el pipeline local (correr scrapers manualmente) en un cron job automatico en la nube. Railway plan Hobby ($5/mes) ya contratado.
+# Skill: /railway-deploy — ARCHIVADO
 
-## Casos de uso
-- `/railway-deploy setup` → configurar Railway por primera vez
-- `/railway-deploy status` → verificar que los crons estan corriendo
-- `/railway-deploy logs` → ver output del ultimo run
-- `/railway-deploy trigger` → forzar un run manual del pipeline
+> ⚠️ Railway fue dado de baja el 13/06/2026. El pipeline corre LOCAL en la PC de Facu.
+> Esta skill está archivada. No usar a menos que se quiera reactivar Railway.
 
-## Pasos — Setup inicial (solo la primera vez)
+## Por qué se dio de baja
+- Maxiconsumo bloquea IPs de datacenter (Cloudflare) → fallaba en la nube
+- MaxiCarrefour necesita renovar cookies desde la PC local
+- Costo $5/mes por entregar 2/3 de las fuentes recicladas/viejas
 
-### 1. Crear railway.toml en la raiz del proyecto
-```toml
-[build]
-builder = "nixpacks"
+## Cómo reactivar (cuando haya ingresos y se quiera nube 24/7)
+1. Conseguir proxy residencial para Maxiconsumo
+2. Configurar CAPSOLVER_API_KEY en Railway para renovar cookies de MaxiCarrefour
+3. Mover `archive/railway_pipeline.py` y `archive/railway.toml` a la raíz
+4. Ver `archive/README.md` para instrucciones completas
 
-[deploy]
-startCommand = "echo Railway listo"
-
-[[services]]
-name = "pipeline-scraper"
+## Pipeline actual (reemplaza a Railway)
 ```
-
-### 2. Crear script de pipeline para Railway
-Archivo: `railway_pipeline.py`
-- Corre los 3 scrapers en secuencia
-- Actualiza el catalogo
-- Sube el JSON resultante a Vercel via API (o guarda en Railway volume)
-- Loguea resultado con timestamp
-
-### 3. Configurar cron en Railway
-En el dashboard de Railway:
-- Nuevo servicio → Cron Job
-- Command: `python railway_pipeline.py`
-- Schedule: `0 6 * * *` (6am todos los dias)
-- Variables de entorno: copiar del .env local
-
-### 4. Variables de entorno a configurar en Railway
+pipeline_local.py        → corre los 3 scrapers + actualizar_catalogo.py + git push
+actualizar_brujula.bat   → wrapper para Task Scheduler de Windows
 ```
-YAGUAR_USERNAME=
-YAGUAR_PASSWORD=
-CARREFOUR_PHPSESSID=
-CARREFOUR_CF_CLEARANCE=
-PYTHONUTF8=1
-```
-
-## Verificacion post-setup
-1. Hacer trigger manual desde Railway dashboard
-2. Ver logs → confirmar que los 3 scrapers corrieron
-3. Confirmar que catalogo_unificado.json tiene datos frescos
-4. Si falla → revisar variables de entorno primero (99% de los casos)
-
-## Importante
-- Las cookies de MaxiCarrefour (PHPSESSID + CF_CLEARANCE) expiran cada ~30 dias
-- Renovarlas en Railway dashboard cuando expiren (misma fecha que en .env local)
-- Maxiconsumo necesita curl_cffi con impersonate="safari15_3" — verificar que el pip install incluye esa dependencia
-- Los outputs con timestamp van a /tmp en Railway (no persisten entre runs) — el catalogo actualizado debe subirse a algun storage
-
-## Para el catalogo actualizado
-Opciones para que el frontend de Vercel acceda al catalogo fresco:
-1. **Railway Volume** → Railway guarda el JSON, frontend lo consume via URL publica
-2. **GitHub push** → pipeline hace commit del JSON al repo → Vercel auto-redeploy
-3. **Vercel API** → subir el JSON directo via Vercel Blob Storage API
-
-Opcion 2 (GitHub push) es la mas simple para empezar.
+Tarea programada: "Brujula - Actualizar precios", diaria 10:00, StartWhenAvailable.

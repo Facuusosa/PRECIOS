@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mockups Desktop — Brújula de Precios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink:       #1a1a1a;
+      --gray:      #808080;
+      --line:      #ececec;
+      --plate:     #f6f5f3;
+      --gold:      #c89055;
+      --gold-deep: #b07a3f;
+      --green:     #15803d;
+      --pill:      #111111;
+      --font: 'Poppins', sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      background: #e8e8e8;
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Nav entre mockups ─── */
+    .nav-mockups {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--ink); color: #fff;
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 24px;
+      font-size: 13px;
+    }
+    .nav-mockups span { color: var(--gold); font-weight: 600; margin-right: 8px; }
+    .nav-btn {
+      background: rgba(255,255,255,0.12); border: none; color: #fff;
+      padding: 6px 14px; border-radius: 999px; font-family: var(--font);
+      font-size: 12px; cursor: pointer; transition: background 150ms;
+      text-decoration: none; display: inline-block;
+    }
+    .nav-btn:hover { background: rgba(255,255,255,0.22); }
+    .nav-btn.active { background: var(--gold); color: #fff; }
+
+    /* ─── Sections ─── */
+    .section { display: none; padding-top: 48px; }
+    .section.visible { display: block; }
+
+    .section-label {
+      text-align: center; padding: 28px 24px 16px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+      color: var(--gray); text-transform: uppercase;
+    }
+
+    /* ─── Chrome de la app ─── */
+    .app-chrome {
+      width: 1200px; margin: 0 auto 48px;
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+    }
+
+    /* ─── Header ─── */
+    .app-header {
+      background: #fff; border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 24px; height: 56px; flex-shrink: 0;
+    }
+    .app-header .logo {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 16px; font-weight: 600; letter-spacing: -0.3px;
+    }
+    .app-header .logo-icon {
+      width: 28px; height: 28px; background: var(--ink); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 13px; font-weight: 700;
+    }
+    .app-header .logo em { font-style: normal; font-weight: 300; font-size: 14px; color: var(--gray); }
+    .header-icons { display: flex; gap: 18px; }
+    .header-icons svg { width: 20px; height: 20px; stroke: var(--ink); fill: none; stroke-width: 1.8; }
+
+    /* ─── Body layout ─── */
+    .app-body { display: flex; height: 780px; background: #fff; }
+
+    /* ─── Sidebar ─── */
+    .app-sidebar {
+      width: 240px; flex-shrink: 0;
+      border-right: 1px solid var(--line);
+      padding: 20px 16px 20px 24px;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .sidebar-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 10px 12px; border-radius: 8px;
+      font-size: 14.5px; font-weight: 400; color: var(--ink);
+      cursor: pointer; border: none; background: none;
+      width: 100%; text-align: left;
+    }
+    .sidebar-item.active { font-weight: 600; }
+    .sidebar-item svg { width: 20px; height: 20px; stroke: currentColor; fill: none; flex-shrink: 0; }
+
+    /* ─── Main scroll area ─── */
+    .app-main { flex: 1; overflow-y: auto; min-width: 0; }
+
+    /* ───────────────────────────────────────────
+       OPCIÓN A — MI LISTA
+    ─────────────────────────────────────────── */
+
+    .lista-a-wrap { max-width: 1000px; margin: 0 auto; padding: 0 40px; }
+
+    .tabs-lista {
+      display: flex; gap: 9px; padding: 14px 0 0;
+      overflow-x: auto;
+    }
+    .tab-pill {
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 9px 18px; font-size: 13.5px; font-weight: 500;
+      cursor: pointer; font-family: var(--font); white-space: nowrap;
+      background: #fff; color: var(--ink);
+    }
+    .tab-pill.active {
+      background: var(--pill); color: #fff; border-color: var(--pill);
+    }
+    .tab-pill.dashed {
+      border-style: dashed; color: var(--gray);
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    .sticky-header-a {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      padding: 18px 0 14px;
+      margin-top: 14px;
+    }
+    .sticky-header-a h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.3px; }
+    .sticky-header-a .meta { font-size: 12px; color: var(--gray); font-weight: 300; margin-top: 2px; }
+    .sticky-header-a .total { font-size: 26px; font-weight: 700; text-align: right; }
+    .ahorro-badge {
+      display: inline-flex; background: rgba(21,128,61,0.1); color: var(--green);
+      font-size: 11px; font-weight: 600; border-radius: 999px; padding: 3px 10px; margin-top: 4px;
+    }
+
+    .mode-toggle-a {
+      display: flex; margin: 16px 0 0;
+      background: var(--plate); border-radius: 999px; padding: 4px;
+    }
+    .mode-btn {
+      flex: 1; border: none; font-family: var(--font);
+      font-size: 14px; font-weight: 500; color: var(--gray);
+      padding: 10px 0; border-radius: 999px; cursor: pointer; background: none;
+    }
+    .mode-btn.active { background: var(--pill); color: #fff; font-weight: 600; }
+
+    .item-row-a {
+      display: flex; align-items: center; gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .item-thumb {
+      width: 54px; height: 54px; background: var(--plate); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+    .item-name { font-size: 15.5px; font-weight: 500; }
+    .item-meta { font-size: 12px; color: var(--gray); font-weight: 300; margin-top: 4px; display: flex; align-items: center; gap: 10px; }
+    .qty-control { display: flex; align-items: center; gap: 10px; }
+    .qty-btn {
+      width: 24px; height: 24px; border-radius: 99px;
+      border: 1.2px solid var(--line); background: #fff;
+      font-size: 14px; line-height: 1; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--ink);
+    }
+    .qty-num { font-weight: 600; font-size: 13px; }
+    .item-price-col { text-align: right; flex-shrink: 0; }
+    .item-price { font-size: 17px; font-weight: 600; }
+    .mayorista-pill {
+      display: inline-flex; align-items: center;
+      font-size: 9.5px; font-weight: 600; letter-spacing: 0.06em;
+      color: #fff; background: var(--pill);
+      border-radius: 999px; padding: 3px 10px; margin-top: 5px; text-transform: uppercase;
+    }
+
+    .receipt-divider { border-top: 2px dashed var(--line); margin: 20px 0 0; }
+    .receipt-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 15px 0 0;
+    }
+    .receipt-logo {
+      width: 64px; height: 28px; border: 1px solid var(--line);
+      border-radius: 6px; background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 8px; font-weight: 700; color: var(--ink); letter-spacing: 0.05em;
+    }
+    .receipt-sub { font-size: 11.5px; color: var(--gray); font-weight: 300; }
+    .receipt-amount { font-size: 16.5px; font-weight: 600; }
+    .total-row {
+      display: flex; align-items: baseline; justify-content: space-between;
+      padding: 18px 0 0;
+    }
+    .total-label { font-size: 13px; font-weight: 600; letter-spacing: 0.14em; }
+    .total-amount { font-size: 32px; font-weight: 700; }
+    .ahorro-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0 0; font-size: 13px;
+    }
+
+    .cta-row { padding: 24px 0 44px; display: flex; gap: 12px; }
+    .btn-secondary {
+      background: #fff; color: var(--ink); border: 1.5px solid var(--ink);
+      border-radius: 999px; font-family: var(--font);
+      font-size: 15px; font-weight: 500; padding: 15px 24px; cursor: pointer;
+      display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+    }
+    .btn-primary {
+      flex: 1; background: var(--pill); color: #fff; border: none;
+      border-radius: 999px; font-family: var(--font);
+      font-size: 15px; font-weight: 500; padding: 15px 0; cursor: pointer;
+    }
+
+    /* ───────────────────────────────────────────
+       OPCIÓN A — PERFIL
+    ─────────────────────────────────────────── */
+
+    .perfil-a-wrap { max-width: 1000px; margin: 0 auto; padding: 24px 40px 44px; }
+
+    .identity-row { display: flex; align-items: center; gap: 18px; margin-bottom: 22px; }
+    .avatar {
+      width: 72px; height: 72px; border-radius: 999px;
+      background: var(--plate); display: flex; align-items: center;
+      justify-content: center; font-size: 30px; font-weight: 600; color: var(--gold);
+      flex-shrink: 0;
+    }
+    .identity-name { font-size: 24px; font-weight: 600; letter-spacing: -0.3px; }
+    .identity-sub { font-size: 13px; color: var(--gray); font-weight: 300; margin-top: 2px; }
+    .plan-badge {
+      display: inline-flex; margin-top: 8px;
+      background: var(--pill); color: #fff;
+      font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em;
+      border-radius: 999px; padding: 4px 12px;
+    }
+
+    .stats-row-a {
+      display: flex; gap: 12px; margin-bottom: 20px;
+    }
+    .stat-card {
+      flex: 1; background: var(--plate); border-radius: 12px; padding: 18px 20px;
+    }
+    .stat-val { font-size: 22px; font-weight: 600; }
+    .stat-val.green { color: var(--green); }
+    .stat-lbl { font-size: 11px; color: var(--gray); font-weight: 400; margin-top: 3px; line-height: 1.3; }
+
+    .upgrade-banner {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+      border: 1.5px solid var(--gold); border-radius: 12px;
+      padding: 18px 20px;
+      background: linear-gradient(100deg, rgba(200,144,85,0.07), transparent 70%);
+      margin-bottom: 28px; cursor: pointer;
+    }
+    .upgrade-title { font-size: 14px; font-weight: 600; line-height: 1.35; }
+    .upgrade-sub { font-size: 12px; color: var(--gray); font-weight: 300; margin-top: 3px; }
+    .upgrade-arrow {
+      width: 38px; height: 38px; border-radius: 99px;
+      background: var(--gold); color: #fff; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+
+    /* 2 columnas para settings */
+    .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+    .settings-group-label {
+      padding: 0 0 8px;
+      font-size: 10.7px; font-weight: 600; letter-spacing: 0.14em;
+      color: var(--gray); text-transform: uppercase;
+    }
+    .settings-group {
+      border: 1px solid var(--line); border-radius: 12px; overflow: hidden;
+      margin-bottom: 0;
+    }
+    .settings-row {
+      display: flex; align-items: center; gap: 12px;
+      min-height: 56px; padding: 10px 16px;
+      border-bottom: 1px solid var(--plate); background: #fff;
+    }
+    .settings-row:last-child { border-bottom: none; }
+    .settings-row svg { width: 20px; height: 20px; stroke: var(--ink); fill: none; stroke-width: 1.7; flex-shrink: 0; }
+    .settings-row-lbl { font-size: 14px; font-weight: 400; }
+    .settings-row-sub { font-size: 11px; color: var(--gray); font-weight: 300; margin-top: 1px; }
+    .settings-row-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .pro-pill {
+      font-size: 9.5px; font-weight: 600; letter-spacing: 0.08em;
+      color: var(--gold); border: 1px solid var(--gold);
+      border-radius: 999px; padding: 2px 8px;
+    }
+    .chevron { color: var(--line); font-size: 14px; }
+
+    /* Switch */
+    .switch {
+      width: 44px; height: 26px; border-radius: 99px;
+      background: var(--green); position: relative; flex-shrink: 0; border: none; cursor: pointer;
+    }
+    .switch-off { background: var(--line); }
+    .switch::after {
+      content: ''; position: absolute; top: 3px; left: 3px;
+      width: 20px; height: 20px; border-radius: 99px;
+      background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+      transform: translateX(18px);
+    }
+    .switch.switch-off::after { transform: translateX(0); }
+
+    .mayorista-logo {
+      width: 56px; height: 24px; border: 1px solid var(--line);
+      border-radius: 5px; background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 7px; font-weight: 700; letter-spacing: 0.04em; color: var(--ink);
+      flex-shrink: 0;
+    }
+
+    /* ───────────────────────────────────────────
+       OPCIÓN B — MI LISTA (split panel)
+    ─────────────────────────────────────────── */
+
+    .lista-b-tabs {
+      display: flex; gap: 9px; padding: 14px 32px 0;
+      border-bottom: 1px solid var(--line);
+      background: #fff; position: sticky; top: 0; z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+
+    .lista-b-body {
+      display: flex; height: calc(100% - 60px); overflow: hidden;
+    }
+
+    .lista-b-left {
+      flex: 1; overflow-y: auto; padding: 0 28px 40px 32px;
+      border-right: 1px solid var(--line);
+    }
+
+    .lista-b-right {
+      width: 380px; flex-shrink: 0;
+      padding: 24px 28px;
+      overflow-y: auto;
+    }
+
+    .lista-b-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 0; border-bottom: 1px solid var(--line);
+    }
+    .lista-b-item-thumb {
+      width: 50px; height: 50px; background: var(--plate); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+    .lista-b-name { font-size: 15px; font-weight: 500; }
+    .lista-b-meta { font-size: 12px; color: var(--gray); font-weight: 300; margin-top: 4px; display: flex; align-items: center; gap: 10px; }
+    .lista-b-price { font-size: 16px; font-weight: 600; text-align: right; flex-shrink: 0; }
+    .lista-b-badge {
+      display: inline-flex;
+      font-size: 9px; font-weight: 600; letter-spacing: 0.06em;
+      color: #fff; background: var(--pill);
+      border-radius: 999px; padding: 2.5px 9px; margin-top: 4px; text-transform: uppercase;
+    }
+
+    /* Panel derecho */
+    .panel-title { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 4px; }
+    .panel-meta { font-size: 12px; color: var(--gray); font-weight: 300; margin-bottom: 20px; }
+
+    .panel-total-label {
+      font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em;
+      color: var(--gray); text-transform: uppercase; margin-bottom: 4px;
+    }
+    .panel-total { font-size: 34px; font-weight: 700; line-height: 1; }
+    .panel-ahorro {
+      display: inline-flex; background: rgba(21,128,61,0.1); color: var(--green);
+      font-size: 12px; font-weight: 600; border-radius: 999px;
+      padding: 4px 12px; margin-top: 8px;
+    }
+
+    .panel-divider { border-top: 1px solid var(--line); margin: 20px 0; }
+
+    .donde-title {
+      font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em;
+      color: var(--gray); text-transform: uppercase; margin-bottom: 12px;
+    }
+    .donde-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 0; border-bottom: 1px solid var(--line);
+    }
+    .donde-row:last-child { border-bottom: none; }
+    .donde-logo {
+      width: 70px; height: 30px; border: 1px solid var(--line); border-radius: 6px;
+      background: #fff; display: flex; align-items: center; justify-content: center;
+      font-size: 8px; font-weight: 700; letter-spacing: 0.04em; flex-shrink: 0;
+    }
+    .donde-cheaper { font-size: 10.5px; color: var(--green); font-weight: 600; letter-spacing: 0.05em; }
+    .donde-more { font-size: 11.5px; color: var(--gray); font-weight: 300; }
+    .donde-amount { font-size: 17px; font-weight: 600; }
+
+    .mix-card {
+      border: 1.5px solid var(--gold); border-radius: 12px;
+      padding: 18px; margin-top: 20px; position: relative;
+    }
+    .mix-badge {
+      position: absolute; top: -11px; left: 14px;
+      background: var(--gold); color: #fff;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+      border-radius: 999px; padding: 4px 12px;
+    }
+    .mix-total { font-size: 22px; font-weight: 700; }
+    .mix-ahorro { font-size: 12.5px; color: var(--green); font-weight: 600; margin-top: 3px; }
+
+    .panel-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+    .panel-btn-primary {
+      background: var(--pill); color: #fff; border: none; border-radius: 999px;
+      font-family: var(--font); font-size: 14.5px; font-weight: 500;
+      padding: 14px 0; cursor: pointer; text-align: center;
+    }
+    .panel-btn-secondary {
+      background: #fff; color: var(--ink); border: 1.5px solid var(--ink); border-radius: 999px;
+      font-family: var(--font); font-size: 14.5px; font-weight: 500;
+      padding: 14px 0; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+
+    /* ───────────────────────────────────────────
+       OPCIÓN B — PERFIL (split panel)
+    ─────────────────────────────────────────── */
+
+    .perfil-b-body {
+      display: flex; height: 100%;
+    }
+
+    .perfil-b-left {
+      width: 360px; flex-shrink: 0; padding: 32px 28px 32px 40px;
+      border-right: 1px solid var(--line);
+      position: sticky; top: 0; /* sticky dentro del panel */
+      height: 100%; overflow-y: auto;
+    }
+
+    .perfil-b-right {
+      flex: 1; overflow-y: auto; padding: 28px 40px 44px 32px;
+    }
+
+    .avatar-b {
+      width: 88px; height: 88px; border-radius: 999px;
+      background: var(--plate); display: flex; align-items: center;
+      justify-content: center; font-size: 36px; font-weight: 600; color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .identity-name-b { font-size: 22px; font-weight: 600; letter-spacing: -0.3px; }
+    .identity-sub-b { font-size: 13px; color: var(--gray); font-weight: 300; margin-top: 2px; }
+    .plan-badge-b {
+      display: inline-flex; margin-top: 8px;
+      background: var(--pill); color: #fff;
+      font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em;
+      border-radius: 999px; padding: 4px 12px;
+    }
+
+    .divider-left { border-top: 1px solid var(--line); margin: 20px 0; }
+
+    .stat-b { margin-bottom: 18px; }
+    .stat-b-val { font-size: 26px; font-weight: 700; }
+    .stat-b-val.green { color: var(--green); }
+    .stat-b-lbl { font-size: 12px; color: var(--gray); font-weight: 300; margin-top: 1px; }
+
+    .upgrade-b {
+      border: 1.5px solid var(--gold); border-radius: 12px;
+      padding: 16px; margin-top: 4px;
+      background: linear-gradient(135deg, rgba(200,144,85,0.08), transparent 70%);
+      cursor: pointer;
+    }
+    .upgrade-b-title { font-size: 13px; font-weight: 600; line-height: 1.4; }
+    .upgrade-b-sub { font-size: 11px; color: var(--gray); font-weight: 300; margin-top: 3px; }
+    .upgrade-b-cta {
+      display: inline-flex; align-items: center; gap: 6px; margin-top: 12px;
+      font-size: 12px; font-weight: 600; color: var(--gold); cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Nav fija -->
+<div class="nav-mockups">
+  <span>Brújula</span>
+  <a class="nav-btn active" href="#" onclick="show('lista-a')">Opción A — Mi Lista</a>
+  <a class="nav-btn" href="#" onclick="show('perfil-a')">Opción A — Perfil</a>
+  <a class="nav-btn" href="#" onclick="show('lista-b')">Opción B — Mi Lista</a>
+  <a class="nav-btn" href="#" onclick="show('perfil-b')">Opción B — Perfil</a>
+</div>
+
+<!-- ══════════════════════════════════════════
+     OPCIÓN A — MI LISTA
+══════════════════════════════════════════ -->
+<div id="lista-a" class="section visible">
+  <div class="section-label">OPCIÓN A — MI LISTA · max-width 1000px · misma estructura, más grande</div>
+  <div class="app-chrome">
+    <div class="app-header">
+      <div class="logo"><div class="logo-icon">B</div>Brújula <em>de precios</em></div>
+      <div class="header-icons">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+    </div>
+    <div class="app-body">
+      <aside class="app-sidebar">
+        <button class="sidebar-item"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Para Ti</button>
+        <button class="sidebar-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Catálogo</button>
+        <button class="sidebar-item active"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Mi Lista</button>
+        <button class="sidebar-item"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Perfil</button>
+      </aside>
+      <main class="app-main">
+        <div class="lista-a-wrap">
+
+          <!-- Selector de listas -->
+          <div class="tabs-lista">
+            <button class="tab-pill active">Pedido semanal</button>
+            <button class="tab-pill">Kiosco norte</button>
+            <button class="tab-pill dashed">+ Nueva</button>
+          </div>
+
+          <!-- Sticky header -->
+          <div class="sticky-header-a">
+            <div>
+              <h1>Pedido semanal ✏</h1>
+              <div class="meta">5 productos · 40 unidades · hoy</div>
+            </div>
+            <div>
+              <div class="total">$47.820</div>
+              <div><span class="ahorro-badge">Ahorrás $3.200</span></div>
+            </div>
+          </div>
+
+          <!-- Mode toggle -->
+          <div class="mode-toggle-a">
+            <button class="mode-btn active">Productos</button>
+            <button class="mode-btn">Dónde comprar</button>
+          </div>
+
+          <!-- Items -->
+          <div style="padding-top: 4px;">
+            <div class="item-row-a">
+              <div class="item-thumb">🥤</div>
+              <div style="flex:1; min-width:0;">
+                <div class="item-name">Coca Cola 2.25L</div>
+                <div class="item-meta">
+                  <div class="qty-control"><button class="qty-btn">−</button><span class="qty-num">6</span><button class="qty-btn">+</button></div>
+                  <span>× $1.850</span>
+                </div>
+              </div>
+              <div class="item-price-col">
+                <div class="item-price">$11.100</div>
+                <div><span class="mayorista-pill">Yaguar</span></div>
+              </div>
+            </div>
+            <div class="item-row-a">
+              <div class="item-thumb">🫙</div>
+              <div style="flex:1; min-width:0;">
+                <div class="item-name">Aceite Natura 900ml</div>
+                <div class="item-meta">
+                  <div class="qty-control"><button class="qty-btn">−</button><span class="qty-num">4</span><button class="qty-btn">+</button></div>
+                  <span>× $1.980</span>
+                </div>
+              </div>
+              <div class="item-price-col">
+                <div class="item-price">$7.920</div>
+                <div><span class="mayorista-pill">MaxiCarrefour</span></div>
+              </div>
+            </div>
+            <div class="item-row-a">
+              <div class="item-thumb">🌿</div>
+              <div style="flex:1; min-width:0;">
+                <div class="item-name">Yerba Taragüí 500g</div>
+                <div class="item-meta">
+                  <div class="qty-control"><button class="qty-btn">−</button><span class="qty-num">10</span><button class="qty-btn">+</button></div>
+                  <span>× $1.650</span>
+                </div>
+              </div>
+              <div class="item-price-col">
+                <div class="item-price">$16.500</div>
+                <div><span class="mayorista-pill">Yaguar</span></div>
+              </div>
+            </div>
+            <div class="item-row-a">
+              <div class="item-thumb">🍬</div>
+              <div style="flex:1; min-width:0;">
+                <div class="item-name">Azúcar Ledesma 1kg</div>
+                <div class="item-meta">
+                  <div class="qty-control"><button class="qty-btn">−</button><span class="qty-num">8</span><button class="qty-btn">+</button></div>
+                  <span>× $1.120</span>
+                </div>
+              </div>
+              <div class="item-price-col">
+                <div class="item-price">$8.960</div>
+                <div><span class="mayorista-pill">MaxiCarrefour</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pie de ticket -->
+          <div>
+            <div class="receipt-divider"></div>
+            <div class="receipt-row">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div class="receipt-logo">YAGUAR</div>
+                <span class="receipt-sub">3 productos · 28 unidades</span>
+              </div>
+              <span class="receipt-amount">$28.260</span>
+            </div>
+            <div class="receipt-row">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <div class="receipt-logo" style="font-size:6px;">MAXICARREFOUR</div>
+                <span class="receipt-sub">2 productos · 12 unidades</span>
+              </div>
+              <span class="receipt-amount">$16.880</span>
+            </div>
+            <div class="receipt-divider" style="margin-top:18px;"></div>
+            <div class="total-row">
+              <span class="total-label">TOTAL</span>
+              <span class="total-amount">$47.820</span>
+            </div>
+            <div class="ahorro-row">
+              <span style="color:var(--gray);font-weight:300;font-size:13px;">vs. comprar todo en un solo lugar</span>
+              <span style="color:var(--green);font-weight:600;font-size:13px;">−$3.200 (6%)</span>
+            </div>
+          </div>
+
+          <div class="cta-row">
+            <button class="btn-secondary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
+              Compartir
+            </button>
+            <button class="btn-primary">Ver dónde comprar →</button>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     OPCIÓN A — PERFIL
+══════════════════════════════════════════ -->
+<div id="perfil-a" class="section">
+  <div class="section-label">OPCIÓN A — PERFIL · max-width 1000px · settings en 2 columnas</div>
+  <div class="app-chrome">
+    <div class="app-header">
+      <div class="logo"><div class="logo-icon">B</div>Brújula <em>de precios</em></div>
+      <div class="header-icons">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+    </div>
+    <div class="app-body">
+      <aside class="app-sidebar">
+        <button class="sidebar-item"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Para Ti</button>
+        <button class="sidebar-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Catálogo</button>
+        <button class="sidebar-item"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Mi Lista</button>
+        <button class="sidebar-item active"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Perfil</button>
+      </aside>
+      <main class="app-main">
+        <div class="perfil-a-wrap">
+
+          <!-- Identidad -->
+          <div class="identity-row">
+            <div class="avatar">F</div>
+            <div>
+              <div class="identity-name">Tu negocio</div>
+              <div class="identity-sub">Kiosco · Buenos Aires</div>
+              <div><span class="plan-badge">PLAN FREE</span></div>
+            </div>
+          </div>
+
+          <!-- Stats -->
+          <div class="stats-row-a">
+            <div class="stat-card">
+              <div class="stat-val">3.018</div>
+              <div class="stat-lbl">productos comparados</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val green">$47 M</div>
+              <div class="stat-lbl">ahorro detectado en catálogo</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-val">2</div>
+              <div class="stat-lbl">listas activas</div>
+            </div>
+          </div>
+
+          <!-- Banner upgrade -->
+          <div class="upgrade-banner">
+            <div>
+              <div class="upgrade-title">Te estás perdiendo el más barato</div>
+              <div class="upgrade-sub">Maxiconsumo tuvo el mejor precio en 1.243 productos</div>
+            </div>
+            <div class="upgrade-arrow">→</div>
+          </div>
+
+          <!-- 2 columnas settings -->
+          <div class="settings-grid">
+
+            <!-- Col izquierda: Mi negocio + Avisos -->
+            <div>
+              <div class="settings-group-label">Mi negocio</div>
+              <div class="settings-group">
+                <div class="settings-row">
+                  <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  <div><div class="settings-row-lbl">Nombre</div></div>
+                  <div class="settings-row-right"><span style="font-size:13px;color:var(--gray);font-weight:300;">Agregar</span><span class="chevron">›</span></div>
+                </div>
+                <div class="settings-row">
+                  <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                  <div><div class="settings-row-lbl">Rubro</div></div>
+                  <div class="settings-row-right"><span style="font-size:13px;color:var(--gray);font-weight:300;">Kiosco</span><span class="chevron">›</span></div>
+                </div>
+                <div class="settings-row">
+                  <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <div><div class="settings-row-lbl">Mi plan</div><div class="settings-row-sub">Gratis · 2 de 3 mayoristas</div></div>
+                  <div class="settings-row-right"><span class="pro-pill">VER PLANES</span><span class="chevron">›</span></div>
+                </div>
+                <div class="settings-row">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  <div><div class="settings-row-lbl">Email y contraseña</div><div class="settings-row-sub">Accedé desde cualquier dispositivo</div></div>
+                  <div class="settings-row-right"><span class="pro-pill">PRO</span></div>
+                </div>
+              </div>
+
+              <div class="settings-group-label" style="padding-top:22px;">Avisos</div>
+              <div class="settings-group">
+                <div class="settings-row">
+                  <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                  <div><div class="settings-row-lbl">Avisarme de bombas nuevas</div><div class="settings-row-sub">Cuando un producto tuyo baje fuerte</div></div>
+                  <div class="settings-row-right"><button class="switch"></button></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Col derecha: Mayoristas + Ayuda -->
+            <div>
+              <div class="settings-group-label">Mis mayoristas</div>
+              <div class="settings-group">
+                <div class="settings-row">
+                  <div class="mayorista-logo" style="font-size:6px;">MAXICARREFOUR</div>
+                  <div><div class="settings-row-lbl">MaxiCarrefour</div><div class="settings-row-sub">Actualizado hace 4 días</div></div>
+                  <div class="settings-row-right"><button class="switch"></button></div>
+                </div>
+                <div class="settings-row">
+                  <div class="mayorista-logo">YAGUAR</div>
+                  <div><div class="settings-row-lbl">Yaguar</div><div class="settings-row-sub">Actualizado hoy</div></div>
+                  <div class="settings-row-right"><button class="switch"></button></div>
+                </div>
+                <div class="settings-row">
+                  <div class="mayorista-logo" style="font-size:7px;color:var(--gold);">MAXICONSUMO</div>
+                  <div><div class="settings-row-lbl">Maxiconsumo</div><div class="settings-row-sub">Desbloquealo con PRO</div></div>
+                  <div class="settings-row-right"><span class="pro-pill">PRO</span><button class="switch switch-off" style="opacity:0.4;"></button></div>
+                </div>
+              </div>
+
+              <div class="settings-group-label" style="padding-top:22px;">Ayuda</div>
+              <div class="settings-group">
+                <div class="settings-row">
+                  <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                  <div><div class="settings-row-lbl">Sugerir un producto o mayorista</div><div class="settings-row-sub">Por WhatsApp, te respondemos en el día</div></div>
+                  <div class="settings-row-right"><span class="chevron">›</span></div>
+                </div>
+                <div class="settings-row">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  <div><div class="settings-row-lbl">Cómo funcionan los precios</div><div class="settings-row-sub">De dónde salen y cada cuánto se actualizan</div></div>
+                  <div class="settings-row-right"><span class="chevron">›</span></div>
+                </div>
+                <div class="settings-row">
+                  <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  <div><div class="settings-row-lbl">Términos y privacidad</div></div>
+                  <div class="settings-row-right"><span class="chevron">›</span></div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /settings-grid -->
+
+          <div style="padding-top:28px;">
+            <button style="font-size:13px;color:#dc2626;background:none;border:none;cursor:pointer;font-family:var(--font);">Borrar mis datos de este dispositivo</button>
+            <div style="font-size:11px;color:var(--gray);margin-top:6px;font-weight:300;">Brújula de precios · v1.0 · datos actualizados 18/06/2026</div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     OPCIÓN B — MI LISTA (split panel)
+══════════════════════════════════════════ -->
+<div id="lista-b" class="section">
+  <div class="section-label">OPCIÓN B — MI LISTA · split panel · productos + resumen siempre visibles</div>
+  <div class="app-chrome">
+    <div class="app-header">
+      <div class="logo"><div class="logo-icon">B</div>Brújula <em>de precios</em></div>
+      <div class="header-icons">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+    </div>
+    <div class="app-body">
+      <aside class="app-sidebar">
+        <button class="sidebar-item"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Para Ti</button>
+        <button class="sidebar-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Catálogo</button>
+        <button class="sidebar-item active"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Mi Lista</button>
+        <button class="sidebar-item"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Perfil</button>
+      </aside>
+      <main class="app-main" style="display:flex;flex-direction:column;overflow:hidden;">
+
+        <!-- Tabs de listas — sticky arriba -->
+        <div class="lista-b-tabs">
+          <button class="tab-pill active">Pedido semanal</button>
+          <button class="tab-pill">Kiosco norte</button>
+          <button class="tab-pill dashed">+ Nueva</button>
+        </div>
+
+        <!-- Split body -->
+        <div class="lista-b-body">
+
+          <!-- Panel izquierdo: productos -->
+          <div class="lista-b-left">
+            <div style="padding-top:18px;">
+
+              <div class="lista-b-item">
+                <div class="lista-b-item-thumb">🥤</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="lista-b-name">Coca Cola 2.25L</div>
+                  <div class="lista-b-meta">
+                    <div class="qty-control"><button class="qty-btn">−</button><span class="qty-num">6</span><button class="qty-btn">+</button></div>
+                    <span>× $1.850</span>
+                  </div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div class="lista-b-price">$11.100</div>
+                  <div><span class="lista-b-badge">Yaguar</span></div>
+                </div>
+              </div>
+
+              <div class="lista-b-item">
+                <div class="lista-b-item-thumb">🫙</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="lista-b-name">Aceite Natura 900ml</div>
+                  <div class="lista-b-meta">
+                    <div class="qty-control"><button class="qty-btn">−</button><span class="qty-num">4</span><button class="qty-btn">+</button></div>
+                    <span>× $1.980</span>
+                  </div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div class="lista-b-price">$7.920</div>
+                  <div><span class="lista-b-badge">MaxiCarrefour</span></div>
+                </div>
+              </div>
+
+              <div class="lista-b-item">
+                <div class="lista-b-item-thumb">🌿</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="lista-b-name">Yerba Taragüí 500g</div>
+                  <div class="lista-b-meta">
+                    <div class="qty-control"><button class="qty-btn">−</button><span class="qty-num">10</span><button class="qty-btn">+</button></div>
+                    <span>× $1.650</span>
+                  </div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div class="lista-b-price">$16.500</div>
+                  <div><span class="lista-b-badge">Yaguar</span></div>
+                </div>
+              </div>
+
+              <div class="lista-b-item">
+                <div class="lista-b-item-thumb">🍬</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="lista-b-name">Azúcar Ledesma 1kg</div>
+                  <div class="lista-b-meta">
+                    <div class="qty-control"><button class="qty-btn">−</button><span class="qty-num">8</span><button class="qty-btn">+</button></div>
+                    <span>× $1.120</span>
+                  </div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div class="lista-b-price">$8.960</div>
+                  <div><span class="lista-b-badge">MaxiCarrefour</span></div>
+                </div>
+              </div>
+
+              <div class="lista-b-item" style="border-bottom:none;">
+                <div class="lista-b-item-thumb">🍝</div>
+                <div style="flex:1;min-width:0;">
+                  <div class="lista-b-name">Fideos Matarazzo Spaghetti 400g</div>
+                  <div class="lista-b-meta">
+                    <div class="qty-control"><button class="qty-btn">−</button><span class="qty-num">12</span><button class="qty-btn">+</button></div>
+                    <span>× $980</span>
+                  </div>
+                </div>
+                <div style="text-align:right;flex-shrink:0;">
+                  <div class="lista-b-price">$11.760</div>
+                  <div><span class="lista-b-badge">Yaguar</span></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Panel derecho: resumen sticky -->
+          <div class="lista-b-right">
+            <div class="panel-title">Pedido semanal</div>
+            <div class="panel-meta">5 productos · 40 unidades · hoy</div>
+
+            <div class="panel-total-label">TOTAL MIX</div>
+            <div class="panel-total">$56.240</div>
+            <div><span class="panel-ahorro">Ahorrás $3.200 vs. un solo lugar</span></div>
+
+            <div class="panel-divider"></div>
+
+            <div class="donde-title">Dónde comprar</div>
+
+            <div class="donde-row">
+              <div>
+                <div class="donde-logo">YAGUAR</div>
+              </div>
+              <div style="flex:1;padding:0 12px;">
+                <div class="donde-cheaper">MÁS BARATO</div>
+              </div>
+              <div class="donde-amount">$38.360</div>
+            </div>
+            <div class="donde-row">
+              <div>
+                <div class="donde-logo" style="font-size:6px;">MAXICARREFOUR</div>
+              </div>
+              <div style="flex:1;padding:0 12px;">
+                <div class="donde-more">+$4.400 más caro</div>
+              </div>
+              <div class="donde-amount" style="font-weight:400;">$42.760</div>
+            </div>
+
+            <div class="mix-card">
+              <div class="mix-badge">COMPRÁ EN VARIOS</div>
+              <div style="display:flex;align-items:baseline;justify-content:space-between;margin-top:6px;">
+                <span style="font-size:13.5px;font-weight:600;">2 mayoristas</span>
+                <span class="mix-total">$56.240</span>
+              </div>
+              <div class="mix-ahorro">Ahorrás $3.200 (6%)</div>
+              <div style="margin-top:14px;font-size:12px;color:var(--gray);font-weight:300;line-height:1.5;">
+                Yaguar: 3 prods · $28.260<br>
+                MaxiCarrefour: 2 prods · $16.880<br>
+                Fideos: $11.760
+              </div>
+            </div>
+
+            <div class="panel-btns">
+              <button class="panel-btn-primary">Enviar por WhatsApp</button>
+              <button class="panel-btn-secondary">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>
+                Compartir lista
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     OPCIÓN B — PERFIL (split panel)
+══════════════════════════════════════════ -->
+<div id="perfil-b" class="section">
+  <div class="section-label">OPCIÓN B — PERFIL · identidad fija izquierda · settings derecha</div>
+  <div class="app-chrome">
+    <div class="app-header">
+      <div class="logo"><div class="logo-icon">B</div>Brújula <em>de precios</em></div>
+      <div class="header-icons">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+    </div>
+    <div class="app-body">
+      <aside class="app-sidebar">
+        <button class="sidebar-item"><svg viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Para Ti</button>
+        <button class="sidebar-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>Catálogo</button>
+        <button class="sidebar-item"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>Mi Lista</button>
+        <button class="sidebar-item active"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Perfil</button>
+      </aside>
+      <main class="app-main" style="overflow:hidden;">
+        <div class="perfil-b-body">
+
+          <!-- Panel izquierdo sticky -->
+          <div class="perfil-b-left">
+            <div class="avatar-b">F</div>
+            <div class="identity-name-b">Tu negocio</div>
+            <div class="identity-sub-b">Kiosco · Buenos Aires</div>
+            <div><span class="plan-badge-b">PLAN FREE</span></div>
+
+            <div class="divider-left"></div>
+
+            <div class="stat-b">
+              <div class="stat-b-val">3.018</div>
+              <div class="stat-b-lbl">productos comparados</div>
+            </div>
+            <div class="stat-b">
+              <div class="stat-b-val green">$47 M</div>
+              <div class="stat-b-lbl">ahorro detectado en catálogo</div>
+            </div>
+            <div class="stat-b">
+              <div class="stat-b-val">2</div>
+              <div class="stat-b-lbl">listas activas</div>
+            </div>
+
+            <div class="divider-left"></div>
+
+            <div class="upgrade-b">
+              <div class="upgrade-b-title">Te estás perdiendo el más barato</div>
+              <div class="upgrade-b-sub">Maxiconsumo tuvo el mejor precio en 1.243 productos</div>
+              <div class="upgrade-b-cta">Ver planes →</div>
+            </div>
+          </div>
+
+          <!-- Panel derecho: settings scrolleable -->
+          <div class="perfil-b-right">
+
+            <div class="settings-group-label">Mi negocio</div>
+            <div class="settings-group" style="margin-bottom:24px;">
+              <div class="settings-row">
+                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <div><div class="settings-row-lbl">Nombre</div></div>
+                <div class="settings-row-right"><span style="font-size:13px;color:var(--gray);font-weight:300;">Agregar</span><span class="chevron">›</span></div>
+              </div>
+              <div class="settings-row">
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                <div><div class="settings-row-lbl">Rubro</div></div>
+                <div class="settings-row-right"><span style="font-size:13px;color:var(--gray);font-weight:300;">Kiosco</span><span class="chevron">›</span></div>
+              </div>
+              <div class="settings-row">
+                <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <div><div class="settings-row-lbl">Mi plan</div><div class="settings-row-sub">Gratis · 2 de 3 mayoristas</div></div>
+                <div class="settings-row-right"><span class="pro-pill">VER PLANES</span><span class="chevron">›</span></div>
+              </div>
+              <div class="settings-row">
+                <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <div><div class="settings-row-lbl">Email y contraseña</div><div class="settings-row-sub">Accedé desde cualquier dispositivo</div></div>
+                <div class="settings-row-right"><span class="pro-pill">PRO</span></div>
+              </div>
+            </div>
+
+            <div class="settings-group-label">Mis mayoristas</div>
+            <div class="settings-group" style="margin-bottom:24px;">
+              <div class="settings-row">
+                <div class="mayorista-logo" style="font-size:6px;">MAXICARREFOUR</div>
+                <div><div class="settings-row-lbl">MaxiCarrefour</div><div class="settings-row-sub">Actualizado hace 4 días</div></div>
+                <div class="settings-row-right"><button class="switch"></button></div>
+              </div>
+              <div class="settings-row">
+                <div class="mayorista-logo">YAGUAR</div>
+                <div><div class="settings-row-lbl">Yaguar</div><div class="settings-row-sub">Actualizado hoy</div></div>
+                <div class="settings-row-right"><button class="switch"></button></div>
+              </div>
+              <div class="settings-row">
+                <div class="mayorista-logo" style="font-size:7px;color:var(--gold);">MAXICONSUMO</div>
+                <div><div class="settings-row-lbl">Maxiconsumo</div><div class="settings-row-sub">Desbloquealo con PRO</div></div>
+                <div class="settings-row-right"><span class="pro-pill">PRO</span><button class="switch switch-off" style="opacity:0.4;"></button></div>
+              </div>
+            </div>
+
+            <div class="settings-group-label">Avisos</div>
+            <div class="settings-group" style="margin-bottom:24px;">
+              <div class="settings-row">
+                <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <div><div class="settings-row-lbl">Avisarme de bombas nuevas</div><div class="settings-row-sub">Cuando un producto tuyo baje fuerte</div></div>
+                <div class="settings-row-right"><button class="switch"></button></div>
+              </div>
+            </div>
+
+            <div class="settings-group-label">Ayuda</div>
+            <div class="settings-group" style="margin-bottom:28px;">
+              <div class="settings-row">
+                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <div><div class="settings-row-lbl">Sugerir un producto o mayorista</div><div class="settings-row-sub">Por WhatsApp, te respondemos en el día</div></div>
+                <div class="settings-row-right"><span class="chevron">›</span></div>
+              </div>
+              <div class="settings-row">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <div><div class="settings-row-lbl">Cómo funcionan los precios</div><div class="settings-row-sub">De dónde salen y cada cuánto se actualizan</div></div>
+                <div class="settings-row-right"><span class="chevron">›</span></div>
+              </div>
+              <div class="settings-row">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <div><div class="settings-row-lbl">Términos y privacidad</div></div>
+                <div class="settings-row-right"><span class="chevron">›</span></div>
+              </div>
+            </div>
+
+            <button style="font-size:13px;color:#dc2626;background:none;border:none;cursor:pointer;font-family:var(--font);">Borrar mis datos de este dispositivo</button>
+            <div style="font-size:11px;color:var(--gray);margin-top:6px;font-weight:300;">Brújula de precios · v1.0 · datos actualizados 18/06/2026</div>
+
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</div>
+
+<script>
+  function show(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('visible');
+    event.target.classList.add('active');
+    window.scrollTo(0, 0);
+  }
+</script>
+</body>
+</html>

@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 CATEGORIAS = [
     {"slug": "almacen",    "nombre": "Almacén"},
     {"slug": "bazar",      "nombre": "Bazar"},
-    {"slug": "bebidas",    "nombre": "Bebidas"},
+    {"slug": "bebidas-sin-alcohol", "nombre": "Bebidas Sin Alcohol"},
     {"slug": "bodega",     "nombre": "Bodega"},
     {"slug": "desayuno",   "nombre": "Desayuno"},
     {"slug": "frescos",    "nombre": "Frescos"},
@@ -101,6 +101,20 @@ def login(session):
         return False
 
 
+def crear_sesion():
+    """Crea una sesion nueva ya logueada.
+
+    Se usa al inicio y para sortear el rate-limit de Yaguar: tras ~74 paginas
+    seguidas el sitio devuelve paginas vacias (sin e-loop-item) como throttle. El
+    bloqueo esta atado a la SESION, no a la IP: una sesion fresca lo libera al
+    instante; esperar no sirve (medido: ni 60s, re-login si). Ver scrapear_categoria.
+    """
+    s = curl_requests.Session()
+    if not login(s):
+        raise Exception("Re-login fallido")
+    return s
+
+
 def obtener_max_pagina(soup):
     """Extrae el número total de páginas leyendo los hrefs de paginación."""
     max_page = 1
@@ -174,11 +188,15 @@ def parsear_productos(soup, categoria_nombre):
             if precio <= 0:
                 continue
 
-            # Imagen
+            # Imagen — Yaguar usa lazy loading; probar atributos en orden de prioridad
             img_elem = item.select_one("img")
             imagen = ""
             if img_elem:
-                imagen = img_elem.get("src", img_elem.get("data-src", ""))
+                for _attr in ("data-lazy-src", "data-src", "src", "data-original"):
+                    _val = img_elem.get(_attr, "")
+                    if _val and "base.png" not in _val and not _val.startswith("data:"):
+                        imagen = _val
+                        break
 
             # URL del producto
             link_elem = item.select_one('a[href*="/producto/"]')
@@ -214,6 +232,8 @@ def scrapear_categoria(session, slug, nombre, idx, total):
     def _get_page(pagina):
         url_pagina = f"{base_cat_url}page/{pagina}/"
         r = session.get(url_pagina, headers=HEADERS, impersonate=IMPERSONATE, timeout=30)
+        if r.status_code == 404:
+            return None  # fin real de paginacion, no un error
         if r.status_code != 200:
             raise Exception(f"Página {pagina}: status {r.status_code}")
         return r
@@ -230,10 +250,24 @@ def scrapear_categoria(session, slug, nombre, idx, total):
         for pagina in range(2, max_pagina + 1):
             try:
                 r = _get_page(pagina)
+                if r is None:
+                    break  # 404 = fin real de paginacion
                 soup = BeautifulSoup(r.text, "html.parser")
                 prods = parsear_productos(soup, nombre)
                 if not prods:
-                    break
+                    # Pagina vacia ANTES del final esperado = rate-limit de Yaguar, no
+                    # fin de catalogo. Una sesion fresca lo libera al instante (medido).
+                    if pagina < max_pagina:
+                        print(f"    Pag {pagina}: vacia (rate-limit) — re-login y reintento")
+                        session = crear_sesion()
+                        time.sleep(1.0)
+                        r2 = _get_page(pagina)
+                        prods = parsear_productos(
+                            BeautifulSoup(r2.text if r2 else "", "html.parser"), nombre)
+                    if not prods:
+                        if pagina < max_pagina:
+                            print(f"  AVISO: pag {pagina}/{max_pagina} sigue vacia tras re-login — corto sector")
+                        break
                 todos.extend(prods)
                 if pagina % 5 == 0 or pagina == max_pagina:
                     print(f"    Pag {pagina}/{max_pagina}: {len(todos)} unicos acumulados")
@@ -253,11 +287,11 @@ def scrapear_categoria(session, slug, nombre, idx, total):
                 break
 
         print(f"  {nombre.lower()}: {len(todos)} productos totales")
-        return todos
+        return todos, session
 
     except Exception as e:
         print(f"  ❌ Error en categoría {nombre}: {e}")
-        return []
+        return [], session
 
 
 def main():
@@ -279,7 +313,7 @@ def main():
     print("=" * 55)
 
     for idx, cat in enumerate(CATEGORIAS, start=1):
-        productos = scrapear_categoria(session, cat["slug"], cat["nombre"], idx, total_cats)
+        productos, session = scrapear_categoria(session, cat["slug"], cat["nombre"], idx, total_cats)
         todos_los_productos.extend(productos)
         resumen[cat["nombre"]] = len(productos)
         time.sleep(DELAY_ENTRE_CATEGORIAS)

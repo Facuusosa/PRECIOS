@@ -1,0 +1,239 @@
+{
+  "_meta": {
+    "fecha_busqueda": "2026-06-15",
+    "zonas": [
+      "Villa Urquiza",
+      "Villa Pueyrredón",
+      "Villa Ortúzar"
+    ],
+    "fuente": "Google Maps (Puppeteer)",
+    "nota_canal": "Telefonos en su mayoria FIJOS (011 4xxx). Para WhatsApp se necesita entrar a la ficha de cada uno (boton WhatsApp / web / Instagram). Los que tienen prefijo 15 son celular = WhatsApp directo.",
+    "estados_posibles": [
+      "candidato",
+      "preseleccionado",
+      "contacto_confirmado",
+      "mensaje_listo",
+      "enviado",
+      "respondio",
+      "interesado",
+      "pago"
+    ]
+  },
+  "comercios": [
+    {
+      "nombre": "HLY Supermercado",
+      "tipo": "supermercado",
+      "direccion": "Av. Olazábal 2352",
+      "zona": "Villa Pueyrredón",
+      "telefono": "011 15 5637-5638",
+      "whatsapp": "+5491156375638",
+      "instagram": null,
+      "es_celular": true,
+      "rating": 4.6,
+      "canal": "WhatsApp",
+      "estado": "contacto_confirmado",
+      "nota": "Celular directo confirmado en ficha. Destaca vinos y fiambre.",
+      "foto_local": "fotos/hly.jpg"
+    },
+    {
+      "nombre": "Autoservicio San Cayetano",
+      "tipo": "autoservicio",
+      "direccion": "Manuela Pedraza 5598",
+      "zona": "Villa Urquiza",
+      "telefono": "011 2690-5494",
+      "whatsapp": null,
+      "instagram": "autoservicio.sancayetano.uqz",
+      "es_celular": false,
+      "rating": 4.7,
+      "canal": "Instagram DM",
+      "estado": "contacto_confirmado",
+      "nota": "IG activo. WhatsApp probablemente en el perfil; si no, DM.",
+      "foto_local": "fotos/san-cayetano.jpg"
+    },
+    {
+      "nombre": "Urquiza Market",
+      "tipo": "supermercado",
+      "direccion": "Altolaguirre 2717",
+      "zona": "Villa Urquiza",
+      "telefono": "011 3444-6612",
+      "whatsapp": null,
+      "facebook": "urquizamarket",
+      "es_celular": false,
+      "rating": 4.3,
+      "canal": "Facebook Messenger",
+      "estado": "contacto_confirmado",
+      "foto_local": "fotos/urquiza-market.jpg"
+    },
+    {
+      "nombre": "Autoservicio Ricky",
+      "tipo": "autoservicio",
+      "direccion": "Crisólogo Larralde 5702",
+      "zona": "Villa Urquiza",
+      "telefono": "011 4547-0595",
+      "whatsapp": null,
+      "instagram": null,
+      "es_celular": false,
+      "rating": 4.7,
+      "canal": "Visita/llamada",
+      "estado": "solo_fijo"
+    },
+    {
+      "nombre": "Supermercado El Tropezón",
+      "tipo": "supermercado",
+      "direccion": "Bucarelli 2150",
+      "zona": "Villa Urquiza",
+      "telefono": "011 4521-0713",
+      "whatsapp": null,
+      "instagram": null,
+      "es_celular": false,
+      "rating": 4.5,
+      "canal": "Visita/llamada",
+      "estado": "solo_fijo"
+    },
+    {
+      "nombre": "supermercado amor",
+      "tipo": "supermercado",
+      "direccion": "José León Cabezón 2379",
+      "zona": "Villa Urquiza",
+      "telefono": "011 4518-8126",
+      "whatsapp": null,
+      "instagram": null,
+      "es_celular": false,
+      "rating": 4.1,
+      "canal": "Visita/llamada",
+      "estado": "solo_fijo"
+    },
+    {
+      "nombre": "Supermercado Ale",
+      "tipo": "supermercado",
+      "direccion": "Campillo 2910",
+      "zona": "Villa Ortúzar",
+      "telefono": "011 4523-5232",
+      "whatsapp": null,
+      "instagram": null,
+      "es_celular": false,
+      "rating": 4.0,
+      "canal": "Visita/llamada",
+      "estado": "solo_fijo"
+    },
+    {
+      "nombre": "Super LyC",
+      "tipo": "supermercado chino",
+      "direccion": "Monroe 3275",
+      "zona": "Villa Ortúzar",
+      "telefono": "011 4545-2118",
+      "whatsapp": null,
+      "instagram": null,
+      "es_celular": false,
+      "rating": 3.9,
+      "canal": "Visita/llamada",
+      "estado": "solo_fijo"
+    },
+    {
+      "nombre": "Supermercado Jazmín",
+      "tipo": "supermercado chino",
+      "direccion": "Av. de los Incas 4566",
+      "zona": "Villa Ortúzar",
+      "telefono": "011 3161-7412",
+      "whatsapp": null,
+      "instagram": null,
+      "es_celular": false,
+      "rating": 4.4,
+      "canal": "Visita/llamada",
+      "estado": "solo_fijo"
+    },
+    {
+      "nombre": "Supermercados Cerca",
+      "tipo": "supermercado chino",
+      "direccion": "Av. Álvarez Thomas 3647",
+      "zona": "Villa Ortúzar",
+      "telefono": "011 4524-3731",
+      "whatsapp": null,
+      "instagram": null,
+      "es_celular": false,
+      "rating": 4.1,
+      "canal": "Visita/llamada",
+      "estado": "solo_fijo"
+    },
+    {
+      "nombre": "Supermercado Express",
+      "tipo": "supermercado",
+      "direccion": "Juramento 4940",
+      "zona": "Villa Urquiza",
+      "telefono": "011 4521-3667",
+      "es_celular": false,
+      "rating": 4.0,
+      "estado": "candidato"
+    },
+    {
+      "nombre": "Asia Oriental",
+      "tipo": "supermercado chino",
+      "direccion": "Mendoza 1655",
+      "zona": "Villa Ortúzar",
+      "telefono": "011 4785-8155",
+      "es_celular": false,
+      "rating": 4.4,
+      "estado": "candidato"
+    },
+    {
+      "nombre": "Winner",
+      "tipo": "supermercado",
+      "direccion": "Nazca 3968",
+      "zona": "Villa Urquiza",
+      "telefono": "011 4573-0596",
+      "es_celular": false,
+      "rating": 4.2,
+      "estado": "candidato"
+    },
+    {
+      "nombre": "JC",
+      "tipo": "supermercado",
+      "direccion": "Av. S. Martín 4835",
+      "zona": "Villa Ortúzar",
+      "telefono": "011 4501-6845",
+      "es_celular": false,
+      "rating": 4.2,
+      "estado": "candidato"
+    },
+    {
+      "nombre": "Super ChungHwa",
+      "tipo": "supermercado chino",
+      "direccion": "Av. Olazábal 1673",
+      "zona": "Villa Urquiza",
+      "telefono": null,
+      "es_celular": false,
+      "rating": 4.2,
+      "estado": "candidato"
+    },
+    {
+      "nombre": "Autoservicio Don Bruno",
+      "tipo": "supermercado chino",
+      "direccion": "Gral. José Gervasio Artigas 4963",
+      "zona": "Villa Urquiza",
+      "telefono": null,
+      "es_celular": false,
+      "rating": 3.9,
+      "estado": "candidato"
+    },
+    {
+      "nombre": "Supermercado Estrella",
+      "tipo": "supermercado",
+      "direccion": "Av. Olazábal 5067",
+      "zona": "Villa Urquiza",
+      "telefono": null,
+      "es_celular": false,
+      "rating": 3.6,
+      "estado": "candidato"
+    },
+    {
+      "nombre": "ENELDO Mercado Natural",
+      "tipo": "tienda alimentación",
+      "direccion": "Av. Olazábal 4955",
+      "zona": "Villa Urquiza",
+      "telefono": "011 3275-7219",
+      "es_celular": false,
+      "rating": 4.2,
+      "estado": "candidato"
+    }
+  ]
+}

@@ -1,0 +1,725 @@
+{
+  "generado": "2026-06-18",
+  "zona_centro": "Griveo 2290, Villa Pueyrredon",
+  "radio_km": 10,
+  "total": 67,
+  "descartados_por_filtro": 28,
+  "con_telefono": 2,
+  "breakdown_por_zona": {
+    "Villa Pueyrredon": 16,
+    "Villa Urquiza": 13,
+    "Saavedra": 6,
+    "Coghlan": 5,
+    "Villa Ortuzar": 4,
+    "Colegiales": 4,
+    "Belgrano": 4,
+    "Villa del Parque": 4,
+    "Villa Devoto": 5,
+    "Agronomia": 2,
+    "La Paternal": 3,
+    "Villa Maipu": 1,
+    "Villa Lynch": 0
+  },
+  "comercios": [
+    {
+      "nombre": "Casa China",
+      "categoria": "Tienda de alimentacion",
+      "direccion": "Av. Gral. Mosconi 2319",
+      "telefono": "",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Argenchino",
+      "categoria": "Supermercado",
+      "direccion": "Gavilan 4552",
+      "telefono": "011 4571-8898",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Autoservicio",
+      "categoria": "Supermercado chino",
+      "direccion": "Pareja 2349",
+      "telefono": "",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Autoservicio Don Bruno",
+      "categoria": "Supermercado chino",
+      "direccion": "Gral. Jose Gervasio Artigas 4963",
+      "telefono": "",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Victoria",
+      "categoria": "Supermercado chino",
+      "direccion": "Vallejos (sin numero)",
+      "telefono": "",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado chino Xin",
+      "categoria": "Supermercado chino",
+      "direccion": "Ceretti 2737",
+      "telefono": "",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Argenchino",
+      "categoria": "Supermercado chino",
+      "direccion": "Pareja 3130",
+      "telefono": "",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Super Todo",
+      "categoria": "Supermercado chino",
+      "direccion": "Monroe 5446",
+      "telefono": "",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "CHEN SHEN",
+      "categoria": "Supermercado",
+      "direccion": "Vallejos 3136",
+      "telefono": "",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Chino",
+      "categoria": "Supermercado chino",
+      "direccion": "Cuenca 3743",
+      "telefono": "",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Chino",
+      "categoria": "Mercado",
+      "direccion": "Av. Combatientes de Malvinas 3799",
+      "telefono": "",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado King",
+      "categoria": "Supermercado",
+      "direccion": "Av. Gral. Mosconi 2724",
+      "telefono": "",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "HUANG",
+      "categoria": "Supermercado",
+      "direccion": "Mendoza 5653",
+      "telefono": "",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Jorge",
+      "categoria": "Tienda de alimentacion",
+      "direccion": "Gral. Jose Gervasio Artigas 4352",
+      "telefono": "",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Lucero",
+      "categoria": "Supermercado",
+      "direccion": "Av. de los Constituyentes 4142",
+      "telefono": "",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "supermercado amor",
+      "categoria": "Supermercado",
+      "direccion": "Jose Leon Cabezon 2379",
+      "telefono": "",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Autoservicio La Primavera",
+      "categoria": "Supermercado",
+      "direccion": "Jose Leon Cabezon 2955",
+      "telefono": "",
+      "zona": "Villa Pueyrredon",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado chino Xin",
+      "categoria": "Supermercado chino",
+      "direccion": "Ceretti 2737",
+      "telefono": "",
+      "zona": "Villa Urquiza",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Chino Congreso",
+      "categoria": "Supermercado",
+      "direccion": "Av. Congreso 5732",
+      "telefono": "",
+      "zona": "Villa Urquiza",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado del Pueblo",
+      "categoria": "Supermercado",
+      "direccion": "Barzana 2050",
+      "telefono": "",
+      "zona": "Villa Urquiza",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado chino",
+      "categoria": "Supermercado chino",
+      "direccion": "Av. Olazabal 4812",
+      "telefono": "",
+      "zona": "Villa Urquiza",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "py",
+      "categoria": "Supermercado chino",
+      "direccion": "Nahuel Huapi 5047",
+      "telefono": "",
+      "zona": "Villa Urquiza",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercados Cerca",
+      "categoria": "Supermercado chino",
+      "direccion": "Av. Alvarez Thomas 3647",
+      "telefono": "",
+      "zona": "Villa Urquiza",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Lyc urquiza supermercado",
+      "categoria": "Supermercado chino",
+      "direccion": "Av. Triunvirato 4381",
+      "telefono": "",
+      "zona": "Villa Urquiza",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Tse Tsang",
+      "categoria": "Supermercado chino",
+      "direccion": "Bucarelli 1972",
+      "telefono": "",
+      "zona": "Villa Urquiza",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Sabrina",
+      "categoria": "Supermercado",
+      "direccion": "Av. Olazabal 5629",
+      "telefono": "",
+      "zona": "Villa Urquiza",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Panda",
+      "categoria": "Supermercado",
+      "direccion": "Av. Olazabal 5428",
+      "telefono": "",
+      "zona": "Villa Urquiza",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado El Tropezon Srl",
+      "categoria": "Supermercado",
+      "direccion": "Bucarelli 2150",
+      "telefono": "",
+      "zona": "Villa Urquiza",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Urquiza Market",
+      "categoria": "Supermercado",
+      "direccion": "Altolaguirre 2717",
+      "telefono": "",
+      "zona": "Villa Urquiza",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Autoservicio Ricky",
+      "categoria": "Supermercado",
+      "direccion": "Crisologo Larralde 5702",
+      "telefono": "",
+      "zona": "Villa Urquiza",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Estrella",
+      "categoria": "Supermercado",
+      "direccion": "Av. Olazabal 5067",
+      "telefono": "",
+      "zona": "Villa Urquiza",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Autoservicio San Cayetano",
+      "categoria": "Tienda de alimentacion",
+      "direccion": "Manuela Pedraza 5598",
+      "telefono": "",
+      "zona": "Villa Urquiza",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado La Naturaleza",
+      "categoria": "Supermercado chino",
+      "direccion": "Miller 3547",
+      "telefono": "",
+      "zona": "Saavedra",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Emanuel",
+      "categoria": "Supermercado chino",
+      "direccion": "Manzanares 4657",
+      "telefono": "",
+      "zona": "Saavedra",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Melian",
+      "categoria": "Supermercado chino",
+      "direccion": "Av. Melian 3548",
+      "telefono": "",
+      "zona": "Saavedra",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Argenchino",
+      "categoria": "Supermercado chino",
+      "direccion": "Garcia del Rio 2921",
+      "telefono": "",
+      "zona": "Saavedra",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "supermercado Correa",
+      "categoria": "Supermercado chino",
+      "direccion": "Correa 3328",
+      "telefono": "",
+      "zona": "Saavedra",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Lin Hua",
+      "categoria": "Supermercado chino",
+      "direccion": "Arias 4666",
+      "telefono": "",
+      "zona": "Saavedra",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Chino",
+      "categoria": "Supermercado chino",
+      "direccion": "Manuela Pedraza 3526",
+      "telefono": "",
+      "zona": "Coghlan",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Super LyC",
+      "categoria": "Supermercado chino",
+      "direccion": "Monroe 3275",
+      "telefono": "",
+      "zona": "Coghlan",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Mario",
+      "categoria": "Supermercado",
+      "direccion": "Av. Dr. Ricardo Balbin 3232",
+      "telefono": "",
+      "zona": "Coghlan",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Tendy",
+      "categoria": "Supermercado chino",
+      "direccion": "Av. Dr. Ricardo Balbin 2929",
+      "telefono": "",
+      "zona": "Coghlan",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Universo",
+      "categoria": "Supermercado",
+      "direccion": "Manuela Pedraza 4102",
+      "telefono": "",
+      "zona": "Coghlan",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "JIANG RONG SUPERMERCADO",
+      "categoria": "Supermercado chino",
+      "direccion": "Av. de los Incas 4926",
+      "telefono": "",
+      "zona": "Villa Ortuzar",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercados Cerca",
+      "categoria": "Supermercado chino",
+      "direccion": "Av. Alvarez Thomas 3647",
+      "telefono": "",
+      "zona": "Villa Ortuzar",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado",
+      "categoria": "Tienda de alimentacion",
+      "direccion": "Atanasio Girardot 1525",
+      "telefono": "",
+      "zona": "Villa Ortuzar",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Autoservicio Tio Rico",
+      "categoria": "Tienda de alimentacion",
+      "direccion": "Av. Triunvirato 3200",
+      "telefono": "",
+      "zona": "Villa Ortuzar",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Super Shi Zu",
+      "categoria": "Supermercado chino",
+      "direccion": "Av. Federico Lacroze 2870",
+      "telefono": "",
+      "zona": "Colegiales",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Asia Oriental",
+      "categoria": "Supermercado chino",
+      "direccion": "Mendoza 1655",
+      "telefono": "",
+      "zona": "Colegiales",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Express",
+      "categoria": "Supermercado chino",
+      "direccion": "Cdad. de la Paz 524",
+      "telefono": "",
+      "zona": "Colegiales",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Autoservicio",
+      "categoria": "Supermercado",
+      "direccion": "Cdad. de la Paz 924",
+      "telefono": "",
+      "zona": "Colegiales",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Asia Oriental",
+      "categoria": "Supermercado chino",
+      "direccion": "Mendoza 1655",
+      "telefono": "",
+      "zona": "Belgrano",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado chino",
+      "categoria": "Supermercado chino",
+      "direccion": "Echeverria 1451",
+      "telefono": "",
+      "zona": "Belgrano",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Autoservicio",
+      "categoria": "Mercado",
+      "direccion": "Franklin D. Roosevelt 1887",
+      "telefono": "",
+      "zona": "Belgrano",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado chino AUTOSERVICIO",
+      "categoria": "Tienda de alimentacion",
+      "direccion": "La Pampa 2857",
+      "telefono": "",
+      "zona": "Belgrano",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Chino",
+      "categoria": "Supermercado chino",
+      "direccion": "Llavallol 2936",
+      "telefono": "",
+      "zona": "Villa del Parque",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Xin Yuan",
+      "categoria": "Supermercado chino",
+      "direccion": "Melincue 3583",
+      "telefono": "",
+      "zona": "Villa del Parque",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Pedro Lozano",
+      "categoria": "Supermercado chino",
+      "direccion": "Pedro Lozano 3027",
+      "telefono": "",
+      "zona": "Villa del Parque",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Tendy",
+      "categoria": "Supermercado",
+      "direccion": "Cuenca 2730",
+      "telefono": "",
+      "zona": "Villa del Parque",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Villa Devoto Nueva York calesita",
+      "categoria": "Supermercado chino",
+      "direccion": "Nueva York 3681",
+      "telefono": "",
+      "zona": "Villa Devoto",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado ONE",
+      "categoria": "Supermercado chino",
+      "direccion": "Ricardo Gutierrez 4220",
+      "telefono": "",
+      "zona": "Villa Devoto",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado xin",
+      "categoria": "Supermercado",
+      "direccion": "Vallejos 3465",
+      "telefono": "",
+      "zona": "Villa Devoto",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Suerte",
+      "categoria": "Supermercado",
+      "direccion": "Av. Francisco Beiro 5181",
+      "telefono": "",
+      "zona": "Villa Devoto",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "SUPERSERVICIO de DEVOTO",
+      "categoria": "Supermercado",
+      "direccion": "Jose Cubas 4446",
+      "telefono": "",
+      "zona": "Villa Devoto",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermercado Argenchino",
+      "categoria": "Supermercado chino",
+      "direccion": "Pedro Moran 2668",
+      "telefono": "",
+      "zona": "Agronomia",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Jaro Market",
+      "categoria": "Tienda de alimentacion",
+      "direccion": "Gavilan 4554",
+      "telefono": "",
+      "zona": "Agronomia",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Acasiem Market",
+      "categoria": "Supermercado chino",
+      "direccion": "Asuncion 2337",
+      "telefono": "",
+      "zona": "La Paternal",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "AUTOSERVICIO OSVALDO",
+      "categoria": "Supermercado",
+      "direccion": "Av. S. Martin 2951",
+      "telefono": "",
+      "zona": "La Paternal",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "La Esquina Autoservicio",
+      "categoria": "Almacen",
+      "direccion": "Camarones 2701",
+      "telefono": "",
+      "zona": "La Paternal",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    },
+    {
+      "nombre": "Supermecardo Asia Chino",
+      "categoria": "Supermercado",
+      "direccion": "J.A. Roca 1839",
+      "telefono": "",
+      "zona": "Villa Maipu",
+      "tiene_whatsapp": false,
+      "estado": "pendiente",
+      "fuente": "google_maps"
+    }
+  ]
+}

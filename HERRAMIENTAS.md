@@ -119,9 +119,9 @@ Skills propias de Brújula de Precios. Viven en `.claude/skills/` como archivos 
 
 ---
 
-### /railway-deploy
-**Qué hace:** Configura y administra scrapers en Railway (Hobby $5/mes ya contratado). Subcomandos: `setup` / `status` / `logs` / `trigger`. Cron configurado: 6am UTC diario.
-**Cuándo:** Solo para setup inicial o troubleshooting cuando el pipeline en Railway falla.
+### /railway-deploy ⚠️ ARCHIVADO
+**Estado:** Railway dado de baja el 13/06/2026. El scraping corre LOCAL via `pipeline_local.py` + Task Scheduler de Windows.
+**Reactivar:** solo si hay ingresos y se quiere nube 24/7. Ver `archive/README.md` para instrucciones.
 **Archivo:** `.claude/skills/railway-deploy.md`
 
 ---
@@ -440,8 +440,8 @@ Viven en `.claude/rules/`. Claude las lee al inicio de cada sesión.
 | `04-protocolo.md` | Bucle verificador, Git worktrees, workflow de voz |
 | `05-autoreview.md` | **Auto-review antes de declarar terminado** — 6 criterios obligatorios que Claude debe correr antes de decir "listo", ExitPlanMode, o "terminé". Incluye declaración visible del checklist. |
 | `code-style.md` | TypeScript, Python, comentarios, Windows/encoding |
-| `frontend/react.md` | Stack React, estructura de componentes, animaciones |
-| `frontend/styles.md` | Tailwind v4, design tokens, dark mode, accesibilidad |
+| `docs/frontend/react.md` | Stack React, estructura de componentes, animaciones (carga bajo demanda: leer al tocar UI) |
+| `docs/frontend/styles.md` | Tailwind v4, design tokens, dark mode, accesibilidad (carga bajo demanda: leer al tocar UI) |
 | `security.md` | Credenciales, git, scrapers, frontend, validación |
 | `testing.md` | Bucle verificador universal (no solo scrapers) |
 

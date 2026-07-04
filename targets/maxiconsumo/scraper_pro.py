@@ -19,9 +19,9 @@ from bs4 import BeautifulSoup
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 BASE_URL = "https://maxiconsumo.com/sucursal_burzaco"
 DELAY = 0.3   # reducido de 0.4 — con impersonation es seguro
-MIN_PRODUCTS_EXPECTED = 500
+MIN_PRODUCTS_EXPECTED = 3500
 IMPERSONATE = "safari15_3"
-CAT_WORKERS = 3   # categorias en paralelo
+CAT_WORKERS = 1   # secuencial: paralelo 3 triggerea rate-limit de Cloudflare (bug 18/06)
 
 _cat_thread_local = threading.local()
 
@@ -88,6 +88,11 @@ def parsear_pagina(html, sector):
             sku_m = re.search(r"-(\d+)(?:\.html)?$", link)
             sku = sku_m.group(1) if sku_m else ""
 
+            # Saltar productos sin stock (precio inflado o no disponible)
+            sin_stock = bool(item.find(string=re.compile(r"disponibilidad cr[ií]tica", re.IGNORECASE)))
+            if sin_stock:
+                continue
+
             precio_span = item.find("span", class_="price")
             precio = limpiar_precio(precio_span.get_text(strip=True)) if precio_span else 0.0
 
@@ -152,7 +157,12 @@ def scrape_categoria(session_ignored, nombre_display, slug, idx, total):
             print(f"  [ERROR] Pag {pagina}: {e}")
             break
 
-    print(f"  {nombre_display}: {len(sector_prods)} productos totales")
+    total_sector = len(sector_prods)
+    minimos = {"Almacen": 800, "Perfumeria": 500, "Bebidas": 400, "Limpieza": 400}
+    minimo = minimos.get(nombre_display, 0)
+    if minimo and total_sector < minimo:
+        print(f"  [WARN] {nombre_display}: {total_sector} productos (esperado >={minimo}) -- posible bloqueo")
+    print(f"  {nombre_display}: {total_sector} productos totales")
     return sector_prods
 
 
@@ -185,7 +195,7 @@ def main():
         sys.exit(1)
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    output_file = os.path.join(os.path.dirname(__file__), f"output_maxiconsumo_{timestamp}.json")
+    output_file = os.path.join(os.path.dirname(__file__), f"output_maxiconsumo_raw_{timestamp}.json")
 
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(productos_lista, f, ensure_ascii=False, indent=2)

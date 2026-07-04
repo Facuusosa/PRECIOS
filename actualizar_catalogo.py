@@ -189,7 +189,7 @@ def _carrefour_links_hibrido(catalogo):
         from curl_cffi import requests as _rq
     except Exception:
         return
-    mc = [(k, p) for k, p in catalogo.items()
+    mc = [p for p in catalogo
           if p.get("fuentes", {}).get("maxicarrefour") and p.get("ean")]
     if not mc:
         return
@@ -202,14 +202,14 @@ def _carrefour_links_hibrido(catalogo):
         except Exception:
             return True  # ante duda, conservar el /search/{ean} (no romper)
 
-    eans = [p["ean"] for _, p in mc]
+    eans = [p["ean"] for p in mc]
     try:
         with ThreadPoolExecutor(max_workers=16) as ex:
             ok = dict(zip(eans, ex.map(_ok, eans)))
     except Exception:
         return
     fb = 0
-    for _, p in mc:
+    for p in mc:
         if not ok.get(p["ean"], True):
             nombre = p["fuentes"]["maxicarrefour"].get("nombre") or p.get("nombre_display") or ""
             p["fuentes"]["maxicarrefour"]["link"] = f"https://comerciante.carrefour.com.ar/search/{quote(nombre)}"
@@ -517,7 +517,7 @@ def cargar_yaguar():
         glob.glob(os.path.join(YAGUAR_DIR, "output_yaguar_*.json")) +
         glob.glob(os.path.join(HISTORY_DIR, "yaguar", "output_yaguar_*.json")),
         key=os.path.getmtime, reverse=True
-    )[:8]
+    )[:12]
 
     if not archivos:
         print("  [SKIP] No se encontró output de Yaguar")
@@ -566,7 +566,14 @@ def cargar_yaguar():
                     if precio > 200 and precio_ex < 200:
                         sku_to_mejor[sku] = p
                     elif precio > 200 and precio_ex > 200:
-                        # Ambos válidos — preferir el que tiene link e imagen
+                        # Ambos válidos — existing es más reciente (archivos ordenados desc)
+                        # Si el más antiguo (p) tiene imagen real y el más reciente no, heredar imagen
+                        def _img_real(prod):
+                            img = prod.get("imagen", "")
+                            return bool(img and "base.png" not in img and not img.startswith("data:"))
+                        if _img_real(p) and not _img_real(existing):
+                            existing["imagen"] = p["imagen"]
+                        # Si solo p tiene link/imagen (y existing no tiene nada útil), reemplazar
                         tiene_datos = bool(p.get("link") or p.get("imagen"))
                         existing_tiene_datos = bool(existing.get("link") or existing.get("imagen"))
                         if tiene_datos and not existing_tiene_datos:
@@ -2038,7 +2045,7 @@ def main():
 
     # Normalizar link de Maxiconsumo: ficha directa sin el prefijo de sucursal (ver
     # _maxiconsumo_product_link).
-    for _p in catalogo.values():
+    for _p in catalogo:
         _mco = _p.get("fuentes", {}).get("maxiconsumo")
         if _mco and _mco.get("link"):
             _mco["link"] = _maxiconsumo_product_link(_mco["link"])

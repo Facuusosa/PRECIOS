@@ -53,6 +53,12 @@ targets/*/scraper_log.txt
 # QA temporal
 data/quality/*.json
 
+# Chrome profile del scraper (cache, cookies, databases)
+data/carrefour_profile/
+
+# Historial de outputs de scraping (JSONs grandes, no son código)
+data/history/
+
 # Documentos y extensiones
 *.docx
 *.vsix

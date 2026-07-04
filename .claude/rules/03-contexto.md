@@ -18,12 +18,7 @@ Leerla antes de cada sesión larga. Si está >60%, hacer /compact antes de empez
 | Al volver de una sesión larga | `/context` para verificar qué retuvo |
 
 ## Cuándo usar cada modelo
-
-| Tarea | Modelo |
-|---|---|
-| Búsquedas simples, preguntas de 1 línea | Haiku (más barato) |
-| Desarrollo normal, análisis, todo lo regular | Sonnet (este) |
-| Plan mode en decisiones arquitecturales complejas | Opus |
+Tabla canónica en `~/.claude/CLAUDE.md` → sección "SELECCIÓN DE MODELO". No duplicar acá.
 
 ## Lo que consume más tokens (en orden)
 1. Herramientas del sistema (~17k tokens fijos — no controlable)

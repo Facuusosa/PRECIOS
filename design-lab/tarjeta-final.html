@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Tarjeta final · Explorá por categoría</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a; --gray: #808080; --line: #ececec;
+    --plate: #f6f5f3; --green: #15803d; --pill: #111111;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Poppins', sans-serif; background: #fff; color: var(--ink); padding: 48px; }
+  h1 { font-size: 21px; letter-spacing: -0.3px; margin-bottom: 8px; }
+  p.desc { font-size: 13.5px; color: var(--gray); max-width: 62ch; line-height: 1.55; margin-bottom: 30px; }
+  .fila { display: flex; gap: 40px; align-items: flex-start; }
+  .demo { text-align: center; }
+  .demo .tag { font-size: 12px; color: var(--gray); margin-top: 12px; }
+
+  .card {
+    position: relative;
+    width: 170px; height: 210px;
+    border-radius: 10px; overflow: hidden;
+    border: none; cursor: pointer; padding: 0;
+    background: var(--plate);
+    font-family: inherit;
+    display: block;
+  }
+  .grad {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.2) 48%, rgba(10,10,10,0) 100%);
+  }
+  .label {
+    position: absolute; bottom: 12px; left: 14px; right: 14px; z-index: 1;
+    display: flex; flex-direction: column; gap: 2px; text-align: left;
+  }
+  .label .count { font-size: 11px; color: rgba(255,255,255,0.8); line-height: 1.3; font-variant-numeric: tabular-nums; }
+  .label .name  { font-size: 15px; font-weight: 600; color: #fff; letter-spacing: -0.2px; }
+  .pill {
+    position: absolute; top: 9px; left: 9px; z-index: 2;
+    background: #fff; border-radius: 999px; padding: 4px 10px;
+    font-size: 11px; font-weight: 600; color: var(--green);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.14);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Composición final: hero grande + escolta, apoyados en la misma base, sin superponerse */
+  .collage { position: absolute; inset: 0; background: var(--plate); transition: transform 450ms var(--ease-out); }
+  .card:hover .collage { transform: scale(1.05); }
+  .collage img {
+    position: absolute; object-fit: contain; object-position: 50% 100%;
+    mix-blend-mode: multiply;
+    transition: opacity 700ms ease;
+  }
+  /* Cajas que NO se tocan por construcción: hero 8..102, escolta 106..162 (4px de aire).
+     La escala nunca supera el ancho de su caja, así que el solape es imposible. */
+  .collage .hero    { left: 8px;  bottom: 52px; width: 94px; height: 146px; z-index: 2; }
+  .collage .escolta { right: 8px; bottom: 52px; width: 56px; height: 112px; z-index: 1; opacity: 0.96; }
+  .collage img.oculta { opacity: 0 !important; }
+</style>
+</head>
+<body>
+<h1>Tus fotos en la tarjeta final (170 × 210)</h1>
+<p class="desc">Las 5 categorías que cargaste, con tus 20 fotos locales (ya sin depender de los mayoristas). Dos productos por tarjeta, rotando de a uno con crossfade. Dejala unos segundos para ver la rotación completa.</p>
+
+<div class="fila" id="fila"></div>
+
+<script>
+/* Fotos de Facu (locales, en public/categories/productos/), medidas por píxeles:
+   w/h = fracción del lienzo que ocupa el producto real. */
+const P = '../BRUJULA-DE-PRECIOS/public/categories/productos/';
+const DEMOS = [
+  { nombre: 'Almacén', count: '3.657', pct: 49, tag: '', fotos: [
+    { img: P + 'almacen-3.webp', w: 0.81, h: 1.0 },
+    { img: P + 'almacen-2.webp', w: 0.36, h: 1.0 },
+    { img: P + 'almacen-4.webp', w: 0.61, h: 1.0 },
+    { img: P + 'almacen-1.webp', w: 0.42, h: 0.81 },
+  ]},
+  { nombre: 'Bebidas', count: '1.765', pct: 50, tag: '', fotos: [
+    { img: P + 'bebidas-4.jpg',  w: 0.40, h: 1.0 },
+    { img: P + 'bebidas-2.webp', w: 0.29, h: 0.97 },
+    { img: P + 'bebidas-1.webp', w: 0.21, h: 0.84 },
+    { img: P + 'bebidas-3.webp', w: 0.23, h: 0.80 },
+  ]},
+  { nombre: 'Frescos', count: '1.175', pct: 56, tag: '', fotos: [
+    { img: P + 'frescos-3.webp', w: 0.99, h: 0.92 },
+    { img: P + 'frescos-1.jpg',  w: 0.68, h: 0.93 },
+    { img: P + 'frescos-2.jpg',  w: 0.90, h: 0.91 },
+    { img: P + 'frescos-4.jpg',  w: 0.92, h: 0.68 },
+  ]},
+  { nombre: 'Limpieza', count: '2.054', pct: 59, tag: '', fotos: [
+    { img: P + 'limpieza-1.jpg',  w: 0.57, h: 0.80 },
+    { img: P + 'limpieza-4.webp', w: 0.49, h: 0.79 },
+    { img: P + 'limpieza-2.webp', w: 0.32, h: 0.75 },
+    { img: P + 'limpieza-3.webp', w: 0.69, h: 0.69 },
+  ]},
+  { nombre: 'Cuidado Personal', count: '2.489', pct: 59, tag: '', fotos: [
+    { img: P + 'perfumeria-1.webp', w: 0.53, h: 0.95 },
+    { img: P + 'perfumeria-4.webp', w: 0.34, h: 0.95 },
+    { img: P + 'perfumeria-3.webp', w: 0.77, h: 0.56 },
+    { img: P + 'perfumeria-2.webp', w: 0.62, h: 0.37 },
+  ]},
+];
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const BOX = { hero: { w: 94, h: 146 }, escolta: { w: 56, h: 112 } };
+
+/* Escala para que el producto (bbox medido) llene el slot:
+   el lienzo sobrante es blanco y el multiply lo hace invisible.
+   kW SIN gracia: el producto jamás excede el ancho de su caja -> imposible superponerse. */
+function escalaProducto(foto, slot, natW, natH) {
+  const box = BOX[slot];
+  const fit = Math.min(box.w / natW, box.h / natH);      // escala de object-fit: contain
+  const prodW = foto.w * natW * fit;
+  const prodH = foto.h * natH * fit;
+  const kH = (0.94 * box.h) / prodH;   /* 6% de aire arriba: que nada roce el badge ni el borde */
+  const kW = box.w / prodW;
+  return Math.min(Math.max(1, Math.min(kH, kW)), 1.8);
+}
+
+function aplicarEscala(img, foto, slot) {
+  const listo = () => {
+    const k = escalaProducto(foto, slot, img.naturalWidth, img.naturalHeight);
+    img.style.transform = `scale(${k.toFixed(2)})`;
+    img.style.transformOrigin = '50% 100%';
+  };
+  if (img.complete && img.naturalWidth > 0) listo();
+  else img.onload = listo;
+}
+
+document.getElementById('fila').innerHTML = DEMOS.map((d, i) => `
+  <div class="demo">
+    <button class="card" data-i="${i}">
+      <span class="collage">
+        <img class="hero" src="${d.fotos[0].img}" alt="">
+        <img class="escolta" src="${d.fotos[1].img}" alt="">
+      </span>
+      <span class="grad"></span>
+      <span class="pill">hasta -${d.pct}% hoy</span>
+      <span class="label"><span class="count">${d.count} productos</span><span class="name">${d.nombre}</span></span>
+    </button>
+    <div class="tag">${d.tag}</div>
+  </div>`).join('');
+
+document.querySelectorAll('.card').forEach(card => {
+  const pool = DEMOS[card.dataset.i].fotos;
+  aplicarEscala(card.querySelector('.hero'), pool[0], 'hero');
+  aplicarEscala(card.querySelector('.escolta'), pool[1], 'escolta');
+});
+
+/* rotación: un slot por vez; hero recorre índices pares, escolta impares */
+if (!reduceMotion) {
+  document.querySelectorAll('.card').forEach((card, ci) => {
+    const pool = DEMOS[card.dataset.i].fotos;
+    const slots = { hero: card.querySelector('.hero'), escolta: card.querySelector('.escolta') };
+    const idx = { hero: 0, escolta: 1 };
+    let paso = 0;
+    setInterval(() => {
+      const slot = paso % 2 === 0 ? 'hero' : 'escolta';
+      paso++;
+      idx[slot] = (idx[slot] + 2) % pool.length;
+      const img = slots[slot];
+      const foto = pool[idx[slot]];
+      img.classList.add('oculta');
+      setTimeout(() => {
+        img.src = foto.img;
+        aplicarEscala(img, foto, slot);
+        img.classList.remove('oculta');
+      }, 700);
+    }, 3200 + ci * 500);
+  });
+}
+</script>
+</body>
+</html>

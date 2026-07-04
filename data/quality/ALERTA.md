@@ -14,3 +14,12 @@ Una vez resueltas, se mueven a la sección de abajo.
   Causa: segunda corrida del mismo día (renovación de cookies desconfió + rate-limit MCO).
   El pipeline usó los outputs frescos de la tarde, verificó 39/39 y publicó OK. No aplica
   a la corrida diaria normal de las 10am. Visto con Facu 01/07.
+
+## 02/07/2026 14:07 — Scraper maxicarrefour FALLO hoy
+Accion sugerida: revisar data/quality/pipeline_local.log — si es MCF, probar scripts/renovar_cookies_carrefour.py --force
+
+## 02/07/2026 14:07 — Scraper maxiconsumo FALLO hoy
+Accion sugerida: revisar data/quality/pipeline_local.log — si es MCF, probar scripts/renovar_cookies_carrefour.py --force
+
+## 03/07/2026 18:44 — Scraper maxicarrefour FALLO hoy
+Accion sugerida: revisar data/quality/pipeline_local.log — si es MCF, probar scripts/renovar_cookies_carrefour.py --force
