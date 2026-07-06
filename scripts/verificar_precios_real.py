@@ -243,14 +243,15 @@ def main():
     with open(CATALOGO_PATH, encoding="utf-8") as f:
         catalogo = json.load(f)
 
-    # Seleccionar top N productos ABC=A con 2+ fuentes de precio
-    candidatos = [
-        p for p in catalogo
-        if p.get("abc") == "A"
-        and sum(1 for v in p.get("precios", {}).values() if v > 0) >= 2
-    ]
+    # Seleccionar top N productos ABC=A con 2+ fuentes MAYORISTAS de precio.
+    # coto/carrefour (cadenas) no entran al gate: son referencia gondola,
+    # no precio de compra
+    _MAYORISTAS = ("yaguar", "maxicarrefour", "maxiconsumo")
+    def _n_may(p):
+        return sum(1 for k in _MAYORISTAS if p.get("precios", {}).get(k, 0) > 0)
+    candidatos = [p for p in catalogo if p.get("abc") == "A" and _n_may(p) >= 2]
     # Ordenar por cantidad de fuentes (más fuentes primero)
-    candidatos.sort(key=lambda p: sum(1 for v in p["precios"].values() if v > 0), reverse=True)
+    candidatos.sort(key=_n_may, reverse=True)
     muestra = candidatos[:n]
 
     if not muestra:

@@ -730,6 +730,46 @@ def cargar_maxiconsumo():
     return combined
 
 
+def cargar_cadena(clave, etiqueta):
+    """
+    Carga generica de fuentes tipo "cadena" (Coto, Carrefour retail):
+    combina los output_{clave}_*.json recientes (targets/{clave} +
+    data/history/{clave}), dedupe por EAN quedandose con el dato del archivo
+    mas reciente. Las cadenas son 100% EAN — sin fuzzy.
+    """
+    dir_targets = os.path.join(BASE_DIR, "targets", clave)
+    archivos = sorted(
+        glob.glob(os.path.join(dir_targets, f"output_{clave}_*.json")) +
+        glob.glob(os.path.join(HISTORY_DIR, clave, f"output_{clave}_*.json")),
+        key=os.path.getmtime, reverse=True
+    )[:3]
+    if not archivos:
+        print(f"  [SKIP] No se encontro output de {etiqueta} - catalogo sin su precio gondola")
+        return []
+
+    por_ean = {}
+    for f in archivos:  # el mas reciente primero: su dato gana
+        try:
+            with open(f, encoding="utf-8") as fh:
+                data = json.load(fh)
+        except Exception as e:
+            print(f"  [WARN] {etiqueta}: error leyendo {os.path.basename(f)}: {e}")
+            continue
+        fecha_archivo = extraer_fecha_de_timestamp(f)
+        for p in data:
+            ean = str(p.get("ean", "")).strip()
+            if not ean or p.get("precio", 0) <= 0:
+                continue
+            if not p.get("fecha_scraping"):
+                p["fecha_scraping"] = fecha_archivo
+            if ean not in por_ean:
+                por_ean[ean] = p
+
+    combined = list(por_ean.values())
+    print(f"  {etiqueta}: {len(archivos)} archivo(s) -> {len(combined)} productos con EAN y precio")
+    return combined
+
+
 def cargar_hunterprice():
     ruta = os.path.join(BASE_DIR, "archive", "data_hunterprice.json")
     if not os.path.isfile(ruta):
@@ -775,7 +815,8 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             "sector":         sector,
             "subcategoria":   subcategoria,
             "abc":            abc,
-            "precios":        {"yaguar": 0, "maxicarrefour": 0, "maxiconsumo": 0},
+            "precios":        {"yaguar": 0, "maxicarrefour": 0, "maxiconsumo": 0,
+                               "coto": 0, "carrefour": 0},
             "fuentes":        {},
         }
 
@@ -1945,6 +1986,8 @@ def main():
     yaguar      = cargar_yaguar()
     maxicarre   = cargar_maxicarrefour()
     maxiconsumo = cargar_maxiconsumo()
+    coto        = cargar_cadena("coto", "Coto")
+    carrefour   = cargar_cadena("carrefour", "Carrefour")
 
     print("\nConstruyendo catálogo unificado...")
     catalogo, aprendizaje_yag, aprendizaje_mco = construir_catalogo(
@@ -1978,12 +2021,51 @@ def main():
         abc_calc_total = len(precios_prom)
         print(f"  ABC fallback calculado:       {abc_calc_total} productos sin clasificacion Maestro")
 
+    # ------ Cadenas minoristas: Coto + Carrefour retail (100% EAN) ------
+    # Se agregan DESPUES de construir_catalogo a proposito: las validaciones
+    # internas (outliers 6e/6f, sospechosos 6g, cantidad 6d) comparan precios
+    # entre si asumiendo mayoristas; las cadenas son legitimamente mas caras
+    # (gondola) y adentro generarian falsos positivos. Fuera del constructor no
+    # contaminan ni pueden ser descartadas. Decision de producto: solo agregan
+    # precio a EANs que ya existen — los exclusivos quedan para la Fase B.
+    cadenas = [("coto", "Coto", coto), ("carrefour", "Carrefour", carrefour)]
+    if any(data for _, _, data in cadenas):
+        idx_ean = {}
+        for p in catalogo:
+            ean_p = str(p.get("ean", "")).strip()
+            if ean_p:
+                idx_ean.setdefault(ean_p, []).append(p)
+        for clave, etiqueta, data in cadenas:
+            matches = 0
+            for pc in data:
+                ean = str(pc.get("ean", "")).strip()
+                precio = pc.get("precio", 0)
+                if not ean or precio <= 0:
+                    continue
+                for p in idx_ean.get(ean, []):
+                    p["precios"][clave] = precio
+                    p["fuentes"][clave] = {
+                        "nombre":         pc.get("nombre", ""),
+                        "imagen":         pc.get("imagen", ""),
+                        "link":           pc.get("link", ""),
+                        "fecha_scraping": pc.get("fecha_scraping", ""),
+                        # gran parte de la gondola tiene oferta: precio =
+                        # efectivo (lo que paga el publico hoy); regular +
+                        # texto para mostrar ambos
+                        "precio_regular": pc.get("precio_regular", 0),
+                        "oferta":         pc.get("oferta", ""),
+                    }
+                    matches += 1
+            if data:
+                print(f"  {etiqueta}: {matches} productos del catalogo con precio gondola "
+                      f"(de {len(data)} scrapeados; el resto es surtido exclusivo -> Fase B)")
+
     # Marcar precios stale. Umbral 14 dias: en Argentina, con inflacion, un precio
     # de hace 2 semanas ya no es confiable. El frontend usa este flag para avisar.
     STALE_DIAS = 14
     from datetime import date as _date
     hoy = _date.today()
-    _mayoristas = ("yaguar", "maxicarrefour", "maxiconsumo")
+    _mayoristas = ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour")
     precios_stale = 0
     for p in catalogo:
         fuentes = p.get("fuentes", {})
@@ -2025,10 +2107,15 @@ def main():
     con_yag  = sum(1 for p in catalogo if p["precios"]["yaguar"] > 0)
     con_mc   = sum(1 for p in catalogo if p["precios"]["maxicarrefour"] > 0)
     con_mco  = sum(1 for p in catalogo if p["precios"]["maxiconsumo"] > 0)
-    multi    = sum(1 for p in catalogo if sum(1 for v in p["precios"].values() if v > 0) >= 2)
-    tres     = sum(1 for p in catalogo if sum(1 for v in p["precios"].values() if v > 0) == 3)
-    abc_a_multi = sum(1 for p in catalogo if p.get("abc") == "A" and
-                      sum(1 for v in p["precios"].values() if v > 0) >= 2)
+    con_coto = sum(1 for p in catalogo if p["precios"].get("coto", 0) > 0)
+    con_carr = sum(1 for p in catalogo if p["precios"].get("carrefour", 0) > 0)
+    # Las metricas de comparativa miden SOLO mayoristas (coto es referencia gondola)
+    _KEYS_MAY = ("yaguar", "maxicarrefour", "maxiconsumo")
+    def _n_mayoristas(p):
+        return sum(1 for k in _KEYS_MAY if p["precios"].get(k, 0) > 0)
+    multi    = sum(1 for p in catalogo if _n_mayoristas(p) >= 2)
+    tres     = sum(1 for p in catalogo if _n_mayoristas(p) == 3)
+    abc_a_multi = sum(1 for p in catalogo if p.get("abc") == "A" and _n_mayoristas(p) >= 2)
     sin_img  = sum(1 for p in catalogo if not p.get("imagen"))
 
     print(f"\n{'='*60}")
@@ -2038,6 +2125,8 @@ def main():
     print(f"  Con precio Yaguar:            {con_yag}")
     print(f"  Con precio MaxiCarrefour:     {con_mc}")
     print(f"  Con precio Maxiconsumo:       {con_mco}")
+    print(f"  Con precio Coto (gondola):    {con_coto}")
+    print(f"  Con precio Carrefour (gond.): {con_carr}")
     print(f"  Con 2+ precios (comparativa): {multi}")
     print(f"  Con 3 precios:                {tres}")
     print(f"  ABC=A con 2+ precios:         {abc_a_multi}")

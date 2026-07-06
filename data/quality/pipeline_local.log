@@ -13497,4 +13497,722 @@ Corrida: s�b 04/07/2026 16:16:43,76
 === SCRAPER YAGUAR ===
 Iniciando: 2026-07-04 16:16:44
 ERROR EN SCRAPER YAGUAR
-^C^C
+^C^C==================================================== 
+Corrida: dom 05/07/2026 10:00:02,14 
+[10:00:02] === PIPELINE LOCAL BRUJULA ===
+[10:00:02] Catalogo actual: 13256 prods (Y=6601 MC=4734 MCO=4138)
+[10:00:02] Corriendo scrape_yaguar.py...
+🚀 Scraper Yaguar PRO — Catálogo Completo
+📅 2026-07-05 10:00:03
+==================================================
+🔐 Iniciando sesión...
+✅ Login exitoso
+Sectores a scrapear: 11
+=======================================================
+
+[1/11] Sector: Almacén
+  almacén: ~14912 productos estimados (466 páginas)
+    Pag 5/466: 160 unicos acumulados
+    Pag 10/466: 320 unicos acumulados
+    Pag 15/466: 480 unicos acumulados
+    Pag 20/466: 640 unicos acumulados
+    Pag 25/466: 800 unicos acumulados
+    Pag 30/466: 960 unicos acumulados
+    Pag 35/466: 1120 unicos acumulados
+    Pag 40/466: 1280 unicos acumulados
+    Pag 45/466: 1440 unicos acumulados
+    Pag 50/466: 1600 unicos acumulados
+    Pag 55/466: 1760 unicos acumulados
+    Pag 60/466: 1920 unicos acumulados
+    Pag 65/466: 2080 unicos acumulados
+    Pag 70/466: 2240 unicos acumulados
+    Pag 75/466: 2390 unicos acumulados
+    Pag 76: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 80/466: 2550 unicos acumulados
+    Pag 85/466: 2710 unicos acumulados
+    Pag 90/466: 2870 unicos acumulados
+    Pag 91: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 95/466: 3030 unicos acumulados
+    Pag 100/466: 3190 unicos acumulados
+    Pag 105/466: 3350 unicos acumulados
+    Pag 106: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 110/466: 3510 unicos acumulados
+    Pag 115/466: 3670 unicos acumulados
+    Pag 120/466: 3830 unicos acumulados
+    Pag 121: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 125/466: 3990 unicos acumulados
+    Pag 130/466: 4150 unicos acumulados
+    Pag 135/466: 4310 unicos acumulados
+    Pag 136: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 140/466: 4470 unicos acumulados
+    Pag 145/466: 4630 unicos acumulados
+    Pag 150/466: 4790 unicos acumulados
+    Pag 151: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 155/466: 4950 unicos acumulados
+    Pag 160/466: 5110 unicos acumulados
+    Pag 165/466: 5270 unicos acumulados
+    Pag 166: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 170/466: 5430 unicos acumulados
+    Pag 175/466: 5590 unicos acumulados
+    Pag 180/466: 5750 unicos acumulados
+    Pag 181: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 185/466: 5910 unicos acumulados
+    Pag 190/466: 6070 unicos acumulados
+    Pag 195/466: 6230 unicos acumulados
+    Pag 196: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 200/466: 6390 unicos acumulados
+    Pag 205/466: 6550 unicos acumulados
+    Pag 210/466: 6710 unicos acumulados
+    Pag 211: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 215/466: 6870 unicos acumulados
+    Pag 220/466: 7030 unicos acumulados
+    Pag 225/466: 7190 unicos acumulados
+    Pag 226: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 230/466: 7350 unicos acumulados
+    Pag 235/466: 7510 unicos acumulados
+    Pag 240/466: 7670 unicos acumulados
+    Pag 241: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 245/466: 7830 unicos acumulados
+    Pag 250/466: 7990 unicos acumulados
+    Pag 255/466: 8150 unicos acumulados
+    Pag 256: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 260/466: 8310 unicos acumulados
+    Pag 265/466: 8470 unicos acumulados
+    Pag 270/466: 8630 unicos acumulados
+    Pag 271: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 275/466: 8790 unicos acumulados
+    Pag 280/466: 8950 unicos acumulados
+    Pag 285/466: 9110 unicos acumulados
+    Pag 287: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 290/466: 9270 unicos acumulados
+    Pag 295/466: 9430 unicos acumulados
+    Pag 300/466: 9590 unicos acumulados
+    Pag 302: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 305/466: 9750 unicos acumulados
+    Pag 310/466: 9910 unicos acumulados
+    Pag 315/466: 10070 unicos acumulados
+    Pag 317: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 320/466: 10230 unicos acumulados
+    Pag 325/466: 10390 unicos acumulados
+    Pag 330/466: 10550 unicos acumulados
+    Pag 332: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 335/466: 10710 unicos acumulados
+    Pag 340/466: 10870 unicos acumulados
+    Pag 345/466: 11030 unicos acumulados
+    Pag 347: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 350/466: 11190 unicos acumulados
+    Pag 355/466: 11350 unicos acumulados
+    Pag 360/466: 11510 unicos acumulados
+    Pag 362: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 365/466: 11670 unicos acumulados
+    Pag 370/466: 11830 unicos acumulados
+    Pag 375/466: 11990 unicos acumulados
+    Pag 377: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 380/466: 12150 unicos acumulados
+    Pag 385/466: 12310 unicos acumulados
+    Pag 390/466: 12470 unicos acumulados
+    Pag 392: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 395/466: 12630 unicos acumulados
+    Pag 400/466: 12790 unicos acumulados
+    Pag 405/466: 12950 unicos acumulados
+    Pag 407: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 410/466: 13110 unicos acumulados
+    Pag 415/466: 13270 unicos acumulados
+    Pag 420/466: 13430 unicos acumulados
+    Pag 422: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 425/466: 13590 unicos acumulados
+    Pag 430/466: 13750 unicos acumulados
+    Pag 435/466: 13910 unicos acumulados
+    Pag 437: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 440/466: 14070 unicos acumulados
+    Pag 445/466: 14230 unicos acumulados
+    Pag 450/466: 14390 unicos acumulados
+    Pag 452: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 455/466: 14550 unicos acumulados
+    Pag 460/466: 14710 unicos acumulados
+    Pag 465/466: 14870 unicos acumulados
+    Pag 466/466: 14902 unicos acumulados
+  almacén: 14902 productos totales
+
+[2/11] Sector: Bazar
+  bazar: ~288 productos estimados (9 páginas)
+    Pag 5/9: 160 unicos acumulados
+    Pag 9/9: 274 unicos acumulados
+  bazar: 274 productos totales
+
+[3/11] Sector: Bebidas Sin Alcohol
+  bebidas sin alcohol: ~800 productos estimados (25 páginas)
+    Pag 5/25: 160 unicos acumulados
+    Pag 10/25: 320 unicos acumulados
+    Pag 15/25: 480 unicos acumulados
+    Pag 20/25: 640 unicos acumulados
+    Pag 25/25: 780 unicos acumulados
+  bebidas sin alcohol: 780 productos totales
+
+[4/11] Sector: Bodega
+  bodega: ~992 productos estimados (31 páginas)
+    Pag 5/31: 160 unicos acumulados
+    Pag 10/31: 320 unicos acumulados
+    Pag 15/31: 480 unicos acumulados
+    Pag 20/31: 640 unicos acumulados
+    Pag 25/31: 800 unicos acumulados
+    Pag 30/31: 960 unicos acumulados
+    Pag 31/31: 984 unicos acumulados
+  bodega: 984 productos totales
+
+[5/11] Sector: Desayuno
+  desayuno: ~1088 productos estimados (34 páginas)
+    Pag 5/34: 160 unicos acumulados
+    Pag 10/34: 320 unicos acumulados
+    Pag 15/34: 480 unicos acumulados
+    Pag 20/34: 640 unicos acumulados
+    Pag 25/34: 800 unicos acumulados
+    Pag 30/34: 960 unicos acumulados
+    Pag 34/34: 1062 unicos acumulados
+  desayuno: 1062 productos totales
+
+[6/11] Sector: Frescos
+  frescos: ~1856 productos estimados (58 páginas)
+    Pag 5/58: 160 unicos acumulados
+    Pag 10/58: 320 unicos acumulados
+    Pag 15/58: 480 unicos acumulados
+    Pag 20/58: 640 unicos acumulados
+    Pag 25/58: 800 unicos acumulados
+    Pag 30/58: 960 unicos acumulados
+    Pag 35/58: 1120 unicos acumulados
+    Pag 40/58: 1280 unicos acumulados
+    Pag 45/58: 1440 unicos acumulados
+    Pag 50/58: 1600 unicos acumulados
+    Pag 55/58: 1760 unicos acumulados
+    Pag 58/58: 1848 unicos acumulados
+  frescos: 1848 productos totales
+
+[7/11] Sector: Kiosco
+  kiosco: ~1184 productos estimados (37 páginas)
+    Pag 5/37: 160 unicos acumulados
+    Pag 10/37: 320 unicos acumulados
+    Pag 15/37: 480 unicos acumulados
+    Pag 20/37: 640 unicos acumulados
+    Pag 25/37: 800 unicos acumulados
+    Pag 30/37: 960 unicos acumulados
+    Pag 35/37: 1120 unicos acumulados
+    Pag 37/37: 1158 unicos acumulados
+  kiosco: 1158 productos totales
+
+[8/11] Sector: Limpieza
+  limpieza: ~1856 productos estimados (58 páginas)
+    Pag 5/58: 160 unicos acumulados
+    Pag 10/58: 320 unicos acumulados
+    Pag 15/58: 480 unicos acumulados
+    Pag 20/58: 640 unicos acumulados
+    Pag 25/58: 800 unicos acumulados
+    Pag 30/58: 960 unicos acumulados
+    Pag 35/58: 1120 unicos acumulados
+    Pag 40/58: 1280 unicos acumulados
+    Pag 45/58: 1440 unicos acumulados
+    Pag 50/58: 1600 unicos acumulados
+    Pag 55/58: 1760 unicos acumulados
+    Pag 58/58: 1856 unicos acumulados
+  limpieza: 1856 productos totales
+
+[9/11] Sector: Mascotas
+  mascotas: ~160 productos estimados (5 páginas)
+    Pag 5/5: 140 unicos acumulados
+  mascotas: 140 productos totales
+
+[10/11] Sector: Papeles
+  papeles: ~128 productos estimados (4 páginas)
+    Pag 4/4: 110 unicos acumulados
+  papeles: 110 productos totales
+
+[11/11] Sector: Perfumería
+  perfumería: ~2304 productos estimados (72 páginas)
+    Pag 5/72: 160 unicos acumulados
+    Pag 10/72: 320 unicos acumulados
+    Pag 15/72: 480 unicos acumulados
+    Pag 20/72: 640 unicos acumulados
+    Pag 25/72: 800 unicos acumulados
+    Pag 30/72: 960 unicos acumulados
+    Pag 35/72: 1120 unicos acumulados
+    Pag 40/72: 1280 unicos acumulados
+    Pag 45/72: 1440 unicos acumulados
+    Pag 50/72: 1600 unicos acumulados
+    Pag 55/72: 1760 unicos acumulados
+    Pag 60/72: 1920 unicos acumulados
+    Pag 65/72: 2080 unicos acumulados
+    Pag 70/72: 2240 unicos acumulados
+    Pag 72/72: 2304 unicos acumulados
+  perfumería: 2304 productos totales
+
+💾 Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\yaguar\output_yaguar_20260705_105130.json
+
+==================================================
+✅ Scraping completo
+📦 Total productos: 25418
+💾 Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\yaguar\output_yaguar_20260705_105130.json
+
+Resumen por categoría:
+  Almacén: 14902
+  Bazar: 274
+  Bebidas Sin Alcohol: 780
+  Bodega: 984
+  Desayuno: 1062
+  Frescos: 1848
+  Kiosco: 1158
+  Limpieza: 1856
+  Mascotas: 140
+  Papeles: 110
+  Perfumería: 2304
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-05 10:51:32
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +85 SKUs Yaguar, +57 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 6684 prods únicos (6681 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260701_204422.json -> 4789 productos (4788 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4203 productos
+    4196 precios válidos (>$200), 7 precios bajos (<$200)
+
+Construyendo catálogo unificado...
+  Paso 1b: +470 EANs Yaguar via Maestro, +137 EANs Maxiconsumo via Maestro (61 descartados por conflicto de marca)
+  MaxiCarrefour: 4789 productos procesados
+    -> Matches Yaguar via CODIGOS:      973
+    -> Matches Maxiconsumo via CODIGOS: 404
+  Yaguar (restantes): 5709 nuevos, 2 match EAN, 3158 con EAN via Maestro
+  Maxiconsumo (restantes): 3469 nuevos, 320 match EAN, 10 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 12 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 19 precios absurdos eliminados
+  Validación cruzada: 4 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 4 marcados para revisión
+  Paso 6b: 3 duplicados por nombre normalizado fusionados
+  Paso 6c: 610 fusiones fuzzy complementarias
+  Paso 6d: 75 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Leche X80g MC=$10,000 vs mediana otras=$1,330
+  PRECIOS SOSPECHOSOS MC descartados: 2
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8371 productos sin clasificacion Maestro
+
+  PRECIOS SOSPECHOSOS: 1 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$3003
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13275
+  Con precio Yaguar:            6591
+  Con precio MaxiCarrefour:     4735
+  Con precio Maxiconsumo:       4140
+  Con 2+ precios (comparativa): 1884
+  Con 3 precios:                307
+  ABC=A con 2+ precios:         258
+  Sin imagen:                   2435
+  Links Carrefour: 2314 EAN directo, 2421 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: +1 SKUs Yaguar, +0 SKUs Maxiconsumo nuevos al mapeo
+============================================================
+=== SCRAPER YAGUAR ===
+Iniciando: 2026-07-05 10:00:02
+
+=== UNIFICANDO DATOS ===
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[10:52:43] OK scrape_yaguar.py (3160s)
+[10:52:43] Corriendo scrape_maxicarrefour.py...
+=======================================================
+RENOVACION DE COOKIES MAXICARREFOUR
+=======================================================
+Modo --force: renovando sin verificar fecha.
+Modo: Chrome real con perfil persistente...
+  Navegando a comerciante.carrefour.com.ar...
+  Autocompletando formulario...
+  No se pudo autocompletar (Locator.select_option: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("#region")
+    - locator resolved to <select id="region" required="" name="region" onchange="onchangeSelect(this)">…</select>
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - element is not visible
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - element is not visible
+    - retrying select option action
+      - waiting 100ms
+    16 × waiting for element to be visible and enabled
+       - element is not visible
+     - retrying select option action
+       - waiting 500ms
+). Completalo manualmente.
+  Screenshot de debug: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\carrefour_login_debug.png
+  Intentando click automatico (Chrome real)...
+  Click enviado. Esperando respuesta del servidor...
+  Click automatico sin respuesta definitiva.
+
+  ================================================
+  Click automatico no funciono.
+  Hace click en 'Ingresar' manualmente en Chrome.
+  Tenes 90 segundos.
+  ------------------------------------------------
+  Para 100% automatico: CAPSOLVER_API_KEY en .env
+  ================================================
+
+  Timeout — no se logro autenticacion.
+  Screenshot: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\carrefour_login_debug.png
+
+No se pudo renovar automaticamente.
+Pasos manuales:
+  1. Loguearse en comerciante.carrefour.com.ar
+  2. F12 -> Application -> Cookies
+  3. Copiar PHPSESSID y cf_clearance al .env
+
+Para automatizacion total (sin interaccion humana):
+  1. Crear cuenta en capsolver.com
+  2. Agregar CAPSOLVER_API_KEY=tu_key al .env
+=== SCRAPER MAXICARREFOUR ===
+Iniciando: 2026-07-05 10:52:43
+
+Verificando cookies MaxiCarrefour...
+Cookies invalidas o expiradas — renovando automaticamente...
+ERROR: No se pudieron renovar las cookies.
+Renovar manualmente: ver .claude/docs/operaciones.md
+Abortando — no tiene sentido scraper sin cookies validas.
+[10:55:03] FALLO scrape_maxicarrefour.py (140s)
+[10:55:03] Corriendo scrape_maxiconsumo.py...
+INICIO: Scraper Maxiconsumo PRO
+Fecha: 2026-07-05 10:55:04
+Categorias: 8
+==================================================
+
+[1/8] Sector: Almacen
+  [ERROR] Pag 1: Failed to perform, curl: (28) Operation timed out after 25093 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+  [WARN] Almacen: 0 productos (esperado >=800) -- posible bloqueo
+  Almacen: 0 productos totales
+
+[2/8] Sector: Bebidas
+  Pag 5: 60 unicos acumulados
+  Pag 10: 120 unicos acumulados
+  Pag 15: 180 unicos acumulados
+  Pag 20: 240 unicos acumulados
+  Pag 25: 300 unicos acumulados
+  Pag 30: 360 unicos acumulados
+  Pag 35: 420 unicos acumulados
+  Pag 40: 480 unicos acumulados
+  Bebidas: 517 productos totales
+
+[3/8] Sector: Frescos
+  Pag 5: 60 unicos acumulados
+  Pag 10: 120 unicos acumulados
+  Frescos: 139 productos totales
+
+[4/8] Sector: Limpieza
+  Pag 5: 60 unicos acumulados
+  Pag 10: 120 unicos acumulados
+  Pag 15: 180 unicos acumulados
+  Pag 20: 240 unicos acumulados
+  Pag 25: 300 unicos acumulados
+  Pag 30: 360 unicos acumulados
+  Pag 35: 420 unicos acumulados
+  Pag 40: 480 unicos acumulados
+  Pag 45: 540 unicos acumulados
+  Pag 50: 600 unicos acumulados
+  Pag 55: 660 unicos acumulados
+  Limpieza: 695 productos totales
+
+[5/8] Sector: Perfumeria
+  Pag 5: 60 unicos acumulados
+  Pag 10: 120 unicos acumulados
+  Pag 15: 180 unicos acumulados
+  Pag 20: 240 unicos acumulados
+  Pag 25: 300 unicos acumulados
+  Pag 30: 360 unicos acumulados
+  Pag 35: 420 unicos acumulados
+  Pag 40: 480 unicos acumulados
+  Pag 45: 540 unicos acumulados
+  Pag 50: 600 unicos acumulados
+  Pag 55: 660 unicos acumulados
+  Pag 60: 720 unicos acumulados
+  Pag 65: 780 unicos acumulados
+  Pag 70: 840 unicos acumulados
+  Perfumeria: 881 productos totales
+
+[6/8] Sector: Hogar y Bazar
+  Pag 5: 60 unicos acumulados
+  Hogar y Bazar: 101 productos totales
+
+[7/8] Sector: Congelados
+  Congelados: 20 productos totales
+
+[8/8] Sector: Mascotas
+  Pag 5: 60 unicos acumulados
+  Pag 10: 109 unicos acumulados
+  Mascotas: 109 productos totales
+ERROR: Productos insuficientes: 2460 < 3500
+=== SCRAPER MAXICONSUMO ===
+Iniciando: 2026-07-05 10:55:03
+ERROR EN SCRAPER MAXICONSUMO
+[11:11:39] FALLO scrape_maxiconsumo.py (995s)
+[11:11:39] Scrapers OK: 1/3
+[11:11:39] ALERTA: Scraper maxicarrefour FALLO hoy
+[11:11:40] ALERTA: Scraper maxiconsumo FALLO hoy
+[11:11:40] Regenerando catalogo unificado...
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-05 11:11:41
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +86 SKUs Yaguar, +57 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 6684 prods únicos (6681 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260701_204422.json -> 4789 productos (4788 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4203 productos
+    4196 precios válidos (>$200), 7 precios bajos (<$200)
+
+Construyendo catálogo unificado...
+  Paso 1b: +469 EANs Yaguar via Maestro, +137 EANs Maxiconsumo via Maestro (61 descartados por conflicto de marca)
+  MaxiCarrefour: 4789 productos procesados
+    -> Matches Yaguar via CODIGOS:      973
+    -> Matches Maxiconsumo via CODIGOS: 404
+  Yaguar (restantes): 5709 nuevos, 2 match EAN, 3158 con EAN via Maestro
+  Maxiconsumo (restantes): 3469 nuevos, 320 match EAN, 10 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 12 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 19 precios absurdos eliminados
+  Validación cruzada: 4 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 4 marcados para revisión
+  Paso 6b: 3 duplicados por nombre normalizado fusionados
+  Paso 6c: 610 fusiones fuzzy complementarias
+  Paso 6d: 75 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Leche X80g MC=$10,000 vs mediana otras=$1,330
+  PRECIOS SOSPECHOSOS MC descartados: 2
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8371 productos sin clasificacion Maestro
+
+  PRECIOS SOSPECHOSOS: 1 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$3003
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13275
+  Con precio Yaguar:            6591
+  Con precio MaxiCarrefour:     4735
+  Con precio Maxiconsumo:       4140
+  Con 2+ precios (comparativa): 1884
+  Con 3 precios:                307
+  ABC=A con 2+ precios:         258
+  Sin imagen:                   2435
+  Links Carrefour: 2314 EAN directo, 2421 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+[11:12:48] Enriqueciendo imagenes (URLs Yaguar por SKU)...
+============================================================
+ENRIQUECIMIENTO DE IMAGENES - Brujula de Precios
+============================================================
+Catalogo: 13275 productos
+Yaguar SKU construido: 6591 productos
+Open Food Facts: 0 productos
+Sin imagen antes: 2457
+Sin imagen despues: 22
+Recuperados: 2435
+
+Guardado: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+============================================================
+[11:12:49] Catalogo nuevo: 13275 prods (Y=6591 MC=4735 MCO=4140)
+[11:12:49] ALERTA: FUENTE CONGELADA: maxicarrefour sin datos frescos hace 4 dias (se publica igual, fechas honestas)
+[11:12:50] Verificando precios en vivo (top 20 ABC=A) contra la web de cada mayorista...
+VERIFICADOR DE PRECIOS REALES — top 20 productos ABC=A
+=======================================================
+
+[1/20] Fernet BRANCA X450 ml
+  Yaguar:       OK $10,378 (cat: $10,378)
+  Maxiconsumo:  OK $10,900 (cat: $10,900)
+  MaxiCarrefour:producto_no_encontrado
+
+[2/20] Fernet BRANCA X750 ml
+  Yaguar:       OK $15,131 (cat: $15,131)
+  Maxiconsumo:  OK $16,500 (cat: $16,500)
+  MaxiCarrefour:sesion_expirada
+
+[3/20] Whisky CRIADORES Petaca X195 ml
+  Yaguar:       OK $2,106 (cat: $2,106)
+  Maxiconsumo:  OK $2,200 (cat: $2,200)
+  MaxiCarrefour:sesion_expirada
+
+[4/20] Fernet BUHERO NEGRO X700 ml
+  Yaguar:       OK $9,941 (cat: $9,941)
+  Maxiconsumo:  OK $6,500 (cat: $6,500)
+  MaxiCarrefour:sesion_expirada
+
+[5/20] Vino BENJAMIN Malbec X750 ml
+  Yaguar:       OK $3,519 (cat: $3,519)
+  Maxiconsumo:  OK $3,800 (cat: $3,800)
+  MaxiCarrefour:sesion_expirada
+
+[6/20] Energizante SPEED X250 ml
+  Yaguar:       OK $1,491 (cat: $1,491)
+  Maxiconsumo:  OK $1,450 (cat: $1,450)
+  MaxiCarrefour:sesion_expirada
+
+[7/20] Aceite Girasol COCINERO X900 ml
+  Yaguar:       OK $3,959 (cat: $3,959)
+  Maxiconsumo:  OK $3,000 (cat: $3,000)
+  MaxiCarrefour:sesion_expirada
+
+[8/20] Aceite Girasol COCINERO X1.5 L
+  Yaguar:       OK $6,049 (cat: $6,049)
+  Maxiconsumo:  OK $5,000 (cat: $5,000)
+  MaxiCarrefour:sesion_expirada
+
+[9/20] Sal Fina DOS ANCLAS Estuche X500 g
+  Yaguar:       OK $1,562 (cat: $1,562)
+  Maxiconsumo:  OK $1,150 (cat: $1,150)
+  MaxiCarrefour:sesion_expirada
+
+[10/20] Sal Fina CELUSAL Paquete X500g
+  Yaguar:       OK $989 (cat: $989)
+  Maxiconsumo:  OK $1,100 (cat: $1,100)
+  MaxiCarrefour:sesion_expirada
+
+[11/20] Pate SWIFT Lata X90 g
+  Yaguar:       OK $1,087 (cat: $1,087)
+  Maxiconsumo:  OK $1,120 (cat: $1,120)
+  MaxiCarrefour:sesion_expirada
+
+[12/20] Picadillo SWIFT Lata X90 g
+  Yaguar:       OK $1,207 (cat: $1,207)
+  Maxiconsumo:  OK $1,120 (cat: $1,120)
+  MaxiCarrefour:sesion_expirada
+
+[13/20] Aceite Girasol CAÑUELAS X1.5 L
+  Yaguar:       OK $6,269 (cat: $6,269)
+  Maxiconsumo:  OK $5,000 (cat: $5,000)
+  MaxiCarrefour:sesion_expirada
+
+[14/20] Aceite Girasol CAÑUELAS X900 ml
+  Yaguar:       OK $3,231 (cat: $3,231)
+  Maxiconsumo:  OK $3,000 (cat: $3,000)
+  MaxiCarrefour:sesion_expirada
+
+[15/20] Harina PUREZA con Levadura P/pizza X1 kg
+  Yaguar:       OK $1,759 (cat: $1,759)
+  Maxiconsumo:  OK $1,550 (cat: $1,550)
+  MaxiCarrefour:sesion_expirada
+
+[16/20] Sal Fina DOS ESTRELLAS X500 g
+  Yaguar:       OK $762 (cat: $762)
+  Maxiconsumo:  OK $630 (cat: $630)
+  MaxiCarrefour:sesion_expirada
+
+[17/20] Mayonesa NATURA D/p X1 kg
+  Yaguar:       OK $6,083 (cat: $6,083)
+  Maxiconsumo:  OK $5,600 (cat: $5,600)
+  MaxiCarrefour:sesion_expirada
+
+[18/20] Mayonesa NATURA D/p X500g
+  Yaguar:       OK $3,014 (cat: $3,014)
+  Maxiconsumo:  OK $2,950 (cat: $2,950)
+  MaxiCarrefour:sesion_expirada
+
+[19/20] Harina PUREZA Integral X1 kg
+  Yaguar:       OK $1,814 (cat: $1,814)
+  Maxiconsumo:  OK $1,550 (cat: $1,550)
+  MaxiCarrefour:producto_no_encontrado
+
+[20/20] Aceite Mezcla COCINERO X900 ml
+  Yaguar:       OK $3,189 (cat: $3,189)
+  Maxiconsumo:  OK $2,300 (cat: $2,500)
+  MaxiCarrefour:sesion_expirada
+
+=======================================================
+RESUMEN: 40/40 precios correctos (100.0%)
+NO VERIFICADOS (no cuentan para la tasa):
+  maxicarrefour:sesion_expirada: 18
+  maxicarrefour:producto_no_encontrado: 2
+OK: Precios dentro del rango esperado.
+Reporte guardado: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\verificacion_precios_20260705_111526.json
+[main db7632d] data: actualizacion automatica 05/07/2026 [local]
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+To https://github.com/Facuusosa/BRUJULA-DE-PRECIOS.git
+   f7a60a5..db7632d  main -> main
+[11:15:30] Push OK -> Vercel redeploy disparado
+[11:15:31] === PIPELINE COMPLETADO ===

@@ -53,14 +53,14 @@ Agente: limpiador
 Skills propias de Brújula de Precios. Viven en `.claude/skills/` como archivos `.md` sueltos (no en subcarpeta).
 
 ### /status-proyecto
-**Qué hace:** Semáforo de 30 segundos — Yaguar / MaxiCarrefour / Maxiconsumo / Catálogo / Cookies CF / Deploy. Estado VERDE/AMARILLO/ROJO por componente con próximos 3 pasos concretos.
+**Qué hace:** Semáforo de 30 segundos — Yaguar / MaxiCarrefour / Maxiconsumo / Coto / Catálogo / Cookies CF / Deploy. Estado VERDE/AMARILLO/ROJO por componente con próximos 3 pasos concretos.
 **Cuándo:** Al inicio de cada sesión.
 **Archivo:** `.claude/skills/status-proyecto.md`
 
 ---
 
 ### /pipeline-datos
-**Qué hace:** Corre los 3 scrapers en orden (Yaguar → MaxiCarrefour → Maxiconsumo), verifica counts mínimos (Y>3000, C>3000, M>500), confirma que `catalogo_unificado.json` se actualizó.
+**Qué hace:** Corre los 5 scrapers en orden (Yaguar → MaxiCarrefour → Maxiconsumo → Coto → Carrefour), verifica counts mínimos (Y>3000, C>3000, M>500, Coto>10000, Carrefour>8000), confirma que `catalogo_unificado.json` se actualizó.
 **Cuándo:** Una vez por semana o cuando el catálogo tiene más de 3 días.
 **Archivo:** `.claude/skills/pipeline-datos.md`
 

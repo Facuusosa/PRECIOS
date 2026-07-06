@@ -35,7 +35,64 @@
 python scrape_yaguar.py         → scraper + actualizar_catalogo.py
 python scrape_maxicarrefour.py  → scraper + actualizar_catalogo.py
 python scrape_maxiconsumo.py    → scraper + enriquecer_precios.py + actualizar_catalogo.py
+python scrape_coto.py           → scraper + actualizar_catalogo.py
+python scrape_carrefour.py      → scraper + actualizar_catalogo.py
 ```
+
+## Coto (cadena minorista — API Constructor.io, documentado 05/07/2026)
+- **Sin credenciales:** API JSON pública `ac.cnstrc.com/browse/group_id/{catv}` con key
+  pública embebida en el JS del sitio. Sin cookies, sin WAF, sin login. La fuente más
+  fácil del proyecto. 6 categorías "súper", EAN 100% (`product_main_ean`).
+- **PRECIO = `price[].listPrice` (mediana entre sucursales), NUNCA `formatPrice`.**
+  `formatPrice` es el precio POR UNIDAD DE MEDIDA (litro/kg): Glade 360ml tenía
+  formatPrice 527.75 × 0.36 = listPrice 189.99. Confundirlos infla los precios hasta 16x
+  (pomada 60cc: $124.999 "por litro" vs $7.499 real). Verificado contra la web renderizada.
+- **Saltear productos sin `store_availability`:** la web los muestra "no disponible" sin
+  precio, y su listPrice en Constructor puede tener AÑOS de antigüedad (misma trampa que
+  la regla 08 de Maxiconsumo). Con el filtro quedan ~15k de ~31k del índice.
+- **Cap de la API: 10.000 resultados navegables por group_id** (pág 51 devuelve vacío
+  aunque `total_num_results` sea mayor). Almacén (11.4k) lo supera → el scraper barre
+  también los subgrupos (`response.groups[0].children`) y dedupea por EAN.
+- **Coto NO es mayorista:** entra al catálogo como `tipoFuente: 'cadena'` (referencia
+  góndola). Excluido de bombas, outliers, validación cruzada, listas de compra y del
+  gate de verificación en vivo. El merge se hace en `main()` DESPUÉS de
+  `construir_catalogo()` a propósito — nunca moverlo adentro del constructor.
+- **Ofertas: ~55% de la góndola tiene descuento activo (medido 05/07/2026)** —
+  `discounts[].discountPrice` ("$8056.30") + `discountText` ("30%Dto"). El output
+  guarda `precio` = EFECTIVO (oferta si existe, sino regular), `precio_regular` y
+  `oferta`. Mostrar solo el regular infla la góndola a la mitad del catálogo
+  (caso Fernet Buhero: regular $11.509 vs oferta $8.056 — lo atrapó Facu a ojo).
+- Verificar un precio Coto a mano: abrir el `link` del catálogo (SPA) y comparar contra
+  "Precio regular" de la ficha renderizada — el HTML estático no trae el precio.
+
+## Carrefour retail (cadena minorista — API VTEX, documentado 05/07/2026)
+- **NO confundir con MaxiCarrefour** (mayorista B2B, PHP + cookies). Este es carrefour.com.ar
+  (B2C) sobre VTEX: API Intelligent Search pública, sin auth, sin cookies (hay Cloudflare
+  pero no bloquea `/api/` — hasta requests plano pasa). EAN 100% (`items[].ean`).
+- **Endpoint:** `/api/io/_v/api/intelligent-search/product_search/category-1/{slug}?page=N&count=100&hideUnavailableItems=true`.
+  Caps medidos: `count≤100`, `page≤50` (techo 5.000/ruta; alerta en scraper si una categoría
+  pasa de 4.500 → bajar a `category-2/{slug}`). 9 categorías de súper, ~11.3k productos.
+- **`hideUnavailableItems=true` es OBLIGATORIO + saltear `AvailableQuantity==0`:** el 69%
+  del índice está muerto (39.6k → ~11.5k reales) con Price=0 o precios de años de antigüedad
+  (misma trampa que regla 08 / Coto). `IsAvailable` a veces viene null — no confiar solo en él.
+- **PRECIO = `Price` (efectivo unitario), `ListPrice` = regular tachado.** Verificado 4/4
+  contra la web renderizada. NUNCA usar `pricePerUnit` (por litro/kg — trampa formatPrice).
+  Oferta directa = Price < ListPrice (~24% del disponible).
+- **Promos "2do al 70%"/3x2 (~22%) NO alteran `Price`:** viven en `teasers[]` con
+  `conditions.minimumQuantity>=2`; el % estructurado está en
+  `effects.parameters[PercentualDiscount]`. El DOM de la ficha muestra el promedio c/u
+  llevando 2 — NO es el precio unitario (al verificar a mano, comparar contra el tachado).
+- **TRAMPA: teaser "Tarjeta Carrefour 15%" está en el 100% de los productos** y es promo de
+  MEDIO DE PAGO (se identifica por `RestrictionsBins` en conditions) — jamás contarla como
+  oferta. El scraper la filtra; si un scrape trae <5% de promos por cantidad, WARN (señal de
+  cambio de nomenclatura de teasers).
+- **Carrefour NO es mayorista:** `tipoFuente: 'cadena'`, mismas exclusiones que Coto
+  (bombas, outliers, validación cruzada, gate en vivo). Merge por EAN post-constructor via
+  `cargar_cadena()` + loop de cadenas en `main()`.
+- Fallback si IS muere (es app `api/io` versionable): legacy
+  `/api/catalog_system/pub/products/search?fq=C:{id}` (cap 2.550/fq, teasers sucios).
+  Lookup puntual por EAN para verificador: `?fq=alternateIds_Ean:{ean}` → 1 resultado exacto.
+- Plan completo con investigación: `.claude/docs/plan-carrefour.md`.
 
 ## Cada scraper debe
 - Guardar output con timestamp: `output_{mayorista}_{YYYYMMDD_HHMMSS}.json`

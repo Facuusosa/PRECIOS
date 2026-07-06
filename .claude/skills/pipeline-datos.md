@@ -21,13 +21,21 @@ Ejecuta el pipeline completo de scraping y actualización del catálogo. Usar co
    - `python scrape_maxiconsumo.py` (output en tiempo real — incluye enriquecer_precios.py automáticamente)
    - Al terminar: verificar output con >500 productos
 
-5. **Verificar catálogo unificado**
+5. **Correr Coto (cadena)**
+   - `python scrape_coto.py` (sin credenciales — API Constructor.io pública)
+   - Al terminar: verificar output con >10.000 productos
+
+6. **Correr Carrefour retail (cadena)**
+   - `python scrape_carrefour.py` (sin credenciales — API VTEX pública)
+   - Al terminar: verificar output con >8.000 productos y que las promos por cantidad no bajen de 5% (WARN del scraper)
+
+7. **Verificar catálogo unificado**
    - Leer `data/processed/catalogo_unificado.json` — confirmar que la fecha `ultima_actualizacion` es de hoy
    - Contar productos totales y cuántos tienen 2+ precios comparables
    - Si el catálogo no se actualizó automáticamente → correr `python actualizar_catalogo.py`
 
-6. **Reporte final**
-   - Productos por mayorista (con count)
+8. **Reporte final**
+   - Productos por fuente (con count — mayoristas y cadenas por separado)
    - Productos con 2+ precios comparables
    - Fecha de actualización del catálogo
    - Si algún scraper falló → qué falló y por qué (sin crashear los demás)

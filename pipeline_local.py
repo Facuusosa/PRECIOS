@@ -70,7 +70,8 @@ def run(cmd, cwd=None):
 
 def contar_por_fuente():
     """Productos con precio por fuente en el catalogo actual (para anti-reciclaje)."""
-    conteo = {"total": 0, "yaguar": 0, "maxicarrefour": 0, "maxiconsumo": 0}
+    conteo = {"total": 0, "yaguar": 0, "maxicarrefour": 0, "maxiconsumo": 0,
+              "coto": 0, "carrefour": 0}
     if not CATALOGO.exists():
         return conteo
     with open(CATALOGO, encoding="utf-8") as f:
@@ -79,7 +80,7 @@ def contar_por_fuente():
     conteo["total"] = len(prods)
     for p in prods:
         precios = p.get("precios", {})
-        for may in ("yaguar", "maxicarrefour", "maxiconsumo"):
+        for may in ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour"):
             if precios.get(may, 0) > 0:
                 conteo[may] += 1
     return conteo
@@ -137,7 +138,7 @@ def limpiar_automatico():
     limite = datetime.now() - timedelta(days=30)
     borrados_outputs = 0
     mb_liberados = 0.0
-    for mayorista in ("yaguar", "maxicarrefour", "maxiconsumo"):
+    for mayorista in ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour"):
         carpeta = RAIZ / "targets" / mayorista
         if not carpeta.exists():
             continue
@@ -174,14 +175,17 @@ def main():
     log("=== PIPELINE LOCAL BRUJULA ===")
     antes = contar_por_fuente()
     log(f"Catalogo actual: {antes['total']} prods "
-        f"(Y={antes['yaguar']} MC={antes['maxicarrefour']} MCO={antes['maxiconsumo']})")
+        f"(Y={antes['yaguar']} MC={antes['maxicarrefour']} MCO={antes['maxiconsumo']} "
+        f"C={antes['coto']} CF={antes['carrefour']})")
 
     ok = {
         "yaguar":        run_scraper("scrape_yaguar.py"),
         "maxicarrefour": run_scraper("scrape_maxicarrefour.py"),
         "maxiconsumo":   run_scraper("scrape_maxiconsumo.py"),
+        "coto":          run_scraper("scrape_coto.py"),
+        "carrefour":     run_scraper("scrape_carrefour.py"),
     }
-    log(f"Scrapers OK: {sum(ok.values())}/3")
+    log(f"Scrapers OK: {sum(ok.values())}/{len(ok)}")
     for may, exito in ok.items():
         if not exito:
             alertar(f"Scraper {may} FALLO hoy",
@@ -202,7 +206,8 @@ def main():
     # --- Chequeo anti-reciclaje / caida abrupta ---
     despues = contar_por_fuente()
     log(f"Catalogo nuevo: {despues['total']} prods "
-        f"(Y={despues['yaguar']} MC={despues['maxicarrefour']} MCO={despues['maxiconsumo']})")
+        f"(Y={despues['yaguar']} MC={despues['maxicarrefour']} MCO={despues['maxiconsumo']} "
+        f"C={despues['coto']} CF={despues['carrefour']})")
 
     if antes["total"] > 0:
         caida = (antes["total"] - despues["total"]) / antes["total"]
@@ -210,8 +215,11 @@ def main():
             alertar(f"El total de productos cayo {caida:.0%} (>{CAIDA_MAX:.0%}) - NO se publica",
                     "revisar scrapers en data/quality/pipeline_local.log")
             sys.exit(1)
-    # Minimos historicos por fuente: si cae por debajo, algo salio mal
-    minimos_fuente = {"yaguar": 4000, "maxicarrefour": 3000, "maxiconsumo": 3000}
+    # Minimos historicos por fuente: si cae por debajo, algo salio mal.
+    # coto/carrefour: son matches EAN contra el catalogo (coto 4.116 medidos el
+    # 05/07/2026), NO el total scrapeado — el minimo va sobre lo que entra al catalogo
+    minimos_fuente = {"yaguar": 4000, "maxicarrefour": 3000, "maxiconsumo": 3000,
+                      "coto": 3000, "carrefour": 3000}
     for may, minimo in minimos_fuente.items():
         if antes[may] > 100 and despues[may] == 0:
             alertar(f"{may} quedo en 0 precios (antes {antes[may]}) - NO se publica",

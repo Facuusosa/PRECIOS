@@ -4,10 +4,12 @@
 **Stack:** Next.js 16 + Python scrapers + JSON catalog.  
 **Estado:** Rediseño completo 26/04/2026. En lanzamiento. Bloqueador real: ventas.
 
-## Mayoristas activos
-- Yaguar (`targets/yaguar/scraper_pro.py`)
-- MaxiCarrefour (`targets/maxicarrefour/scraper_pro.py`) — cookies en `.env`, renovar cada ~30 días
-- Maxiconsumo (`targets/maxiconsumo/scraper_pro.py`)
+## Fuentes activas
+- Yaguar (`targets/yaguar/scraper_pro.py`) — mayorista
+- MaxiCarrefour (`targets/maxicarrefour/scraper_pro.py`) — mayorista; cookies en `.env`, renovar cada ~30 días
+- Maxiconsumo (`targets/maxiconsumo/scraper_pro.py`) — mayorista
+- Coto (`targets/coto/scraper_pro.py`) — CADENA minorista (referencia góndola, no precio de compra); API pública Constructor.io, sin credenciales
+- Carrefour retail (`targets/carrefour/scraper_pro.py`) — CADENA minorista; API VTEX Intelligent Search pública, sin credenciales. NO confundir con MaxiCarrefour (mayorista B2B, otro sitio)
 
 ## Entrypoints clave
 - Frontend: `BRUJULA-DE-PRECIOS/app/page.tsx`

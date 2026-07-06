@@ -23,3 +23,12 @@ Accion sugerida: revisar data/quality/pipeline_local.log — si es MCF, probar s
 
 ## 03/07/2026 18:44 — Scraper maxicarrefour FALLO hoy
 Accion sugerida: revisar data/quality/pipeline_local.log — si es MCF, probar scripts/renovar_cookies_carrefour.py --force
+
+## 05/07/2026 11:11 — Scraper maxicarrefour FALLO hoy
+Accion sugerida: revisar data/quality/pipeline_local.log — si es MCF, probar scripts/renovar_cookies_carrefour.py --force
+
+## 05/07/2026 11:11 — Scraper maxiconsumo FALLO hoy
+Accion sugerida: revisar data/quality/pipeline_local.log — si es MCF, probar scripts/renovar_cookies_carrefour.py --force
+
+## 05/07/2026 11:12 — FUENTE CONGELADA: maxicarrefour sin datos frescos hace 4 dias (se publica igual, fechas honestas)
+Accion sugerida: el scraper de maxicarrefour viene fallando — revisar data/quality/pipeline_local.log
