@@ -1,5 +1,30 @@
 # Estado Vivo — Brújula de Precios
-**Última actualización:** 06/07/2026 — CARREFOUR RETAIL EJECUTADO (cadena #2, foco ofertas) + detalle/calculadora rediseñados a pedido de Facu. Falta commit + push de todo junto.
+**Última actualización:** 10/07/2026 (noche) — DOMINIO PROPIO CERRADO ✅ + logos de fuentes arreglados y en prod. Próximo: OUTREACH.
+
+## ✅ CERRADO 10/07 (noche) — DOMINIO PROPIO funcionando end-to-end
+Los DOS dominios verificados con curl real (sin `-k`, SSL validado de verdad):
+- **`www.brujuladeprecios.com.ar`** → HTTP 200 + SSL válido. **Esta es la URL que se comparte.**
+- `brujuladeprecios.com.ar` (apex) → 308 a www. ✓
+- `brújuladeprecios.com.ar` (con tilde) → 308 al sin tilde. ✓
+- La app carga entera en el dominio real (verificado con Puppeteer, datos y bombas visibles).
+
+No queda NADA pendiente del tema dominio. Detalle técnico del quilombo IDN/Vercel/Cloudflare
+en `.claude/rules/11-dominio-deploy.md` (no repetir investigación con futuros dominios).
+
+## HECHO 10/07 (noche) — Logos de fuentes grandes y parejos (deployado a prod)
+- **Causa raíz**: no era el código — `carrefour.jpg` tenía margen blanco gigante y layout
+  vertical (símbolo arriba/texto abajo); como la UI encaja por altura (`object-fit: contain`),
+  el logo quedaba diminuto. Yaguar y Maxiconsumo tenían márgenes menores pero recortables.
+- **Fix de asset, no de componentes**: script Pillow recompuso `carrefour.jpg` en horizontal
+  (símbolo + wordmark) y recortó `yaguar.png` (700×381→622×190) y `maxiconsumo.webp` al borde.
+  Un solo archivo arregla las 6+ vistas que lo consumen.
+- **Fix de código (1 línea)**: `bomba-list-item.tsx` renderizaba logos de mayoristas a 17px
+  vs cadenas a 26px — unificado a 26px.
+- **Convención derivada**: logo nuevo de fuente = recortado al borde + layout horizontal,
+  sino se ve enano. Verificado local + PROD con Puppeteer. Commits: submódulo `1922eca`,
+  principal `4fff338`. Deploy Vercel READY.
+- `catalogo_unificado.json` modificado (pipeline de hoy 21:52) quedó SIN commitear a propósito
+  — eso lo publica el pipeline con su propio gate, no un commit de UI.
 
 ## HECHO 06/07 (ronda 2, feedback de Facu) — Tira unificada + calculadora flexible
 - 🔴 **Bug atrapado**: `precioGondola` usaba `.find()` → con 2 cadenas solo mostraba la primera (Coto); Carrefour no aparecía ni en detalle ni en inicio.
@@ -114,8 +139,6 @@ Próximos pasos (en orden):
 
 (backlog técnico) Sector Bebidas de Yaguar da 404 — cambió la URL; revisar en `targets/yaguar/scraper_pro.py`.
 
-(backlog técnico) Sector Bebidas de Yaguar da 404 — cambió la URL; revisar en `targets/yaguar/scraper_pro.py`.
-
 ## Hecho 17/06 — iconos del drawer de catálogo (deployado a prod)
 - ✅ **Menú de categorías con iconos de línea uniformes.** `components/category-drawer.tsx`:
    fuera thumbnails PNG + emoji (inconsistentes) → iconos lucide, uno por sector, dentro de chip
@@ -155,8 +178,6 @@ Próximos pasos (en orden):
    fresco → cambiado a tolerancia 70% (recencia manda).
 - ⚠️ Aprendizaje: NO mergear `catalogo_unificado.json` con git (mezcla 2 versiones). Si el
    remoto avanzó, regenerar con `actualizar_catalogo.py` y pisar, no `git pull -X ours`.
-
-## Trabajo 13/06 — Autonomía y confiabilidad de datos (plan aprobado, 3 fases hechas)
 
 ## Trabajo 13/06 — Autonomía y confiabilidad de datos (plan aprobado, 3 fases hechas)
 
@@ -234,6 +255,7 @@ Primer comerciante pagador. Todo lo que no acerque a eso es ruido.
 
 | Fecha | Qué se hizo |
 |---|---|
+| 10/07/2026 (noche) | **Logos de fuentes + DOMINIO CERRADO.** Logos de Carrefour/Yaguar/Maxiconsumo recortados con Pillow (Carrefour recompuesto de vertical a horizontal — la causa era el asset, no el código) + altura unificada 26px en bomba-list-item. Verificado local y PROD con Puppeteer, deployado (submódulo `1922eca`). Dominio propio verificado end-to-end: www.brujuladeprecios.com.ar HTTP 200 + SSL válido, apex y tilde redirigen bien — pendiente de propagación CERRADO. Próximo paso acordado: OUTREACH (disparador "continuemos con el mensaje para los clientes"). |
 | 02-04/07/2026 | **Rediseño "Explorá por categoría" — iterado con Facu y deployado.** Proceso: 3 propuestas en mockup (design-lab) → Facu eligió collage vivo + badge de ahorro → iteración sobre UNA tarjeta (6 variantes → hero+escolta ganadora) → Facu curó sus propias fotos (fondo blanco, carpetas en public/) → medición de bbox por píxeles con sharp para escalado uniforme → implementación real + deploy verificado en prod. Además: flechas desktop en los 4 carruseles (h-scroll.tsx), categorías vacías ocultas, portadas estáticas viejas eliminadas. Skill impeccable actualizada a v3.9.1 (hook de diseño activo en cada write). Pendiente: fotos de Facu para Bazar/Congelados/Kiosco/Mascotas/Desayuno. |
 | 19/06/2026 | **Panel outreach v4 — JS bug resuelto, en producción.** Causa raíz: en Python `'''...'''`, `\'` → `'` (backslash consumido), rompiendo todos los `onclick="fn(\'...\')"`. Fix definitivo: JS extraído a `scripts/panel_outreach_app.js` (sin Python de por medio), `rebuild_panel.py` lo lee e inyecta. Fix adicional: `checkPw()` usaba `.value` del input vacío en lugar del URL param → `|| params.get("pw")`. Verificado con Puppeteer: JS OK, 70 comercios, detalle abre, guarda en Vercel Blob. Todo listo para empezar a enviar. |
 | 12/06/2026 (madrugada) | **CRISIS DATOS MC RESUELTA + todo deployado.** Facu detectó precios MC incorrectos → investigación: scraper MC fallaba en Railway desde 28/05 y `_fallback_mc_desde_catalogo()` reciclaba precios viejos PISANDO fecha con "hoy" (5.128 precios del 28/05 disfrazados de frescos). Fixes: (1) fallback conserva fecha real, (2) cookies renovadas + sincronizadas a Railway, (3) scraper MC local corrido (5.031 con precio) + parche quirúrgico `scripts/parchear_mc_catalogo.py` (solo MC, sin tocar Yaguar/MCO frescos de Railway) → 4.504 precios MC de hoy en producción (commit `297b692`). Branca confirmado: $15.349→$16.425. Diferencia residual Buhero ($10.015 vs $10.315 del portal de Facu) = percepciones IIBB +3% según CUIT del cliente → nota fiscal agregada al detalle (commit `da77e5a`, verificada en prod). RENOVACIÓN COOKIES GRATIS (Facu no quiere pagar CapSolver): tarea programada Windows diaria 20:00 (`renovar_cookies_diario.bat`) — chequea fecha, renueva solo si >25 días, beep si necesita click. FOTOS SIN CUENTAS: propuesta GitHub repo + jsDelivr CDN (gratis, sin registro nuevo) — pendiente OK de Facu. Verificación previa: 96.4% precios OK vs webs (27/28), trampa Yaguar pack x3 documentada en memoria. |
