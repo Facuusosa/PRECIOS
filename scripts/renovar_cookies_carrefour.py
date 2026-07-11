@@ -22,6 +22,7 @@ Opcional:
 import os
 import sys
 import re
+import subprocess
 import time
 import datetime
 from pathlib import Path
@@ -99,6 +100,25 @@ def cookies_necesitan_renovacion() -> bool:
 # ---------------------------------------------------------------------------
 # Helpers de Playwright
 # ---------------------------------------------------------------------------
+
+def _goto_con_reintentos(page, url: str, intentos: int = 3) -> bool:
+    """Un goto unico de 30s mataba el scrape del dia entero (incidente 10/07/2026:
+    7 de 8 dias fallidos por timeout transitorio de Cloudflare). Reintenta con
+    espera incremental antes de rendirse."""
+    esperas = [10, 30]  # segundos entre intentos
+    for i in range(1, intentos + 1):
+        try:
+            page.goto(url, timeout=60000, wait_until="domcontentloaded")
+            return True
+        except Exception as e:
+            print(f"  Intento {i}/{intentos} de navegacion fallo: {e}")
+            if i < intentos:
+                espera = esperas[min(i - 1, len(esperas) - 1)]
+                print(f"  Esperando {espera}s antes de reintentar...")
+                page.wait_for_timeout(espera * 1000)
+    print(f"  Navegacion a {url} fallo tras {intentos} intentos.")
+    return False
+
 
 def _esta_autenticado(page) -> bool:
     """XHR en el browser actual para verificar autenticacion."""
@@ -249,7 +269,9 @@ def renovar_con_capsolver() -> bool:
 
         try:
             print("  Navegando al sitio...")
-            page.goto(BASE_URL, timeout=30000, wait_until="domcontentloaded")
+            if not _goto_con_reintentos(page, BASE_URL):
+                browser.close()
+                return False
             page.wait_for_timeout(3000)
 
             print("  Llenando formulario...")
@@ -387,7 +409,9 @@ def renovar_con_chrome() -> bool:
 
         try:
             print("  Navegando a comerciante.carrefour.com.ar...")
-            page.goto(BASE_URL, timeout=30000, wait_until="domcontentloaded")
+            if not _goto_con_reintentos(page, BASE_URL):
+                context.close()
+                return False
             page.wait_for_timeout(5000)  # Esperar que la sesion del perfil cargue
 
             if _esta_autenticado(page):
@@ -497,11 +521,29 @@ def renovar_con_chrome() -> bool:
 
 
 # ---------------------------------------------------------------------------
+# Disparo automatico del scraper tras renovar
+# ---------------------------------------------------------------------------
+
+def _disparar_scraper_si_corresponde(no_auto_scrape: bool):
+    """La sesion de MaxiCarrefour muere en HORAS por inactividad (ver 02-scrapers.md).
+    Si nadie la usa apenas se renueva, se pierde igual -- paso el 09/07/2026 con un
+    login manual de Facu que nunca disparo el scraper y se desperdicio. Por eso, salvo
+    que quien nos llamo (scrape_maxicarrefour.py) ya vaya a scrapear el solo, disparamos
+    el scraping ahora mismo mientras la sesion esta viva."""
+    if no_auto_scrape:
+        return
+    print("\nDisparando scrape_maxicarrefour.py para aprovechar la sesion mientras esta viva...")
+    r = subprocess.run(["python", "scrape_maxicarrefour.py"], cwd=BASE_DIR)
+    sys.exit(r.returncode)
+
+
+# ---------------------------------------------------------------------------
 # main
 # ---------------------------------------------------------------------------
 
 def main():
     force = "--force" in sys.argv
+    no_auto_scrape = "--no-auto-scrape" in sys.argv
 
     print("=" * 55)
     print("RENOVACION DE COOKIES MAXICARREFOUR")
@@ -525,6 +567,7 @@ def main():
         if renovar_con_capsolver():
             print("\nCookies renovadas con CapSolver.")
             print(f"Fecha: {datetime.date.today().isoformat()}")
+            _disparar_scraper_si_corresponde(no_auto_scrape)
             sys.exit(0)
         print("CapSolver fallo -- intentando con Chrome real...")
 
@@ -532,6 +575,7 @@ def main():
     if renovar_con_chrome():
         print("\nCookies renovadas con Chrome real.")
         print(f"Fecha: {datetime.date.today().isoformat()}")
+        _disparar_scraper_si_corresponde(no_auto_scrape)
         sys.exit(0)
 
     # Modo 3: Manual

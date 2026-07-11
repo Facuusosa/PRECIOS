@@ -9,15 +9,15 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def main():
-    print("=== SCRAPER CARREFOUR (retail) ===")
+    print("=== SCRAPER DIA ONLINE (retail) ===")
     print(f"Iniciando: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
     env = {**os.environ, "PYTHONUTF8": "1", "PYTHONUNBUFFERED": "1"}
 
-    # Carrefour retail no requiere cookies ni credenciales: API VTEX publica
-    # (NO confundir con MaxiCarrefour mayorista, que si usa cookies)
+    # Dia no requiere cookies ni credenciales: API VTEX legacy publica, sin
+    # anti-bot detectado (mismo trato que Coto/Carrefour retail, fuente cadena)
     result = subprocess.run(
-        ["python", "targets/carrefour/scraper_pro.py"],
+        ["python", "targets/dia/scraper_pro.py"],
         cwd=BASE_DIR, env=env
     )
 
@@ -26,7 +26,7 @@ def main():
         subprocess.run(["python", "actualizar_catalogo.py"], cwd=BASE_DIR, env=env)
         print("\nPara iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev")
     else:
-        print("ERROR EN SCRAPER CARREFOUR — pipeline detenido.")
+        print("ERROR EN SCRAPER DIA - pipeline detenido.")
         sys.exit(1)
 
 

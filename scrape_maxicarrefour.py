@@ -47,6 +47,13 @@ def _cookies_vigentes() -> bool:
         # chequeo, cookies muertas pasan como vigentes y el scraper falla en silencio
         if not body or "item_card_public" in body or 'data-price="private"' in body or len(body) < 50:
             return False
+        # Señal POSITIVA obligatoria (fix 10/07/2026): exigir un precio numerico real.
+        # Solo descartar señales negativas dejaba pasar cualquier body raro (challenge
+        # de Cloudflare, error HTML) como "vigente" — asi la renovacion en falso del
+        # 10/07 valido OK y el scrape guardo 3.948 productos con precio 0.
+        import re as _re
+        if not _re.search(r'data-price="\d', body):
+            return False
         return True
     except Exception:
         return False
@@ -56,14 +63,16 @@ def main():
     print("=== SCRAPER MAXICARREFOUR ===")
     print(f"Iniciando: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
-    env = {**os.environ, "PYTHONUTF8": "1"}
+    env = {**os.environ, "PYTHONUTF8": "1", "PYTHONUNBUFFERED": "1"}
 
     # Siempre verificar cookies antes de scraper — no solo por fecha
     print("\nVerificando cookies MaxiCarrefour...")
     if not _cookies_vigentes():
         print("Cookies invalidas o expiradas — renovando automaticamente...")
+        # --no-auto-scrape: este wrapper ya sigue con el scraping el solo mas abajo,
+        # asi el renovador no lo dispara tambien y se scrapea 2 veces seguidas.
         r = subprocess.run(
-            ["python", "scripts/renovar_cookies_carrefour.py", "--force"],
+            ["python", "scripts/renovar_cookies_carrefour.py", "--force", "--no-auto-scrape"],
             cwd=BASE_DIR, env=env
         )
         if r.returncode != 0:

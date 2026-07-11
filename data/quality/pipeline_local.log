@@ -14216,3 +14216,5089 @@ To https://github.com/Facuusosa/BRUJULA-DE-PRECIOS.git
    f7a60a5..db7632d  main -> main
 [11:15:30] Push OK -> Vercel redeploy disparado
 [11:15:31] === PIPELINE COMPLETADO ===
+==================================================== 
+Corrida: lun 06/07/2026 11:08:53,83 
+[11:08:55] === PIPELINE LOCAL BRUJULA ===
+[11:08:56] Catalogo actual: 13189 prods (Y=6570 MC=4528 MCO=4247 C=4088 CF=4720)
+[11:08:56] Corriendo scrape_yaguar.py...
+🚀 Scraper Yaguar PRO — Catálogo Completo
+📅 2026-07-06 11:08:58
+==================================================
+🔐 Iniciando sesión...
+✅ Login exitoso
+Sectores a scrapear: 11
+=======================================================
+
+[1/11] Sector: Almacén
+  almacén: ~14624 productos estimados (457 páginas)
+    Pag 5/457: 160 unicos acumulados
+    Pag 10/457: 320 unicos acumulados
+    Pag 15/457: 480 unicos acumulados
+    Pag 20/457: 640 unicos acumulados
+    Pag 25/457: 800 unicos acumulados
+    Pag 30/457: 960 unicos acumulados
+    Pag 35/457: 1120 unicos acumulados
+    Pag 40/457: 1280 unicos acumulados
+    Pag 45/457: 1440 unicos acumulados
+    Pag 50/457: 1600 unicos acumulados
+    Pag 55/457: 1760 unicos acumulados
+    Pag 60/457: 1920 unicos acumulados
+    Pag 65/457: 2080 unicos acumulados
+    Pag 70/457: 2240 unicos acumulados
+    Pag 75: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 75/457: 2392 unicos acumulados
+    Pag 80/457: 2552 unicos acumulados
+    Pag 85/457: 2712 unicos acumulados
+    Pag 90: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 90/457: 2872 unicos acumulados
+    Pag 95/457: 3032 unicos acumulados
+    Pag 100/457: 3192 unicos acumulados
+    Pag 105: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 105/457: 3352 unicos acumulados
+    Pag 110/457: 3512 unicos acumulados
+    Pag 115/457: 3672 unicos acumulados
+    Pag 120: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 120/457: 3832 unicos acumulados
+    Pag 125/457: 3992 unicos acumulados
+    Pag 130/457: 4152 unicos acumulados
+    Pag 135: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 135/457: 4312 unicos acumulados
+    Pag 140/457: 4472 unicos acumulados
+    Pag 145/457: 4632 unicos acumulados
+    Pag 150: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 150/457: 4792 unicos acumulados
+    Pag 155/457: 4952 unicos acumulados
+    Pag 160/457: 5112 unicos acumulados
+    Pag 165: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 165/457: 5272 unicos acumulados
+    Pag 170/457: 5432 unicos acumulados
+    Pag 175/457: 5592 unicos acumulados
+    Pag 180: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 180/457: 5752 unicos acumulados
+    Pag 185/457: 5912 unicos acumulados
+    Pag 190/457: 6072 unicos acumulados
+    Pag 195: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 195/457: 6232 unicos acumulados
+    Pag 200/457: 6392 unicos acumulados
+    Pag 205/457: 6552 unicos acumulados
+    Pag 210: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 210/457: 6712 unicos acumulados
+    Pag 215/457: 6872 unicos acumulados
+    Pag 220/457: 7032 unicos acumulados
+    Pag 225: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 225/457: 7192 unicos acumulados
+    Pag 230/457: 7352 unicos acumulados
+    Pag 235/457: 7512 unicos acumulados
+    Pag 240: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 240/457: 7672 unicos acumulados
+    Pag 245/457: 7832 unicos acumulados
+    Pag 250/457: 7992 unicos acumulados
+    Pag 255: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 255/457: 8152 unicos acumulados
+    Pag 260/457: 8312 unicos acumulados
+    Pag 265/457: 8472 unicos acumulados
+    Pag 270: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 270/457: 8632 unicos acumulados
+    Pag 275/457: 8792 unicos acumulados
+    Pag 280/457: 8952 unicos acumulados
+    Pag 285: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 285/457: 9112 unicos acumulados
+    Pag 290/457: 9272 unicos acumulados
+    Pag 295/457: 9432 unicos acumulados
+    Pag 299: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 300/457: 9592 unicos acumulados
+    Pag 305/457: 9752 unicos acumulados
+    Pag 310/457: 9912 unicos acumulados
+    Pag 314: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 315/457: 10072 unicos acumulados
+    Pag 320/457: 10232 unicos acumulados
+    Pag 325/457: 10392 unicos acumulados
+    Pag 329: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 330/457: 10552 unicos acumulados
+    Pag 335/457: 10712 unicos acumulados
+    Pag 340/457: 10872 unicos acumulados
+    Pag 344: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 345/457: 11032 unicos acumulados
+    Pag 350/457: 11192 unicos acumulados
+    Pag 355/457: 11352 unicos acumulados
+    Pag 359: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 360/457: 11512 unicos acumulados
+    Pag 365/457: 11672 unicos acumulados
+    Pag 370/457: 11832 unicos acumulados
+    Pag 374: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 375/457: 11992 unicos acumulados
+    Pag 380/457: 12152 unicos acumulados
+    Pag 385/457: 12312 unicos acumulados
+    Pag 389: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 390/457: 12472 unicos acumulados
+    Pag 395/457: 12632 unicos acumulados
+    Pag 400/457: 12792 unicos acumulados
+    Pag 404: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 405/457: 12952 unicos acumulados
+    Pag 410/457: 13112 unicos acumulados
+    Pag 415/457: 13272 unicos acumulados
+    Pag 419: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 420/457: 13432 unicos acumulados
+    Pag 425/457: 13592 unicos acumulados
+    Pag 430/457: 13752 unicos acumulados
+    Pag 434: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 435/457: 13912 unicos acumulados
+    Pag 440/457: 14072 unicos acumulados
+    Pag 445/457: 14232 unicos acumulados
+    Pag 449: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 450/457: 14392 unicos acumulados
+    Pag 455/457: 14552 unicos acumulados
+    Pag 457/457: 14616 unicos acumulados
+  almacén: 14616 productos totales
+
+[2/11] Sector: Bazar
+  bazar: ~14624 productos estimados (457 páginas)
+    Pag 5/457: 160 unicos acumulados
+    Pag 10: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 10/457: 304 unicos acumulados
+    Pag 15/457: 464 unicos acumulados
+    Pag 20/457: 624 unicos acumulados
+    Pag 25: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 25/457: 784 unicos acumulados
+    Pag 30/457: 944 unicos acumulados
+    Pag 35/457: 1104 unicos acumulados
+    Pag 40: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 40/457: 1264 unicos acumulados
+    Pag 45/457: 1424 unicos acumulados
+    Pag 50/457: 1584 unicos acumulados
+    Pag 55: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 55/457: 1744 unicos acumulados
+    Pag 60/457: 1904 unicos acumulados
+    Pag 65/457: 2064 unicos acumulados
+    Pag 70: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 70/457: 2224 unicos acumulados
+    Pag 75/457: 2384 unicos acumulados
+    Pag 80/457: 2544 unicos acumulados
+    Pag 85: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 85/457: 2704 unicos acumulados
+    Pag 90/457: 2864 unicos acumulados
+    Pag 95/457: 3024 unicos acumulados
+    Pag 100: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 100/457: 3184 unicos acumulados
+    Pag 105/457: 3344 unicos acumulados
+    Pag 110/457: 3504 unicos acumulados
+    Pag 115: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 115/457: 3664 unicos acumulados
+    Pag 120/457: 3824 unicos acumulados
+    Pag 125/457: 3984 unicos acumulados
+    Pag 129: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 130/457: 4144 unicos acumulados
+    Pag 135/457: 4304 unicos acumulados
+    Pag 140/457: 4464 unicos acumulados
+    Pag 144: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 145/457: 4624 unicos acumulados
+    Pag 150/457: 4784 unicos acumulados
+    Pag 155/457: 4944 unicos acumulados
+    Pag 159: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 160/457: 5104 unicos acumulados
+    Pag 165/457: 5264 unicos acumulados
+    Pag 170/457: 5424 unicos acumulados
+    Pag 174: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 175/457: 5584 unicos acumulados
+    Pag 180/457: 5744 unicos acumulados
+    Pag 185/457: 5904 unicos acumulados
+    Pag 188: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 190/457: 6064 unicos acumulados
+    Pag 195/457: 6224 unicos acumulados
+    Pag 200/457: 6384 unicos acumulados
+    Pag 203: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 205/457: 6544 unicos acumulados
+    Pag 210/457: 6704 unicos acumulados
+    Pag 215/457: 6864 unicos acumulados
+    Pag 218: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 220/457: 7024 unicos acumulados
+    Pag 225/457: 7184 unicos acumulados
+    Pag 230/457: 7344 unicos acumulados
+    Pag 233: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 235/457: 7504 unicos acumulados
+    Pag 240/457: 7664 unicos acumulados
+    Pag 245/457: 7824 unicos acumulados
+    Pag 248: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 250/457: 7984 unicos acumulados
+    Pag 255/457: 8144 unicos acumulados
+    Pag 260/457: 8304 unicos acumulados
+    Pag 263: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 265/457: 8464 unicos acumulados
+    Pag 270/457: 8624 unicos acumulados
+    Pag 275/457: 8784 unicos acumulados
+    Pag 278: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 280/457: 8944 unicos acumulados
+    Pag 285/457: 9104 unicos acumulados
+    Pag 290/457: 9264 unicos acumulados
+    Pag 293: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 295/457: 9424 unicos acumulados
+    Pag 300/457: 9584 unicos acumulados
+    Pag 305/457: 9744 unicos acumulados
+    Pag 308: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 310/457: 9904 unicos acumulados
+    Pag 315/457: 10064 unicos acumulados
+    Pag 320/457: 10224 unicos acumulados
+    Pag 323: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 325/457: 10384 unicos acumulados
+    Pag 330/457: 10544 unicos acumulados
+    Pag 335/457: 10704 unicos acumulados
+    Pag 338: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 340/457: 10864 unicos acumulados
+    Pag 345/457: 11024 unicos acumulados
+    Pag 350/457: 11184 unicos acumulados
+    Pag 353: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 355/457: 11344 unicos acumulados
+    Pag 360/457: 11504 unicos acumulados
+    Pag 365/457: 11664 unicos acumulados
+    Pag 368: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 370/457: 11824 unicos acumulados
+    Pag 375/457: 11984 unicos acumulados
+    Pag 380/457: 12144 unicos acumulados
+    Pag 383: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 385/457: 12304 unicos acumulados
+    Pag 390/457: 12464 unicos acumulados
+    Pag 395/457: 12624 unicos acumulados
+    Pag 398: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 400/457: 12784 unicos acumulados
+    Pag 405/457: 12944 unicos acumulados
+    Pag 410/457: 13104 unicos acumulados
+    Pag 413: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 415/457: 13264 unicos acumulados
+    Pag 420/457: 13424 unicos acumulados
+    Pag 425/457: 13584 unicos acumulados
+    Pag 428: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 430/457: 13744 unicos acumulados
+    Pag 435/457: 13904 unicos acumulados
+    Pag 440/457: 14064 unicos acumulados
+    Pag 443: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 445/457: 14224 unicos acumulados
+    Pag 450/457: 14384 unicos acumulados
+    Pag 455/457: 14544 unicos acumulados
+    Pag 457/457: 14608 unicos acumulados
+  bazar: 14608 productos totales
+
+[3/11] Sector: Bebidas Sin Alcohol
+  bebidas sin alcohol: ~800 productos estimados (25 páginas)
+    Pag 5/25: 160 unicos acumulados
+    Pag 10/25: 320 unicos acumulados
+    Pag 15/25: 480 unicos acumulados
+    Pag 20/25: 640 unicos acumulados
+    Pag 25/25: 776 unicos acumulados
+  bebidas sin alcohol: 776 productos totales
+
+[4/11] Sector: Bodega
+  bodega: ~992 productos estimados (31 páginas)
+    Pag 5/31: 160 unicos acumulados
+    Pag 10/31: 320 unicos acumulados
+    Pag 15/31: 480 unicos acumulados
+    Pag 20/31: 640 unicos acumulados
+    Pag 25/31: 800 unicos acumulados
+    Pag 30/31: 960 unicos acumulados
+    Pag 31/31: 978 unicos acumulados
+  bodega: 978 productos totales
+
+[5/11] Sector: Desayuno
+  desayuno: ~1056 productos estimados (33 páginas)
+    Pag 5/33: 160 unicos acumulados
+    Pag 10/33: 320 unicos acumulados
+    Pag 15/33: 480 unicos acumulados
+    Pag 20/33: 640 unicos acumulados
+    Pag 25/33: 800 unicos acumulados
+    Pag 30/33: 960 unicos acumulados
+    Pag 33/33: 1052 unicos acumulados
+  desayuno: 1052 productos totales
+
+[6/11] Sector: Frescos
+  frescos: ~1792 productos estimados (56 páginas)
+    Pag 5/56: 160 unicos acumulados
+    Pag 10/56: 320 unicos acumulados
+    Pag 15/56: 480 unicos acumulados
+    Pag 20/56: 640 unicos acumulados
+    Pag 25/56: 800 unicos acumulados
+    Pag 30/56: 960 unicos acumulados
+    Pag 35/56: 1120 unicos acumulados
+    Pag 40/56: 1280 unicos acumulados
+    Pag 45/56: 1440 unicos acumulados
+    Pag 50/56: 1600 unicos acumulados
+    Pag 55/56: 1760 unicos acumulados
+    Pag 56/56: 1782 unicos acumulados
+  frescos: 1782 productos totales
+
+[7/11] Sector: Kiosco
+  kiosco: ~1152 productos estimados (36 páginas)
+    Pag 5/36: 160 unicos acumulados
+    Pag 10/36: 320 unicos acumulados
+    Pag 15/36: 480 unicos acumulados
+    Pag 20/36: 640 unicos acumulados
+    Pag 25/36: 800 unicos acumulados
+    Pag 30/36: 960 unicos acumulados
+    Pag 35/36: 1120 unicos acumulados
+    Pag 36/36: 1132 unicos acumulados
+  kiosco: 1132 productos totales
+
+[8/11] Sector: Limpieza
+  limpieza: ~1856 productos estimados (58 páginas)
+    Pag 5/58: 160 unicos acumulados
+    Pag 10/58: 320 unicos acumulados
+    Pag 15/58: 480 unicos acumulados
+    Pag 20/58: 640 unicos acumulados
+    Pag 25/58: 800 unicos acumulados
+    Pag 30/58: 960 unicos acumulados
+    Pag 35/58: 1120 unicos acumulados
+    Pag 40/58: 1280 unicos acumulados
+    Pag 45/58: 1440 unicos acumulados
+    Pag 50/58: 1600 unicos acumulados
+    Pag 55/58: 1760 unicos acumulados
+    Pag 58/58: 1838 unicos acumulados
+  limpieza: 1838 productos totales
+
+[9/11] Sector: Mascotas
+  mascotas: ~160 productos estimados (5 páginas)
+    Pag 5/5: 132 unicos acumulados
+  mascotas: 132 productos totales
+
+[10/11] Sector: Papeles
+  papeles: ~128 productos estimados (4 páginas)
+    Pag 4/4: 104 unicos acumulados
+  papeles: 104 productos totales
+
+[11/11] Sector: Perfumería
+  perfumería: ~2304 productos estimados (72 páginas)
+    Pag 5/72: 160 unicos acumulados
+    Pag 10/72: 320 unicos acumulados
+    Pag 15/72: 480 unicos acumulados
+    Pag 20/72: 640 unicos acumulados
+    Pag 25/72: 800 unicos acumulados
+    Pag 30/72: 960 unicos acumulados
+    Pag 35/72: 1120 unicos acumulados
+    Pag 40/72: 1280 unicos acumulados
+    Pag 45/72: 1440 unicos acumulados
+    Pag 50/72: 1600 unicos acumulados
+    Pag 55/72: 1760 unicos acumulados
+    Pag 60/72: 1920 unicos acumulados
+    Pag 65/72: 2080 unicos acumulados
+    Pag 70/72: 2240 unicos acumulados
+    Pag 72/72: 2280 unicos acumulados
+  perfumería: 2280 productos totales
+
+💾 Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\yaguar\output_yaguar_20260706_123023.json
+
+==================================================
+✅ Scraping completo
+📦 Total productos: 39298
+💾 Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\yaguar\output_yaguar_20260706_123023.json
+
+Resumen por categoría:
+  Almacén: 14616
+  Bazar: 14608
+  Bebidas Sin Alcohol: 776
+  Bodega: 978
+  Desayuno: 1052
+  Frescos: 1782
+  Kiosco: 1132
+  Limpieza: 1838
+  Mascotas: 132
+  Papeles: 104
+  Perfumería: 2280
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-06 12:30:26
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +86 SKUs Yaguar, +59 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 6615 prods únicos (6612 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260706_032735.json -> 4586 productos (4585 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4310 productos
+    4301 precios válidos (>$200), 9 precios bajos (<$200)
+  Coto: 2 archivo(s) -> 15035 productos con EAN y precio
+  Carrefour: 2 archivo(s) -> 11294 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +468 EANs Yaguar via Maestro, +93 EANs Maxiconsumo via Maestro (7 descartados por conflicto de marca)
+  MaxiCarrefour: 4586 productos procesados
+    -> Matches Yaguar via CODIGOS:      915
+    -> Matches Maxiconsumo via CODIGOS: 385
+  Yaguar (restantes): 5698 nuevos, 2 match EAN, 3180 con EAN via Maestro
+  Maxiconsumo (restantes): 3584 nuevos, 328 match EAN, 13 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 17 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 19 precios absurdos eliminados
+  Validación cruzada: 4 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 3 marcados para revisión
+  Paso 6b: 3 duplicados por nombre normalizado fusionados
+  Paso 6c: 634 fusiones fuzzy complementarias
+  Paso 6d: 73 fuentes con cantidad incompatible eliminadas
+  Paso 6e: 1 outliers post-fusión descartados
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Leche X80g MC=$10,000 vs mediana otras=$1,330
+  PRECIOS SOSPECHOSOS MC descartados: 2
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8284 productos sin clasificacion Maestro
+  Coto: 4086 productos del catalogo con precio gondola (de 15035 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4720 productos del catalogo con precio gondola (de 11294 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 2 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+    - Caramelos SUGUS Masticables X700 g: yaguar $6775 vs otra ~$7667
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13150
+  Con precio Yaguar:            6523
+  Con precio MaxiCarrefour:     4529
+  Con precio Maxiconsumo:       4247
+  Con precio Coto (gondola):    4086
+  Con precio Carrefour (gond.): 4720
+  Con 2+ precios (comparativa): 1844
+  Con 3 precios:                305
+  ABC=A con 2+ precios:         251
+  Sin imagen:                   2394
+  Links Carrefour: 2147 EAN directo, 2382 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+=== SCRAPER YAGUAR ===
+Iniciando: 2026-07-06 11:08:56
+
+=== UNIFICANDO DATOS ===
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[12:32:39] OK scrape_yaguar.py (5022s)
+[12:32:39] Corriendo scrape_maxicarrefour.py...
+=======================================================
+RENOVACION DE COOKIES MAXICARREFOUR
+=======================================================
+Modo --force: renovando sin verificar fecha.
+Modo: Chrome real con perfil persistente...
+  Navegando a comerciante.carrefour.com.ar...
+  Autocompletando formulario...
+  No se pudo autocompletar (Locator.select_option: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("#region")
+    - locator resolved to <select id="region" required="" name="region" onchange="onchangeSelect(this)">…</select>
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - element is not visible
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - element is not visible
+    - retrying select option action
+      - waiting 100ms
+    16 × waiting for element to be visible and enabled
+       - element is not visible
+     - retrying select option action
+       - waiting 500ms
+). Completalo manualmente.
+  Screenshot de debug: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\carrefour_login_debug.png
+  Intentando click automatico (Chrome real)...
+  Click enviado. Esperando respuesta del servidor...
+  Click automatico sin respuesta definitiva.
+
+  ================================================
+  Click automatico no funciono.
+  Hace click en 'Ingresar' manualmente en Chrome.
+  Tenes 90 segundos.
+  ------------------------------------------------
+  Para 100% automatico: CAPSOLVER_API_KEY en .env
+  ================================================
+
+  Timeout — no se logro autenticacion.
+  Screenshot: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\carrefour_login_debug.png
+
+No se pudo renovar automaticamente.
+Pasos manuales:
+  1. Loguearse en comerciante.carrefour.com.ar
+  2. F12 -> Application -> Cookies
+  3. Copiar PHPSESSID y cf_clearance al .env
+
+Para automatizacion total (sin interaccion humana):
+  1. Crear cuenta en capsolver.com
+  2. Agregar CAPSOLVER_API_KEY=tu_key al .env
+=== SCRAPER MAXICARREFOUR ===
+Iniciando: 2026-07-06 12:32:39
+
+Verificando cookies MaxiCarrefour...
+Cookies invalidas o expiradas — renovando automaticamente...
+ERROR: No se pudieron renovar las cookies.
+Renovar manualmente: ver .claude/docs/operaciones.md
+Abortando — no tiene sentido scraper sin cookies validas.
+[12:35:17] FALLO scrape_maxicarrefour.py (158s)
+[12:35:17] Corriendo scrape_maxiconsumo.py...
+INICIO: Scraper Maxiconsumo PRO
+Fecha: 2026-07-06 12:35:18
+Categorias: 8
+==================================================
+
+[1/8] Sector: Almacen
+  [ERROR] Pag 2: Failed to perform, curl: (28) Operation timed out after 25012 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+  [WARN] Almacen: 12 productos (esperado >=800) -- posible bloqueo
+  Almacen: 12 productos totales
+
+[2/8] Sector: Bebidas
+  Pag 5: 60 unicos acumulados
+  Pag 10: 120 unicos acumulados
+  Pag 15: 180 unicos acumulados
+  Pag 20: 240 unicos acumulados
+  Pag 25: 300 unicos acumulados
+  Pag 30: 360 unicos acumulados
+  Pag 35: 420 unicos acumulados
+  Pag 40: 480 unicos acumulados
+  Bebidas: 525 productos totales
+
+[3/8] Sector: Frescos
+  Pag 5: 60 unicos acumulados
+  Pag 10: 120 unicos acumulados
+  Frescos: 139 productos totales
+
+[4/8] Sector: Limpieza
+  Pag 5: 60 unicos acumulados
+  Pag 10: 120 unicos acumulados
+  Pag 15: 180 unicos acumulados
+  Pag 20: 240 unicos acumulados
+  Pag 25: 300 unicos acumulados
+  Pag 30: 360 unicos acumulados
+  Pag 35: 420 unicos acumulados
+  Pag 40: 480 unicos acumulados
+  Pag 45: 540 unicos acumulados
+  [ERROR] Pag 49: Failed to perform, curl: (28) Operation timed out after 25009 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+  Limpieza: 576 productos totales
+
+[5/8] Sector: Perfumeria
+  [ERROR] Pag 1: Failed to perform, curl: (28) Operation timed out after 25014 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+  [WARN] Perfumeria: 0 productos (esperado >=500) -- posible bloqueo
+  Perfumeria: 0 productos totales
+
+[6/8] Sector: Hogar y Bazar
+  Pag 5: 60 unicos acumulados
+  Hogar y Bazar: 96 productos totales
+
+[7/8] Sector: Congelados
+  Congelados: 20 productos totales
+
+[8/8] Sector: Mascotas
+  Pag 5: 60 unicos acumulados
+  Pag 10: 109 unicos acumulados
+  Mascotas: 109 productos totales
+ERROR: Productos insuficientes: 1477 < 3500
+=== SCRAPER MAXICONSUMO ===
+Iniciando: 2026-07-06 12:35:17
+ERROR EN SCRAPER MAXICONSUMO
+[13:13:02] FALLO scrape_maxiconsumo.py (2265s)
+[13:13:02] Corriendo scrape_coto.py...
+INICIO: Scraper Coto Digital PRO (Constructor.io API)
+Fecha: 2026-07-06 13:13:03
+Categorias a scrapear: 6
+=======================================================
+
+[1/6] Categoria: Almacen
+  Almacen: 10000 productos reportados
+    Pag 5/50: 644 unicos acumulados
+    Pag 10/50: 1642 unicos acumulados
+    Pag 15/50: 2638 unicos acumulados
+    Pag 20/50: 3630 unicos acumulados
+    Pag 25/50: 4579 unicos acumulados
+    Pag 30/50: 4778 unicos acumulados
+    Pag 35/50: 4781 unicos acumulados
+    Pag 40/50: 5050 unicos acumulados
+    Pag 45/50: 5441 unicos acumulados
+    Pag 50/50: 5448 unicos acumulados
+  Almacen: 5448 productos nuevos
+
+[2/6] Categoria: Frescos
+  Frescos: 4636 productos reportados
+    Pag 5/24: 6081 unicos acumulados
+    Pag 10/24: 7060 unicos acumulados
+    Pag 15/24: 7250 unicos acumulados
+    Pag 20/24: 7358 unicos acumulados
+    Pag 24/24: 7724 unicos acumulados
+  Frescos: 2276 productos nuevos
+
+[3/6] Categoria: Bebidas
+  Bebidas: 4912 productos reportados
+    Pag 5/25: 8276 unicos acumulados
+    Pag 10/25: 9089 unicos acumulados
+    Pag 15/25: 9809 unicos acumulados
+    Pag 20/25: 9820 unicos acumulados
+    Pag 25/25: 10245 unicos acumulados
+  Bebidas: 2521 productos nuevos
+
+[4/6] Categoria: Limpieza
+  Limpieza: 3370 productos reportados
+    Pag 5/17: 11130 unicos acumulados
+    Pag 10/17: 11371 unicos acumulados
+    Pag 15/17: 11677 unicos acumulados
+    Pag 17/17: 11697 unicos acumulados
+  Limpieza: 1452 productos nuevos
+
+[5/6] Categoria: Perfumeria
+  Perfumeria: 7221 productos reportados
+    Pag 5/37: 12324 unicos acumulados
+    Pag 10/37: 13095 unicos acumulados
+    Pag 15/37: 13103 unicos acumulados
+    Pag 20/37: 13378 unicos acumulados
+    Pag 25/37: 13746 unicos acumulados
+    Pag 30/37: 13882 unicos acumulados
+    Pag 35/37: 14125 unicos acumulados
+    Pag 37/37: 14312 unicos acumulados
+  Perfumeria: 2615 productos nuevos
+
+[6/6] Categoria: Congelados
+  Congelados: 1145 productos reportados
+    Pag 5/6: 15000 unicos acumulados
+    Pag 6/6: 15003 unicos acumulados
+  Congelados: 691 productos nuevos
+
+=======================================================
+Scraping completo — 15003 productos unicos (solo con stock)
+Con oferta vigente: 7234 (48%)
+Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\coto\output_coto_20260706_131513.json
+
+Resumen por categoria (nuevos aportados):
+  Almacen: 5448
+  Frescos: 2276
+  Bebidas: 2521
+  Limpieza: 1452
+  Perfumeria: 2615
+  Congelados: 691
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-06 13:15:16
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +86 SKUs Yaguar, +59 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 6615 prods únicos (6612 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260706_032735.json -> 4586 productos (4585 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4310 productos
+    4301 precios válidos (>$200), 9 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 15058 productos con EAN y precio
+  Carrefour: 2 archivo(s) -> 11294 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +468 EANs Yaguar via Maestro, +93 EANs Maxiconsumo via Maestro (7 descartados por conflicto de marca)
+  MaxiCarrefour: 4586 productos procesados
+    -> Matches Yaguar via CODIGOS:      915
+    -> Matches Maxiconsumo via CODIGOS: 385
+  Yaguar (restantes): 5698 nuevos, 2 match EAN, 3180 con EAN via Maestro
+  Maxiconsumo (restantes): 3584 nuevos, 328 match EAN, 13 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 17 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 19 precios absurdos eliminados
+  Validación cruzada: 4 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 3 marcados para revisión
+  Paso 6b: 3 duplicados por nombre normalizado fusionados
+  Paso 6c: 634 fusiones fuzzy complementarias
+  Paso 6d: 73 fuentes con cantidad incompatible eliminadas
+  Paso 6e: 1 outliers post-fusión descartados
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Leche X80g MC=$10,000 vs mediana otras=$1,330
+  PRECIOS SOSPECHOSOS MC descartados: 2
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8284 productos sin clasificacion Maestro
+  Coto: 4090 productos del catalogo con precio gondola (de 15058 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4720 productos del catalogo con precio gondola (de 11294 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 2 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+    - Caramelos SUGUS Masticables X700 g: yaguar $6775 vs otra ~$7667
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13150
+  Con precio Yaguar:            6523
+  Con precio MaxiCarrefour:     4529
+  Con precio Maxiconsumo:       4247
+  Con precio Coto (gondola):    4090
+  Con precio Carrefour (gond.): 4720
+  Con 2+ precios (comparativa): 1844
+  Con 3 precios:                305
+  ABC=A con 2+ precios:         251
+  Sin imagen:                   2394
+  Links Carrefour: 2146 EAN directo, 2383 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+=== SCRAPER COTO ===
+Iniciando: 2026-07-06 13:13:02
+
+=== UNIFICANDO DATOS ===
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[13:17:31] OK scrape_coto.py (269s)
+[13:17:31] Corriendo scrape_carrefour.py...
+INICIO: Scraper Carrefour retail PRO (VTEX Intelligent Search)
+Fecha: 2026-07-06 13:17:32
+Categorias a scrapear: 9
+=======================================================
+
+[1/9] Categoria: Almacen
+  Almacen: 1900 disponibles reportados
+    Pag 5/19: 498 unicos acumulados
+    Pag 10/19: 998 unicos acumulados
+    Pag 15/19: 1495 unicos acumulados
+    Pag 19/19: 1893 unicos acumulados
+  Almacen: 1893 productos nuevos
+
+[2/9] Categoria: Desayuno
+  Desayuno: 2004 disponibles reportados
+    Pag 5/21: 2392 unicos acumulados
+    Pag 10/21: 2892 unicos acumulados
+    Pag 15/21: 3391 unicos acumulados
+    Pag 20/21: 3889 unicos acumulados
+    Pag 21/21: 3893 unicos acumulados
+  Desayuno: 2000 productos nuevos
+
+[3/9] Categoria: Bebidas
+  Bebidas: 1687 disponibles reportados
+    Pag 5/17: 4393 unicos acumulados
+    Pag 10/17: 4890 unicos acumulados
+    Pag 15/17: 5378 unicos acumulados
+    Pag 17/17: 5564 unicos acumulados
+  Bebidas: 1671 productos nuevos
+
+[4/9] Categoria: Frescos
+  Frescos: 960 disponibles reportados
+    Pag 5/10: 6063 unicos acumulados
+    Pag 10/10: 6518 unicos acumulados
+  Frescos: 954 productos nuevos
+
+[5/9] Categoria: Congelados
+  Congelados: 332 disponibles reportados
+    Pag 4/4: 6850 unicos acumulados
+  Congelados: 332 productos nuevos
+
+[6/9] Categoria: Limpieza
+  Limpieza: 1360 disponibles reportados
+    Pag 5/14: 7350 unicos acumulados
+    Pag 10/14: 7850 unicos acumulados
+    Pag 14/14: 8210 unicos acumulados
+  Limpieza: 1360 productos nuevos
+
+[7/9] Categoria: Perfumeria
+  Perfumeria: 2202 disponibles reportados
+    Pag 5/23: 8710 unicos acumulados
+    Pag 10/23: 9210 unicos acumulados
+    Pag 15/23: 9710 unicos acumulados
+    Pag 20/23: 10174 unicos acumulados
+    Pag 23/23: 10303 unicos acumulados
+  Perfumeria: 2093 productos nuevos
+
+[8/9] Categoria: Mascotas
+  Mascotas: 483 disponibles reportados
+    Pag 5/5: 10778 unicos acumulados
+  Mascotas: 475 productos nuevos
+
+[9/9] Categoria: Bebe
+  Bebe: 539 disponibles reportados
+    Pag 5/6: 11236 unicos acumulados
+    Pag 6/6: 11269 unicos acumulados
+  Bebe: 491 productos nuevos
+
+=======================================================
+Scraping completo — 11269 productos unicos (solo disponibles)
+Con alguna oferta real: 3579 (31%)
+  de las cuales promo por cantidad (2do al X% / NxM): 1063
+Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\carrefour\output_carrefour_20260706_132157.json
+
+Resumen por categoria (nuevos aportados):
+  Almacen: 1893
+  Desayuno: 2000
+  Bebidas: 1671
+  Frescos: 954
+  Congelados: 332
+  Limpieza: 1360
+  Perfumeria: 2093
+  Mascotas: 475
+  Bebe: 491
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-06 13:21:59
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +86 SKUs Yaguar, +59 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 6615 prods únicos (6612 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260706_032735.json -> 4586 productos (4585 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4310 productos
+    4301 precios válidos (>$200), 9 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 15058 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11348 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +468 EANs Yaguar via Maestro, +93 EANs Maxiconsumo via Maestro (7 descartados por conflicto de marca)
+  MaxiCarrefour: 4586 productos procesados
+    -> Matches Yaguar via CODIGOS:      915
+    -> Matches Maxiconsumo via CODIGOS: 385
+  Yaguar (restantes): 5698 nuevos, 2 match EAN, 3180 con EAN via Maestro
+  Maxiconsumo (restantes): 3584 nuevos, 328 match EAN, 13 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 17 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 19 precios absurdos eliminados
+  Validación cruzada: 4 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 3 marcados para revisión
+  Paso 6b: 3 duplicados por nombre normalizado fusionados
+  Paso 6c: 634 fusiones fuzzy complementarias
+  Paso 6d: 73 fuentes con cantidad incompatible eliminadas
+  Paso 6e: 1 outliers post-fusión descartados
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Leche X80g MC=$10,000 vs mediana otras=$1,330
+  PRECIOS SOSPECHOSOS MC descartados: 2
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8284 productos sin clasificacion Maestro
+  Coto: 4090 productos del catalogo con precio gondola (de 15058 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4743 productos del catalogo con precio gondola (de 11348 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 2 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+    - Caramelos SUGUS Masticables X700 g: yaguar $6775 vs otra ~$7667
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13150
+  Con precio Yaguar:            6523
+  Con precio MaxiCarrefour:     4529
+  Con precio Maxiconsumo:       4247
+  Con precio Coto (gondola):    4090
+  Con precio Carrefour (gond.): 4743
+  Con 2+ precios (comparativa): 1844
+  Con 3 precios:                305
+  ABC=A con 2+ precios:         251
+  Sin imagen:                   2394
+  Links Carrefour: 2146 EAN directo, 2383 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+=== SCRAPER CARREFOUR (retail) ===
+Iniciando: 2026-07-06 13:17:31
+
+=== UNIFICANDO DATOS ===
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[13:23:56] OK scrape_carrefour.py (384s)
+[13:23:56] Scrapers OK: 3/5
+[13:23:56] ALERTA: Scraper maxicarrefour FALLO hoy
+[13:23:57] ALERTA: Scraper maxiconsumo FALLO hoy
+[13:23:58] Regenerando catalogo unificado...
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-06 13:24:00
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +86 SKUs Yaguar, +59 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 6615 prods únicos (6612 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260706_032735.json -> 4586 productos (4585 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4310 productos
+    4301 precios válidos (>$200), 9 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 15058 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11348 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +468 EANs Yaguar via Maestro, +93 EANs Maxiconsumo via Maestro (7 descartados por conflicto de marca)
+  MaxiCarrefour: 4586 productos procesados
+    -> Matches Yaguar via CODIGOS:      915
+    -> Matches Maxiconsumo via CODIGOS: 385
+  Yaguar (restantes): 5698 nuevos, 2 match EAN, 3180 con EAN via Maestro
+  Maxiconsumo (restantes): 3584 nuevos, 328 match EAN, 13 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 17 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 19 precios absurdos eliminados
+  Validación cruzada: 4 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 3 marcados para revisión
+  Paso 6b: 3 duplicados por nombre normalizado fusionados
+  Paso 6c: 634 fusiones fuzzy complementarias
+  Paso 6d: 73 fuentes con cantidad incompatible eliminadas
+  Paso 6e: 1 outliers post-fusión descartados
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Leche X80g MC=$10,000 vs mediana otras=$1,330
+  PRECIOS SOSPECHOSOS MC descartados: 2
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8284 productos sin clasificacion Maestro
+  Coto: 4090 productos del catalogo con precio gondola (de 15058 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4743 productos del catalogo con precio gondola (de 11348 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 2 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+    - Caramelos SUGUS Masticables X700 g: yaguar $6775 vs otra ~$7667
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13150
+  Con precio Yaguar:            6523
+  Con precio MaxiCarrefour:     4529
+  Con precio Maxiconsumo:       4247
+  Con precio Coto (gondola):    4090
+  Con precio Carrefour (gond.): 4743
+  Con 2+ precios (comparativa): 1844
+  Con 3 precios:                305
+  ABC=A con 2+ precios:         251
+  Sin imagen:                   2394
+  Links Carrefour: 2145 EAN directo, 2384 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+[13:26:01] Enriqueciendo imagenes (URLs Yaguar por SKU)...
+============================================================
+ENRIQUECIMIENTO DE IMAGENES - Brujula de Precios
+============================================================
+Catalogo: 13150 productos
+Yaguar SKU construido: 6523 productos
+Open Food Facts: 0 productos
+Sin imagen antes: 2416
+Sin imagen despues: 22
+Recuperados: 2394
+
+Guardado: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+============================================================
+[13:26:04] Catalogo nuevo: 13150 prods (Y=6523 MC=4529 MCO=4247 C=4090 CF=4743)
+[13:26:05] Verificando precios en vivo (top 20 ABC=A) contra la web de cada mayorista...
+VERIFICADOR DE PRECIOS REALES — top 20 productos ABC=A
+=======================================================
+
+[1/20] Fernet BRANCA X450 ml
+  Yaguar:       OK $10,382 (cat: $10,382)
+  Maxiconsumo:  OK $10,900 (cat: $10,900)
+  MaxiCarrefour:producto_no_encontrado
+
+[2/20] Vino ALMA MORA Malbec X750 ml
+  Yaguar:       OK $5,522 (cat: $5,522)
+  Maxiconsumo:  OK $4,900 (cat: $4,900)
+  MaxiCarrefour:sesion_expirada
+
+[3/20] Fernet BRANCA X750 ml
+  Yaguar:       OK $15,550 (cat: $15,550)
+  Maxiconsumo:  OK $16,500 (cat: $16,500)
+  MaxiCarrefour:sesion_expirada
+
+[4/20] Whisky CRIADORES Petaca X195 ml
+  Yaguar:       OK $2,277 (cat: $2,277)
+  Maxiconsumo:  OK $2,200 (cat: $2,200)
+  MaxiCarrefour:sesion_expirada
+
+[5/20] Fernet BUHERO NEGRO X700 ml
+  Yaguar:       OK $9,941 (cat: $9,941)
+  Maxiconsumo:  OK $6,500 (cat: $6,500)
+  MaxiCarrefour:sesion_expirada
+
+[6/20] Vino BENJAMIN Malbec X750 ml
+  Yaguar:       error_http
+  Maxiconsumo:  OK $3,300 (cat: $3,300)
+  MaxiCarrefour:sesion_expirada
+
+[7/20] Energizante SPEED X250 ml
+  Yaguar:       OK $1,723 (cat: $1,723)
+  Maxiconsumo:  OK $1,450 (cat: $1,450)
+  MaxiCarrefour:sesion_expirada
+
+[8/20] Aceite Girasol COCINERO X900 ml
+  Yaguar:       OK $3,959 (cat: $3,959)
+  Maxiconsumo:  DIVERGE $3,300 vs $3,000 (10.0%)
+  MaxiCarrefour:sesion_expirada
+
+[9/20] Aceite Girasol COCINERO X1.5 L
+  Yaguar:       OK $5,499 (cat: $5,499)
+  Maxiconsumo:  OK $5,300 (cat: $5,300)
+  MaxiCarrefour:sesion_expirada
+
+[10/20] Sal Fina DOS ANCLAS Estuche X500 g
+  Yaguar:       OK $1,562 (cat: $1,562)
+  Maxiconsumo:  OK $1,150 (cat: $1,150)
+  MaxiCarrefour:sesion_expirada
+
+[11/20] Sal Fina CELUSAL Paquete X500g
+  Yaguar:       OK $1,375 (cat: $1,375)
+  Maxiconsumo:  OK $890 (cat: $890)
+  MaxiCarrefour:sesion_expirada
+
+[12/20] Pate SWIFT Lata X90 g
+  Yaguar:       OK $1,087 (cat: $1,087)
+  Maxiconsumo:  OK $1,120 (cat: $1,120)
+  MaxiCarrefour:sesion_expirada
+
+[13/20] Picadillo SWIFT Lata X90 g
+  Yaguar:       OK $1,264 (cat: $1,264)
+  Maxiconsumo:  OK $1,120 (cat: $1,120)
+  MaxiCarrefour:sesion_expirada
+
+[14/20] Aceite Girasol CAÑUELAS X900 ml
+  Yaguar:       error_http
+  Maxiconsumo:  OK $3,300 (cat: $3,000)
+  MaxiCarrefour:sesion_expirada
+
+[15/20] Harina PUREZA con Levadura P/pizza X1 kg
+  Yaguar:       OK $1,759 (cat: $1,759)
+  Maxiconsumo:  OK $1,450 (cat: $1,550)
+  MaxiCarrefour:sesion_expirada
+
+[16/20] Sal Fina DOS ESTRELLAS X500 g
+  Yaguar:       OK $762 (cat: $762)
+  Maxiconsumo:  OK $500 (cat: $500)
+  MaxiCarrefour:sesion_expirada
+
+[17/20] Mayonesa NATURA D/p X500g
+  Yaguar:       OK $3,014 (cat: $3,014)
+  Maxiconsumo:  OK $2,950 (cat: $2,950)
+  MaxiCarrefour:sesion_expirada
+
+[18/20] Ketchup NATURA Doy Pack X250g
+  Yaguar:       OK $1,319 (cat: $1,319)
+  Maxiconsumo:  OK $1,400 (cat: $1,400)
+  MaxiCarrefour:sesion_expirada
+
+[19/20] Harina PUREZA Integral X1 kg
+  Yaguar:       error_http
+  Maxiconsumo:  OK $1,450 (cat: $1,550)
+  MaxiCarrefour:producto_no_encontrado
+
+[20/20] Aceite Mezcla COCINERO X900 ml
+  Yaguar:       OK $3,189 (cat: $3,189)
+  Maxiconsumo:  OK $2,600 (cat: $2,500)
+  MaxiCarrefour:sesion_expirada
+
+=======================================================
+RESUMEN: 36/37 precios correctos (97.3%)
+NO VERIFICADOS (no cuentan para la tasa):
+  maxicarrefour:sesion_expirada: 18
+  yaguar:error_http: 3
+  maxicarrefour:producto_no_encontrado: 2
+OK: Precios dentro del rango esperado.
+Reporte guardado: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\verificacion_precios_20260706_133057.json
+[main 2f60f59] data: actualizacion automatica 06/07/2026 [local]
+ 1 file changed, 1 insertion(+), 456418 deletions(-)
+To https://github.com/Facuusosa/BRUJULA-DE-PRECIOS.git
+   7ccc319..2f60f59  main -> main
+[13:31:06] Push OK -> Vercel redeploy disparado
+[13:31:11] Limpieza auto: 4 __pycache__ | 0 outputs viejos (~0.0 MB liberados)
+[13:31:11] === PIPELINE COMPLETADO ===
+==================================================== 
+Corrida: mar 07/07/2026 10:00:02,07 
+[10:00:02] === PIPELINE LOCAL BRUJULA ===
+[10:00:02] Catalogo actual: 13150 prods (Y=6523 MC=4529 MCO=4247 C=4090 CF=4743 D=1832)
+[10:00:02] Corriendo scrape_yaguar.py...
+=== SCRAPER YAGUAR ===
+Iniciando: 2026-07-07 10:00:02
+ERROR EN SCRAPER YAGUAR
+^C^C==================================================== 
+Corrida: mar 07/07/2026 10:06:48,80 
+[10:06:48] === PIPELINE LOCAL BRUJULA ===
+[10:06:49] Catalogo actual: 13150 prods (Y=6523 MC=4529 MCO=4247 C=4090 CF=4743 D=1832)
+[10:06:49] Corriendo scrape_maxicarrefour.py...
+==================================================== 
+Corrida: mi� 08/07/2026 11:24:37,26 
+[11:24:40] === PIPELINE LOCAL BRUJULA ===
+[11:24:41] Catalogo actual: 13157 prods (Y=6542 MC=4523 MCO=4248 C=4095 CF=4774 D=1845)
+[11:24:41] Corriendo scrape_maxicarrefour.py...
+=======================================================
+RENOVACION DE COOKIES MAXICARREFOUR
+=======================================================
+Modo --force: renovando sin verificar fecha.
+Modo: Chrome real con perfil persistente...
+  Navegando a comerciante.carrefour.com.ar...
+  Autocompletando formulario...
+  No se pudo autocompletar (Locator.select_option: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("#region")
+    - locator resolved to <select id="region" required="" name="region" onchange="onchangeSelect(this)">…</select>
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - element is not visible
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - element is not visible
+    - retrying select option action
+      - waiting 100ms
+    16 × waiting for element to be visible and enabled
+       - element is not visible
+     - retrying select option action
+       - waiting 500ms
+). Completalo manualmente.
+  Screenshot de debug: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\carrefour_login_debug.png
+  Intentando click automatico (Chrome real)...
+  Click enviado. Esperando respuesta del servidor...
+  Click automatico sin respuesta definitiva.
+
+  ================================================
+  Click automatico no funciono.
+  Hace click en 'Ingresar' manualmente en Chrome.
+  Tenes 90 segundos.
+  ------------------------------------------------
+  Para 100% automatico: CAPSOLVER_API_KEY en .env
+  ================================================
+
+  Timeout — no se logro autenticacion.
+  Screenshot: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\carrefour_login_debug.png
+
+No se pudo renovar automaticamente.
+Pasos manuales:
+  1. Loguearse en comerciante.carrefour.com.ar
+  2. F12 -> Application -> Cookies
+  3. Copiar PHPSESSID y cf_clearance al .env
+
+Para automatizacion total (sin interaccion humana):
+  1. Crear cuenta en capsolver.com
+  2. Agregar CAPSOLVER_API_KEY=tu_key al .env
+=== SCRAPER MAXICARREFOUR ===
+Iniciando: 2026-07-08 11:24:41
+
+Verificando cookies MaxiCarrefour...
+Cookies invalidas o expiradas — renovando automaticamente...
+ERROR: No se pudieron renovar las cookies.
+Renovar manualmente: ver .claude/docs/operaciones.md
+Abortando — no tiene sentido scraper sin cookies validas.
+[11:27:18] FALLO scrape_maxicarrefour.py (157s)
+[11:27:18] Corriendo scrape_yaguar.py...
+🚀 Scraper Yaguar PRO — Catálogo Completo
+📅 2026-07-08 11:27:19
+==================================================
+🔐 Iniciando sesión...
+✅ Login exitoso
+Sectores a scrapear: 11
+=======================================================
+
+[1/11] Sector: Almacén
+  almacén: ~14784 productos estimados (462 páginas)
+    Pag 5/462: 160 unicos acumulados
+    Pag 10/462: 320 unicos acumulados
+    Pag 15/462: 480 unicos acumulados
+    Pag 20/462: 640 unicos acumulados
+    Pag 25/462: 800 unicos acumulados
+    Pag 30/462: 960 unicos acumulados
+    Pag 35/462: 1120 unicos acumulados
+    Pag 40/462: 1280 unicos acumulados
+    Pag 45/462: 1440 unicos acumulados
+    Pag 50/462: 1600 unicos acumulados
+    Pag 55/462: 1760 unicos acumulados
+    Pag 60/462: 1920 unicos acumulados
+    Pag 65/462: 2080 unicos acumulados
+    Pag 70/462: 2240 unicos acumulados
+    Pag 75: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 75/462: 2394 unicos acumulados
+    Pag 80/462: 2554 unicos acumulados
+    Pag 85/462: 2714 unicos acumulados
+    Pag 90: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 90/462: 2874 unicos acumulados
+    Pag 95/462: 3034 unicos acumulados
+    Pag 100/462: 3194 unicos acumulados
+    Pag 105: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 105/462: 3354 unicos acumulados
+    Pag 110/462: 3514 unicos acumulados
+    Pag 115/462: 3674 unicos acumulados
+    Pag 120: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 120/462: 3834 unicos acumulados
+    Pag 125/462: 3994 unicos acumulados
+    Pag 130/462: 4154 unicos acumulados
+    Pag 135: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 135/462: 4314 unicos acumulados
+    Pag 140/462: 4474 unicos acumulados
+    Pag 145/462: 4634 unicos acumulados
+    Pag 150: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 150/462: 4794 unicos acumulados
+    Pag 155/462: 4954 unicos acumulados
+    Pag 160/462: 5114 unicos acumulados
+    Pag 165: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 165/462: 5274 unicos acumulados
+    Pag 170/462: 5434 unicos acumulados
+    Pag 175/462: 5594 unicos acumulados
+    Pag 180: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 180/462: 5754 unicos acumulados
+    Pag 185/462: 5914 unicos acumulados
+    Pag 190/462: 6074 unicos acumulados
+    Pag 195: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 195/462: 6234 unicos acumulados
+    Pag 200/462: 6394 unicos acumulados
+    Pag 205/462: 6554 unicos acumulados
+    Pag 210: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 210/462: 6714 unicos acumulados
+    Pag 215/462: 6874 unicos acumulados
+    Pag 220/462: 7034 unicos acumulados
+    Pag 225: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 225/462: 7194 unicos acumulados
+    Pag 230/462: 7354 unicos acumulados
+    Pag 235/462: 7514 unicos acumulados
+    Pag 240: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 240/462: 7674 unicos acumulados
+    Pag 245/462: 7834 unicos acumulados
+    Pag 250/462: 7994 unicos acumulados
+    Pag 255: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 255/462: 8154 unicos acumulados
+    Pag 260/462: 8314 unicos acumulados
+    Pag 265/462: 8474 unicos acumulados
+    Pag 270: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 270/462: 8634 unicos acumulados
+    Pag 275/462: 8794 unicos acumulados
+    Pag 280/462: 8954 unicos acumulados
+    Pag 285: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 285/462: 9114 unicos acumulados
+    Pag 290/462: 9274 unicos acumulados
+    Pag 295/462: 9434 unicos acumulados
+    Pag 300: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 300/462: 9594 unicos acumulados
+    Pag 305/462: 9754 unicos acumulados
+    Pag 310/462: 9914 unicos acumulados
+    Pag 315: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 315/462: 10074 unicos acumulados
+    Pag 320/462: 10234 unicos acumulados
+    Pag 325/462: 10394 unicos acumulados
+    Pag 330: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 330/462: 10554 unicos acumulados
+    Pag 335/462: 10714 unicos acumulados
+    Pag 340/462: 10874 unicos acumulados
+    Pag 345: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 345/462: 11034 unicos acumulados
+    Pag 350/462: 11194 unicos acumulados
+    Pag 355/462: 11354 unicos acumulados
+    Pag 360: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 360/462: 11514 unicos acumulados
+    Pag 365/462: 11674 unicos acumulados
+    Pag 370/462: 11834 unicos acumulados
+    Pag 375: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 375/462: 11994 unicos acumulados
+    Pag 380/462: 12154 unicos acumulados
+    Pag 385/462: 12314 unicos acumulados
+    Pag 390: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 390/462: 12474 unicos acumulados
+    Pag 395/462: 12634 unicos acumulados
+    Pag 400/462: 12794 unicos acumulados
+    Pag 405: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 405/462: 12954 unicos acumulados
+    Pag 410/462: 13114 unicos acumulados
+    Pag 415/462: 13274 unicos acumulados
+    Pag 420: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 420/462: 13434 unicos acumulados
+    Pag 425/462: 13594 unicos acumulados
+    Pag 430/462: 13754 unicos acumulados
+    Pag 435: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 435/462: 13914 unicos acumulados
+    Pag 440/462: 14074 unicos acumulados
+    Pag 445/462: 14234 unicos acumulados
+    Pag 450: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 450/462: 14394 unicos acumulados
+    Pag 455/462: 14554 unicos acumulados
+    Pag 460/462: 14714 unicos acumulados
+    Pag 462/462: 14778 unicos acumulados
+  almacén: 14778 productos totales
+
+[2/11] Sector: Bazar
+  bazar: ~14784 productos estimados (462 páginas)
+    Pag 5/462: 160 unicos acumulados
+    Pag 10: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 10/462: 304 unicos acumulados
+    Pag 15/462: 464 unicos acumulados
+    Pag 20/462: 624 unicos acumulados
+    Pag 25: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 25/462: 784 unicos acumulados
+    Pag 30/462: 944 unicos acumulados
+    Pag 35/462: 1104 unicos acumulados
+    Pag 40: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 40/462: 1264 unicos acumulados
+    Pag 45/462: 1424 unicos acumulados
+    Pag 50/462: 1584 unicos acumulados
+    Pag 55: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 55/462: 1744 unicos acumulados
+    Pag 60/462: 1904 unicos acumulados
+    Pag 65/462: 2064 unicos acumulados
+    Pag 70: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 70/462: 2224 unicos acumulados
+    Pag 75/462: 2384 unicos acumulados
+    Pag 80/462: 2544 unicos acumulados
+    Pag 85: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 85/462: 2704 unicos acumulados
+    Pag 90/462: 2864 unicos acumulados
+    Pag 95/462: 3024 unicos acumulados
+    Pag 100: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 100/462: 3184 unicos acumulados
+    Pag 105/462: 3344 unicos acumulados
+    Pag 110/462: 3504 unicos acumulados
+    Pag 115: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 115/462: 3664 unicos acumulados
+    Pag 120/462: 3824 unicos acumulados
+    Pag 125/462: 3984 unicos acumulados
+    Pag 130: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 130/462: 4144 unicos acumulados
+    Pag 135/462: 4304 unicos acumulados
+    Pag 140/462: 4464 unicos acumulados
+    Pag 145: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 145/462: 4624 unicos acumulados
+    Pag 150/462: 4784 unicos acumulados
+    Pag 155/462: 4944 unicos acumulados
+    Pag 160: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 160/462: 5104 unicos acumulados
+    Pag 165/462: 5264 unicos acumulados
+    Pag 170/462: 5424 unicos acumulados
+    Pag 175: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 175/462: 5584 unicos acumulados
+    Pag 180/462: 5744 unicos acumulados
+    Pag 185/462: 5904 unicos acumulados
+    Pag 190: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 190/462: 6064 unicos acumulados
+    Pag 195/462: 6224 unicos acumulados
+    Pag 200/462: 6384 unicos acumulados
+    Pag 205: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 205/462: 6544 unicos acumulados
+    Pag 210/462: 6704 unicos acumulados
+    Pag 215/462: 6864 unicos acumulados
+    Pag 220: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 220/462: 7024 unicos acumulados
+    Pag 225/462: 7184 unicos acumulados
+    Pag 230/462: 7344 unicos acumulados
+    Pag 235: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 235/462: 7504 unicos acumulados
+    Pag 240/462: 7664 unicos acumulados
+    Pag 245/462: 7824 unicos acumulados
+    Pag 250: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 250/462: 7984 unicos acumulados
+    Pag 255/462: 8144 unicos acumulados
+    Pag 260/462: 8304 unicos acumulados
+    Pag 265: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 265/462: 8464 unicos acumulados
+    Pag 270/462: 8624 unicos acumulados
+    Pag 275/462: 8784 unicos acumulados
+    Pag 280: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 280/462: 8944 unicos acumulados
+    Pag 285/462: 9104 unicos acumulados
+    Pag 290/462: 9264 unicos acumulados
+    Pag 295: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 295/462: 9424 unicos acumulados
+    Pag 300/462: 9584 unicos acumulados
+    Pag 305/462: 9744 unicos acumulados
+    Pag 310: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 310/462: 9904 unicos acumulados
+    Pag 315/462: 10064 unicos acumulados
+    Pag 320/462: 10224 unicos acumulados
+    Pag 325: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 325/462: 10384 unicos acumulados
+    Pag 330/462: 10544 unicos acumulados
+    Pag 335/462: 10704 unicos acumulados
+    Pag 340: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 340/462: 10864 unicos acumulados
+    Pag 345/462: 11024 unicos acumulados
+    Pag 350/462: 11184 unicos acumulados
+    Pag 355: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 355/462: 11344 unicos acumulados
+    Pag 360/462: 11504 unicos acumulados
+    Pag 365/462: 11664 unicos acumulados
+    Pag 370: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 370/462: 11824 unicos acumulados
+    Pag 375/462: 11984 unicos acumulados
+    Pag 380/462: 12144 unicos acumulados
+    Pag 385: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 385/462: 12304 unicos acumulados
+    Pag 390/462: 12464 unicos acumulados
+    Pag 395/462: 12624 unicos acumulados
+    Pag 400: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 400/462: 12784 unicos acumulados
+    Pag 405/462: 12944 unicos acumulados
+    Pag 410/462: 13104 unicos acumulados
+    Pag 415: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 415/462: 13264 unicos acumulados
+    Pag 420/462: 13424 unicos acumulados
+    Pag 425/462: 13584 unicos acumulados
+    Pag 430: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 430/462: 13744 unicos acumulados
+    Pag 435/462: 13904 unicos acumulados
+    Pag 440/462: 14064 unicos acumulados
+    Pag 445: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 445/462: 14224 unicos acumulados
+    Pag 450/462: 14384 unicos acumulados
+    Pag 455/462: 14544 unicos acumulados
+    Pag 460: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 460/462: 14704 unicos acumulados
+    Pag 462/462: 14768 unicos acumulados
+  bazar: 14768 productos totales
+
+[3/11] Sector: Bebidas Sin Alcohol
+  bebidas sin alcohol: ~14784 productos estimados (462 páginas)
+    Pag 5/462: 160 unicos acumulados
+    Pag 10/462: 320 unicos acumulados
+    Pag 15/462: 480 unicos acumulados
+    Pag 20/462: 640 unicos acumulados
+    Pag 25: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 25/462: 798 unicos acumulados
+    Pag 30/462: 958 unicos acumulados
+    Pag 35/462: 1118 unicos acumulados
+    Pag 40: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 40/462: 1278 unicos acumulados
+    Pag 45/462: 1438 unicos acumulados
+    Pag 50/462: 1598 unicos acumulados
+    Pag 55: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 55/462: 1758 unicos acumulados
+    Pag 60/462: 1918 unicos acumulados
+    Pag 65/462: 2078 unicos acumulados
+    Pag 70: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 70/462: 2238 unicos acumulados
+    Pag 75/462: 2398 unicos acumulados
+    Pag 80/462: 2558 unicos acumulados
+    Pag 85: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 85/462: 2718 unicos acumulados
+    Pag 90/462: 2878 unicos acumulados
+    Pag 95/462: 3038 unicos acumulados
+    Pag 100: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 100/462: 3198 unicos acumulados
+    Pag 105/462: 3358 unicos acumulados
+    Pag 110/462: 3518 unicos acumulados
+    Pag 115: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 115/462: 3678 unicos acumulados
+    Pag 120/462: 3838 unicos acumulados
+    Pag 125/462: 3998 unicos acumulados
+    Pag 130: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 130/462: 4158 unicos acumulados
+    Pag 135/462: 4318 unicos acumulados
+    Pag 140/462: 4478 unicos acumulados
+    Pag 145: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 145/462: 4638 unicos acumulados
+    Pag 150/462: 4798 unicos acumulados
+    Pag 155/462: 4958 unicos acumulados
+    Pag 160: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 160/462: 5118 unicos acumulados
+    Pag 165/462: 5278 unicos acumulados
+    Pag 170/462: 5438 unicos acumulados
+    Pag 175: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 175/462: 5598 unicos acumulados
+    Pag 180/462: 5758 unicos acumulados
+    Pag 185/462: 5918 unicos acumulados
+    Pag 190: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 190/462: 6078 unicos acumulados
+    Pag 195/462: 6238 unicos acumulados
+    Pag 200/462: 6398 unicos acumulados
+    Pag 205: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 205/462: 6558 unicos acumulados
+    Pag 210/462: 6718 unicos acumulados
+    Pag 215/462: 6878 unicos acumulados
+    Pag 220: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 220/462: 7038 unicos acumulados
+    Pag 225/462: 7198 unicos acumulados
+    Pag 230/462: 7358 unicos acumulados
+    Pag 235: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 235/462: 7518 unicos acumulados
+    Pag 240/462: 7678 unicos acumulados
+    Pag 245/462: 7838 unicos acumulados
+    Pag 250: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 250/462: 7998 unicos acumulados
+    Pag 255/462: 8158 unicos acumulados
+    Pag 260/462: 8318 unicos acumulados
+    Pag 265: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 265/462: 8478 unicos acumulados
+    Pag 270/462: 8638 unicos acumulados
+    Pag 275/462: 8798 unicos acumulados
+    Pag 280: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 280/462: 8958 unicos acumulados
+    Pag 285/462: 9118 unicos acumulados
+    Pag 290/462: 9278 unicos acumulados
+    Pag 295: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 295/462: 9438 unicos acumulados
+    Pag 300/462: 9598 unicos acumulados
+    Pag 305/462: 9758 unicos acumulados
+    Pag 310: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 310/462: 9918 unicos acumulados
+    Pag 315/462: 10078 unicos acumulados
+    Pag 320/462: 10238 unicos acumulados
+    Pag 325: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 325/462: 10398 unicos acumulados
+    Pag 330/462: 10558 unicos acumulados
+    Pag 335/462: 10718 unicos acumulados
+    Pag 340: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 340/462: 10878 unicos acumulados
+    Pag 345/462: 11038 unicos acumulados
+    Pag 350/462: 11198 unicos acumulados
+    Pag 355: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 355/462: 11358 unicos acumulados
+    Pag 360/462: 11518 unicos acumulados
+    Pag 365/462: 11678 unicos acumulados
+    Pag 370: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 370/462: 11838 unicos acumulados
+    Pag 375/462: 11998 unicos acumulados
+    Pag 380/462: 12158 unicos acumulados
+    Pag 385: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 385/462: 12318 unicos acumulados
+    Pag 390/462: 12478 unicos acumulados
+    Pag 395/462: 12638 unicos acumulados
+    Pag 400: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 400/462: 12798 unicos acumulados
+    Pag 405/462: 12958 unicos acumulados
+    Pag 410/462: 13118 unicos acumulados
+    Pag 415: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 415/462: 13278 unicos acumulados
+    Pag 420/462: 13438 unicos acumulados
+    Pag 425/462: 13598 unicos acumulados
+    Pag 429: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 430/462: 13758 unicos acumulados
+    Pag 435/462: 13918 unicos acumulados
+    Pag 440/462: 14078 unicos acumulados
+    Pag 443: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 445/462: 14238 unicos acumulados
+    Pag 450/462: 14398 unicos acumulados
+    Pag 455/462: 14558 unicos acumulados
+    Pag 457: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 460/462: 14718 unicos acumulados
+    Pag 462/462: 14782 unicos acumulados
+  bebidas sin alcohol: 14782 productos totales
+
+[4/11] Sector: Bodega
+  bodega: ~14784 productos estimados (462 páginas)
+    Pag 5/462: 160 unicos acumulados
+    Pag 10/462: 320 unicos acumulados
+    Pag 15/462: 480 unicos acumulados
+    Pag 20/462: 640 unicos acumulados
+    Pag 25/462: 800 unicos acumulados
+    Pag 30/462: 960 unicos acumulados
+    Pag 32: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 35/462: 1114 unicos acumulados
+    Pag 40/462: 1274 unicos acumulados
+    Pag 45/462: 1434 unicos acumulados
+    Pag 46: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 50/462: 1594 unicos acumulados
+    Pag 55/462: 1754 unicos acumulados
+    Pag 60: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 60/462: 1914 unicos acumulados
+    Pag 65/462: 2074 unicos acumulados
+    Pag 70/462: 2234 unicos acumulados
+    Pag 74: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 75/462: 2394 unicos acumulados
+    Pag 80/462: 2554 unicos acumulados
+    Pag 85/462: 2714 unicos acumulados
+    Pag 89: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 90/462: 2874 unicos acumulados
+    Pag 95/462: 3034 unicos acumulados
+    Pag 100/462: 3194 unicos acumulados
+    Pag 104: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 105/462: 3354 unicos acumulados
+    Pag 110/462: 3514 unicos acumulados
+    Pag 115/462: 3674 unicos acumulados
+    Pag 118: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 120/462: 3834 unicos acumulados
+    Pag 125/462: 3994 unicos acumulados
+    Pag 130/462: 4154 unicos acumulados
+    Pag 133: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 135/462: 4314 unicos acumulados
+    Pag 140/462: 4474 unicos acumulados
+    Pag 145/462: 4634 unicos acumulados
+    Pag 147: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 150/462: 4794 unicos acumulados
+    Pag 155/462: 4954 unicos acumulados
+    Pag 160/462: 5114 unicos acumulados
+    Pag 161: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 165/462: 5274 unicos acumulados
+    Pag 170/462: 5434 unicos acumulados
+    Pag 175: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 175/462: 5594 unicos acumulados
+    Pag 180/462: 5754 unicos acumulados
+    Pag 185/462: 5914 unicos acumulados
+    Pag 189: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 190/462: 6074 unicos acumulados
+    Pag 195/462: 6234 unicos acumulados
+    Pag 200/462: 6394 unicos acumulados
+    Pag 204: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 205/462: 6554 unicos acumulados
+    Pag 210/462: 6714 unicos acumulados
+    Pag 215/462: 6874 unicos acumulados
+    Pag 218: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 220/462: 7034 unicos acumulados
+    Pag 225/462: 7194 unicos acumulados
+    Pag 230/462: 7354 unicos acumulados
+    Pag 232: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 235/462: 7514 unicos acumulados
+    Pag 240/462: 7674 unicos acumulados
+    Pag 245/462: 7834 unicos acumulados
+    Pag 246: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 250/462: 7994 unicos acumulados
+    Pag 255/462: 8154 unicos acumulados
+    Pag 260: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 260/462: 8314 unicos acumulados
+    Pag 265/462: 8474 unicos acumulados
+    Pag 270/462: 8634 unicos acumulados
+    Pag 274: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 275/462: 8794 unicos acumulados
+    Pag 280/462: 8954 unicos acumulados
+    Pag 285/462: 9114 unicos acumulados
+    Pag 288: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 290/462: 9274 unicos acumulados
+    Pag 295/462: 9434 unicos acumulados
+    Pag 300/462: 9594 unicos acumulados
+    Pag 302: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 305/462: 9754 unicos acumulados
+    Pag 310/462: 9914 unicos acumulados
+    Pag 315/462: 10074 unicos acumulados
+    Pag 316: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 320/462: 10234 unicos acumulados
+    Pag 325/462: 10394 unicos acumulados
+    Pag 330/462: 10554 unicos acumulados
+    Pag 331: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 335/462: 10714 unicos acumulados
+    Pag 340/462: 10874 unicos acumulados
+    Pag 345: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 345/462: 11034 unicos acumulados
+    Pag 350/462: 11194 unicos acumulados
+    Pag 355/462: 11354 unicos acumulados
+    Pag 359: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 360/462: 11514 unicos acumulados
+    Pag 365/462: 11674 unicos acumulados
+    Pag 370/462: 11834 unicos acumulados
+    Pag 373: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 375/462: 11994 unicos acumulados
+    Pag 380/462: 12154 unicos acumulados
+    Pag 385/462: 12314 unicos acumulados
+    Pag 387: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 390/462: 12474 unicos acumulados
+    Pag 395/462: 12634 unicos acumulados
+    Pag 400/462: 12794 unicos acumulados
+    Pag 401: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 405/462: 12954 unicos acumulados
+    Pag 410/462: 13114 unicos acumulados
+    Pag 415: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 415/462: 13274 unicos acumulados
+    Pag 420/462: 13434 unicos acumulados
+    Pag 425/462: 13594 unicos acumulados
+    Pag 430: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 430/462: 13754 unicos acumulados
+    Pag 435/462: 13914 unicos acumulados
+    Pag 440/462: 14074 unicos acumulados
+    Pag 445: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 445/462: 14234 unicos acumulados
+    Pag 450/462: 14394 unicos acumulados
+    Pag 455/462: 14554 unicos acumulados
+    Pag 459: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 460/462: 14714 unicos acumulados
+    Pag 462/462: 14778 unicos acumulados
+  bodega: 14778 productos totales
+
+[5/11] Sector: Desayuno
+  desayuno: ~14784 productos estimados (462 páginas)
+    Pag 5/462: 160 unicos acumulados
+    Pag 10/462: 320 unicos acumulados
+    Pag 15/462: 480 unicos acumulados
+    Pag 20/462: 640 unicos acumulados
+    Pag 25/462: 800 unicos acumulados
+    Pag 30/462: 960 unicos acumulados
+    Pag 35: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 35/462: 1100 unicos acumulados
+    Pag 40/462: 1260 unicos acumulados
+    Pag 45/462: 1420 unicos acumulados
+    Pag 49: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 50/462: 1580 unicos acumulados
+    Pag 55/462: 1740 unicos acumulados
+    Pag 60/462: 1900 unicos acumulados
+    Pag 64: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 65/462: 2060 unicos acumulados
+    Pag 70/462: 2220 unicos acumulados
+    Pag 75/462: 2380 unicos acumulados
+    Pag 78: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 80/462: 2540 unicos acumulados
+    Pag 85/462: 2700 unicos acumulados
+    Pag 90/462: 2860 unicos acumulados
+    Pag 92: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 95/462: 3020 unicos acumulados
+    Pag 100/462: 3180 unicos acumulados
+    Pag 105/462: 3340 unicos acumulados
+    Pag 107: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 110/462: 3500 unicos acumulados
+    Pag 115/462: 3660 unicos acumulados
+    Pag 120/462: 3820 unicos acumulados
+    Pag 121: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 125/462: 3980 unicos acumulados
+    Pag 130/462: 4140 unicos acumulados
+    Pag 135: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 135/462: 4300 unicos acumulados
+    Pag 140/462: 4460 unicos acumulados
+    Pag 145/462: 4620 unicos acumulados
+    Pag 149: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 150/462: 4780 unicos acumulados
+    Pag 155/462: 4940 unicos acumulados
+    Pag 160/462: 5100 unicos acumulados
+    Pag 163: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 165/462: 5260 unicos acumulados
+    Pag 170/462: 5420 unicos acumulados
+    Pag 175/462: 5580 unicos acumulados
+    Pag 177: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 180/462: 5740 unicos acumulados
+    Pag 185/462: 5900 unicos acumulados
+    Pag 190/462: 6060 unicos acumulados
+    Pag 191: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 195/462: 6220 unicos acumulados
+    Pag 200/462: 6380 unicos acumulados
+    Pag 205: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 205/462: 6540 unicos acumulados
+    Pag 210/462: 6700 unicos acumulados
+    Pag 215/462: 6860 unicos acumulados
+    Pag 220: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 220/462: 7020 unicos acumulados
+    Pag 225/462: 7180 unicos acumulados
+    Pag 230/462: 7340 unicos acumulados
+    Pag 234: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 235/462: 7500 unicos acumulados
+    Pag 240/462: 7660 unicos acumulados
+    Pag 245/462: 7820 unicos acumulados
+    Pag 248: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 250/462: 7980 unicos acumulados
+    Pag 255/462: 8140 unicos acumulados
+    Pag 260/462: 8300 unicos acumulados
+    Pag 262: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 265/462: 8460 unicos acumulados
+    Pag 270/462: 8620 unicos acumulados
+    Pag 275/462: 8780 unicos acumulados
+    Pag 276: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 280/462: 8940 unicos acumulados
+    Pag 285/462: 9100 unicos acumulados
+    Pag 290: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 290/462: 9260 unicos acumulados
+    Pag 295/462: 9420 unicos acumulados
+    Pag 300/462: 9580 unicos acumulados
+    Pag 305: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 305/462: 9740 unicos acumulados
+    Pag 310/462: 9900 unicos acumulados
+    Pag 315/462: 10060 unicos acumulados
+    Pag 319: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 320/462: 10220 unicos acumulados
+    Pag 325/462: 10380 unicos acumulados
+    Pag 330/462: 10540 unicos acumulados
+    Pag 334: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 335/462: 10700 unicos acumulados
+    Pag 340/462: 10860 unicos acumulados
+    Pag 345/462: 11020 unicos acumulados
+    Pag 348: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 350/462: 11180 unicos acumulados
+    Pag 355/462: 11340 unicos acumulados
+    Pag 360/462: 11500 unicos acumulados
+    Pag 362: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 365/462: 11660 unicos acumulados
+    Pag 370/462: 11820 unicos acumulados
+    Pag 375/462: 11980 unicos acumulados
+    Pag 377: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 380/462: 12140 unicos acumulados
+    Pag 385/462: 12300 unicos acumulados
+    Pag 390/462: 12460 unicos acumulados
+    Pag 391: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 395/462: 12620 unicos acumulados
+    Pag 400/462: 12780 unicos acumulados
+    Pag 405: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 405/462: 12940 unicos acumulados
+    Pag 410/462: 13100 unicos acumulados
+    Pag 415/462: 13260 unicos acumulados
+    Pag 419: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 420/462: 13420 unicos acumulados
+    Pag 425/462: 13580 unicos acumulados
+    Pag 430/462: 13740 unicos acumulados
+    Pag 433: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 435/462: 13900 unicos acumulados
+    Pag 440/462: 14060 unicos acumulados
+    Pag 445/462: 14220 unicos acumulados
+    Pag 447: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 450/462: 14380 unicos acumulados
+    Pag 455/462: 14540 unicos acumulados
+    Pag 460/462: 14700 unicos acumulados
+  desayuno: 14732 productos totales
+
+[6/11] Sector: Frescos
+  frescos: ~1824 productos estimados (57 páginas)
+    Pag 5/57: 160 unicos acumulados
+    Pag 10/57: 320 unicos acumulados
+    Pag 15/57: 480 unicos acumulados
+    Pag 20/57: 640 unicos acumulados
+    Pag 25/57: 800 unicos acumulados
+    Pag 30/57: 960 unicos acumulados
+    Pag 35/57: 1120 unicos acumulados
+    Pag 40/57: 1280 unicos acumulados
+    Pag 45/57: 1440 unicos acumulados
+    Pag 50/57: 1600 unicos acumulados
+    Pag 55/57: 1760 unicos acumulados
+    Pag 57/57: 1816 unicos acumulados
+  frescos: 1816 productos totales
+
+[7/11] Sector: Kiosco
+  kiosco: ~1152 productos estimados (36 páginas)
+    Pag 5/36: 160 unicos acumulados
+    Pag 10/36: 320 unicos acumulados
+    Pag 15/36: 480 unicos acumulados
+    Pag 20/36: 640 unicos acumulados
+    Pag 25/36: 800 unicos acumulados
+    Pag 30/36: 960 unicos acumulados
+    Pag 35/36: 1120 unicos acumulados
+    Pag 36/36: 1146 unicos acumulados
+  kiosco: 1146 productos totales
+
+[8/11] Sector: Limpieza
+  limpieza: ~1824 productos estimados (57 páginas)
+    Pag 5/57: 160 unicos acumulados
+    Pag 10/57: 320 unicos acumulados
+    Pag 15/57: 480 unicos acumulados
+    Pag 20/57: 640 unicos acumulados
+    Pag 25/57: 800 unicos acumulados
+    Pag 30/57: 960 unicos acumulados
+    Pag 35/57: 1120 unicos acumulados
+    Pag 40/57: 1280 unicos acumulados
+    Pag 45/57: 1440 unicos acumulados
+    Pag 50/57: 1600 unicos acumulados
+    Pag 55/57: 1760 unicos acumulados
+    Pag 57/57: 1812 unicos acumulados
+  limpieza: 1812 productos totales
+
+[9/11] Sector: Mascotas
+  mascotas: ~160 productos estimados (5 páginas)
+    Pag 5/5: 130 unicos acumulados
+  mascotas: 130 productos totales
+
+[10/11] Sector: Papeles
+  papeles: ~128 productos estimados (4 páginas)
+    Pag 4/4: 104 unicos acumulados
+  papeles: 104 productos totales
+
+[11/11] Sector: Perfumería
+  perfumería: ~2304 productos estimados (72 páginas)
+    Pag 5/72: 160 unicos acumulados
+    Pag 10/72: 320 unicos acumulados
+    Pag 15/72: 480 unicos acumulados
+    Pag 20/72: 640 unicos acumulados
+    Pag 25/72: 800 unicos acumulados
+    Pag 30/72: 960 unicos acumulados
+    Pag 35/72: 1120 unicos acumulados
+    Pag 40/72: 1280 unicos acumulados
+    Pag 45/72: 1440 unicos acumulados
+    Pag 50/72: 1600 unicos acumulados
+    Pag 55/72: 1760 unicos acumulados
+    Pag 60/72: 1920 unicos acumulados
+    Pag 65/72: 2080 unicos acumulados
+    Pag 70/72: 2240 unicos acumulados
+    Pag 72/72: 2288 unicos acumulados
+  perfumería: 2288 productos totales
+
+💾 Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\yaguar\output_yaguar_20260708_142859.json
+
+==================================================
+✅ Scraping completo
+📦 Total productos: 81134
+💾 Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\yaguar\output_yaguar_20260708_142859.json
+
+Resumen por categoría:
+  Almacén: 14778
+  Bazar: 14768
+  Bebidas Sin Alcohol: 14782
+  Bodega: 14778
+  Desayuno: 14732
+  Frescos: 1816
+  Kiosco: 1146
+  Limpieza: 1812
+  Mascotas: 130
+  Papeles: 104
+  Perfumería: 2288
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-08 14:29:04
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +86 SKUs Yaguar, +60 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 6558 prods únicos (6555 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260708_080751.json -> 4578 productos (4577 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4204 productos
+    4195 precios válidos (>$200), 9 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 15186 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11561 productos con EAN y precio
+  Dia: 3 archivo(s) -> 4767 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +486 EANs Yaguar via Maestro, +133 EANs Maxiconsumo via Maestro (53 descartados por conflicto de marca)
+  MaxiCarrefour: 4578 productos procesados
+    -> Matches Yaguar via CODIGOS:      904
+    -> Matches Maxiconsumo via CODIGOS: 388
+  Yaguar (restantes): 5652 nuevos, 2 match EAN, 3149 con EAN via Maestro
+  Maxiconsumo (restantes): 3481 nuevos, 320 match EAN, 15 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 14 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 19 precios absurdos eliminados
+  Validación cruzada: 4 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 2 marcados para revisión
+  Paso 6b: 3 duplicados por nombre normalizado fusionados
+  Paso 6c: 607 fusiones fuzzy complementarias
+  Paso 6d: 71 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  PRECIOS SOSPECHOSOS MC descartados: 1
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8191 productos sin clasificacion Maestro
+  Coto: 4073 productos del catalogo con precio gondola (de 15186 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4783 productos del catalogo con precio gondola (de 11561 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Dia: 1833 productos del catalogo con precio gondola (de 4767 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 1 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13024
+  Con precio Yaguar:            6465
+  Con precio MaxiCarrefour:     4524
+  Con precio Maxiconsumo:       4144
+  Con precio Coto (gondola):    4073
+  Con precio Carrefour (gond.): 4783
+  Con precio Dia (gondola):     1833
+  Con 2+ precios (comparativa): 1815
+  Con 3 precios:                294
+  ABC=A con 2+ precios:         245
+  Sin imagen:                   2383
+  Links Carrefour: 2244 EAN directo, 2280 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+=== SCRAPER YAGUAR ===
+Iniciando: 2026-07-08 11:27:18
+
+=== UNIFICANDO DATOS ===
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[14:31:08] OK scrape_yaguar.py (11029s)
+[14:31:08] Corriendo scrape_maxiconsumo.py...
+INICIO: Scraper Maxiconsumo PRO
+Fecha: 2026-07-08 14:31:09
+Categorias: 8
+==================================================
+
+[1/8] Sector: Almacen
+  Pag 5: 60 unicos acumulados
+  [ERROR] Pag 6: Failed to perform, curl: (28) Operation timed out after 25006 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+  [WARN] Almacen: 60 productos (esperado >=800) -- posible bloqueo
+  Almacen: 60 productos totales
+
+[2/8] Sector: Bebidas
+  Pag 5: 60 unicos acumulados
+  [ERROR] Pag 9: Failed to perform, curl: (28) Operation timed out after 25015 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+  [WARN] Bebidas: 96 productos (esperado >=400) -- posible bloqueo
+  Bebidas: 96 productos totales
+
+[3/8] Sector: Frescos
+  Pag 5: 60 unicos acumulados
+  Pag 10: 120 unicos acumulados
+  Frescos: 132 productos totales
+
+[4/8] Sector: Limpieza
+  Pag 5: 60 unicos acumulados
+  [ERROR] Pag 7: Failed to perform, curl: (28) Operation timed out after 25003 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+  [WARN] Limpieza: 72 productos (esperado >=400) -- posible bloqueo
+  Limpieza: 72 productos totales
+
+[5/8] Sector: Perfumeria
+  [ERROR] Pag 2: Failed to perform, curl: (28) Operation timed out after 25003 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+  [WARN] Perfumeria: 12 productos (esperado >=500) -- posible bloqueo
+  Perfumeria: 12 productos totales
+
+[6/8] Sector: Hogar y Bazar
+  Pag 5: 60 unicos acumulados
+  Hogar y Bazar: 102 productos totales
+
+[7/8] Sector: Congelados
+  Congelados: 20 productos totales
+
+[8/8] Sector: Mascotas
+  Pag 5: 60 unicos acumulados
+  Pag 10: 118 unicos acumulados
+  Mascotas: 118 productos totales
+ERROR: Productos insuficientes: 612 < 3500
+=== SCRAPER MAXICONSUMO ===
+Iniciando: 2026-07-08 14:31:08
+ERROR EN SCRAPER MAXICONSUMO
+[14:49:44] FALLO scrape_maxiconsumo.py (1116s)
+[14:49:44] Corriendo scrape_coto.py...
+INICIO: Scraper Coto Digital PRO (Constructor.io API)
+Fecha: 2026-07-08 14:49:45
+Categorias a scrapear: 6
+=======================================================
+
+[1/6] Categoria: Almacen
+  Almacen: 10000 productos reportados
+    Pag 5/50: 642 unicos acumulados
+    Pag 10/50: 1636 unicos acumulados
+    Pag 15/50: 2629 unicos acumulados
+    Pag 20/50: 3592 unicos acumulados
+    Pag 25/50: 4070 unicos acumulados
+    Pag 30/50: 4074 unicos acumulados
+    Pag 35/50: 4082 unicos acumulados
+    Pag 40/50: 4684 unicos acumulados
+    Pag 45/50: 5360 unicos acumulados
+    Pag 50/50: 5363 unicos acumulados
+  Almacen: 5363 productos nuevos
+
+[2/6] Categoria: Frescos
+  Frescos: 4643 productos reportados
+    Pag 5/24: 5995 unicos acumulados
+    Pag 10/24: 6857 unicos acumulados
+    Pag 15/24: 7037 unicos acumulados
+    Pag 20/24: 7275 unicos acumulados
+    Pag 24/24: 7646 unicos acumulados
+  Frescos: 2283 productos nuevos
+
+[3/6] Categoria: Bebidas
+  Bebidas: 4918 productos reportados
+    Pag 5/25: 8200 unicos acumulados
+    Pag 10/25: 8984 unicos acumulados
+    Pag 15/25: 9485 unicos acumulados
+    Pag 20/25: 9753 unicos acumulados
+    Pag 25/25: 10171 unicos acumulados
+  Bebidas: 2525 productos nuevos
+
+[4/6] Categoria: Limpieza
+  Limpieza: 3372 productos reportados
+    Pag 5/17: 11053 unicos acumulados
+    Pag 10/17: 11357 unicos acumulados
+    Pag 15/17: 11582 unicos acumulados
+    Pag 17/17: 11623 unicos acumulados
+  Limpieza: 1452 productos nuevos
+
+[5/6] Categoria: Perfumeria
+  Perfumeria: 7228 productos reportados
+    Pag 5/37: 12248 unicos acumulados
+    Pag 10/37: 13005 unicos acumulados
+    Pag 15/37: 13188 unicos acumulados
+    Pag 20/37: 13342 unicos acumulados
+    Pag 25/37: 13670 unicos acumulados
+    Pag 30/37: 13890 unicos acumulados
+    Pag 35/37: 14045 unicos acumulados
+    Pag 37/37: 14238 unicos acumulados
+  Perfumeria: 2615 productos nuevos
+
+[6/6] Categoria: Congelados
+  Congelados: 1152 productos reportados
+    Pag 5/6: 14910 unicos acumulados
+    Pag 6/6: 14933 unicos acumulados
+  Congelados: 695 productos nuevos
+
+=======================================================
+Scraping completo — 14933 productos unicos (solo con stock)
+Con oferta vigente: 2581 (17%)
+Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\coto\output_coto_20260708_145156.json
+
+Resumen por categoria (nuevos aportados):
+  Almacen: 5363
+  Frescos: 2283
+  Bebidas: 2525
+  Limpieza: 1452
+  Perfumeria: 2615
+  Congelados: 695
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-08 14:51:59
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +86 SKUs Yaguar, +60 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 6558 prods únicos (6555 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260708_080751.json -> 4578 productos (4577 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4204 productos
+    4195 precios válidos (>$200), 9 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 14963 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11561 productos con EAN y precio
+  Dia: 3 archivo(s) -> 4767 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +486 EANs Yaguar via Maestro, +133 EANs Maxiconsumo via Maestro (53 descartados por conflicto de marca)
+  MaxiCarrefour: 4578 productos procesados
+    -> Matches Yaguar via CODIGOS:      904
+    -> Matches Maxiconsumo via CODIGOS: 388
+  Yaguar (restantes): 5652 nuevos, 2 match EAN, 3149 con EAN via Maestro
+  Maxiconsumo (restantes): 3481 nuevos, 320 match EAN, 15 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 14 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 19 precios absurdos eliminados
+  Validación cruzada: 4 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 2 marcados para revisión
+  Paso 6b: 3 duplicados por nombre normalizado fusionados
+  Paso 6c: 607 fusiones fuzzy complementarias
+  Paso 6d: 71 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  PRECIOS SOSPECHOSOS MC descartados: 1
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8191 productos sin clasificacion Maestro
+  Coto: 4033 productos del catalogo con precio gondola (de 14963 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4783 productos del catalogo con precio gondola (de 11561 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Dia: 1833 productos del catalogo con precio gondola (de 4767 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 1 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13024
+  Con precio Yaguar:            6465
+  Con precio MaxiCarrefour:     4524
+  Con precio Maxiconsumo:       4144
+  Con precio Coto (gondola):    4033
+  Con precio Carrefour (gond.): 4783
+  Con precio Dia (gondola):     1833
+  Con 2+ precios (comparativa): 1815
+  Con 3 precios:                294
+  ABC=A con 2+ precios:         245
+  Sin imagen:                   2383
+  Links Carrefour: 2244 EAN directo, 2280 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+=== SCRAPER COTO ===
+Iniciando: 2026-07-08 14:49:44
+
+=== UNIFICANDO DATOS ===
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[14:53:52] OK scrape_coto.py (247s)
+[14:53:52] Corriendo scrape_carrefour.py...
+INICIO: Scraper Carrefour retail PRO (VTEX Intelligent Search)
+Fecha: 2026-07-08 14:53:53
+Categorias a scrapear: 9
+=======================================================
+
+[1/9] Categoria: Almacen
+  Almacen: 1858 disponibles reportados
+    Pag 5/19: 498 unicos acumulados
+    Pag 10/19: 998 unicos acumulados
+    Pag 15/19: 1494 unicos acumulados
+    Pag 19/19: 1851 unicos acumulados
+  Almacen: 1851 productos nuevos
+
+[2/9] Categoria: Desayuno
+  Desayuno: 1946 disponibles reportados
+    Pag 5/20: 2350 unicos acumulados
+    Pag 10/20: 2850 unicos acumulados
+    Pag 15/20: 3349 unicos acumulados
+    Pag 20/20: 3793 unicos acumulados
+  Desayuno: 1942 productos nuevos
+
+[3/9] Categoria: Bebidas
+  Bebidas: 1665 disponibles reportados
+    Pag 5/17: 4293 unicos acumulados
+    Pag 10/17: 4790 unicos acumulados
+    Pag 15/17: 5277 unicos acumulados
+    Pag 17/17: 5441 unicos acumulados
+  Bebidas: 1648 productos nuevos
+
+[4/9] Categoria: Frescos
+  Frescos: 972 disponibles reportados
+    Pag 5/10: 5939 unicos acumulados
+    Pag 10/10: 6406 unicos acumulados
+  Frescos: 965 productos nuevos
+
+[5/9] Categoria: Congelados
+  Congelados: 346 disponibles reportados
+    Pag 4/4: 6752 unicos acumulados
+  Congelados: 346 productos nuevos
+
+[6/9] Categoria: Limpieza
+  Limpieza: 1340 disponibles reportados
+    Pag 5/14: 7252 unicos acumulados
+    Pag 10/14: 7752 unicos acumulados
+    Pag 14/14: 8092 unicos acumulados
+  Limpieza: 1340 productos nuevos
+
+[7/9] Categoria: Perfumeria
+  Perfumeria: 2205 disponibles reportados
+    Pag 5/23: 8592 unicos acumulados
+    Pag 10/23: 9092 unicos acumulados
+    Pag 15/23: 9592 unicos acumulados
+    Pag 20/23: 10060 unicos acumulados
+    Pag 23/23: 10188 unicos acumulados
+  Perfumeria: 2096 productos nuevos
+
+[8/9] Categoria: Mascotas
+  Mascotas: 473 disponibles reportados
+    Pag 5/5: 10652 unicos acumulados
+  Mascotas: 464 productos nuevos
+
+[9/9] Categoria: Bebe
+  Bebe: 544 disponibles reportados
+    Pag 5/6: 11106 unicos acumulados
+    Pag 6/6: 11143 unicos acumulados
+  Bebe: 491 productos nuevos
+
+=======================================================
+Scraping completo — 11143 productos unicos (solo disponibles)
+Con alguna oferta real: 4429 (39%)
+  de las cuales promo por cantidad (2do al X% / NxM): 1956
+Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\carrefour\output_carrefour_20260708_145720.json
+
+Resumen por categoria (nuevos aportados):
+  Almacen: 1851
+  Desayuno: 1942
+  Bebidas: 1648
+  Frescos: 965
+  Congelados: 346
+  Limpieza: 1340
+  Perfumeria: 2096
+  Mascotas: 464
+  Bebe: 491
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-08 14:57:22
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +86 SKUs Yaguar, +60 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 6558 prods únicos (6555 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260708_080751.json -> 4578 productos (4577 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4204 productos
+    4195 precios válidos (>$200), 9 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 14963 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11340 productos con EAN y precio
+  Dia: 3 archivo(s) -> 4767 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +486 EANs Yaguar via Maestro, +133 EANs Maxiconsumo via Maestro (53 descartados por conflicto de marca)
+  MaxiCarrefour: 4578 productos procesados
+    -> Matches Yaguar via CODIGOS:      904
+    -> Matches Maxiconsumo via CODIGOS: 388
+  Yaguar (restantes): 5652 nuevos, 2 match EAN, 3149 con EAN via Maestro
+  Maxiconsumo (restantes): 3481 nuevos, 320 match EAN, 15 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 14 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 19 precios absurdos eliminados
+  Validación cruzada: 4 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 2 marcados para revisión
+  Paso 6b: 3 duplicados por nombre normalizado fusionados
+  Paso 6c: 607 fusiones fuzzy complementarias
+  Paso 6d: 71 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  PRECIOS SOSPECHOSOS MC descartados: 1
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8191 productos sin clasificacion Maestro
+  Coto: 4033 productos del catalogo con precio gondola (de 14963 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4720 productos del catalogo con precio gondola (de 11340 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Dia: 1833 productos del catalogo con precio gondola (de 4767 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 1 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13024
+  Con precio Yaguar:            6465
+  Con precio MaxiCarrefour:     4524
+  Con precio Maxiconsumo:       4144
+  Con precio Coto (gondola):    4033
+  Con precio Carrefour (gond.): 4720
+  Con precio Dia (gondola):     1833
+  Con 2+ precios (comparativa): 1815
+  Con 3 precios:                294
+  ABC=A con 2+ precios:         245
+  Sin imagen:                   2383
+  Links Carrefour: 2244 EAN directo, 2280 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+=== SCRAPER CARREFOUR (retail) ===
+Iniciando: 2026-07-08 14:53:52
+
+=== UNIFICANDO DATOS ===
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[14:59:14] OK scrape_carrefour.py (322s)
+[14:59:14] Corriendo scrape_dia.py...
+INICIO: Scraper DIA Online PRO (VTEX legacy Catalog System)
+Fecha: 2026-07-08 14:59:15
+Categorias a scrapear: 9
+=======================================================
+
+[1/9] Categoria: Almacen
+  Almacen: 1075 disponibles reportados
+    Pag 5/22: 250 unicos acumulados
+    Pag 10/22: 500 unicos acumulados
+    Pag 15/22: 750 unicos acumulados
+    Pag 20/22: 1000 unicos acumulados
+    Pag 22/22: 1057 unicos acumulados
+  Almacen: 1057 productos nuevos
+
+[2/9] Categoria: Desayuno
+  Desayuno: 597 disponibles reportados
+    Pag 5/12: 1307 unicos acumulados
+    Pag 10/12: 1555 unicos acumulados
+    Pag 12/12: 1649 unicos acumulados
+  Desayuno: 592 productos nuevos
+
+[3/9] Categoria: Bebidas
+  Bebidas: 820 disponibles reportados
+    Pag 5/17: 1899 unicos acumulados
+    Pag 10/17: 2149 unicos acumulados
+    Pag 15/17: 2399 unicos acumulados
+    Pag 17/17: 2466 unicos acumulados
+  Bebidas: 817 productos nuevos
+
+[4/9] Categoria: Frescos
+  Frescos: 805 disponibles reportados
+    Pag 5/17: 2716 unicos acumulados
+    Pag 10/17: 2966 unicos acumulados
+    Pag 15/17: 3209 unicos acumulados
+    Pag 17/17: 3209 unicos acumulados
+  Frescos: 743 productos nuevos
+
+[5/9] Categoria: Congelados
+  Congelados: 167 disponibles reportados
+    Pag 4/4: 3376 unicos acumulados
+  Congelados: 167 productos nuevos
+
+[6/9] Categoria: Limpieza
+  Limpieza: 475 disponibles reportados
+    Pag 5/10: 3626 unicos acumulados
+    Pag 10/10: 3845 unicos acumulados
+  Limpieza: 469 productos nuevos
+
+[7/9] Categoria: Perfumeria
+  Perfumeria: 734 disponibles reportados
+    Pag 5/15: 4095 unicos acumulados
+    Pag 10/15: 4345 unicos acumulados
+    Pag 15/15: 4576 unicos acumulados
+  Perfumeria: 731 productos nuevos
+
+[8/9] Categoria: Mascotas
+  Mascotas: 55 disponibles reportados
+    Pag 2/2: 4630 unicos acumulados
+  Mascotas: 54 productos nuevos
+
+[9/9] Categoria: Bebe
+  Bebe: 123 disponibles reportados
+    Pag 3/3: 4746 unicos acumulados
+  Bebe: 116 productos nuevos
+
+=======================================================
+Scraping completo - 4746 productos unicos (solo disponibles)
+Con alguna oferta real: 1612 (33%)
+  de las cuales promo por cantidad (2do al X% / NxM): 264
+Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\dia\output_dia_20260708_150136.json
+
+Resumen por categoria (nuevos aportados):
+  Almacen: 1057
+  Desayuno: 592
+  Bebidas: 817
+  Frescos: 743
+  Congelados: 167
+  Limpieza: 469
+  Perfumeria: 731
+  Mascotas: 54
+  Bebe: 116
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-08 15:01:38
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +86 SKUs Yaguar, +60 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 6558 prods únicos (6555 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260708_080751.json -> 4578 productos (4577 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4204 productos
+    4195 precios válidos (>$200), 9 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 14963 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11340 productos con EAN y precio
+  Dia: 3 archivo(s) -> 4763 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +486 EANs Yaguar via Maestro, +133 EANs Maxiconsumo via Maestro (53 descartados por conflicto de marca)
+  MaxiCarrefour: 4578 productos procesados
+    -> Matches Yaguar via CODIGOS:      904
+    -> Matches Maxiconsumo via CODIGOS: 388
+  Yaguar (restantes): 5652 nuevos, 2 match EAN, 3149 con EAN via Maestro
+  Maxiconsumo (restantes): 3481 nuevos, 320 match EAN, 15 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 14 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 19 precios absurdos eliminados
+  Validación cruzada: 4 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 2 marcados para revisión
+  Paso 6b: 3 duplicados por nombre normalizado fusionados
+  Paso 6c: 607 fusiones fuzzy complementarias
+  Paso 6d: 71 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  PRECIOS SOSPECHOSOS MC descartados: 1
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8191 productos sin clasificacion Maestro
+  Coto: 4033 productos del catalogo con precio gondola (de 14963 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4720 productos del catalogo con precio gondola (de 11340 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Dia: 1833 productos del catalogo con precio gondola (de 4763 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 1 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13024
+  Con precio Yaguar:            6465
+  Con precio MaxiCarrefour:     4524
+  Con precio Maxiconsumo:       4144
+  Con precio Coto (gondola):    4033
+  Con precio Carrefour (gond.): 4720
+  Con precio Dia (gondola):     1833
+  Con 2+ precios (comparativa): 1815
+  Con 3 precios:                294
+  ABC=A con 2+ precios:         245
+  Sin imagen:                   2383
+  Links Carrefour: 2239 EAN directo, 2285 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+=== SCRAPER DIA ONLINE (retail) ===
+Iniciando: 2026-07-08 14:59:14
+
+=== UNIFICANDO DATOS ===
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[17:14:38] OK scrape_dia.py (8123s)
+[17:14:38] Scrapers OK: 4/6
+[17:14:38] ALERTA: Scraper maxicarrefour FALLO hoy
+[17:14:39] ALERTA: Scraper maxiconsumo FALLO hoy
+[17:14:40] Regenerando catalogo unificado...
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-08 17:14:41
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +86 SKUs Yaguar, +60 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 6558 prods únicos (6555 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260708_080751.json -> 4578 productos (4577 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4204 productos
+    4195 precios válidos (>$200), 9 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 14963 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11340 productos con EAN y precio
+  Dia: 3 archivo(s) -> 4763 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +486 EANs Yaguar via Maestro, +133 EANs Maxiconsumo via Maestro (53 descartados por conflicto de marca)
+  MaxiCarrefour: 4578 productos procesados
+    -> Matches Yaguar via CODIGOS:      904
+    -> Matches Maxiconsumo via CODIGOS: 388
+  Yaguar (restantes): 5652 nuevos, 2 match EAN, 3149 con EAN via Maestro
+  Maxiconsumo (restantes): 3481 nuevos, 320 match EAN, 15 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 14 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 19 precios absurdos eliminados
+  Validación cruzada: 4 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 2 marcados para revisión
+  Paso 6b: 3 duplicados por nombre normalizado fusionados
+  Paso 6c: 607 fusiones fuzzy complementarias
+  Paso 6d: 71 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  PRECIOS SOSPECHOSOS MC descartados: 1
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8191 productos sin clasificacion Maestro
+  Coto: 4033 productos del catalogo con precio gondola (de 14963 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4720 productos del catalogo con precio gondola (de 11340 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Dia: 1833 productos del catalogo con precio gondola (de 4763 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 1 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13024
+  Con precio Yaguar:            6465
+  Con precio MaxiCarrefour:     4524
+  Con precio Maxiconsumo:       4144
+  Con precio Coto (gondola):    4033
+  Con precio Carrefour (gond.): 4720
+  Con precio Dia (gondola):     1833
+  Con 2+ precios (comparativa): 1815
+  Con 3 precios:                294
+  ABC=A con 2+ precios:         245
+  Sin imagen:                   2383
+  Links Carrefour: 2239 EAN directo, 2285 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+[17:16:00] Enriqueciendo imagenes (URLs Yaguar por SKU)...
+============================================================
+ENRIQUECIMIENTO DE IMAGENES - Brujula de Precios
+============================================================
+Catalogo: 13024 productos
+Yaguar SKU construido: 6465 productos
+Open Food Facts: 0 productos
+Sin imagen antes: 2404
+Sin imagen despues: 21
+Recuperados: 2383
+
+Guardado: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+============================================================
+[17:16:01] Catalogo nuevo: 13024 prods (Y=6465 MC=4524 MCO=4144 C=4033 CF=4720 D=1833)
+[17:16:02] Verificando precios en vivo (top 20 ABC=A) contra la web de cada mayorista...
+VERIFICADOR DE PRECIOS REALES — top 20 productos ABC=A
+=======================================================
+
+[1/20] Fernet BRANCA X450 ml
+  Yaguar:       OK $10,382 (cat: $10,382)
+  Maxiconsumo:  OK $10,900 (cat: $10,900)
+  MaxiCarrefour:sesion_expirada
+
+[2/20] Vino ALMA MORA Malbec X750 ml
+  Yaguar:       OK $6,319 (cat: $6,319)
+  Maxiconsumo:  OK $4,900 (cat: $4,900)
+  MaxiCarrefour:sesion_expirada
+
+[3/20] Fernet BRANCA X750 ml
+  Yaguar:       OK $15,550 (cat: $15,550)
+  Maxiconsumo:  OK $16,500 (cat: $16,500)
+  MaxiCarrefour:sesion_expirada
+
+[4/20] Whisky CRIADORES Petaca X195 ml
+  Yaguar:       OK $2,321 (cat: $2,321)
+  Maxiconsumo:  OK $2,200 (cat: $2,200)
+  MaxiCarrefour:sesion_expirada
+
+[5/20] Fernet BUHERO NEGRO X700 ml
+  Yaguar:       OK $9,941 (cat: $9,941)
+  Maxiconsumo:  OK $6,500 (cat: $6,500)
+  MaxiCarrefour:sesion_expirada
+
+[6/20] Vino BENJAMIN Malbec X750 ml
+  Yaguar:       OK $6,050 (cat: $6,050)
+  Maxiconsumo:  OK $3,300 (cat: $3,300)
+  MaxiCarrefour:sesion_expirada
+
+[7/20] Energizante SPEED X250 ml
+  Yaguar:       OK $1,878 (cat: $1,878)
+  Maxiconsumo:  OK $1,450 (cat: $1,450)
+  MaxiCarrefour:sesion_expirada
+
+[8/20] Aceite Girasol COCINERO X900 ml
+  Yaguar:       OK $3,959 (cat: $3,959)
+  Maxiconsumo:  OK $3,300 (cat: $3,300)
+  MaxiCarrefour:sesion_expirada
+
+[9/20] Aceite Girasol COCINERO X1.5 L
+  Yaguar:       OK $5,499 (cat: $5,499)
+  Maxiconsumo:  OK $5,300 (cat: $5,300)
+  MaxiCarrefour:sesion_expirada
+
+[10/20] Sal Fina DOS ANCLAS Estuche X500 g
+  Yaguar:       OK $1,562 (cat: $1,562)
+  Maxiconsumo:  DIVERGE $830 vs $1,150 (27.8%)
+  MaxiCarrefour:sesion_expirada
+
+[11/20] Sal Fina CELUSAL Paquete X500g
+  Yaguar:       OK $1,375 (cat: $1,375)
+  Maxiconsumo:  OK $890 (cat: $890)
+  MaxiCarrefour:sesion_expirada
+
+[12/20] Pate SWIFT Lata X90 g
+  Yaguar:       OK $1,087 (cat: $1,087)
+  Maxiconsumo:  OK $1,120 (cat: $1,120)
+  MaxiCarrefour:sesion_expirada
+
+[13/20] Picadillo SWIFT Lata X90 g
+  Yaguar:       OK $1,264 (cat: $1,264)
+  Maxiconsumo:  OK $1,120 (cat: $1,120)
+  MaxiCarrefour:sesion_expirada
+
+[14/20] Aceite Girasol CAÑUELAS X900 ml
+  Yaguar:       error_http
+  Maxiconsumo:  OK $3,300 (cat: $3,000)
+  MaxiCarrefour:sesion_expirada
+
+[15/20] Harina PUREZA con Levadura P/pizza X1 kg
+  Yaguar:       OK $1,759 (cat: $1,759)
+  Maxiconsumo:  OK $1,450 (cat: $1,450)
+  MaxiCarrefour:sesion_expirada
+
+[16/20] Sal Fina DOS ESTRELLAS X500 g
+  Yaguar:       OK $762 (cat: $762)
+  Maxiconsumo:  OK $500 (cat: $500)
+  MaxiCarrefour:sesion_expirada
+
+[17/20] Ketchup NATURA Doy Pack X250g
+  Yaguar:       OK $1,319 (cat: $1,319)
+  Maxiconsumo:  OK $1,400 (cat: $1,400)
+  MaxiCarrefour:sesion_expirada
+
+[18/20] Harina PUREZA Integral X1 kg
+  Yaguar:       error_http
+  Maxiconsumo:  OK $1,450 (cat: $1,450)
+  MaxiCarrefour:producto_no_encontrado
+
+[19/20] Harina PUREZA Leudante Vitamina D X1 kg
+  Yaguar:       error_http
+  Maxiconsumo:  OK $1,350 (cat: $1,350)
+  MaxiCarrefour:sesion_expirada
+
+[20/20] Aceite Girasol LEGITIMO X1.5 L
+  Yaguar:       OK $4,949 (cat: $4,949)
+  Maxiconsumo:  OK $5,200 (cat: $5,200)
+  MaxiCarrefour:sesion_expirada
+
+=======================================================
+RESUMEN: 36/37 precios correctos (97.3%)
+NO VERIFICADOS (no cuentan para la tasa):
+  maxicarrefour:sesion_expirada: 19
+  yaguar:error_http: 3
+  maxicarrefour:producto_no_encontrado: 1
+OK: Precios dentro del rango esperado.
+Reporte guardado: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\verificacion_precios_20260708_172026.json
+[main f9f9d57] data: actualizacion automatica 08/07/2026 [local]
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+To https://github.com/Facuusosa/BRUJULA-DE-PRECIOS.git
+   8b64f90..f9f9d57  main -> main
+[17:20:31] Push OK -> Vercel redeploy disparado
+[17:20:33] === PIPELINE COMPLETADO ===
+==================================================== 
+Corrida: jue 09/07/2026 10:00:02,25 
+[10:00:02] === PIPELINE LOCAL BRUJULA ===
+[10:00:02] Catalogo actual: 13024 prods (Y=6465 MC=4524 MCO=4144 C=4033 CF=4720 D=1833)
+[10:00:02] Corriendo scrape_maxicarrefour.py...
+=======================================================
+RENOVACION DE COOKIES MAXICARREFOUR
+=======================================================
+Modo --force: renovando sin verificar fecha.
+Modo: Chrome real con perfil persistente...
+  Navegando a comerciante.carrefour.com.ar...
+  Autocompletando formulario...
+  No se pudo autocompletar (Locator.select_option: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("#region")
+    - locator resolved to <select id="region" required="" name="region" onchange="onchangeSelect(this)">…</select>
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - element is not visible
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - element is not visible
+    - retrying select option action
+      - waiting 100ms
+    16 × waiting for element to be visible and enabled
+       - element is not visible
+     - retrying select option action
+       - waiting 500ms
+). Completalo manualmente.
+  Screenshot de debug: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\carrefour_login_debug.png
+  Intentando click automatico (Chrome real)...
+  Click enviado. Esperando respuesta del servidor...
+  Click automatico sin respuesta definitiva.
+
+  ================================================
+  Click automatico no funciono.
+  Hace click en 'Ingresar' manualmente en Chrome.
+  Tenes 90 segundos.
+  ------------------------------------------------
+  Para 100% automatico: CAPSOLVER_API_KEY en .env
+  ================================================
+
+  Timeout — no se logro autenticacion.
+  Screenshot: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\carrefour_login_debug.png
+
+No se pudo renovar automaticamente.
+Pasos manuales:
+  1. Loguearse en comerciante.carrefour.com.ar
+  2. F12 -> Application -> Cookies
+  3. Copiar PHPSESSID y cf_clearance al .env
+
+Para automatizacion total (sin interaccion humana):
+  1. Crear cuenta en capsolver.com
+  2. Agregar CAPSOLVER_API_KEY=tu_key al .env
+=== SCRAPER MAXICARREFOUR ===
+Iniciando: 2026-07-09 10:00:02
+
+Verificando cookies MaxiCarrefour...
+Cookies invalidas o expiradas — renovando automaticamente...
+ERROR: No se pudieron renovar las cookies.
+Renovar manualmente: ver .claude/docs/operaciones.md
+Abortando — no tiene sentido scraper sin cookies validas.
+[10:02:32] FALLO scrape_maxicarrefour.py (149s)
+[10:02:32] Corriendo scrape_yaguar.py...
+🚀 Scraper Yaguar PRO — Catálogo Completo
+📅 2026-07-09 10:02:33
+==================================================
+🔐 Iniciando sesión...
+✅ Login exitoso
+Sectores a scrapear: 11
+=======================================================
+
+[1/11] Sector: Almacén
+  almacén: ~14784 productos estimados (462 páginas)
+    Pag 5/462: 160 unicos acumulados
+    Pag 10/462: 320 unicos acumulados
+    Pag 15/462: 480 unicos acumulados
+    Pag 20/462: 640 unicos acumulados
+    Pag 25/462: 800 unicos acumulados
+    Pag 30/462: 960 unicos acumulados
+    Pag 35/462: 1120 unicos acumulados
+    Pag 40/462: 1280 unicos acumulados
+    Pag 45/462: 1440 unicos acumulados
+    Pag 50/462: 1600 unicos acumulados
+    Pag 55/462: 1760 unicos acumulados
+    Pag 60/462: 1920 unicos acumulados
+    Pag 65/462: 2080 unicos acumulados
+    Pag 70/462: 2240 unicos acumulados
+    Pag 75: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 75/462: 2394 unicos acumulados
+    Pag 80/462: 2554 unicos acumulados
+    Pag 85/462: 2714 unicos acumulados
+    Pag 90/462: 2874 unicos acumulados
+    Pag 92: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 95/462: 3034 unicos acumulados
+    Pag 100/462: 3194 unicos acumulados
+    Pag 105/462: 3354 unicos acumulados
+    Pag 109: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 110/462: 3514 unicos acumulados
+    Pag 115/462: 3674 unicos acumulados
+    Pag 120/462: 3834 unicos acumulados
+    Pag 125/462: 3994 unicos acumulados
+    Pag 126: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 130/462: 4154 unicos acumulados
+    Pag 135/462: 4314 unicos acumulados
+    Pag 140/462: 4474 unicos acumulados
+    Pag 143: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 145/462: 4634 unicos acumulados
+    Pag 150/462: 4794 unicos acumulados
+    Pag 155/462: 4954 unicos acumulados
+    Pag 160: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 160/462: 5114 unicos acumulados
+    Pag 165/462: 5274 unicos acumulados
+    Pag 170/462: 5434 unicos acumulados
+    Pag 175/462: 5594 unicos acumulados
+    Pag 177: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 180/462: 5754 unicos acumulados
+    Pag 185/462: 5914 unicos acumulados
+    Pag 190/462: 6074 unicos acumulados
+    Pag 194: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 195/462: 6234 unicos acumulados
+    Pag 200/462: 6394 unicos acumulados
+    Pag 205/462: 6554 unicos acumulados
+    Pag 210/462: 6714 unicos acumulados
+    Pag 211: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 215/462: 6874 unicos acumulados
+    Pag 220/462: 7034 unicos acumulados
+    Pag 225/462: 7194 unicos acumulados
+    Pag 228: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 230/462: 7354 unicos acumulados
+    Pag 235/462: 7514 unicos acumulados
+    Pag 240/462: 7674 unicos acumulados
+    Pag 245: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 245/462: 7834 unicos acumulados
+    Pag 250/462: 7994 unicos acumulados
+    Pag 255/462: 8154 unicos acumulados
+    Pag 260/462: 8314 unicos acumulados
+    Pag 262: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 265/462: 8474 unicos acumulados
+    Pag 270/462: 8634 unicos acumulados
+    Pag 275/462: 8794 unicos acumulados
+    Pag 279: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 280/462: 8954 unicos acumulados
+    Pag 285/462: 9114 unicos acumulados
+    Pag 290/462: 9274 unicos acumulados
+    Pag 295/462: 9434 unicos acumulados
+    Pag 296: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 300/462: 9594 unicos acumulados
+    Pag 305/462: 9754 unicos acumulados
+    Pag 310/462: 9914 unicos acumulados
+    Pag 313: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 315/462: 10074 unicos acumulados
+    Pag 320/462: 10234 unicos acumulados
+    Pag 325/462: 10394 unicos acumulados
+    Pag 330: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 330/462: 10554 unicos acumulados
+    Pag 335/462: 10714 unicos acumulados
+    Pag 340/462: 10874 unicos acumulados
+    Pag 345/462: 11034 unicos acumulados
+    Pag 347: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 350/462: 11194 unicos acumulados
+    Pag 355/462: 11354 unicos acumulados
+    Pag 360/462: 11514 unicos acumulados
+    Pag 364: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 365/462: 11674 unicos acumulados
+    Pag 370/462: 11834 unicos acumulados
+    Pag 375/462: 11994 unicos acumulados
+    Pag 380/462: 12154 unicos acumulados
+    Pag 381: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 385/462: 12314 unicos acumulados
+    Pag 390/462: 12474 unicos acumulados
+    Pag 395/462: 12634 unicos acumulados
+    Pag 398: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 400/462: 12794 unicos acumulados
+    Pag 405/462: 12954 unicos acumulados
+    Pag 410/462: 13114 unicos acumulados
+    Pag 415: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 415/462: 13274 unicos acumulados
+    Pag 420/462: 13434 unicos acumulados
+    Pag 425/462: 13594 unicos acumulados
+    Pag 430/462: 13754 unicos acumulados
+    Pag 433: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 435/462: 13914 unicos acumulados
+    Pag 440/462: 14074 unicos acumulados
+    Pag 445/462: 14234 unicos acumulados
+    Pag 450: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 450/462: 14394 unicos acumulados
+    Pag 455/462: 14554 unicos acumulados
+    Pag 460/462: 14714 unicos acumulados
+    Pag 462/462: 14778 unicos acumulados
+  almacén: 14778 productos totales
+
+[2/11] Sector: Bazar
+  bazar: ~14784 productos estimados (462 páginas)
+    Pag 5/462: 160 unicos acumulados
+    Pag 10: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 10/462: 304 unicos acumulados
+    Pag 15/462: 464 unicos acumulados
+    Pag 20/462: 624 unicos acumulados
+    Pag 25/462: 784 unicos acumulados
+    Pag 27: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 30/462: 944 unicos acumulados
+    Pag 35/462: 1104 unicos acumulados
+    Pag 40/462: 1264 unicos acumulados
+    Pag 44: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 45/462: 1424 unicos acumulados
+    Pag 50/462: 1584 unicos acumulados
+    Pag 55/462: 1744 unicos acumulados
+    Pag 60/462: 1904 unicos acumulados
+    Pag 61: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 65/462: 2064 unicos acumulados
+    Pag 70/462: 2224 unicos acumulados
+    Pag 75/462: 2384 unicos acumulados
+    Pag 78: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 80/462: 2544 unicos acumulados
+    Pag 85/462: 2704 unicos acumulados
+    Pag 90/462: 2864 unicos acumulados
+    Pag 95: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 95/462: 3024 unicos acumulados
+    Pag 100/462: 3184 unicos acumulados
+    Pag 105/462: 3344 unicos acumulados
+    Pag 110/462: 3504 unicos acumulados
+    Pag 112: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 115/462: 3664 unicos acumulados
+    Pag 120/462: 3824 unicos acumulados
+    Pag 125/462: 3984 unicos acumulados
+    Pag 129: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 130/462: 4144 unicos acumulados
+    Pag 135/462: 4304 unicos acumulados
+    Pag 140/462: 4464 unicos acumulados
+    Pag 145/462: 4624 unicos acumulados
+    Pag 146: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 150/462: 4784 unicos acumulados
+    Pag 155/462: 4944 unicos acumulados
+    Pag 160/462: 5104 unicos acumulados
+    Pag 163: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 165/462: 5264 unicos acumulados
+    Pag 170/462: 5424 unicos acumulados
+    Pag 175/462: 5584 unicos acumulados
+    Pag 180: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 180/462: 5744 unicos acumulados
+    Pag 185/462: 5904 unicos acumulados
+    Pag 190/462: 6064 unicos acumulados
+    Pag 195/462: 6224 unicos acumulados
+    Pag 197: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 200/462: 6384 unicos acumulados
+    Pag 205/462: 6544 unicos acumulados
+    Pag 210/462: 6704 unicos acumulados
+    Pag 214: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 215/462: 6864 unicos acumulados
+    Pag 220/462: 7024 unicos acumulados
+    Pag 225/462: 7184 unicos acumulados
+    Pag 230/462: 7344 unicos acumulados
+    Pag 231: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 235/462: 7504 unicos acumulados
+    Pag 240/462: 7664 unicos acumulados
+    Pag 245/462: 7824 unicos acumulados
+    Pag 248: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 250/462: 7984 unicos acumulados
+    Pag 255/462: 8144 unicos acumulados
+    Pag 260/462: 8304 unicos acumulados
+    Pag 265: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 265/462: 8464 unicos acumulados
+    Pag 270/462: 8624 unicos acumulados
+    Pag 275/462: 8784 unicos acumulados
+    Pag 280/462: 8944 unicos acumulados
+    Pag 282: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 285/462: 9104 unicos acumulados
+    Pag 290/462: 9264 unicos acumulados
+    Pag 295/462: 9424 unicos acumulados
+    Pag 299: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 300/462: 9584 unicos acumulados
+    Pag 305/462: 9744 unicos acumulados
+    Pag 310/462: 9904 unicos acumulados
+    Pag 315/462: 10064 unicos acumulados
+    Pag 316: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 320/462: 10224 unicos acumulados
+    Pag 325/462: 10384 unicos acumulados
+    Pag 330/462: 10544 unicos acumulados
+    Pag 333: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 335/462: 10704 unicos acumulados
+    Pag 340/462: 10864 unicos acumulados
+    Pag 345/462: 11024 unicos acumulados
+    Pag 350: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 350/462: 11184 unicos acumulados
+    Pag 355/462: 11344 unicos acumulados
+    Pag 360/462: 11504 unicos acumulados
+    Pag 365/462: 11664 unicos acumulados
+    Pag 367: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 370/462: 11824 unicos acumulados
+    Pag 375/462: 11984 unicos acumulados
+    Pag 380/462: 12144 unicos acumulados
+    Pag 384: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 385/462: 12304 unicos acumulados
+    Pag 390/462: 12464 unicos acumulados
+    Pag 395/462: 12624 unicos acumulados
+    Pag 400/462: 12784 unicos acumulados
+    Pag 401: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 405/462: 12944 unicos acumulados
+    Pag 410/462: 13104 unicos acumulados
+    Pag 415/462: 13264 unicos acumulados
+    Pag 418: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 420/462: 13424 unicos acumulados
+    Pag 425/462: 13584 unicos acumulados
+    Pag 430/462: 13744 unicos acumulados
+    Pag 435: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 435/462: 13904 unicos acumulados
+    Pag 440/462: 14064 unicos acumulados
+    Pag 445/462: 14224 unicos acumulados
+    Pag 450/462: 14384 unicos acumulados
+    Pag 452: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 455/462: 14544 unicos acumulados
+    Pag 460/462: 14704 unicos acumulados
+    Pag 462/462: 14768 unicos acumulados
+  bazar: 14768 productos totales
+
+[3/11] Sector: Bebidas Sin Alcohol
+  bebidas sin alcohol: ~14784 productos estimados (462 páginas)
+    Pag 5/462: 160 unicos acumulados
+    Pag 10/462: 320 unicos acumulados
+    Pag 15/462: 480 unicos acumulados
+    Pag 20/462: 640 unicos acumulados
+    Pag 25: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 25/462: 798 unicos acumulados
+    Pag 30/462: 958 unicos acumulados
+    Pag 35/462: 1118 unicos acumulados
+    Pag 40/462: 1278 unicos acumulados
+    Pag 42: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 45/462: 1438 unicos acumulados
+    Pag 50/462: 1598 unicos acumulados
+    Pag 55/462: 1758 unicos acumulados
+    Pag 59: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 60/462: 1918 unicos acumulados
+    Pag 65/462: 2078 unicos acumulados
+    Pag 70/462: 2238 unicos acumulados
+    Pag 75/462: 2398 unicos acumulados
+    Pag 76: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 80/462: 2558 unicos acumulados
+    Pag 85/462: 2718 unicos acumulados
+    Pag 90/462: 2878 unicos acumulados
+    Pag 93: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 95/462: 3038 unicos acumulados
+    Pag 100/462: 3198 unicos acumulados
+    Pag 105/462: 3358 unicos acumulados
+    Pag 110: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 110/462: 3518 unicos acumulados
+    Pag 115/462: 3678 unicos acumulados
+    Pag 120/462: 3838 unicos acumulados
+    Pag 125/462: 3998 unicos acumulados
+    Pag 127: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 130/462: 4158 unicos acumulados
+    Pag 135/462: 4318 unicos acumulados
+    Pag 140/462: 4478 unicos acumulados
+    Pag 144: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 145/462: 4638 unicos acumulados
+    Pag 150/462: 4798 unicos acumulados
+    Pag 155/462: 4958 unicos acumulados
+    Pag 160/462: 5118 unicos acumulados
+    Pag 161: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 165/462: 5278 unicos acumulados
+    Pag 170/462: 5438 unicos acumulados
+    Pag 175/462: 5598 unicos acumulados
+    Pag 178: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 180/462: 5758 unicos acumulados
+    Pag 185/462: 5918 unicos acumulados
+    Pag 190/462: 6078 unicos acumulados
+    Pag 195: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 195/462: 6238 unicos acumulados
+    Pag 200/462: 6398 unicos acumulados
+    Pag 205/462: 6558 unicos acumulados
+    Pag 210/462: 6718 unicos acumulados
+    Pag 212: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 215/462: 6878 unicos acumulados
+    Pag 220/462: 7038 unicos acumulados
+    Pag 225/462: 7198 unicos acumulados
+    Pag 229: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 230/462: 7358 unicos acumulados
+    Pag 235/462: 7518 unicos acumulados
+    Pag 240/462: 7678 unicos acumulados
+    Pag 245/462: 7838 unicos acumulados
+    Pag 246: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 250/462: 7998 unicos acumulados
+    Pag 255/462: 8158 unicos acumulados
+    Pag 260/462: 8318 unicos acumulados
+    Pag 263: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 265/462: 8478 unicos acumulados
+    Pag 270/462: 8638 unicos acumulados
+    Pag 275/462: 8798 unicos acumulados
+    Pag 280: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 280/462: 8958 unicos acumulados
+    Pag 285/462: 9118 unicos acumulados
+    Pag 290/462: 9278 unicos acumulados
+    Pag 295/462: 9438 unicos acumulados
+    Pag 297: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 300/462: 9598 unicos acumulados
+    Pag 305/462: 9758 unicos acumulados
+    Pag 310/462: 9918 unicos acumulados
+    Pag 314: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 315/462: 10078 unicos acumulados
+    Pag 320/462: 10238 unicos acumulados
+    Pag 325/462: 10398 unicos acumulados
+    Pag 330/462: 10558 unicos acumulados
+    Pag 331: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 335/462: 10718 unicos acumulados
+    Pag 340/462: 10878 unicos acumulados
+    Pag 345/462: 11038 unicos acumulados
+    Pag 348: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 350/462: 11198 unicos acumulados
+    Pag 355/462: 11358 unicos acumulados
+    Pag 360/462: 11518 unicos acumulados
+    Pag 365: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 365/462: 11678 unicos acumulados
+    Pag 370/462: 11838 unicos acumulados
+    Pag 375/462: 11998 unicos acumulados
+    Pag 380/462: 12158 unicos acumulados
+    Pag 382: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 385/462: 12318 unicos acumulados
+    Pag 390/462: 12478 unicos acumulados
+    Pag 395/462: 12638 unicos acumulados
+    Pag 399: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 400/462: 12798 unicos acumulados
+    Pag 405/462: 12958 unicos acumulados
+    Pag 410/462: 13118 unicos acumulados
+    Pag 415/462: 13278 unicos acumulados
+    Pag 416: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 420/462: 13438 unicos acumulados
+    Pag 425/462: 13598 unicos acumulados
+    Pag 430/462: 13758 unicos acumulados
+    Pag 433: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 435/462: 13918 unicos acumulados
+    Pag 440/462: 14078 unicos acumulados
+    Pag 445/462: 14238 unicos acumulados
+    Pag 450: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 450/462: 14398 unicos acumulados
+    Pag 455/462: 14558 unicos acumulados
+    Pag 460/462: 14718 unicos acumulados
+    Pag 462/462: 14782 unicos acumulados
+  bebidas sin alcohol: 14782 productos totales
+
+[4/11] Sector: Bodega
+  bodega: ~14784 productos estimados (462 páginas)
+    Pag 5/462: 160 unicos acumulados
+    Pag 10/462: 320 unicos acumulados
+    Pag 15/462: 480 unicos acumulados
+    Pag 20/462: 640 unicos acumulados
+    Pag 25/462: 800 unicos acumulados
+    Pag 30/462: 960 unicos acumulados
+    Pag 32: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 35/462: 1114 unicos acumulados
+    Pag 40/462: 1274 unicos acumulados
+    Pag 45/462: 1434 unicos acumulados
+    Pag 49: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 50/462: 1594 unicos acumulados
+    Pag 55/462: 1754 unicos acumulados
+    Pag 60/462: 1914 unicos acumulados
+    Pag 65/462: 2074 unicos acumulados
+    Pag 66: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 70/462: 2234 unicos acumulados
+    Pag 75/462: 2394 unicos acumulados
+    Pag 80/462: 2554 unicos acumulados
+    Pag 83: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 85/462: 2714 unicos acumulados
+    Pag 90/462: 2874 unicos acumulados
+    Pag 95/462: 3034 unicos acumulados
+    Pag 100: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 100/462: 3194 unicos acumulados
+    Pag 105/462: 3354 unicos acumulados
+    Pag 110/462: 3514 unicos acumulados
+    Pag 115/462: 3674 unicos acumulados
+    Pag 117: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 120/462: 3834 unicos acumulados
+    Pag 125/462: 3994 unicos acumulados
+    Pag 130/462: 4154 unicos acumulados
+    Pag 134: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 135/462: 4314 unicos acumulados
+    Pag 140/462: 4474 unicos acumulados
+    Pag 145/462: 4634 unicos acumulados
+    Pag 150/462: 4794 unicos acumulados
+    Pag 151: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 155/462: 4954 unicos acumulados
+    Pag 160/462: 5114 unicos acumulados
+    Pag 165/462: 5274 unicos acumulados
+    Pag 168: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 170/462: 5434 unicos acumulados
+    Pag 175/462: 5594 unicos acumulados
+    Pag 180/462: 5754 unicos acumulados
+    Pag 185: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 185/462: 5914 unicos acumulados
+    Pag 190/462: 6074 unicos acumulados
+    Pag 195/462: 6234 unicos acumulados
+    Pag 200/462: 6394 unicos acumulados
+    Pag 202: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 205/462: 6554 unicos acumulados
+    Pag 210/462: 6714 unicos acumulados
+    Pag 215/462: 6874 unicos acumulados
+    Pag 219: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 220/462: 7034 unicos acumulados
+    Pag 225/462: 7194 unicos acumulados
+    Pag 230/462: 7354 unicos acumulados
+    Pag 235/462: 7514 unicos acumulados
+    Pag 236: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 240/462: 7674 unicos acumulados
+    Pag 245/462: 7834 unicos acumulados
+    Pag 250/462: 7994 unicos acumulados
+    Pag 253: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 255/462: 8154 unicos acumulados
+    Pag 260/462: 8314 unicos acumulados
+    Pag 265/462: 8474 unicos acumulados
+    Pag 270: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 270/462: 8634 unicos acumulados
+    Pag 275/462: 8794 unicos acumulados
+    Pag 280/462: 8954 unicos acumulados
+    Pag 285/462: 9114 unicos acumulados
+    Pag 287: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 290/462: 9274 unicos acumulados
+    Pag 295/462: 9434 unicos acumulados
+    Pag 300/462: 9594 unicos acumulados
+    Pag 304: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 305/462: 9754 unicos acumulados
+    Pag 310/462: 9914 unicos acumulados
+    Pag 315/462: 10074 unicos acumulados
+    Pag 320/462: 10234 unicos acumulados
+    Pag 321: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 325/462: 10394 unicos acumulados
+    Pag 330/462: 10554 unicos acumulados
+    Pag 335/462: 10714 unicos acumulados
+    Pag 338: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 340/462: 10874 unicos acumulados
+    Pag 345/462: 11034 unicos acumulados
+    Pag 350/462: 11194 unicos acumulados
+    Pag 355: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 355/462: 11354 unicos acumulados
+    Pag 360/462: 11514 unicos acumulados
+    Pag 365/462: 11674 unicos acumulados
+    Pag 370/462: 11834 unicos acumulados
+    Pag 372: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 375/462: 11994 unicos acumulados
+    Pag 380/462: 12154 unicos acumulados
+    Pag 385/462: 12314 unicos acumulados
+    Pag 389: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 390/462: 12474 unicos acumulados
+    Pag 395/462: 12634 unicos acumulados
+    Pag 400/462: 12794 unicos acumulados
+    Pag 405/462: 12954 unicos acumulados
+    Pag 406: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 410/462: 13114 unicos acumulados
+    Pag 415/462: 13274 unicos acumulados
+    Pag 420/462: 13434 unicos acumulados
+    Pag 423: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 425/462: 13594 unicos acumulados
+    Pag 430/462: 13754 unicos acumulados
+    Pag 435/462: 13914 unicos acumulados
+    Pag 440: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 440/462: 14074 unicos acumulados
+    Pag 445/462: 14234 unicos acumulados
+    Pag 450/462: 14394 unicos acumulados
+    Pag 455/462: 14554 unicos acumulados
+    Pag 457: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 460/462: 14714 unicos acumulados
+    Pag 462/462: 14778 unicos acumulados
+  bodega: 14778 productos totales
+
+[5/11] Sector: Desayuno
+  desayuno: ~14784 productos estimados (462 páginas)
+    Pag 5/462: 160 unicos acumulados
+    Pag 10/462: 320 unicos acumulados
+    Pag 15/462: 480 unicos acumulados
+    Pag 20/462: 640 unicos acumulados
+    Pag 25/462: 800 unicos acumulados
+    Pag 30/462: 960 unicos acumulados
+    Pag 35: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 35/462: 1100 unicos acumulados
+    Pag 40/462: 1260 unicos acumulados
+    Pag 45/462: 1420 unicos acumulados
+    Pag 50/462: 1580 unicos acumulados
+    Pag 52: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 55/462: 1740 unicos acumulados
+    Pag 60/462: 1900 unicos acumulados
+    Pag 65/462: 2060 unicos acumulados
+    Pag 69: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 70/462: 2220 unicos acumulados
+    Pag 75/462: 2380 unicos acumulados
+    Pag 80/462: 2540 unicos acumulados
+    Pag 85/462: 2700 unicos acumulados
+    Pag 86: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 90/462: 2860 unicos acumulados
+    Pag 95/462: 3020 unicos acumulados
+    Pag 100/462: 3180 unicos acumulados
+    Pag 103: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 105/462: 3340 unicos acumulados
+    Pag 110/462: 3500 unicos acumulados
+    Pag 115/462: 3660 unicos acumulados
+    Pag 120: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 120/462: 3820 unicos acumulados
+    Pag 125/462: 3980 unicos acumulados
+  ❌ Error en página 126: Página 126: status 500 — reintentando...
+  AVISO: Paginacion truncada en pag 126/462
+  desayuno: 3980 productos totales
+
+[6/11] Sector: Frescos
+  frescos: ~14784 productos estimados (462 páginas)
+    Pag 5/462: 160 unicos acumulados
+    Pag 10/462: 320 unicos acumulados
+    Pag 15/462: 480 unicos acumulados
+    Pag 20/462: 640 unicos acumulados
+    Pag 25/462: 800 unicos acumulados
+    Pag 30/462: 960 unicos acumulados
+    Pag 35/462: 1120 unicos acumulados
+    Pag 40/462: 1280 unicos acumulados
+    Pag 45/462: 1440 unicos acumulados
+    Pag 50/462: 1600 unicos acumulados
+    Pag 55/462: 1760 unicos acumulados
+    Pag 58: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 60/462: 1912 unicos acumulados
+    Pag 65/462: 2072 unicos acumulados
+    Pag 70/462: 2232 unicos acumulados
+    Pag 75: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 75/462: 2392 unicos acumulados
+    Pag 80/462: 2552 unicos acumulados
+    Pag 85/462: 2712 unicos acumulados
+    Pag 90/462: 2872 unicos acumulados
+    Pag 92: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 95/462: 3032 unicos acumulados
+    Pag 100/462: 3192 unicos acumulados
+    Pag 105/462: 3352 unicos acumulados
+    Pag 109: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 110/462: 3512 unicos acumulados
+    Pag 115/462: 3672 unicos acumulados
+    Pag 120/462: 3832 unicos acumulados
+    Pag 125/462: 3992 unicos acumulados
+    Pag 126: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 130/462: 4152 unicos acumulados
+    Pag 135/462: 4312 unicos acumulados
+    Pag 140/462: 4472 unicos acumulados
+    Pag 143: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 145/462: 4632 unicos acumulados
+    Pag 150/462: 4792 unicos acumulados
+    Pag 155/462: 4952 unicos acumulados
+    Pag 160: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 160/462: 5112 unicos acumulados
+    Pag 165/462: 5272 unicos acumulados
+    Pag 170/462: 5432 unicos acumulados
+    Pag 175/462: 5592 unicos acumulados
+    Pag 176: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 180/462: 5752 unicos acumulados
+    Pag 185/462: 5912 unicos acumulados
+    Pag 190/462: 6072 unicos acumulados
+    Pag 193: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 195/462: 6232 unicos acumulados
+    Pag 200/462: 6392 unicos acumulados
+    Pag 205/462: 6552 unicos acumulados
+    Pag 210: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 210/462: 6712 unicos acumulados
+    Pag 215/462: 6872 unicos acumulados
+    Pag 220/462: 7032 unicos acumulados
+    Pag 225/462: 7192 unicos acumulados
+    Pag 227: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 230/462: 7352 unicos acumulados
+    Pag 235/462: 7512 unicos acumulados
+    Pag 240/462: 7672 unicos acumulados
+    Pag 244: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 245/462: 7832 unicos acumulados
+    Pag 250/462: 7992 unicos acumulados
+    Pag 255/462: 8152 unicos acumulados
+    Pag 260/462: 8312 unicos acumulados
+    Pag 261: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 265/462: 8472 unicos acumulados
+    Pag 270/462: 8632 unicos acumulados
+    Pag 275/462: 8792 unicos acumulados
+    Pag 278: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 280/462: 8952 unicos acumulados
+    Pag 285/462: 9112 unicos acumulados
+    Pag 290/462: 9272 unicos acumulados
+    Pag 295: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 295/462: 9432 unicos acumulados
+    Pag 300/462: 9592 unicos acumulados
+    Pag 305/462: 9752 unicos acumulados
+    Pag 310/462: 9912 unicos acumulados
+    Pag 312: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 315/462: 10072 unicos acumulados
+    Pag 320/462: 10232 unicos acumulados
+    Pag 325/462: 10392 unicos acumulados
+    Pag 329: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 330/462: 10552 unicos acumulados
+    Pag 335/462: 10712 unicos acumulados
+    Pag 340/462: 10872 unicos acumulados
+    Pag 345/462: 11032 unicos acumulados
+    Pag 346: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 350/462: 11192 unicos acumulados
+    Pag 355/462: 11352 unicos acumulados
+    Pag 360/462: 11512 unicos acumulados
+    Pag 363: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 365/462: 11672 unicos acumulados
+    Pag 370/462: 11832 unicos acumulados
+    Pag 375/462: 11992 unicos acumulados
+    Pag 380: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 380/462: 12152 unicos acumulados
+    Pag 385/462: 12312 unicos acumulados
+    Pag 390/462: 12472 unicos acumulados
+    Pag 395/462: 12632 unicos acumulados
+    Pag 397: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 400/462: 12792 unicos acumulados
+    Pag 405/462: 12952 unicos acumulados
+    Pag 410/462: 13112 unicos acumulados
+    Pag 414: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 415/462: 13272 unicos acumulados
+    Pag 420/462: 13432 unicos acumulados
+    Pag 425/462: 13592 unicos acumulados
+    Pag 430/462: 13752 unicos acumulados
+    Pag 431: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 435/462: 13912 unicos acumulados
+    Pag 440/462: 14072 unicos acumulados
+    Pag 445/462: 14232 unicos acumulados
+    Pag 448: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 450/462: 14392 unicos acumulados
+    Pag 455/462: 14552 unicos acumulados
+    Pag 460/462: 14712 unicos acumulados
+    Pag 462/462: 14776 unicos acumulados
+  frescos: 14776 productos totales
+
+[7/11] Sector: Kiosco
+  kiosco: ~14784 productos estimados (462 páginas)
+    Pag 5/462: 160 unicos acumulados
+    Pag 10/462: 320 unicos acumulados
+    Pag 15/462: 480 unicos acumulados
+    Pag 20/462: 640 unicos acumulados
+    Pag 25/462: 800 unicos acumulados
+    Pag 30/462: 960 unicos acumulados
+    Pag 35/462: 1120 unicos acumulados
+    Pag 37: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 40/462: 1274 unicos acumulados
+    Pag 45/462: 1434 unicos acumulados
+    Pag 50/462: 1594 unicos acumulados
+    Pag 54: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 55/462: 1754 unicos acumulados
+    Pag 60/462: 1914 unicos acumulados
+    Pag 65/462: 2074 unicos acumulados
+    Pag 70: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 70/462: 2234 unicos acumulados
+    Pag 75/462: 2394 unicos acumulados
+    Pag 80/462: 2554 unicos acumulados
+    Pag 85/462: 2714 unicos acumulados
+    Pag 86: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 90/462: 2874 unicos acumulados
+    Pag 95/462: 3034 unicos acumulados
+    Pag 100/462: 3194 unicos acumulados
+    Pag 102: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 105/462: 3354 unicos acumulados
+    Pag 110/462: 3514 unicos acumulados
+    Pag 115/462: 3674 unicos acumulados
+    Pag 119: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 120/462: 3834 unicos acumulados
+    Pag 125/462: 3994 unicos acumulados
+    Pag 130/462: 4154 unicos acumulados
+    Pag 135/462: 4314 unicos acumulados
+    Pag 136: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 140/462: 4474 unicos acumulados
+    Pag 145/462: 4634 unicos acumulados
+    Pag 150/462: 4794 unicos acumulados
+    Pag 153: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 155/462: 4954 unicos acumulados
+    Pag 160/462: 5114 unicos acumulados
+    Pag 165/462: 5274 unicos acumulados
+    Pag 169: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 170/462: 5434 unicos acumulados
+    Pag 175/462: 5594 unicos acumulados
+    Pag 180/462: 5754 unicos acumulados
+    Pag 185: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 185/462: 5914 unicos acumulados
+    Pag 190/462: 6074 unicos acumulados
+    Pag 195/462: 6234 unicos acumulados
+    Pag 200/462: 6394 unicos acumulados
+    Pag 202: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 205/462: 6554 unicos acumulados
+    Pag 210/462: 6714 unicos acumulados
+    Pag 215/462: 6874 unicos acumulados
+    Pag 219: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 220/462: 7034 unicos acumulados
+    Pag 225/462: 7194 unicos acumulados
+    Pag 230/462: 7354 unicos acumulados
+    Pag 235/462: 7514 unicos acumulados
+    Pag 236: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 240/462: 7674 unicos acumulados
+    Pag 245/462: 7834 unicos acumulados
+    Pag 250/462: 7994 unicos acumulados
+    Pag 253: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 255/462: 8154 unicos acumulados
+    Pag 260/462: 8314 unicos acumulados
+    Pag 265/462: 8474 unicos acumulados
+    Pag 270: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 270/462: 8634 unicos acumulados
+    Pag 275/462: 8794 unicos acumulados
+    Pag 280/462: 8954 unicos acumulados
+    Pag 285/462: 9114 unicos acumulados
+    Pag 287: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 290/462: 9274 unicos acumulados
+    Pag 295/462: 9434 unicos acumulados
+    Pag 300/462: 9594 unicos acumulados
+    Pag 304: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 305/462: 9754 unicos acumulados
+    Pag 310/462: 9914 unicos acumulados
+    Pag 315/462: 10074 unicos acumulados
+    Pag 320/462: 10234 unicos acumulados
+    Pag 321: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 325/462: 10394 unicos acumulados
+    Pag 330/462: 10554 unicos acumulados
+    Pag 335/462: 10714 unicos acumulados
+    Pag 338: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 340/462: 10874 unicos acumulados
+    Pag 345/462: 11034 unicos acumulados
+    Pag 350/462: 11194 unicos acumulados
+    Pag 355: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 355/462: 11354 unicos acumulados
+    Pag 360/462: 11514 unicos acumulados
+    Pag 365/462: 11674 unicos acumulados
+    Pag 370/462: 11834 unicos acumulados
+    Pag 372: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 375/462: 11994 unicos acumulados
+    Pag 380/462: 12154 unicos acumulados
+    Pag 385/462: 12314 unicos acumulados
+    Pag 389: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 390/462: 12474 unicos acumulados
+    Pag 395/462: 12634 unicos acumulados
+    Pag 400/462: 12794 unicos acumulados
+    Pag 405/462: 12954 unicos acumulados
+    Pag 406: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 410/462: 13114 unicos acumulados
+    Pag 415/462: 13274 unicos acumulados
+    Pag 420/462: 13434 unicos acumulados
+    Pag 422: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 425/462: 13594 unicos acumulados
+    Pag 430/462: 13754 unicos acumulados
+    Pag 435/462: 13914 unicos acumulados
+    Pag 438: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 440/462: 14074 unicos acumulados
+    Pag 445/462: 14234 unicos acumulados
+    Pag 450/462: 14394 unicos acumulados
+    Pag 455: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 455/462: 14554 unicos acumulados
+    Pag 460/462: 14714 unicos acumulados
+    Pag 462/462: 14778 unicos acumulados
+  kiosco: 14778 productos totales
+
+[8/11] Sector: Limpieza
+  limpieza: ~14784 productos estimados (462 páginas)
+    Pag 5/462: 160 unicos acumulados
+    Pag 10/462: 320 unicos acumulados
+    Pag 15/462: 480 unicos acumulados
+    Pag 20/462: 640 unicos acumulados
+    Pag 25/462: 800 unicos acumulados
+    Pag 30/462: 960 unicos acumulados
+    Pag 35/462: 1120 unicos acumulados
+    Pag 40/462: 1280 unicos acumulados
+    Pag 45/462: 1440 unicos acumulados
+    Pag 50/462: 1600 unicos acumulados
+    Pag 55/462: 1760 unicos acumulados
+    Pag 58: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 60/462: 1908 unicos acumulados
+    Pag 65/462: 2068 unicos acumulados
+    Pag 70/462: 2228 unicos acumulados
+    Pag 75: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 75/462: 2388 unicos acumulados
+    Pag 80/462: 2548 unicos acumulados
+    Pag 85/462: 2708 unicos acumulados
+    Pag 90/462: 2868 unicos acumulados
+    Pag 91: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 95/462: 3028 unicos acumulados
+    Pag 100/462: 3188 unicos acumulados
+    Pag 105/462: 3348 unicos acumulados
+    Pag 107: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 110/462: 3508 unicos acumulados
+    Pag 115/462: 3668 unicos acumulados
+    Pag 120/462: 3828 unicos acumulados
+    Pag 123: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 125/462: 3988 unicos acumulados
+    Pag 130/462: 4148 unicos acumulados
+    Pag 135/462: 4308 unicos acumulados
+    Pag 139: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 140/462: 4468 unicos acumulados
+    Pag 145/462: 4628 unicos acumulados
+    Pag 150/462: 4788 unicos acumulados
+    Pag 155: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 155/462: 4948 unicos acumulados
+    Pag 160/462: 5108 unicos acumulados
+    Pag 165/462: 5268 unicos acumulados
+    Pag 170/462: 5428 unicos acumulados
+    Pag 172: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 175/462: 5588 unicos acumulados
+    Pag 180/462: 5748 unicos acumulados
+    Pag 185/462: 5908 unicos acumulados
+    Pag 189: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 190/462: 6068 unicos acumulados
+    Pag 195/462: 6228 unicos acumulados
+    Pag 200/462: 6388 unicos acumulados
+    Pag 205/462: 6548 unicos acumulados
+    Pag 206: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 210/462: 6708 unicos acumulados
+    Pag 215/462: 6868 unicos acumulados
+    Pag 220/462: 7028 unicos acumulados
+    Pag 222: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 225/462: 7188 unicos acumulados
+    Pag 230/462: 7348 unicos acumulados
+    Pag 235/462: 7508 unicos acumulados
+    Pag 238: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 240/462: 7668 unicos acumulados
+    Pag 245/462: 7828 unicos acumulados
+    Pag 250/462: 7988 unicos acumulados
+    Pag 255: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 255/462: 8148 unicos acumulados
+    Pag 260/462: 8308 unicos acumulados
+    Pag 265/462: 8468 unicos acumulados
+    Pag 270/462: 8628 unicos acumulados
+    Pag 272: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 275/462: 8788 unicos acumulados
+    Pag 280/462: 8948 unicos acumulados
+    Pag 285/462: 9108 unicos acumulados
+    Pag 289: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 290/462: 9268 unicos acumulados
+    Pag 295/462: 9428 unicos acumulados
+    Pag 300/462: 9588 unicos acumulados
+    Pag 305: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 305/462: 9748 unicos acumulados
+    Pag 310/462: 9908 unicos acumulados
+    Pag 315/462: 10068 unicos acumulados
+    Pag 320/462: 10228 unicos acumulados
+    Pag 321: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 325/462: 10388 unicos acumulados
+    Pag 330/462: 10548 unicos acumulados
+    Pag 335/462: 10708 unicos acumulados
+    Pag 336: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 340/462: 10868 unicos acumulados
+    Pag 345/462: 11028 unicos acumulados
+    Pag 350/462: 11188 unicos acumulados
+    Pag 353: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 355/462: 11348 unicos acumulados
+    Pag 360/462: 11508 unicos acumulados
+    Pag 365/462: 11668 unicos acumulados
+    Pag 369: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 370/462: 11828 unicos acumulados
+    Pag 375/462: 11988 unicos acumulados
+    Pag 380/462: 12148 unicos acumulados
+    Pag 385: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 385/462: 12308 unicos acumulados
+    Pag 390/462: 12468 unicos acumulados
+    Pag 395/462: 12628 unicos acumulados
+    Pag 400/462: 12788 unicos acumulados
+    Pag 401: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 405/462: 12948 unicos acumulados
+    Pag 410/462: 13108 unicos acumulados
+    Pag 415/462: 13268 unicos acumulados
+    Pag 417: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 420/462: 13428 unicos acumulados
+    Pag 425/462: 13588 unicos acumulados
+    Pag 430/462: 13748 unicos acumulados
+    Pag 433: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 435/462: 13908 unicos acumulados
+    Pag 440/462: 14068 unicos acumulados
+    Pag 445/462: 14228 unicos acumulados
+    Pag 449: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 450/462: 14388 unicos acumulados
+    Pag 455/462: 14548 unicos acumulados
+    Pag 460/462: 14708 unicos acumulados
+    Pag 462/462: 14772 unicos acumulados
+  limpieza: 14772 productos totales
+
+[9/11] Sector: Mascotas
+  mascotas: ~14784 productos estimados (462 páginas)
+    Pag 5/462: 130 unicos acumulados
+    Pag 6: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 10/462: 290 unicos acumulados
+    Pag 15/462: 450 unicos acumulados
+    Pag 20/462: 610 unicos acumulados
+    Pag 23: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 25/462: 770 unicos acumulados
+    Pag 30/462: 930 unicos acumulados
+    Pag 35/462: 1090 unicos acumulados
+    Pag 40: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 40/462: 1250 unicos acumulados
+    Pag 45/462: 1410 unicos acumulados
+    Pag 50/462: 1570 unicos acumulados
+    Pag 55/462: 1730 unicos acumulados
+    Pag 57: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 60/462: 1890 unicos acumulados
+    Pag 65/462: 2050 unicos acumulados
+    Pag 70/462: 2210 unicos acumulados
+    Pag 74: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 75/462: 2370 unicos acumulados
+    Pag 80/462: 2530 unicos acumulados
+    Pag 85/462: 2690 unicos acumulados
+    Pag 90/462: 2850 unicos acumulados
+    Pag 91: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 95/462: 3010 unicos acumulados
+    Pag 100/462: 3170 unicos acumulados
+    Pag 105/462: 3330 unicos acumulados
+    Pag 108: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 110/462: 3490 unicos acumulados
+    Pag 115/462: 3650 unicos acumulados
+    Pag 120/462: 3810 unicos acumulados
+    Pag 125: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 125/462: 3970 unicos acumulados
+    Pag 130/462: 4130 unicos acumulados
+    Pag 135/462: 4290 unicos acumulados
+    Pag 140/462: 4450 unicos acumulados
+    Pag 142: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 145/462: 4610 unicos acumulados
+    Pag 150/462: 4770 unicos acumulados
+    Pag 155/462: 4930 unicos acumulados
+    Pag 159: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 160/462: 5090 unicos acumulados
+    Pag 165/462: 5250 unicos acumulados
+    Pag 170/462: 5410 unicos acumulados
+    Pag 175/462: 5570 unicos acumulados
+    Pag 176: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 180/462: 5730 unicos acumulados
+    Pag 185/462: 5890 unicos acumulados
+    Pag 190/462: 6050 unicos acumulados
+    Pag 193: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 195/462: 6210 unicos acumulados
+    Pag 200/462: 6370 unicos acumulados
+    Pag 205/462: 6530 unicos acumulados
+    Pag 210: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 210/462: 6690 unicos acumulados
+    Pag 215/462: 6850 unicos acumulados
+    Pag 220/462: 7010 unicos acumulados
+    Pag 225/462: 7170 unicos acumulados
+    Pag 226: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 230/462: 7330 unicos acumulados
+    Pag 235/462: 7490 unicos acumulados
+    Pag 240/462: 7650 unicos acumulados
+    Pag 243: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 245/462: 7810 unicos acumulados
+    Pag 250/462: 7970 unicos acumulados
+    Pag 255/462: 8130 unicos acumulados
+    Pag 259: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 260/462: 8290 unicos acumulados
+    Pag 265/462: 8450 unicos acumulados
+    Pag 270/462: 8610 unicos acumulados
+    Pag 275: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 275/462: 8770 unicos acumulados
+    Pag 280/462: 8930 unicos acumulados
+    Pag 285/462: 9090 unicos acumulados
+    Pag 290/462: 9250 unicos acumulados
+    Pag 291: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 295/462: 9410 unicos acumulados
+    Pag 300/462: 9570 unicos acumulados
+    Pag 305/462: 9730 unicos acumulados
+    Pag 308: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 310/462: 9890 unicos acumulados
+    Pag 315/462: 10050 unicos acumulados
+    Pag 320/462: 10210 unicos acumulados
+    Pag 325: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 325/462: 10370 unicos acumulados
+    Pag 330/462: 10530 unicos acumulados
+    Pag 335/462: 10690 unicos acumulados
+    Pag 340/462: 10850 unicos acumulados
+    Pag 341: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 345/462: 11010 unicos acumulados
+    Pag 350/462: 11170 unicos acumulados
+    Pag 355/462: 11330 unicos acumulados
+    Pag 358: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 360/462: 11490 unicos acumulados
+    Pag 365/462: 11650 unicos acumulados
+    Pag 370/462: 11810 unicos acumulados
+    Pag 374: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 375/462: 11970 unicos acumulados
+    Pag 380/462: 12130 unicos acumulados
+    Pag 385/462: 12290 unicos acumulados
+    Pag 390: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 390/462: 12450 unicos acumulados
+    Pag 395/462: 12610 unicos acumulados
+    Pag 400/462: 12770 unicos acumulados
+    Pag 405/462: 12930 unicos acumulados
+    Pag 406: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 410/462: 13090 unicos acumulados
+    Pag 415/462: 13250 unicos acumulados
+    Pag 420/462: 13410 unicos acumulados
+    Pag 422: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 425/462: 13570 unicos acumulados
+    Pag 430/462: 13730 unicos acumulados
+    Pag 435/462: 13890 unicos acumulados
+    Pag 439: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 440/462: 14050 unicos acumulados
+    Pag 445/462: 14210 unicos acumulados
+    Pag 450/462: 14370 unicos acumulados
+    Pag 455/462: 14530 unicos acumulados
+    Pag 456: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 460/462: 14690 unicos acumulados
+    Pag 462/462: 14754 unicos acumulados
+  mascotas: 14754 productos totales
+
+[10/11] Sector: Papeles
+  papeles: ~14784 productos estimados (462 páginas)
+    Pag 5/462: 160 unicos acumulados
+    Pag 10: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 10/462: 320 unicos acumulados
+    Pag 15/462: 480 unicos acumulados
+    Pag 20/462: 640 unicos acumulados
+    Pag 25/462: 800 unicos acumulados
+    Pag 26: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 30/462: 960 unicos acumulados
+    Pag 35/462: 1120 unicos acumulados
+    Pag 40/462: 1280 unicos acumulados
+    Pag 43: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 45/462: 1440 unicos acumulados
+    Pag 50/462: 1600 unicos acumulados
+    Pag 55/462: 1760 unicos acumulados
+    Pag 59: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 60/462: 1920 unicos acumulados
+    Pag 65/462: 2080 unicos acumulados
+    Pag 70/462: 2240 unicos acumulados
+    Pag 75: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 75/462: 2400 unicos acumulados
+    Pag 80/462: 2560 unicos acumulados
+    Pag 85/462: 2720 unicos acumulados
+    Pag 90/462: 2880 unicos acumulados
+    Pag 91: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 95/462: 3040 unicos acumulados
+    Pag 100/462: 3200 unicos acumulados
+    Pag 105/462: 3360 unicos acumulados
+    Pag 108: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 110/462: 3520 unicos acumulados
+    Pag 115/462: 3680 unicos acumulados
+    Pag 120/462: 3840 unicos acumulados
+    Pag 125: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 125/462: 4000 unicos acumulados
+    Pag 130/462: 4160 unicos acumulados
+    Pag 135/462: 4320 unicos acumulados
+    Pag 140/462: 4480 unicos acumulados
+    Pag 142: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 145/462: 4640 unicos acumulados
+    Pag 150/462: 4800 unicos acumulados
+    Pag 155/462: 4960 unicos acumulados
+    Pag 159: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 160/462: 5120 unicos acumulados
+    Pag 165/462: 5280 unicos acumulados
+    Pag 170/462: 5440 unicos acumulados
+    Pag 175/462: 5600 unicos acumulados
+    Pag 176: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 180/462: 5760 unicos acumulados
+    Pag 185/462: 5920 unicos acumulados
+    Pag 190/462: 6080 unicos acumulados
+    Pag 193: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 195/462: 6240 unicos acumulados
+    Pag 200/462: 6400 unicos acumulados
+    Pag 205/462: 6560 unicos acumulados
+    Pag 210: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 210/462: 6720 unicos acumulados
+    Pag 215/462: 6880 unicos acumulados
+    Pag 220/462: 7040 unicos acumulados
+    Pag 225/462: 7200 unicos acumulados
+    Pag 227: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 230/462: 7360 unicos acumulados
+    Pag 235/462: 7520 unicos acumulados
+    Pag 240/462: 7680 unicos acumulados
+    Pag 244: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 245/462: 7840 unicos acumulados
+    Pag 250/462: 8000 unicos acumulados
+    Pag 255/462: 8160 unicos acumulados
+    Pag 260/462: 8320 unicos acumulados
+    Pag 261: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 265/462: 8480 unicos acumulados
+    Pag 270/462: 8640 unicos acumulados
+    Pag 275/462: 8800 unicos acumulados
+    Pag 278: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 280/462: 8960 unicos acumulados
+    Pag 285/462: 9120 unicos acumulados
+    Pag 290/462: 9280 unicos acumulados
+    Pag 295: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 295/462: 9440 unicos acumulados
+    Pag 300/462: 9600 unicos acumulados
+    Pag 305/462: 9760 unicos acumulados
+    Pag 310/462: 9920 unicos acumulados
+    Pag 311: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 315/462: 10080 unicos acumulados
+    Pag 320/462: 10240 unicos acumulados
+    Pag 325/462: 10400 unicos acumulados
+    Pag 327: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 330/462: 10560 unicos acumulados
+    Pag 335/462: 10720 unicos acumulados
+    Pag 340/462: 10880 unicos acumulados
+    Pag 343: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 345/462: 11040 unicos acumulados
+    Pag 350/462: 11200 unicos acumulados
+    Pag 355/462: 11360 unicos acumulados
+    Pag 360: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 360/462: 11520 unicos acumulados
+    Pag 365/462: 11680 unicos acumulados
+    Pag 370/462: 11840 unicos acumulados
+    Pag 375/462: 12000 unicos acumulados
+    Pag 377: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 380/462: 12160 unicos acumulados
+    Pag 385/462: 12320 unicos acumulados
+    Pag 390/462: 12480 unicos acumulados
+    Pag 393: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 395/462: 12640 unicos acumulados
+    Pag 400/462: 12800 unicos acumulados
+    Pag 405/462: 12960 unicos acumulados
+    Pag 409: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 410/462: 13120 unicos acumulados
+    Pag 415/462: 13280 unicos acumulados
+    Pag 420/462: 13440 unicos acumulados
+    Pag 425: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 425/462: 13600 unicos acumulados
+    Pag 430/462: 13760 unicos acumulados
+    Pag 435/462: 13920 unicos acumulados
+    Pag 440/462: 14080 unicos acumulados
+    Pag 442: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 445/462: 14240 unicos acumulados
+    Pag 450/462: 14400 unicos acumulados
+    Pag 455/462: 14560 unicos acumulados
+    Pag 459: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 460/462: 14720 unicos acumulados
+    Pag 462/462: 14784 unicos acumulados
+  papeles: 14784 productos totales
+
+[11/11] Sector: Perfumería
+  perfumería: ~14784 productos estimados (462 páginas)
+    Pag 5/462: 160 unicos acumulados
+    Pag 10/462: 320 unicos acumulados
+    Pag 15/462: 480 unicos acumulados
+    Pag 20/462: 640 unicos acumulados
+    Pag 25/462: 800 unicos acumulados
+    Pag 30/462: 960 unicos acumulados
+    Pag 35/462: 1120 unicos acumulados
+    Pag 40/462: 1280 unicos acumulados
+    Pag 45/462: 1440 unicos acumulados
+    Pag 50/462: 1600 unicos acumulados
+    Pag 55/462: 1760 unicos acumulados
+    Pag 60/462: 1920 unicos acumulados
+    Pag 65/462: 2080 unicos acumulados
+    Pag 70/462: 2240 unicos acumulados
+    Pag 73: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 75/462: 2384 unicos acumulados
+    Pag 80/462: 2544 unicos acumulados
+    Pag 85/462: 2704 unicos acumulados
+    Pag 90: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 90/462: 2864 unicos acumulados
+    Pag 95/462: 3024 unicos acumulados
+    Pag 100/462: 3184 unicos acumulados
+    Pag 105/462: 3344 unicos acumulados
+    Pag 106: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 110/462: 3504 unicos acumulados
+    Pag 115/462: 3664 unicos acumulados
+    Pag 120/462: 3824 unicos acumulados
+    Pag 122: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 125/462: 3984 unicos acumulados
+    Pag 130/462: 4144 unicos acumulados
+    Pag 135/462: 4304 unicos acumulados
+    Pag 139: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 140/462: 4464 unicos acumulados
+    Pag 145/462: 4624 unicos acumulados
+    Pag 150/462: 4784 unicos acumulados
+    Pag 155: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 155/462: 4944 unicos acumulados
+    Pag 160/462: 5104 unicos acumulados
+    Pag 165/462: 5264 unicos acumulados
+    Pag 170/462: 5424 unicos acumulados
+    Pag 171: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 175/462: 5584 unicos acumulados
+    Pag 180/462: 5744 unicos acumulados
+    Pag 185/462: 5904 unicos acumulados
+    Pag 186: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 190/462: 6064 unicos acumulados
+    Pag 195/462: 6224 unicos acumulados
+    Pag 200/462: 6384 unicos acumulados
+    Pag 202: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 205/462: 6544 unicos acumulados
+    Pag 210/462: 6704 unicos acumulados
+    Pag 215/462: 6864 unicos acumulados
+    Pag 218: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 220/462: 7024 unicos acumulados
+    Pag 225/462: 7184 unicos acumulados
+    Pag 230/462: 7344 unicos acumulados
+    Pag 235: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 235/462: 7504 unicos acumulados
+    Pag 240/462: 7664 unicos acumulados
+    Pag 245/462: 7824 unicos acumulados
+    Pag 250/462: 7984 unicos acumulados
+    Pag 252: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 255/462: 8144 unicos acumulados
+    Pag 260/462: 8304 unicos acumulados
+    Pag 265/462: 8464 unicos acumulados
+    Pag 269: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 270/462: 8624 unicos acumulados
+    Pag 275/462: 8784 unicos acumulados
+    Pag 280/462: 8944 unicos acumulados
+    Pag 283: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 285/462: 9104 unicos acumulados
+    Pag 290/462: 9264 unicos acumulados
+    Pag 295/462: 9424 unicos acumulados
+    Pag 297: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 300/462: 9584 unicos acumulados
+    Pag 305/462: 9744 unicos acumulados
+    Pag 310/462: 9904 unicos acumulados
+    Pag 311: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 315/462: 10064 unicos acumulados
+    Pag 320/462: 10224 unicos acumulados
+    Pag 325/462: 10384 unicos acumulados
+    Pag 326: vacia (rate-limit) — re-login y reintento
+🔐 Iniciando sesión...
+✅ Login exitoso
+    Pag 330/462: 10544 unicos acumulados
+    Pag 335/462: 10704 unicos acumulados
+  ❌ Error en página 340: Failed to perform, curl: (28) Operation timed out after 6921904 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details. — reintentando...
+  AVISO: Paginacion truncada en pag 340/462
+  perfumería: 10832 productos totales
+
+💾 Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\yaguar\output_yaguar_20260709_175739.json
+
+==================================================
+✅ Scraping completo
+📦 Total productos: 147782
+💾 Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\yaguar\output_yaguar_20260709_175739.json
+
+Resumen por categoría:
+  Almacén: 14778
+  Bazar: 14768
+  Bebidas Sin Alcohol: 14782
+  Bodega: 14778
+  Desayuno: 3980
+  Frescos: 14776
+  Kiosco: 14778
+  Limpieza: 14772
+  Mascotas: 14754
+  Papeles: 14784
+  Perfumería: 10832
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-09 18:17:05
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +86 SKUs Yaguar, +60 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 6550 prods únicos (6547 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260708_080751.json -> 4578 productos (4577 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4204 productos
+    4195 precios válidos (>$200), 9 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 14963 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11340 productos con EAN y precio
+  Dia: 3 archivo(s) -> 4763 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +480 EANs Yaguar via Maestro, +133 EANs Maxiconsumo via Maestro (53 descartados por conflicto de marca)
+  MaxiCarrefour: 4578 productos procesados
+    -> Matches Yaguar via CODIGOS:      901
+    -> Matches Maxiconsumo via CODIGOS: 388
+  Yaguar (restantes): 5647 nuevos, 2 match EAN, 3143 con EAN via Maestro
+  Maxiconsumo (restantes): 3481 nuevos, 320 match EAN, 15 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 14 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 19 precios absurdos eliminados
+  Validación cruzada: 4 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 2 marcados para revisión
+  Paso 6b: 3 duplicados por nombre normalizado fusionados
+  Paso 6c: 608 fusiones fuzzy complementarias
+  Paso 6d: 70 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  PRECIOS SOSPECHOSOS MC descartados: 1
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8188 productos sin clasificacion Maestro
+  Coto: 4032 productos del catalogo con precio gondola (de 14963 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4719 productos del catalogo con precio gondola (de 11340 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Dia: 1832 productos del catalogo con precio gondola (de 4763 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 1 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13018
+  Con precio Yaguar:            6458
+  Con precio MaxiCarrefour:     4524
+  Con precio Maxiconsumo:       4144
+  Con precio Coto (gondola):    4032
+  Con precio Carrefour (gond.): 4719
+  Con precio Dia (gondola):     1832
+  Con 2+ precios (comparativa): 1814
+  Con 3 precios:                294
+  ABC=A con 2+ precios:         245
+  Sin imagen:                   2384
+  Links Carrefour: 2269 EAN directo, 2255 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+=== SCRAPER YAGUAR ===
+Iniciando: 2026-07-09 10:02:32
+
+=== UNIFICANDO DATOS ===
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[18:18:54] OK scrape_yaguar.py (29781s)
+[18:18:54] Corriendo scrape_maxiconsumo.py...
+=== SCRAPER MAXICONSUMO ===
+Iniciando: 2026-07-09 18:18:54
+ERROR EN SCRAPER MAXICONSUMO
+^C==================================================== 
+Corrida: vie 10/07/2026 10:11:22,99 
+[10:11:23] === PIPELINE LOCAL BRUJULA ===
+[10:26:23] Catalogo actual: 13014 prods (Y=6454 MC=4524 MCO=4144 C=4065 CF=4775 D=1832)
+[10:26:23] Corriendo scrape_maxicarrefour.py...
+=======================================================
+RENOVACION DE COOKIES MAXICARREFOUR
+=======================================================
+Modo --force: renovando sin verificar fecha.
+Modo: Chrome real con perfil persistente...
+  Navegando a comerciante.carrefour.com.ar...
+  Error: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://comerciante.carrefour.com.ar/", waiting until "domcontentloaded"
+
+
+No se pudo renovar automaticamente.
+Pasos manuales:
+  1. Loguearse en comerciante.carrefour.com.ar
+  2. F12 -> Application -> Cookies
+  3. Copiar PHPSESSID y cf_clearance al .env
+
+Para automatizacion total (sin interaccion humana):
+  1. Crear cuenta en capsolver.com
+  2. Agregar CAPSOLVER_API_KEY=tu_key al .env
+=== SCRAPER MAXICARREFOUR ===
+Iniciando: 2026-07-10 10:26:27
+
+Verificando cookies MaxiCarrefour...
+Cookies invalidas o expiradas — renovando automaticamente...
+ERROR: No se pudieron renovar las cookies.
+Renovar manualmente: ver .claude/docs/operaciones.md
+Abortando — no tiene sentido scraper sin cookies validas.
+[10:27:23] FALLO scrape_maxicarrefour.py (60s)
+[10:27:23] Corriendo scrape_yaguar.py...
+=== SCRAPER YAGUAR ===
+Iniciando: 2026-07-10 10:27:23
+ERROR EN SCRAPER YAGUAR
+^C[11:58:14] FALLO scrape_yaguar.py (5451s)
+[11:58:14] Corriendo scrape_maxiconsumo.py...

@@ -34,6 +34,20 @@
     ]
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python scripts/estado_pipeline.py",
+            "timeout": 30,
+            "statusMessage": "Leyendo estado del pipeline...",
+            "description": "Estado del pipeline (VEREDICTO.md + alertas + frescura) al contexto de cada sesion"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "matcher": "",

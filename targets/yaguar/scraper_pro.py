@@ -1,13 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-SCRAPER YAGUAR - VERSIÓN PRO RESILIENTE
-Scraping completo con login, paginación, retry automático y validación.
+SCRAPER YAGUAR - VERSION PRO (WooCommerce Store API)
+
+El sitio elimino la navegacion HTML el ~10/07/2026: /categoria-producto/{slug}/,
+/tienda/page/N/ y las fichas /producto/{slug}/ redirigen TODOS a /tienda/ (una
+pagina fija con 16 productos). El scraper HTML anterior acumulaba esa pagina
+repetida miles de veces (34.886 registros = 5.137 unicos el 09/07) y truncaba
+el catalogo real.
+
+La via actual es la Store API publica de WooCommerce (/wp-json/wc/store/v1/),
+verificada 10/07/2026:
+  - catalogo completo: 7.384 productos (x-wp-total)
+  - precios identicos al HTML logueado del 09/07 (SKUs 90050 y 87568 exactos)
+  - cf-cache-status: BYPASS (no es cache viejo de Cloudflare — regla 09)
+  - mismos SKUs que CODIGOS.xlsx -> el matching a EAN sigue funcionando
 """
 
 import os
+import html
 import json
-import re
+import sys
 import time
 from datetime import datetime
 from bs4 import BeautifulSoup
@@ -16,27 +29,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Imports eliminados - módulos de resiliencia ya no existen
-# El scraper funciona sin over-engineering
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-CATEGORIAS = [
-    {"slug": "almacen",    "nombre": "Almacén"},
-    {"slug": "bazar",      "nombre": "Bazar"},
-    {"slug": "bebidas-sin-alcohol", "nombre": "Bebidas Sin Alcohol"},
-    {"slug": "bodega",     "nombre": "Bodega"},
-    {"slug": "desayuno",   "nombre": "Desayuno"},
-    {"slug": "frescos",    "nombre": "Frescos"},
-    {"slug": "kiosco",     "nombre": "Kiosco"},
-    {"slug": "limpieza",   "nombre": "Limpieza"},
-    {"slug": "mascotas",   "nombre": "Mascotas"},
-    {"slug": "papeles",    "nombre": "Papeles"},
-    {"slug": "perfumeria", "nombre": "Perfumería"},
-]
 
 BASE_URL = "https://yaguar.com.ar"
 LOGIN_URL = f"{BASE_URL}/login/"
+API_URL = f"{BASE_URL}/wp-json/wc/store/v1"
 
 HEADERS = {
     "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
@@ -46,22 +43,25 @@ HEADERS = {
 }
 
 IMPERSONATE = "safari15_3"
-DELAY_ENTRE_PAGINAS = 1.0   # segundos entre páginas
-DELAY_ENTRE_CATEGORIAS = 2.0
+DELAY_ENTRE_PAGINAS = 0.5  # la API no mostro throttle; delay de cortesia (regla anti-bloqueo Yaguar)
+PER_PAGE = 100             # maximo aceptado por la Store API
 
-# Configuración simple
-MIN_PRODUCTS_EXPECTED = 1000  # Mínimo de productos esperados
+PRECIO_MIN = 100
+PRECIO_MAX = 500_000
+MIN_PRODUCTS_EXPECTED = 5000  # catalogo real medido 10/07/2026: ~7.4k
 
 
 def login(session):
-    """Realiza el login con retry automático."""
+    """Login WordPress. La Store API dio precios identicos anonimo vs logueado
+    (medido 10/07), pero mantenemos el login por si Yaguar activa precios B2B
+    diferenciados — costo cero y garantiza el precio del server (regla 09)."""
     def _login_attempt():
-        print("🔐 Iniciando sesión...")
+        print("Iniciando sesion...")
         r1 = session.get(LOGIN_URL, headers=HEADERS, impersonate=IMPERSONATE, timeout=20)
         soup = BeautifulSoup(r1.text, "html.parser")
         form = soup.find("form", {"method": "post"})
         if not form:
-            raise Exception("No se encontró el formulario de login")
+            raise Exception("No se encontro el formulario de login")
 
         payload = {}
         for inp in form.find_all("input"):
@@ -88,253 +88,166 @@ def login(session):
 
         if "wordpress_logged_in" not in str(r2.cookies):
             raise Exception("Login fallido — verificar credenciales")
-        
+
         return True
-    
-    # Ejecutar login
+
     try:
-        result = _login_attempt()
-        print("✅ Login exitoso")
+        _login_attempt()
+        print("Login exitoso")
         return True
     except Exception as e:
-        print(f"❌ Login definitivamente fallido: {e}")
+        print(f"Login definitivamente fallido: {e}")
         return False
 
 
-def crear_sesion():
-    """Crea una sesion nueva ya logueada.
-
-    Se usa al inicio y para sortear el rate-limit de Yaguar: tras ~74 paginas
-    seguidas el sitio devuelve paginas vacias (sin e-loop-item) como throttle. El
-    bloqueo esta atado a la SESION, no a la IP: una sesion fresca lo libera al
-    instante; esperar no sirve (medido: ni 60s, re-login si). Ver scrapear_categoria.
-    """
-    s = curl_requests.Session()
-    if not login(s):
-        raise Exception("Re-login fallido")
-    return s
-
-
-def obtener_max_pagina(soup):
-    """Extrae el número total de páginas leyendo los hrefs de paginación."""
-    max_page = 1
-    for a in soup.find_all("a", href=True):
-        m = re.search(r"/page/(\d+)/", a["href"])
-        if m:
-            num = int(m.group(1))
-            if num > max_page:
-                max_page = num
-    return max_page
-
-
-PRECIO_MIN = 100
-PRECIO_MAX = 500_000
-
-def limpiar_precio(texto):
-    """Convierte '$19.599' o '5719' a float. Rechaza outliers fuera de rango razonable."""
-    limpio = re.sub(r"[^\d,.]", "", texto)
-    if "," in limpio and "." in limpio:
-        limpio = limpio.replace(",", "")
-    elif "," in limpio:
-        partes = limpio.split(",")
-        if len(partes) == 2 and len(partes[1]) <= 2:
-            limpio = limpio.replace(",", ".")
-        else:
-            limpio = limpio.replace(",", "")
-    elif "." in limpio:
-        # Punto como separador de miles (ej: "19.599" -> 19599, "1.500.000" -> 1500000)
-        # Si todos los grupos separados por punto tienen 3 digitos excepto el primero -> miles
-        partes = limpio.split(".")
-        if all(len(p) == 3 for p in partes[1:]):
-            limpio = limpio.replace(".", "")
-    try:
-        precio = float(limpio)
-        if not (PRECIO_MIN <= precio <= PRECIO_MAX):
-            return 0.0
-        return precio
-    except ValueError:
-        return 0.0
-
-
-def parsear_productos(soup, categoria_nombre):
-    """Extrae todos los productos de una página."""
-    items = soup.find_all(class_="e-loop-item")
-    productos = []
-
-    for item in items:
+def get_api(session, path, params=""):
+    """GET a la Store API con 3 reintentos. Devuelve (json, headers) o (None, {})."""
+    url = f"{API_URL}{path}?{params}" if params else f"{API_URL}{path}"
+    for intento in range(1, 4):
         try:
-            # Nombre via selector WooCommerce directo
-            nombre_elem = item.select_one("h3.product_title.entry-title")
-            if not nombre_elem:
-                continue
-            nombre = nombre_elem.get_text(strip=True)
-            if not nombre or len(nombre) < 3:
-                continue
-
-            # SKU (Cod. XXXX) — en un h2 dentro del item
-            sku = ""
-            for h2 in item.find_all("h2"):
-                m_sku = re.search(r"Cod\.?\s*(\d+)", h2.get_text())
-                if m_sku:
-                    sku = m_sku.group(1)
-                    break
-
-            # Precio via selector WooCommerce directo
-            precio = 0.0
-            precio_elem = item.select_one(".woocommerce-Price-amount.amount")
-            if precio_elem:
-                precio = limpiar_precio(precio_elem.get_text(strip=True))
-
-            if precio <= 0:
-                continue
-
-            # Imagen — Yaguar usa lazy loading; probar atributos en orden de prioridad
-            img_elem = item.select_one("img")
-            imagen = ""
-            if img_elem:
-                for _attr in ("data-lazy-src", "data-src", "src", "data-original"):
-                    _val = img_elem.get(_attr, "")
-                    if _val and "base.png" not in _val and not _val.startswith("data:"):
-                        imagen = _val
-                        break
-
-            # URL del producto
-            link_elem = item.select_one('a[href*="/producto/"]')
-            link = link_elem["href"] if link_elem else ""
-
-            productos.append({
-                "nombre": nombre,
-                "sku": sku,
-                "precio": precio,
-                "imagen": imagen,
-                "link": link,
-                "categoria": categoria_nombre,
-                "fuente": "Yaguar",
-                "fecha": datetime.now().strftime("%Y-%m-%d"),
-            })
-
-        except Exception:
-            continue
-
-    return productos
+            r = session.get(url, headers=HEADERS, impersonate=IMPERSONATE, timeout=30)
+            if r.status_code == 200 and "json" in r.headers.get("content-type", ""):
+                return r.json(), r.headers
+            print(f"    API {path}: status {r.status_code} (intento {intento}/3)")
+        except Exception as e:
+            print(f"    API {path}: {e} (intento {intento}/3)")
+        time.sleep(5 * intento)
+    return None, {}
 
 
-def scrapear_categoria(session, slug, nombre, idx, total):
-    """Scrapea todas las páginas de una categoría."""
-    base_cat_url = f"{BASE_URL}/categoria-producto/{slug}/"
+def obtener_categorias_top(session):
+    """Categorias top-level (parent == 0) con sus counts, paginando la API."""
+    todas = []
+    pagina = 1
+    while True:
+        data, headers = get_api(session, "/products/categories",
+                                f"per_page=100&page={pagina}")
+        if data is None:
+            break
+        todas.extend(data)
+        total_pages = int(headers.get("x-wp-totalpages", 1) or 1)
+        if pagina >= total_pages:
+            break
+        pagina += 1
+        time.sleep(DELAY_ENTRE_PAGINAS)
+    top = [c for c in todas if c.get("parent", 0) == 0 and c.get("count", 0) > 0]
+    return top
 
-    def _get_first_page():
-        r = session.get(base_cat_url, headers=HEADERS, impersonate=IMPERSONATE, timeout=30)
-        if r.status_code != 200 or "login" in r.url:
-            raise Exception(f"Error accediendo a categoría (status {r.status_code})")
-        return r
 
-    def _get_page(pagina):
-        url_pagina = f"{base_cat_url}page/{pagina}/"
-        r = session.get(url_pagina, headers=HEADERS, impersonate=IMPERSONATE, timeout=30)
-        if r.status_code == 404:
-            return None  # fin real de paginacion, no un error
-        if r.status_code != 200:
-            raise Exception(f"Página {pagina}: status {r.status_code}")
-        return r
-
+def parsear_producto(p, categoria_nombre):
+    """Producto de la Store API -> formato de output del catalogo."""
+    prices = p.get("prices", {}) or {}
     try:
-        r = _get_first_page()
-        soup = BeautifulSoup(r.text, "html.parser")
-        max_pagina = obtener_max_pagina(soup)
-        todos = parsear_productos(soup, nombre)
+        minor = int(prices.get("currency_minor_unit", 0) or 0)
+        precio = float(prices.get("price") or 0) / (10 ** minor)
+    except (TypeError, ValueError):
+        precio = 0.0
+    if not (PRECIO_MIN <= precio <= PRECIO_MAX):
+        return None
+    sku = str(p.get("sku", "") or "").strip()
+    nombre = html.unescape(p.get("name", "") or "").strip()
+    if not nombre or not sku:
+        return None
+    imagenes = p.get("images") or []
+    return {
+        "nombre": nombre,
+        "sku": sku,
+        "precio": precio,
+        "imagen": imagenes[0].get("src", "") if imagenes else "",
+        "link": p.get("permalink", ""),
+        "categoria": categoria_nombre,
+        "fuente": "Yaguar",
+        "fecha": datetime.now().strftime("%Y-%m-%d"),
+    }
 
-        print(f"\n[{idx}/{total}] Sector: {nombre}")
-        print(f"  {nombre.lower()}: ~{max_pagina * len(todos)} productos estimados ({max_pagina} páginas)")
 
-        for pagina in range(2, max_pagina + 1):
-            try:
-                r = _get_page(pagina)
-                if r is None:
-                    break  # 404 = fin real de paginacion
-                soup = BeautifulSoup(r.text, "html.parser")
-                prods = parsear_productos(soup, nombre)
-                if not prods:
-                    # Pagina vacia ANTES del final esperado = rate-limit de Yaguar, no
-                    # fin de catalogo. Una sesion fresca lo libera al instante (medido).
-                    if pagina < max_pagina:
-                        print(f"    Pag {pagina}: vacia (rate-limit) — re-login y reintento")
-                        session = crear_sesion()
-                        time.sleep(1.0)
-                        r2 = _get_page(pagina)
-                        prods = parsear_productos(
-                            BeautifulSoup(r2.text if r2 else "", "html.parser"), nombre)
-                    if not prods:
-                        if pagina < max_pagina:
-                            print(f"  AVISO: pag {pagina}/{max_pagina} sigue vacia tras re-login — corto sector")
-                        break
-                todos.extend(prods)
-                if pagina % 5 == 0 or pagina == max_pagina:
-                    print(f"    Pag {pagina}/{max_pagina}: {len(todos)} unicos acumulados")
-                time.sleep(DELAY_ENTRE_PAGINAS)
-            except Exception as e:
-                print(f"  ❌ Error en página {pagina}: {e} — reintentando...")
-                time.sleep(2)
-                try:
-                    r = _get_page(pagina)
-                    prods = parsear_productos(BeautifulSoup(r.text, "html.parser"), nombre)
-                    if prods:
-                        todos.extend(prods)
-                        continue
-                except Exception:
-                    pass
-                print(f"  AVISO: Paginacion truncada en pag {pagina}/{max_pagina}")
-                break
-
-        print(f"  {nombre.lower()}: {len(todos)} productos totales")
-        return todos, session
-
-    except Exception as e:
-        print(f"  ❌ Error en categoría {nombre}: {e}")
-        return [], session
+def scrapear_lote(session, params_base, categoria_nombre, vistos, todos):
+    """Pagina la Store API con params_base y acumula productos con SKU no visto.
+    Devuelve cuantos productos nuevos agrego."""
+    nuevos_total = 0
+    pagina = 1
+    total_pages = 1
+    while pagina <= total_pages:
+        data, headers = get_api(session, "/products",
+                                f"{params_base}&per_page={PER_PAGE}&page={pagina}")
+        if data is None:
+            print(f"    AVISO: pagina {pagina} fallo tras reintentos — corto lote")
+            break
+        total_pages = int(headers.get("x-wp-totalpages", total_pages) or total_pages)
+        for p in data:
+            prod = parsear_producto(p, categoria_nombre)
+            if prod is None or prod["sku"] in vistos:
+                continue
+            vistos.add(prod["sku"])
+            todos.append(prod)
+            nuevos_total += 1
+        if pagina % 5 == 0 or pagina == total_pages:
+            print(f"    Pag {pagina}/{total_pages}: {len(todos)} unicos acumulados")
+        pagina += 1
+        time.sleep(DELAY_ENTRE_PAGINAS)
+    return nuevos_total
 
 
 def main():
-    print("🚀 Scraper Yaguar PRO — Catálogo Completo")
-    print(f"📅 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    print("=" * 50)
-
-    session = curl_requests.Session()
-
-    if not login(session):
-        print("❌ Login fallido")
-        return None
-
-    todos_los_productos = []
-    resumen = {}
-
-    total_cats = len(CATEGORIAS)
-    print(f"Sectores a scrapear: {total_cats}")
+    print("Scraper Yaguar PRO — WooCommerce Store API")
+    print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 55)
 
-    for idx, cat in enumerate(CATEGORIAS, start=1):
-        productos, session = scrapear_categoria(session, cat["slug"], cat["nombre"], idx, total_cats)
-        todos_los_productos.extend(productos)
-        resumen[cat["nombre"]] = len(productos)
-        time.sleep(DELAY_ENTRE_CATEGORIAS)
+    session = curl_requests.Session()
+    if not login(session):
+        print("Login fallido — abortando")
+        sys.exit(1)
 
-    # Guardar output
+    # Total real del catalogo, para validar cobertura al final
+    _, headers = get_api(session, "/products", "per_page=1")
+    total_api = int(headers.get("x-wp-total", 0) or 0)
+    print(f"Catalogo segun la API: {total_api} productos")
+
+    categorias = obtener_categorias_top(session)
+    if not categorias:
+        print("ERROR: no se pudieron obtener las categorias — abortando")
+        sys.exit(1)
+    print(f"Sectores a scrapear: {len(categorias)}")
+    print("=" * 55)
+
+    todos = []
+    vistos = set()
+    resumen = {}
+
+    for idx, cat in enumerate(categorias, start=1):
+        print(f"\n[{idx}/{len(categorias)}] Sector: {cat['name']} (count={cat['count']})")
+        nuevos = scrapear_lote(session, f"category={cat['id']}", cat["name"], vistos, todos)
+        resumen[cat["name"]] = nuevos
+        print(f"  {cat['name'].lower()}: {nuevos} productos nuevos")
+
+    # Barrido general para atrapar productos sin categoria top-level
+    print(f"\n[extra] Barrido general (productos sin categoria)")
+    huerfanos = scrapear_lote(session, "orderby=id&order=asc", "", vistos, todos)
+    resumen["(sin categoria)"] = huerfanos
+    print(f"  sin categoria: {huerfanos} productos nuevos")
+
+    if total_api and len(todos) < total_api * 0.9:
+        print(f"AVISO: solo {len(todos)} de {total_api} productos de la API "
+              f"(algunos pueden no tener precio valido o SKU)")
+
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     output_file = os.path.join(BASE_DIR, "targets", "yaguar", f"output_yaguar_{timestamp}.json")
-    
-    with open(output_file, "w", encoding="utf-8") as f:
-        json.dump(todos_los_productos, f, ensure_ascii=False, indent=2)
 
-    print(f"\n💾 Guardado en: {output_file}")
-    print("\n" + "=" * 50)
-    print(f"✅ Scraping completo")
-    print(f"📦 Total productos: {len(todos_los_productos)}")
-    print(f"💾 Guardado en: {output_file}")
-    print("\nResumen por categoría:")
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(todos, f, ensure_ascii=False, indent=2)
+
+    print("\n" + "=" * 55)
+    print(f"Scraping completo — {len(todos)} productos unicos")
+    print(f"Guardado en: {output_file}")
+    print("\nResumen por sector:")
     for cat_nombre, count in resumen.items():
         print(f"  {cat_nombre}: {count}")
 
-    return todos_los_productos
+    if len(todos) < MIN_PRODUCTS_EXPECTED:
+        print(f"ERROR: {len(todos)} productos < minimo esperado {MIN_PRODUCTS_EXPECTED}")
+        sys.exit(1)
+
+    return todos
 
 
 if __name__ == "__main__":

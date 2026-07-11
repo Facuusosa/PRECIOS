@@ -24,6 +24,24 @@ No es una verificación única. Es un bucle. Nunca decir "listo" después de un 
 4. El calculador funciona end-to-end (precio compra → margen → precio venta)
 5. Sin errores en consola del browser
 
+## Cambios de ranking/orden — verificar visualmente, no solo tsc (06/07/2026)
+
+`tsc --noEmit` sin errores no prueba que el comportamiento visible cambió. Puede haber
+MÁS DE UN punto que reordena/filtra la misma lista antes de llegar a la pantalla.
+
+Caso real: se fijó el Fernet Branca X750 como bomba #1 tocando solo `calcularBombas()`
+en `lib/data.ts`. Compiló bien, parecía completo. Pero `vista-inicio.tsx` tiene su propia
+función `rankearTop()` que vuelve a ordenar el array de bombas con otro criterio — el fix
+quedó invisible en producción durante un commit entero hasta que Facu preguntó por qué
+no se veía.
+
+**Regla:** antes de dar por terminado un fix de ranking/orden/filtro:
+1. `grep` el nombre de la función que arma el array final en TODOS los componentes que
+   la consumen — no asumir que solo se ordena una vez donde se calcula.
+2. Levantar `npm run dev` local y verificar con Puppeteer (screenshot real de la pantalla
+   que el usuario ve) ANTES de commitear. Leer el código de nuevo no alcanza si ya se
+   leyó una vez y "se veía bien".
+
 ## Verificación post-pipeline completo
 ```bash
 python scrape_yaguar.py        # verifica output + producto count

@@ -226,6 +226,16 @@ def main():
         print(f"ERROR: Solo {len(productos_lista)} productos (min esperado: {MIN_PRODUCTS_EXPECTED}) — probablemente cookies expiradas.")
         sys.exit(1)
 
+    # Sesion "semi-autenticada" (fix 10/07/2026): un login en falso lista los productos
+    # pero con data-price="private" -> todos los precios en 0. Guardar ese output y
+    # devolver exit 0 contamina el pipeline con un archivo inservible (paso el 10/07:
+    # 3.948 productos, 0 con precio). Contar productos NO alcanza — exigir precios.
+    con_precio = sum(1 for p in productos_lista if p.get("precio", 0) > 0)
+    if con_precio < len(productos_lista) * 0.5:
+        print(f"ERROR: Solo {con_precio}/{len(productos_lista)} productos con precio — "
+              f"sesion sin acceso a precios (data-price private). NO se guarda output.")
+        sys.exit(1)
+
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     output_file = os.path.join(os.path.dirname(__file__), f"output_maxicarrefour_{timestamp}.json")
 

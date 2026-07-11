@@ -1,5 +1,40 @@
 # Estado Vivo — Brújula de Precios
-**Última actualización:** 10/07/2026 (noche) — DOMINIO PROPIO CERRADO ✅ + logos de fuentes arreglados y en prod. Próximo: OUTREACH.
+**Última actualización:** 11/07/2026 (madrugada) — EXTRACCIÓN 100% mayoristas + revisión automática del pipeline. Próximo: login MCF rediseñado + OUTREACH.
+
+## PRÓXIMOS 3 PASOS (sesión siguiente — en este orden)
+1. **Login MCF roto por rediseño del sitio** (~30-60 min, con Facu adelante): Carrefour
+   rediseñó el B2B el 10/07 ("MAXI PEDIDO") — la renovación automática loguea pero la sesión
+   queda en tienda WARNES (el .env pide AVELLANEDA) y todos los precios vienen `private`.
+   Diagnóstico con la ventana de Chrome abierta sobre `scripts/renovar_cookies_carrefour.py`
+   (flujo de selección de tienda post-login). Screenshot del estado:
+   `data/quality/carrefour_login_debug.png`. Mientras: la app publica MCF del 08/07, honesto.
+2. **Revisar la corrida del pipeline de las 10:00** — primera prueba real de todo lo del 10/07
+   (Yaguar API, sanidad de duplicados, VEREDICTO.md, toast). El hook SessionStart ya muestra
+   el estado al abrir la sesión, solo hay que leerlo.
+3. **OUTREACH** — sigue armado y sin enviar desde el 15/06. El catálogo está más fuerte que
+   nunca (14.000 productos). El bloqueador no es código.
+
+Después (encolado): refactor de carga de datos del frontend (JSON de 18,6 MB viaja embebido
+en el bundle — ya roza lo inaceptable en 4G) → destraba publicar ~20k exclusivos de cadenas (Fase B).
+
+## HECHO 10/07 (noche) — Extracción 100% de mayoristas + pipeline que avisa solo
+- **Yaguar estaba ROTO hace 2 semanas** (el sitio eliminó la navegación HTML; el scraper
+  acumulaba duplicados y truncaba: 34.886 registros = 5.137 únicos). Reescrito sobre la
+  **WooCommerce Store API**: **7.384/7.384 = 100,0% del catálogo real en 4 minutos** (antes
+  8 hs). Precios validados contra el HTML logueado; mismos SKUs → matching intacto.
+- **Catálogo: 13.014 → 14.000 productos** | comparables 2+ precios 1.814 → 2.055 (+13%) |
+  ABC=A con 2+ 245 → 291 | 574 imágenes nuevas. Regenerado local; lo publica el pipeline.
+- **MCO scrapeando de nuevo** (4.090 únicos): la causa de 8 días de fallos era invisible
+  porque el buffer de la pipe se perdía → todos los wrappers con `PYTHONUNBUFFERED=1`.
+- **Revisión automática (pedido de Facu "que lo veas solo")**: `sanidad_outputs()` (duplicados
+  y precios-en-cero), `VEREDICTO.md` por corrida (atexit), **toast de Windows** al fallar,
+  **hook SessionStart** que inyecta el estado a cada sesión de Claude. Todo probado en vivo.
+- **Defensa nueva probada en producción**: el scrape MCF de las 22:38 trajo 3.942 productos
+  sin precio (sesión semi-autenticada) y el scraper ABORTÓ sin guardar basura. Antes eso
+  contaminaba el catálogo en silencio.
+- Cobertura verificada por sitio: Yaguar dinámica (valida vs `x-wp-total`), MCF 10/10
+  sectores, MCO 8 categorías (electro existe pero excluido por criterio).
+- Detalle técnico en `.claude/rules/02-scrapers.md` (Store API, login en falso, sanidad).
 
 ## ✅ CERRADO 10/07 (noche) — DOMINIO PROPIO funcionando end-to-end
 Los DOS dominios verificados con curl real (sin `-k`, SSL validado de verdad):

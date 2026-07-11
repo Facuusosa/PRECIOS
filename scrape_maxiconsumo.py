@@ -41,7 +41,10 @@ def main():
     print("=== SCRAPER MAXICONSUMO ===")
     print(f"Iniciando: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
-    env = {**os.environ, "PYTHONUTF8": "1"}
+    # PYTHONUNBUFFERED: sin esto, si el scraper crashea duro (curl_cffi es extension C)
+    # el buffer de la pipe se pierde y el log queda sin NINGUNA linea del scraper
+    # (incidente 02-09/07: 8 dias de "ERROR EN SCRAPER MAXICONSUMO" sin causa visible)
+    env = {**os.environ, "PYTHONUTF8": "1", "PYTHONUNBUFFERED": "1"}
     result = subprocess.run(["python", "targets/maxiconsumo/scraper_pro.py"], cwd=os.getcwd(), env=env)
 
     if result.returncode == 0:

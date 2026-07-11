@@ -182,7 +182,14 @@ def main():
             for idx, (nombre, slug) in enumerate(CATEGORIAS, start=1)
         }
         for fut in as_completed(futuros):
-            prods = fut.result()
+            nombre_cat = futuros[fut]
+            try:
+                prods = fut.result()
+            except Exception as e:
+                # Una categoria que crashea no mata el scrape entero (regla 01:
+                # log, skip, continuar). Antes el traceback moria en el buffer.
+                print(f"  [ERROR] Categoria {nombre_cat} crasheo: {type(e).__name__}: {e}")
+                continue
             with lock:
                 for key, prod in prods.items():
                     if key not in todos:

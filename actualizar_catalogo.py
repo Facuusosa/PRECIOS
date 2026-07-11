@@ -816,7 +816,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             "subcategoria":   subcategoria,
             "abc":            abc,
             "precios":        {"yaguar": 0, "maxicarrefour": 0, "maxiconsumo": 0,
-                               "coto": 0, "carrefour": 0},
+                               "coto": 0, "carrefour": 0, "dia": 0},
             "fuentes":        {},
         }
 
@@ -1988,6 +1988,7 @@ def main():
     maxiconsumo = cargar_maxiconsumo()
     coto        = cargar_cadena("coto", "Coto")
     carrefour   = cargar_cadena("carrefour", "Carrefour")
+    dia         = cargar_cadena("dia", "Dia")
 
     print("\nConstruyendo catálogo unificado...")
     catalogo, aprendizaje_yag, aprendizaje_mco = construir_catalogo(
@@ -2028,7 +2029,7 @@ def main():
     # (gondola) y adentro generarian falsos positivos. Fuera del constructor no
     # contaminan ni pueden ser descartadas. Decision de producto: solo agregan
     # precio a EANs que ya existen — los exclusivos quedan para la Fase B.
-    cadenas = [("coto", "Coto", coto), ("carrefour", "Carrefour", carrefour)]
+    cadenas = [("coto", "Coto", coto), ("carrefour", "Carrefour", carrefour), ("dia", "Dia", dia)]
     if any(data for _, _, data in cadenas):
         idx_ean = {}
         for p in catalogo:
@@ -2065,7 +2066,7 @@ def main():
     STALE_DIAS = 14
     from datetime import date as _date
     hoy = _date.today()
-    _mayoristas = ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour")
+    _mayoristas = ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia")
     precios_stale = 0
     for p in catalogo:
         fuentes = p.get("fuentes", {})
@@ -2109,6 +2110,7 @@ def main():
     con_mco  = sum(1 for p in catalogo if p["precios"]["maxiconsumo"] > 0)
     con_coto = sum(1 for p in catalogo if p["precios"].get("coto", 0) > 0)
     con_carr = sum(1 for p in catalogo if p["precios"].get("carrefour", 0) > 0)
+    con_dia  = sum(1 for p in catalogo if p["precios"].get("dia", 0) > 0)
     # Las metricas de comparativa miden SOLO mayoristas (coto es referencia gondola)
     _KEYS_MAY = ("yaguar", "maxicarrefour", "maxiconsumo")
     def _n_mayoristas(p):
@@ -2127,6 +2129,7 @@ def main():
     print(f"  Con precio Maxiconsumo:       {con_mco}")
     print(f"  Con precio Coto (gondola):    {con_coto}")
     print(f"  Con precio Carrefour (gond.): {con_carr}")
+    print(f"  Con precio Dia (gondola):     {con_dia}")
     print(f"  Con 2+ precios (comparativa): {multi}")
     print(f"  Con 3 precios:                {tres}")
     print(f"  ABC=A con 2+ precios:         {abc_a_multi}")

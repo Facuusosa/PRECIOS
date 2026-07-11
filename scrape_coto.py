@@ -12,7 +12,7 @@ def main():
     print("=== SCRAPER COTO ===")
     print(f"Iniciando: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
-    env = {**os.environ, "PYTHONUTF8": "1"}
+    env = {**os.environ, "PYTHONUTF8": "1", "PYTHONUNBUFFERED": "1"}
 
     # Coto no requiere cookies ni credenciales: API publica de Constructor.io
     result = subprocess.run(

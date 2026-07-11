@@ -26,6 +26,10 @@ from pathlib import Path
 # Los scrapers imprimen emojis/tildes; en Windows el default cp1252 crashea. Forzar
 # UTF-8 en este proceso y en todos los subprocesos que lance (regla code-style).
 os.environ["PYTHONUTF8"] = "1"
+# Sin PYTHONUNBUFFERED, un crash duro de un scraper (curl_cffi es extension C)
+# pierde el buffer entero de la pipe: 8 dias de "ERROR EN SCRAPER MAXICONSUMO"
+# sin una sola linea de causa en el log (incidente 02-09/07/2026).
+os.environ["PYTHONUNBUFFERED"] = "1"
 
 RAIZ = Path(__file__).resolve().parent
 BRUJULA_DIR = RAIZ / "BRUJULA-DE-PRECIOS"
@@ -38,20 +42,48 @@ def log(msg):
 
 
 ALERTAS_MD = RAIZ / "data" / "quality" / "ALERTA.md"
+VEREDICTO_MD = RAIZ / "data" / "quality" / "VEREDICTO.md"
+
+# Estado de la corrida para el veredicto final (se escribe SIEMPRE via atexit,
+# incluso si un sys.exit() corta el pipeline a mitad de camino)
+_corrida = {"fase": "inicio", "scrapers": {}, "alertas": [], "notas": []}
+
+
+def _toast(titulo, msg):
+    """Notificacion nativa de Windows (sin dependencias). Best-effort: si falla,
+    quedan el beep y ALERTA.md."""
+    guion = (
+        "[Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, "
+        "ContentType = WindowsRuntime] | Out-Null; "
+        "$t = [Windows.UI.Notifications.ToastNotificationManager]::GetTemplateContent("
+        "[Windows.UI.Notifications.ToastTemplateType]::ToastText02); "
+        "$n = $t.GetElementsByTagName('text'); "
+        f"$n.Item(0).AppendChild($t.CreateTextNode('{titulo}')) | Out-Null; "
+        f"$n.Item(1).AppendChild($t.CreateTextNode('{msg}')) | Out-Null; "
+        "[Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier("
+        "'Brujula Pipeline').Show([Windows.UI.Notifications.ToastNotification]::new($t))"
+    )
+    try:
+        subprocess.Popen(["powershell", "-NoProfile", "-Command", guion],
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except Exception:
+        pass
 
 
 def alertar(msg, accion=""):
-    """Alerta visible: ALERTA.md (lo lee Claude en /inicio-sesion) + beep + log.
+    """Alerta visible: ALERTA.md (lo lee Claude en /inicio-sesion) + toast + beep + log.
 
     Punto unico de notificacion — si algun dia hace falta push al celu (ntfy),
     se agrega aca y llega desde todos los chequeos a la vez.
     """
     log(f"ALERTA: {msg}")
+    _corrida["alertas"].append(msg)
     ts = datetime.now().strftime("%d/%m/%Y %H:%M")
     with open(ALERTAS_MD, "a", encoding="utf-8") as f:
         f.write(f"\n## {ts} — {msg}\n")
         if accion:
             f.write(f"Accion sugerida: {accion}\n")
+    _toast("Brujula: pipeline con problemas", msg.replace("'", ""))
     try:
         import winsound
         # Patron grave-grave-agudo, distinto al del renovador de cookies (880/1100)
@@ -68,10 +100,90 @@ def run(cmd, cwd=None):
                           encoding="utf-8", errors="replace")
 
 
+def sanidad_outputs():
+    """Registros vs unicos del output mas reciente de cada fuente.
+
+    El bug de Yaguar del 25/06-10/07 (34.886 registros = 5.137 unicos por paginas
+    repetidas del rate-limit) fue invisible 2 semanas porque nadie comparaba
+    registros contra unicos. Este check lo atrapa en la primera corrida."""
+    resultados = {}
+    for may in ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia"):
+        carpeta = RAIZ / "targets" / may
+        outputs = [f for f in sorted(carpeta.glob(f"output_{may}_*.json"))
+                   if "raw" not in f.stem and "enriched" not in f.stem]
+        if not outputs:
+            continue
+        ultimo = outputs[-1]
+        try:
+            with open(ultimo, encoding="utf-8") as f:
+                data = json.load(f)
+        except (json.JSONDecodeError, OSError) as e:
+            alertar(f"Output de {may} ilegible ({ultimo.name}): {e}",
+                    "posible doble scraper concurrente (regla 07) — revisar procesos")
+            continue
+        prods = data if isinstance(data, list) else data.get("productos", [])
+        claves = set()
+        for p in prods:
+            clave = str(p.get("sku") or p.get("ean") or p.get("nombre") or "").strip()
+            if clave:
+                claves.add(clave)
+        registros, unicos = len(prods), len(claves)
+        con_precio = sum(1 for p in prods if p.get("precio", 0) > 0)
+        resultados[may] = {"archivo": ultimo.name, "registros": registros,
+                           "unicos": unicos, "con_precio": con_precio}
+        if registros > 0 and unicos < registros * 0.95:
+            alertar(f"Output de {may} con {registros - unicos} duplicados "
+                    f"({registros} registros vs {unicos} unicos) — scraper repitiendo paginas",
+                    "misma firma que el bug Yaguar 25/06-10/07: revisar paginacion/rate-limit")
+        if registros > 0 and con_precio < registros * 0.5:
+            alertar(f"Output de {may} con solo {con_precio}/{registros} precios > 0 — "
+                    f"sesion sin acceso a precios (firma data-price private, 10/07)",
+                    "renovar cookies con click MANUAL: python scripts/renovar_cookies_carrefour.py --force")
+    return resultados
+
+
+def escribir_veredicto():
+    """Estado compacto de la ultima corrida -> VEREDICTO.md. Registrado via atexit:
+    se escribe SIEMPRE, incluso si un sys.exit() corta el pipeline a mitad de camino.
+    Lo lee Claude automaticamente al inicio de cada sesion (hook SessionStart)."""
+    ts = datetime.now().strftime("%d/%m/%Y %H:%M")
+    lineas = [f"# VEREDICTO ultima corrida — {ts}", ""]
+    lineas.append(f"**Fase alcanzada:** {_corrida['fase']}")
+    if _corrida["fase"] != "completado":
+        lineas.append("(la corrida NO llego al final — ver alertas y log)")
+    lineas.append("")
+    if _corrida["scrapers"]:
+        lineas.append("**Scrapers:** " + " | ".join(
+            f"{m}: {'OK' if v else 'FALLO'}" for m, v in _corrida["scrapers"].items()))
+    if _corrida.get("conteos"):
+        lineas.append(f"**Catalogo:** {_corrida['conteos']}")
+    if _corrida.get("sanidad"):
+        lineas.append("")
+        lineas.append("**Sanidad de outputs (registros/unicos/con precio):**")
+        for may, s in _corrida["sanidad"].items():
+            marca = " <- DUPLICADOS" if s["unicos"] < s["registros"] * 0.95 else ""
+            if s.get("con_precio", s["registros"]) < s["registros"] * 0.5:
+                marca += " <- SIN PRECIOS (sesion muerta)"
+            lineas.append(f"- {may}: {s['registros']}/{s['unicos']}/{s.get('con_precio','?')} ({s['archivo']}){marca}")
+    lineas.append("")
+    if _corrida["alertas"]:
+        lineas.append("**Alertas de esta corrida:**")
+        for a in _corrida["alertas"]:
+            lineas.append(f"- {a}")
+    else:
+        lineas.append("Sin alertas en esta corrida.")
+    for n in _corrida["notas"]:
+        lineas.append(f"- {n}")
+    try:
+        VEREDICTO_MD.write_text("\n".join(lineas) + "\n", encoding="utf-8")
+    except OSError:
+        pass
+
+
 def contar_por_fuente():
     """Productos con precio por fuente en el catalogo actual (para anti-reciclaje)."""
     conteo = {"total": 0, "yaguar": 0, "maxicarrefour": 0, "maxiconsumo": 0,
-              "coto": 0, "carrefour": 0}
+              "coto": 0, "carrefour": 0, "dia": 0}
     if not CATALOGO.exists():
         return conteo
     with open(CATALOGO, encoding="utf-8") as f:
@@ -80,7 +192,7 @@ def contar_por_fuente():
     conteo["total"] = len(prods)
     for p in prods:
         precios = p.get("precios", {})
-        for may in ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour"):
+        for may in ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia"):
             if precios.get(may, 0) > 0:
                 conteo[may] += 1
     return conteo
@@ -138,7 +250,7 @@ def limpiar_automatico():
     limite = datetime.now() - timedelta(days=30)
     borrados_outputs = 0
     mb_liberados = 0.0
-    for mayorista in ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour"):
+    for mayorista in ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia"):
         carpeta = RAIZ / "targets" / mayorista
         if not carpeta.exists():
             continue
@@ -172,20 +284,28 @@ def hay_cambios():
 
 
 def main():
+    import atexit
+    atexit.register(escribir_veredicto)
     log("=== PIPELINE LOCAL BRUJULA ===")
     antes = contar_por_fuente()
     log(f"Catalogo actual: {antes['total']} prods "
         f"(Y={antes['yaguar']} MC={antes['maxicarrefour']} MCO={antes['maxiconsumo']} "
-        f"C={antes['coto']} CF={antes['carrefour']})")
+        f"C={antes['coto']} CF={antes['carrefour']} D={antes['dia']})")
 
     ok = {
-        "yaguar":        run_scraper("scrape_yaguar.py"),
+        # MaxiCarrefour primero: es el unico que puede pedir un click manual
+        # (renovacion de cookies) — asi Facu lo resuelve al toque y deja el resto
+        # de los scrapers (sin intervencion humana) corriendo desatendido.
         "maxicarrefour": run_scraper("scrape_maxicarrefour.py"),
+        "yaguar":        run_scraper("scrape_yaguar.py"),
         "maxiconsumo":   run_scraper("scrape_maxiconsumo.py"),
         "coto":          run_scraper("scrape_coto.py"),
         "carrefour":     run_scraper("scrape_carrefour.py"),
+        "dia":           run_scraper("scrape_dia.py"),
     }
     log(f"Scrapers OK: {sum(ok.values())}/{len(ok)}")
+    _corrida["fase"] = "scrapers"
+    _corrida["scrapers"] = dict(ok)
     for may, exito in ok.items():
         if not exito:
             alertar(f"Scraper {may} FALLO hoy",
@@ -193,6 +313,9 @@ def main():
     if sum(ok.values()) == 0:
         log("ERROR: los 3 scrapers fallaron - el catalogo no se toca")
         sys.exit(1)
+
+    # Sanidad de outputs: duplicados masivos = scraper repitiendo paginas
+    _corrida["sanidad"] = sanidad_outputs()
 
     # Consolidar con los 3 (los wrappers ya lo regeneran, pero esto deja el estado final)
     log("Regenerando catalogo unificado...")
@@ -207,7 +330,11 @@ def main():
     despues = contar_por_fuente()
     log(f"Catalogo nuevo: {despues['total']} prods "
         f"(Y={despues['yaguar']} MC={despues['maxicarrefour']} MCO={despues['maxiconsumo']} "
-        f"C={despues['coto']} CF={despues['carrefour']})")
+        f"C={despues['coto']} CF={despues['carrefour']} D={despues['dia']})")
+    _corrida["fase"] = "catalogo regenerado"
+    _corrida["conteos"] = (f"{despues['total']} prods (Y={despues['yaguar']} "
+                           f"MC={despues['maxicarrefour']} MCO={despues['maxiconsumo']} "
+                           f"C={despues['coto']} CF={despues['carrefour']} D={despues['dia']})")
 
     if antes["total"] > 0:
         caida = (antes["total"] - despues["total"]) / antes["total"]
@@ -216,10 +343,10 @@ def main():
                     "revisar scrapers en data/quality/pipeline_local.log")
             sys.exit(1)
     # Minimos historicos por fuente: si cae por debajo, algo salio mal.
-    # coto/carrefour: son matches EAN contra el catalogo (coto 4.116 medidos el
-    # 05/07/2026), NO el total scrapeado — el minimo va sobre lo que entra al catalogo
+    # coto/carrefour/dia: son matches EAN contra el catalogo (coto 4.116, dia 1.832
+    # medidos el 06/07/2026), NO el total scrapeado — el minimo va sobre lo que entra al catalogo
     minimos_fuente = {"yaguar": 4000, "maxicarrefour": 3000, "maxiconsumo": 3000,
-                      "coto": 3000, "carrefour": 3000}
+                      "coto": 3000, "carrefour": 3000, "dia": 1200}
     for may, minimo in minimos_fuente.items():
         if antes[may] > 100 and despues[may] == 0:
             alertar(f"{may} quedo en 0 precios (antes {antes[may]}) - NO se publica",
@@ -268,6 +395,7 @@ def main():
         sys.exit(1)
     log("Push OK -> Vercel redeploy disparado")
     limpiar_automatico()
+    _corrida["fase"] = "completado"
     log("=== PIPELINE COMPLETADO ===")
 
 

@@ -10,6 +10,7 @@
 - Maxiconsumo (`targets/maxiconsumo/scraper_pro.py`) — mayorista
 - Coto (`targets/coto/scraper_pro.py`) — CADENA minorista (referencia góndola, no precio de compra); API pública Constructor.io, sin credenciales
 - Carrefour retail (`targets/carrefour/scraper_pro.py`) — CADENA minorista; API VTEX Intelligent Search pública, sin credenciales. NO confundir con MaxiCarrefour (mayorista B2B, otro sitio)
+- Dia (`targets/dia/scraper_pro.py`) — CADENA minorista; API VTEX legacy Catalog System pública, sin credenciales, sin anti-bot
 
 ## Entrypoints clave
 - Frontend: `BRUJULA-DE-PRECIOS/app/page.tsx`
