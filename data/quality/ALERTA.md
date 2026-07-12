@@ -5,21 +5,29 @@ Claude las lee al inicio de cada sesión (`/inicio-sesion`, paso 0) y las report
 Una vez resueltas, se mueven a la sección de abajo.
 
 <!-- Las alertas nuevas se agregan acá abajo automáticamente -->
-## 10/07/2026 23:00 — MCF: sitio B2B REDISEÑADO (MAXI PEDIDO) — renovacion produce sesion sin precios
-El sitio comerciante.carrefour.com.ar cambio de UI (~10/07). La renovacion automatica loguea
-pero la sesion queda asociada a la tienda WARNES (el .env pide AVELLANEDA) y todos los precios
-vienen data-price=private. Dos intentos fallidos el 10/07 (21:16 y 22:38). Las defensas nuevas
-funcionaron: el scraper aborto sin guardar output basura; el catalogo publica MCF del 08/07 con
-fechas honestas. Screenshot del estado: data/quality/carrefour_login_debug.png
-Accion sugerida: diagnostico interactivo del flujo nuevo de seleccion de tienda en
-scripts/renovar_cookies_carrefour.py (_rellenar_form + post-login) con la ventana de Chrome
-abierta — sesion diurna con Facu, ~30-60 min.
 
+## 12/07/2026 18:48-18:50 — Scraper maxiconsumo FALLO (corrida automatica de la tarde)
+No investigado todavia — el catalogo publicado usa el output de maxiconsumo del 11/07 21:49
+como fallback (sigue siendo dato de ayer, no critico). Si se repite mañana, sospechar el mismo
+timeout transitorio de red visto el 11/07 (curl: Operation timed out en paginacion) y relanzar
+`python scrape_maxiconsumo.py` solo.
 
 ---
 
 ## Resueltas
 
+- 10/07 a 12/07 — MCF: sitio B2B REDISEÑADO (MAXI PEDIDO) — renovacion producia sesion sin
+  precios (logueaba en sucursal WARNES en vez de AVELLANEDA, data-price=private). Diagnostico
+  interactivo con Facu 12/07: `_rellenar_form()` SI completaba bien el formulario (matcheaba
+  "AVELLANEDA" correctamente), pero el intento de click automatico en "#btn_step2" tiraba
+  timeout (boton seguia `btn-disabled-outlined`) y el codigo igual reportaba "EXITOSO" en base
+  a `_esta_autenticado()` — mismo patron que el incidente del 10/07 documentado en
+  02-scrapers.md. Al re-ejecutar `renovar_cookies_carrefour.py --force` una segunda vez el
+  mismo dia, el login SI prendio bien: scraper trajo 4.614 productos, 100% con precio real
+  (verificado contra la web en vivo, 59/59 correctos). No se identifico una causa raiz de
+  codigo para arreglar de forma permanente — parece ser inestabilidad puntual del reCAPTCHA/
+  timing del sitio nuevo, no un bug fijo del scraper. Si vuelve a fallar: reintentar
+  `--force` una segunda vez antes de asumir que hay que tocar codigo.
 - 02/07 a 09/07 — TODAS las alertas "Scraper maxicarrefour/maxiconsumo FALLO hoy" +
   "FUENTE CONGELADA maxicarrefour" (13 alertas acumuladas). Causa raíz diagnosticada y
   arreglada el 10/07: (a) MCF: un único page.goto de 30s sin reintento moría por timeout
