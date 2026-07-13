@@ -1,15 +1,22 @@
 # Reglas: Proyecto y MVP
 
 ## Qué es Brújula
-App web para comerciantes (kioscos, almacenes, minimercados) que centraliza precios de 3 mayoristas con calculador de margen automático.
+App web que centraliza precios de mayoristas (compra) y cadenas minoristas (góndola) con
+calculador de margen automático. Sirve a dos audiencias: comerciantes (kioscos, almacenes,
+minimercados) que comparan precio de compra, y consumidores que comparan precio de góndola.
+El selector "Uso la app como" (perfil) define cuál ve primero cada uno.
 
 ## MVP — incluye (rediseño completo 26/04/2026)
 - Calculador de margen funcional
-- 3 mayoristas: Yaguar, Maxicarrefour, Maxiconsumo
+- 3 mayoristas: Yaguar, Maxicarrefour, Maxiconsumo + 3 cadenas: Coto, Carrefour, Dia
 - 6 vistas: Inicio, Catálogo, Detalle, Comparativa, Herramientas, Perfil
-- FEATURE GATING: FREE = 2 mayoristas, TIER2+ = 3
 
 ## MVP — NO incluye
+- FEATURE GATING real (FREE/PRO): hoy TODAS las fuentes están abiertas para todos, sin
+  restricción de código. No hay lógica de tier en `lib/`. Ver `.claude/docs/proxima-fase.md`
+  para el plan de implementación — hasta que se implemente, no mostrar en UI ningún badge
+  "PRO" ni mensaje de plan que sugiera una restricción que no existe (confirmado 13/07/2026,
+  ver `vista-cuenta.tsx`).
 - Mapa/direcciones (Tier3)
 - Historial de precios (Tier2)
 - Alertas (post-estabilización)
