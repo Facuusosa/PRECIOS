@@ -19302,3 +19302,2015 @@ Iniciando: 2026-07-10 10:27:23
 ERROR EN SCRAPER YAGUAR
 ^C[11:58:14] FALLO scrape_yaguar.py (5451s)
 [11:58:14] Corriendo scrape_maxiconsumo.py...
+==================================================== 
+Corrida: s�b 11/07/2026 13:54:49,10 
+[19:58:08] === PIPELINE LOCAL BRUJULA ===
+[19:58:11] Catalogo actual: 13978 prods (Y=7615 MC=4525 MCO=4181 C=4206 CF=4881 D=1891)
+[19:58:11] Corriendo scrape_maxicarrefour.py...
+=== SCRAPER MAXICARREFOUR ===
+Iniciando: 2026-07-11 19:58:15
+
+Verificando cookies MaxiCarrefour...
+Cookies invalidas o expiradas — renovando automaticamente...
+=======================================================
+RENOVACION DE COOKIES MAXICARREFOUR
+=======================================================
+Modo --force: renovando sin verificar fecha.
+Modo: Chrome real con perfil persistente...
+  Navegando a comerciante.carrefour.com.ar...
+  Autocompletando formulario...
+  No se pudo autocompletar (Locator.select_option: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("#region")
+    - locator resolved to <select id="region" required="" name="region" onchange="onchangeSelect(this)">…</select>
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - element is not visible
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - element is not visible
+    - retrying select option action
+      - waiting 100ms
+    14 × waiting for element to be visible and enabled
+       - element is not visible
+     - retrying select option action
+       - waiting 500ms
+). Completalo manualmente.
+  Screenshot de debug: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\carrefour_login_debug.png
+  Intentando click automatico (Chrome real)...
+  Click enviado. Esperando respuesta del servidor...
+  Click automatico sin respuesta definitiva.
+
+  ================================================
+  Click automatico no funciono.
+  Hace click en 'Ingresar' manualmente en Chrome.
+  Tenes 90 segundos.
+  ------------------------------------------------
+  Para 100% automatico: CAPSOLVER_API_KEY en .env
+  ================================================
+
+  Timeout — no se logro autenticacion.
+  Screenshot: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\carrefour_login_debug.png
+
+No se pudo renovar automaticamente.
+Pasos manuales:
+  1. Loguearse en comerciante.carrefour.com.ar
+  2. F12 -> Application -> Cookies
+  3. Copiar PHPSESSID y cf_clearance al .env
+
+Para automatizacion total (sin interaccion humana):
+  1. Crear cuenta en capsolver.com
+  2. Agregar CAPSOLVER_API_KEY=tu_key al .env
+ERROR: No se pudieron renovar las cookies.
+Renovar manualmente: ver .claude/docs/operaciones.md
+Abortando — no tiene sentido scraper sin cookies validas.
+[20:20:52] FALLO scrape_maxicarrefour.py (1360s)
+[20:20:52] Corriendo scrape_yaguar.py...
+=== SCRAPER YAGUAR ===
+Iniciando: 2026-07-11 20:20:52
+Scraper Yaguar PRO — WooCommerce Store API
+2026-07-11 20:20:53
+=======================================================
+Iniciando sesion...
+Login exitoso
+Catalogo segun la API: 7384 productos
+Sectores a scrapear: 12
+=======================================================
+
+[1/12] Sector: Almacén (count=1169)
+    Pag 5/12: 500 unicos acumulados
+    Pag 10/12: 1000 unicos acumulados
+    Pag 12/12: 1169 unicos acumulados
+  almacén: 1169 productos nuevos
+
+[2/12] Sector: Bazar (count=135)
+    Pag 2/2: 1304 unicos acumulados
+  bazar: 135 productos nuevos
+
+[3/12] Sector: Bebidas Sin Alcohol (count=396)
+    Pag 4/4: 1700 unicos acumulados
+  bebidas sin alcohol: 396 productos nuevos
+
+[4/12] Sector: Bodega (count=485)
+    Pag 5/5: 2185 unicos acumulados
+  bodega: 485 productos nuevos
+
+[5/12] Sector: Desayuno (count=529)
+    Pag 5/6: 2685 unicos acumulados
+    Pag 6/6: 2714 unicos acumulados
+  desayuno: 529 productos nuevos
+
+[6/12] Sector: Frescos (count=901)
+    Pag 5/10: 3214 unicos acumulados
+    Pag 10/10: 3615 unicos acumulados
+  frescos: 901 productos nuevos
+
+[7/12] Sector: Kiosco (count=564)
+    Pag 5/6: 4115 unicos acumulados
+    Pag 6/6: 4179 unicos acumulados
+  kiosco: 564 productos nuevos
+
+[8/12] Sector: Limpieza (count=904)
+    Pag 5/10: 4679 unicos acumulados
+    Pag 10/10: 5083 unicos acumulados
+  limpieza: 904 productos nuevos
+
+[9/12] Sector: Mascotas (count=79)
+    Pag 1/1: 5162 unicos acumulados
+  mascotas: 79 productos nuevos
+
+[10/12] Sector: Papeles (count=49)
+    Pag 1/1: 5211 unicos acumulados
+  papeles: 49 productos nuevos
+
+[11/12] Sector: Perfumería (count=1141)
+    Pag 5/12: 5711 unicos acumulados
+    Pag 10/12: 6211 unicos acumulados
+    Pag 12/12: 6352 unicos acumulados
+  perfumería: 1141 productos nuevos
+
+[12/12] Sector: Sin categorizar (count=187)
+    Pag 2/2: 6539 unicos acumulados
+  sin categorizar: 187 productos nuevos
+
+[extra] Barrido general (productos sin categoria)
+    Pag 5/74: 6579 unicos acumulados
+    Pag 10/74: 6604 unicos acumulados
+    Pag 15/74: 6641 unicos acumulados
+    Pag 20/74: 6683 unicos acumulados
+    Pag 25/74: 6729 unicos acumulados
+    Pag 30/74: 6779 unicos acumulados
+    Pag 35/74: 6825 unicos acumulados
+    Pag 40/74: 6864 unicos acumulados
+    Pag 45/74: 6919 unicos acumulados
+    Pag 50/74: 6965 unicos acumulados
+    Pag 55/74: 7037 unicos acumulados
+    Pag 60/74: 7095 unicos acumulados
+    Pag 65/74: 7141 unicos acumulados
+    Pag 70/74: 7194 unicos acumulados
+    Pag 74/74: 7384 unicos acumulados
+  sin categoria: 845 productos nuevos
+
+=======================================================
+Scraping completo — 7384 productos unicos
+Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\yaguar\output_yaguar_20260711_202539.json
+
+Resumen por sector:
+  Almacén: 1169
+  Bazar: 135
+  Bebidas Sin Alcohol: 396
+  Bodega: 485
+  Desayuno: 529
+  Frescos: 901
+  Kiosco: 564
+  Limpieza: 904
+  Mascotas: 79
+  Papeles: 49
+  Perfumería: 1141
+  Sin categorizar: 187
+  (sin categoria): 845
+
+=== UNIFICANDO DATOS ===
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-11 20:25:42
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +102 SKUs Yaguar, +60 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 7639 prods únicos (7634 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260708_080751.json -> 4578 productos (4577 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4122 productos
+    4109 precios válidos (>$200), 13 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 15142 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11588 productos con EAN y precio
+  Dia: 3 archivo(s) -> 4758 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +508 EANs Yaguar via Maestro, +87 EANs Maxiconsumo via Maestro (1 descartados por conflicto de marca)
+  MaxiCarrefour: 4578 productos procesados
+    -> Matches Yaguar via CODIGOS:      1018
+    -> Matches Maxiconsumo via CODIGOS: 364
+  Yaguar (restantes): 6619 nuevos, 2 match EAN, 3513 con EAN via Maestro
+  Maxiconsumo (restantes): 3385 nuevos, 353 match EAN, 20 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 20 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 22 precios absurdos eliminados
+  Validación cruzada: 3 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 3 marcados para revisión
+  Paso 6b: 4 duplicados por nombre normalizado fusionados
+  Paso 6c: 660 fusiones fuzzy complementarias
+  Paso 6d: 80 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  Outlier MC descartado: Preservativo TULIPAN Dispenser 12x3 u MC=$23,500 vs mediana otras=$2,640
+  PRECIOS SOSPECHOSOS MC descartados: 2
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8842 productos sin clasificacion Maestro
+  Coto: 4172 productos del catalogo con precio gondola (de 15142 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4855 productos del catalogo con precio gondola (de 11588 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Dia: 1879 productos del catalogo con precio gondola (de 4758 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 1 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13828
+  Con precio Yaguar:            7531
+  Con precio MaxiCarrefour:     4525
+  Con precio Maxiconsumo:       4056
+  Con precio Coto (gondola):    4172
+  Con precio Carrefour (gond.): 4855
+  Con precio Dia (gondola):     1879
+  Con 2+ precios (comparativa): 1967
+  Con 3 precios:                317
+  ABC=A con 2+ precios:         281
+  Sin imagen:                   1762
+  Links Carrefour: 2180 EAN directo, 2345 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[20:29:26] OK scrape_yaguar.py (514s)
+[20:29:26] Corriendo scrape_maxiconsumo.py...
+=== SCRAPER MAXICONSUMO ===
+Iniciando: 2026-07-11 20:29:27
+INICIO: Scraper Maxiconsumo PRO
+Fecha: 2026-07-11 20:29:29
+Categorias: 8
+==================================================
+
+[1/8] Sector: Almacen
+  Pag 5: 60 unicos acumulados
+  [ERROR] Pag 9: Failed to perform, curl: (28) Operation timed out after 25007 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+  [WARN] Almacen: 96 productos (esperado >=800) -- posible bloqueo
+  Almacen: 96 productos totales
+
+[2/8] Sector: Bebidas
+  Pag 5: 60 unicos acumulados
+  Pag 10: 120 unicos acumulados
+  Pag 15: 180 unicos acumulados
+  Pag 20: 240 unicos acumulados
+  Pag 25: 300 unicos acumulados
+  Pag 30: 360 unicos acumulados
+  Pag 35: 420 unicos acumulados
+  Pag 40: 480 unicos acumulados
+  Bebidas: 521 productos totales
+
+[3/8] Sector: Frescos
+  Pag 5: 60 unicos acumulados
+  Pag 10: 120 unicos acumulados
+  Frescos: 130 productos totales
+
+[4/8] Sector: Limpieza
+  Pag 5: 60 unicos acumulados
+  Pag 10: 120 unicos acumulados
+  Pag 15: 180 unicos acumulados
+  Pag 20: 240 unicos acumulados
+  Pag 25: 300 unicos acumulados
+  Pag 30: 360 unicos acumulados
+  Pag 35: 420 unicos acumulados
+  Pag 40: 480 unicos acumulados
+  Pag 45: 540 unicos acumulados
+  Pag 50: 600 unicos acumulados
+  Pag 55: 660 unicos acumulados
+  Pag 60: 714 unicos acumulados
+  Limpieza: 714 productos totales
+
+[5/8] Sector: Perfumeria
+  Pag 5: 60 unicos acumulados
+  Pag 10: 120 unicos acumulados
+  Pag 15: 180 unicos acumulados
+  Pag 20: 240 unicos acumulados
+  Pag 25: 300 unicos acumulados
+  Pag 30: 360 unicos acumulados
+  Pag 35: 420 unicos acumulados
+  Pag 40: 480 unicos acumulados
+  Pag 45: 540 unicos acumulados
+  Pag 50: 600 unicos acumulados
+  Pag 55: 660 unicos acumulados
+  Pag 60: 720 unicos acumulados
+  Pag 65: 780 unicos acumulados
+  Pag 70: 840 unicos acumulados
+  Pag 75: 900 unicos acumulados
+  Perfumeria: 925 productos totales
+
+[6/8] Sector: Hogar y Bazar
+  Pag 5: 60 unicos acumulados
+  Hogar y Bazar: 104 productos totales
+
+[7/8] Sector: Congelados
+  Congelados: 18 productos totales
+
+[8/8] Sector: Mascotas
+  Pag 5: 60 unicos acumulados
+  Pag 10: 118 unicos acumulados
+  Mascotas: 118 productos totales
+ERROR: Productos insuficientes: 2624 < 3500
+ERROR EN SCRAPER MAXICONSUMO
+[20:44:03] FALLO scrape_maxiconsumo.py (876s)
+[20:44:03] Corriendo scrape_coto.py...
+=== SCRAPER COTO ===
+Iniciando: 2026-07-11 20:44:03
+INICIO: Scraper Coto Digital PRO (Constructor.io API)
+Fecha: 2026-07-11 20:44:04
+Categorias a scrapear: 6
+=======================================================
+
+[1/6] Categoria: Almacen
+  Almacen: 10000 productos reportados
+    Pag 5/50: 640 unicos acumulados
+    Pag 10/50: 1638 unicos acumulados
+    Pag 15/50: 2633 unicos acumulados
+    Pag 20/50: 3626 unicos acumulados
+    Pag 25/50: 4594 unicos acumulados
+    Pag 30/50: 5001 unicos acumulados
+    Pag 35/50: 5003 unicos acumulados
+    Pag 40/50: 5035 unicos acumulados
+    Pag 45/50: 5440 unicos acumulados
+    Pag 50/50: 5442 unicos acumulados
+  Almacen: 5442 productos nuevos
+
+[2/6] Categoria: Frescos
+  Frescos: 4645 productos reportados
+    Pag 5/24: 6070 unicos acumulados
+    Pag 10/24: 7048 unicos acumulados
+    Pag 15/24: 7239 unicos acumulados
+    Pag 20/24: 7344 unicos acumulados
+    Pag 24/24: 7719 unicos acumulados
+  Frescos: 2277 productos nuevos
+
+[3/6] Categoria: Bebidas
+  Bebidas: 4923 productos reportados
+    Pag 5/25: 8271 unicos acumulados
+    Pag 10/25: 9080 unicos acumulados
+    Pag 15/25: 9868 unicos acumulados
+    Pag 20/25: 9877 unicos acumulados
+    Pag 25/25: 10244 unicos acumulados
+  Bebidas: 2525 productos nuevos
+
+[4/6] Categoria: Limpieza
+  Limpieza: 3373 productos reportados
+    Pag 5/17: 11128 unicos acumulados
+    Pag 10/17: 11400 unicos acumulados
+    Pag 15/17: 11683 unicos acumulados
+    Pag 17/17: 11692 unicos acumulados
+  Limpieza: 1448 productos nuevos
+
+[5/6] Categoria: Perfumeria
+  Perfumeria: 7233 productos reportados
+    Pag 5/37: 12312 unicos acumulados
+    Pag 10/37: 13172 unicos acumulados
+    Pag 15/37: 13179 unicos acumulados
+    Pag 20/37: 13396 unicos acumulados
+    Pag 25/37: 13733 unicos acumulados
+    Pag 30/37: 13906 unicos acumulados
+    Pag 35/37: 14108 unicos acumulados
+    Pag 37/37: 14297 unicos acumulados
+  Perfumeria: 2605 productos nuevos
+
+[6/6] Categoria: Congelados
+  Congelados: 1152 productos reportados
+    Pag 5/6: 14988 unicos acumulados
+    Pag 6/6: 14991 unicos acumulados
+  Congelados: 694 productos nuevos
+
+=======================================================
+Scraping completo — 14991 productos unicos (solo con stock)
+Con oferta vigente: 6629 (44%)
+Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\coto\output_coto_20260711_210109.json
+
+Resumen por categoria (nuevos aportados):
+  Almacen: 5442
+  Frescos: 2277
+  Bebidas: 2525
+  Limpieza: 1448
+  Perfumeria: 2605
+  Congelados: 694
+
+=== UNIFICANDO DATOS ===
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-11 21:01:10
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +102 SKUs Yaguar, +60 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 7639 prods únicos (7634 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260708_080751.json -> 4578 productos (4577 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4122 productos
+    4109 precios válidos (>$200), 13 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 15081 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11899 productos con EAN y precio
+  Dia: 3 archivo(s) -> 4752 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +796 EANs Yaguar via Maestro, +137 EANs Maxiconsumo via Maestro (55 descartados por conflicto de marca)
+  MaxiCarrefour: 4578 productos procesados
+    -> Matches Yaguar via CODIGOS:      1077
+    -> Matches Maxiconsumo via CODIGOS: 378
+  Yaguar (restantes): 6560 nuevos, 2 match EAN, 3513 con EAN via Maestro
+  Maxiconsumo (restantes): 3374 nuevos, 353 match EAN, 17 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 20 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 22 precios absurdos eliminados
+  Validación cruzada: 4 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 5 marcados para revisión
+  Paso 6b: 4 duplicados por nombre normalizado fusionados
+  Paso 6c: 635 fusiones fuzzy complementarias
+  Paso 6d: 89 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  Outlier MC descartado: Preservativo TULIPAN Dispenser 12x3 u MC=$23,500 vs mediana otras=$2,640
+  PRECIOS SOSPECHOSOS MC descartados: 2
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8796 productos sin clasificacion Maestro
+  Coto: 4164 productos del catalogo con precio gondola (de 15081 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4925 productos del catalogo con precio gondola (de 11899 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Dia: 1875 productos del catalogo con precio gondola (de 4752 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 3 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+    - Chocolate MILKA Leche Aireado X110g: maxicarrefour $8199 vs otra ~$9650
+    - Shampoo Prebioticos + Biotina Sedal 650 ml: maxicarrefour $7039 vs otra ~$9429
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13783
+  Con precio Yaguar:            7522
+  Con precio MaxiCarrefour:     4524
+  Con precio Maxiconsumo:       4057
+  Con precio Coto (gondola):    4164
+  Con precio Carrefour (gond.): 4925
+  Con precio Dia (gondola):     1875
+  Con 2+ precios (comparativa): 1997
+  Con 3 precios:                323
+  ABC=A con 2+ precios:         283
+  Sin imagen:                   1734
+  Links Carrefour: 2179 EAN directo, 2345 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[21:02:26] OK scrape_coto.py (1102s)
+[21:02:26] Corriendo scrape_carrefour.py...
+=== SCRAPER CARREFOUR (retail) ===
+Iniciando: 2026-07-11 21:02:26
+INICIO: Scraper Carrefour retail PRO (VTEX Intelligent Search)
+Fecha: 2026-07-11 21:02:26
+Categorias a scrapear: 9
+=======================================================
+
+[1/9] Categoria: Almacen
+  Almacen: 1808 disponibles reportados
+    Pag 5/19: 498 unicos acumulados
+    Pag 10/19: 998 unicos acumulados
+    Pag 15/19: 1495 unicos acumulados
+    Pag 19/19: 1802 unicos acumulados
+  Almacen: 1802 productos nuevos
+
+[2/9] Categoria: Desayuno
+  Desayuno: 1968 disponibles reportados
+    Pag 5/20: 2301 unicos acumulados
+    Pag 10/20: 2801 unicos acumulados
+    Pag 15/20: 3300 unicos acumulados
+    Pag 20/20: 3766 unicos acumulados
+  Desayuno: 1964 productos nuevos
+
+[3/9] Categoria: Bebidas
+  Bebidas: 1627 disponibles reportados
+    Pag 5/17: 4265 unicos acumulados
+    Pag 10/17: 4764 unicos acumulados
+    Pag 15/17: 5251 unicos acumulados
+    Pag 17/17: 5378 unicos acumulados
+  Bebidas: 1612 productos nuevos
+
+[4/9] Categoria: Frescos
+  Frescos: 942 disponibles reportados
+    Pag 5/10: 5877 unicos acumulados
+    Pag 10/10: 6314 unicos acumulados
+  Frescos: 936 productos nuevos
+
+[5/9] Categoria: Congelados
+  Congelados: 331 disponibles reportados
+    Pag 4/4: 6644 unicos acumulados
+  Congelados: 330 productos nuevos
+
+[6/9] Categoria: Limpieza
+  Limpieza: 1320 disponibles reportados
+    Pag 5/14: 7144 unicos acumulados
+    Pag 10/14: 7644 unicos acumulados
+    Pag 14/14: 7964 unicos acumulados
+  Limpieza: 1320 productos nuevos
+
+[7/9] Categoria: Perfumeria
+  Perfumeria: 2274 disponibles reportados
+    Pag 5/23: 8464 unicos acumulados
+    Pag 10/23: 8964 unicos acumulados
+    Pag 15/23: 9464 unicos acumulados
+    Pag 20/23: 9940 unicos acumulados
+    Pag 23/23: 10135 unicos acumulados
+  Perfumeria: 2171 productos nuevos
+
+[8/9] Categoria: Mascotas
+  Mascotas: 488 disponibles reportados
+    Pag 5/5: 10615 unicos acumulados
+  Mascotas: 480 productos nuevos
+
+[9/9] Categoria: Bebe
+  Bebe: 561 disponibles reportados
+    Pag 5/6: 11071 unicos acumulados
+    Pag 6/6: 11123 unicos acumulados
+  Bebe: 508 productos nuevos
+
+=======================================================
+Scraping completo — 11123 productos unicos (solo disponibles)
+Con alguna oferta real: 4390 (39%)
+  de las cuales promo por cantidad (2do al X% / NxM): 1890
+Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\carrefour\output_carrefour_20260711_210624.json
+
+Resumen por categoria (nuevos aportados):
+  Almacen: 1802
+  Desayuno: 1964
+  Bebidas: 1612
+  Frescos: 936
+  Congelados: 330
+  Limpieza: 1320
+  Perfumeria: 2171
+  Mascotas: 480
+  Bebe: 508
+
+=== UNIFICANDO DATOS ===
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-11 21:06:25
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +102 SKUs Yaguar, +60 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 7639 prods únicos (7634 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260708_080751.json -> 4578 productos (4577 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4122 productos
+    4109 precios válidos (>$200), 13 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 15081 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11611 productos con EAN y precio
+  Dia: 3 archivo(s) -> 4752 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +796 EANs Yaguar via Maestro, +137 EANs Maxiconsumo via Maestro (55 descartados por conflicto de marca)
+  MaxiCarrefour: 4578 productos procesados
+    -> Matches Yaguar via CODIGOS:      1077
+    -> Matches Maxiconsumo via CODIGOS: 378
+  Yaguar (restantes): 6560 nuevos, 2 match EAN, 3513 con EAN via Maestro
+  Maxiconsumo (restantes): 3374 nuevos, 353 match EAN, 17 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 20 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 22 precios absurdos eliminados
+  Validación cruzada: 4 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 5 marcados para revisión
+  Paso 6b: 4 duplicados por nombre normalizado fusionados
+  Paso 6c: 635 fusiones fuzzy complementarias
+  Paso 6d: 89 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  Outlier MC descartado: Preservativo TULIPAN Dispenser 12x3 u MC=$23,500 vs mediana otras=$2,640
+  PRECIOS SOSPECHOSOS MC descartados: 2
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8796 productos sin clasificacion Maestro
+  Coto: 4164 productos del catalogo con precio gondola (de 15081 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4827 productos del catalogo con precio gondola (de 11611 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Dia: 1875 productos del catalogo con precio gondola (de 4752 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 3 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+    - Chocolate MILKA Leche Aireado X110g: maxicarrefour $8199 vs otra ~$9650
+    - Shampoo Prebioticos + Biotina Sedal 650 ml: maxicarrefour $7039 vs otra ~$9429
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13783
+  Con precio Yaguar:            7522
+  Con precio MaxiCarrefour:     4524
+  Con precio Maxiconsumo:       4057
+  Con precio Coto (gondola):    4164
+  Con precio Carrefour (gond.): 4827
+  Con precio Dia (gondola):     1875
+  Con 2+ precios (comparativa): 1997
+  Con 3 precios:                323
+  ABC=A con 2+ precios:         283
+  Sin imagen:                   1734
+  Links Carrefour: 2179 EAN directo, 2345 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[21:07:33] OK scrape_carrefour.py (307s)
+[21:07:33] Corriendo scrape_dia.py...
+=== SCRAPER DIA ONLINE (retail) ===
+Iniciando: 2026-07-11 21:07:33
+INICIO: Scraper DIA Online PRO (VTEX legacy Catalog System)
+Fecha: 2026-07-11 21:07:33
+Categorias a scrapear: 9
+=======================================================
+
+[1/9] Categoria: Almacen
+  Almacen: 1070 disponibles reportados
+    Pag 5/22: 250 unicos acumulados
+    Pag 10/22: 500 unicos acumulados
+    Pag 15/22: 750 unicos acumulados
+    Pag 20/22: 1000 unicos acumulados
+    Pag 22/22: 1052 unicos acumulados
+  Almacen: 1052 productos nuevos
+
+[2/9] Categoria: Desayuno
+  Desayuno: 595 disponibles reportados
+    Pag 5/12: 1302 unicos acumulados
+    Pag 10/12: 1551 unicos acumulados
+    Pag 12/12: 1643 unicos acumulados
+  Desayuno: 591 productos nuevos
+
+[3/9] Categoria: Bebidas
+  Bebidas: 811 disponibles reportados
+    Pag 5/17: 1893 unicos acumulados
+    Pag 10/17: 2143 unicos acumulados
+    Pag 15/17: 2393 unicos acumulados
+    Pag 17/17: 2450 unicos acumulados
+  Bebidas: 807 productos nuevos
+
+[4/9] Categoria: Frescos
+  Frescos: 805 disponibles reportados
+    Pag 5/17: 2700 unicos acumulados
+    Pag 10/17: 2950 unicos acumulados
+    Pag 15/17: 3194 unicos acumulados
+    Pag 17/17: 3194 unicos acumulados
+  Frescos: 744 productos nuevos
+
+[5/9] Categoria: Congelados
+  Congelados: 166 disponibles reportados
+    Pag 4/4: 3360 unicos acumulados
+  Congelados: 166 productos nuevos
+
+[6/9] Categoria: Limpieza
+  Limpieza: 476 disponibles reportados
+    Pag 5/10: 3610 unicos acumulados
+    Pag 10/10: 3830 unicos acumulados
+  Limpieza: 470 productos nuevos
+
+[7/9] Categoria: Perfumeria
+  Perfumeria: 727 disponibles reportados
+    Pag 5/15: 4080 unicos acumulados
+    Pag 10/15: 4330 unicos acumulados
+    Pag 15/15: 4555 unicos acumulados
+  Perfumeria: 725 productos nuevos
+
+[8/9] Categoria: Mascotas
+  Mascotas: 55 disponibles reportados
+    Pag 2/2: 4609 unicos acumulados
+  Mascotas: 54 productos nuevos
+
+[9/9] Categoria: Bebe
+  Bebe: 121 disponibles reportados
+    Pag 3/3: 4723 unicos acumulados
+  Bebe: 114 productos nuevos
+
+=======================================================
+Scraping completo - 4723 productos unicos (solo disponibles)
+Con alguna oferta real: 1670 (35%)
+  de las cuales promo por cantidad (2do al X% / NxM): 271
+Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\dia\output_dia_20260711_211015.json
+
+Resumen por categoria (nuevos aportados):
+  Almacen: 1052
+  Desayuno: 591
+  Bebidas: 807
+  Frescos: 744
+  Congelados: 166
+  Limpieza: 470
+  Perfumeria: 725
+  Mascotas: 54
+  Bebe: 114
+
+=== UNIFICANDO DATOS ===
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-11 21:10:16
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +102 SKUs Yaguar, +60 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 7639 prods únicos (7634 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260708_080751.json -> 4578 productos (4577 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4122 productos
+    4109 precios válidos (>$200), 13 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 15081 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11611 productos con EAN y precio
+  Dia: 3 archivo(s) -> 4742 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +796 EANs Yaguar via Maestro, +137 EANs Maxiconsumo via Maestro (55 descartados por conflicto de marca)
+  MaxiCarrefour: 4578 productos procesados
+    -> Matches Yaguar via CODIGOS:      1077
+    -> Matches Maxiconsumo via CODIGOS: 378
+  Yaguar (restantes): 6560 nuevos, 2 match EAN, 3513 con EAN via Maestro
+  Maxiconsumo (restantes): 3374 nuevos, 353 match EAN, 17 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 20 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 22 precios absurdos eliminados
+  Validación cruzada: 4 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 5 marcados para revisión
+  Paso 6b: 4 duplicados por nombre normalizado fusionados
+  Paso 6c: 635 fusiones fuzzy complementarias
+  Paso 6d: 89 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  Outlier MC descartado: Preservativo TULIPAN Dispenser 12x3 u MC=$23,500 vs mediana otras=$2,640
+  PRECIOS SOSPECHOSOS MC descartados: 2
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8796 productos sin clasificacion Maestro
+  Coto: 4164 productos del catalogo con precio gondola (de 15081 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4827 productos del catalogo con precio gondola (de 11611 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Dia: 1874 productos del catalogo con precio gondola (de 4742 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 3 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+    - Chocolate MILKA Leche Aireado X110g: maxicarrefour $8199 vs otra ~$9650
+    - Shampoo Prebioticos + Biotina Sedal 650 ml: maxicarrefour $7039 vs otra ~$9429
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13783
+  Con precio Yaguar:            7522
+  Con precio MaxiCarrefour:     4524
+  Con precio Maxiconsumo:       4057
+  Con precio Coto (gondola):    4164
+  Con precio Carrefour (gond.): 4827
+  Con precio Dia (gondola):     1874
+  Con 2+ precios (comparativa): 1997
+  Con 3 precios:                323
+  ABC=A con 2+ precios:         283
+  Sin imagen:                   1734
+  Links Carrefour: 2179 EAN directo, 2345 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[21:11:23] OK scrape_dia.py (230s)
+[21:11:23] Scrapers OK: 4/6
+[21:11:23] ALERTA: Scraper maxicarrefour FALLO hoy
+[21:11:24] ALERTA: Scraper maxiconsumo FALLO hoy
+[21:11:26] Regenerando catalogo unificado...
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-11 21:11:26
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +102 SKUs Yaguar, +60 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 7639 prods únicos (7634 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260708_080751.json -> 4578 productos (4577 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4122 productos
+    4109 precios válidos (>$200), 13 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 15081 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11611 productos con EAN y precio
+  Dia: 3 archivo(s) -> 4742 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +796 EANs Yaguar via Maestro, +137 EANs Maxiconsumo via Maestro (55 descartados por conflicto de marca)
+  MaxiCarrefour: 4578 productos procesados
+    -> Matches Yaguar via CODIGOS:      1077
+    -> Matches Maxiconsumo via CODIGOS: 378
+  Yaguar (restantes): 6560 nuevos, 2 match EAN, 3513 con EAN via Maestro
+  Maxiconsumo (restantes): 3374 nuevos, 353 match EAN, 17 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 20 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 22 precios absurdos eliminados
+  Validación cruzada: 4 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 5 marcados para revisión
+  Paso 6b: 4 duplicados por nombre normalizado fusionados
+  Paso 6c: 635 fusiones fuzzy complementarias
+  Paso 6d: 89 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Caramelos BUTTER TOFFEES Chocolate X80g MC=$10,000 vs mediana otras=$1,410
+  Outlier MC descartado: Preservativo TULIPAN Dispenser 12x3 u MC=$23,500 vs mediana otras=$2,640
+  PRECIOS SOSPECHOSOS MC descartados: 2
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8796 productos sin clasificacion Maestro
+  Coto: 4164 productos del catalogo con precio gondola (de 15081 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4827 productos del catalogo con precio gondola (de 11611 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Dia: 1874 productos del catalogo con precio gondola (de 4742 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 3 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+    - Chocolate MILKA Leche Aireado X110g: maxicarrefour $8199 vs otra ~$9650
+    - Shampoo Prebioticos + Biotina Sedal 650 ml: maxicarrefour $7039 vs otra ~$9429
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13783
+  Con precio Yaguar:            7522
+  Con precio MaxiCarrefour:     4524
+  Con precio Maxiconsumo:       4057
+  Con precio Coto (gondola):    4164
+  Con precio Carrefour (gond.): 4827
+  Con precio Dia (gondola):     1874
+  Con 2+ precios (comparativa): 1997
+  Con 3 precios:                323
+  ABC=A con 2+ precios:         283
+  Sin imagen:                   1734
+  Links Carrefour: 2179 EAN directo, 2345 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+[21:12:35] Enriqueciendo imagenes (URLs Yaguar por SKU)...
+============================================================
+ENRIQUECIMIENTO DE IMAGENES - Brujula de Precios
+============================================================
+Catalogo: 13783 productos
+Yaguar SKU construido: 3328 productos
+Open Food Facts: 0 productos
+Sin imagen antes: 1754
+Sin imagen despues: 19
+Recuperados: 1735
+
+Guardado: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+============================================================
+[21:12:36] Catalogo nuevo: 13783 prods (Y=7522 MC=4524 MCO=4057 C=4164 CF=4827 D=1874)
+[21:12:36] Verificando precios en vivo (top 20 ABC=A) contra la web de cada mayorista...
+VERIFICADOR DE PRECIOS REALES — top 20 productos ABC=A
+=======================================================
+
+[1/20] Fernet BRANCA X450 ml
+  Yaguar:       OK $10,382 (cat: $10,382)
+  Maxiconsumo:  OK $10,900 (cat: $10,900)
+  MaxiCarrefour:sesion_expirada
+
+[2/20] Vino ALMA MORA Malbec X750 ml
+  Yaguar:       OK $6,319 (cat: $6,319)
+  Maxiconsumo:  OK $5,200 (cat: $5,200)
+  MaxiCarrefour:sesion_expirada
+
+[3/20] Fernet BRANCA X750 ml
+  Yaguar:       OK $15,550 (cat: $15,550)
+  Maxiconsumo:  OK $16,500 (cat: $16,500)
+  MaxiCarrefour:sesion_expirada
+
+[4/20] Whisky CRIADORES Petaca X195 ml
+  Yaguar:       OK $2,321 (cat: $2,321)
+  Maxiconsumo:  OK $2,200 (cat: $2,200)
+  MaxiCarrefour:sesion_expirada
+
+[5/20] Fernet BUHERO NEGRO X700 ml
+  Yaguar:       OK $9,941 (cat: $9,941)
+  Maxiconsumo:  OK $6,500 (cat: $6,500)
+  MaxiCarrefour:sesion_expirada
+
+[6/20] Vino BENJAMIN Malbec X750 ml
+  Yaguar:       OK $6,050 (cat: $6,050)
+  Maxiconsumo:  OK $3,300 (cat: $3,300)
+  MaxiCarrefour:sesion_expirada
+
+[7/20] Energizante SPEED X250 ml
+  Yaguar:       OK $1,495 (cat: $1,495)
+  Maxiconsumo:  OK $1,450 (cat: $1,450)
+  MaxiCarrefour:sesion_expirada
+
+[8/20] Aceite Girasol COCINERO X900 ml
+  Yaguar:       OK $3,629 (cat: $3,629)
+  Maxiconsumo:  OK $3,300 (cat: $3,300)
+  MaxiCarrefour:sesion_expirada
+
+[9/20] Aceite Girasol COCINERO X1.5 L
+  Yaguar:       OK $5,499 (cat: $5,499)
+  Maxiconsumo:  OK $5,300 (cat: $5,300)
+  MaxiCarrefour:sesion_expirada
+
+[10/20] Aceite Girasol NATURA X1.5 L
+  Yaguar:       OK $5,884 (cat: $5,884)
+  Maxiconsumo:  OK $6,200 (cat: $6,200)
+  MaxiCarrefour:sesion_expirada
+
+[11/20] Sal Fina DOS ANCLAS Estuche X500 g
+  Yaguar:       OK $1,562 (cat: $1,562)
+  Maxiconsumo:  OK $1,150 (cat: $1,150)
+  MaxiCarrefour:sesion_expirada
+
+[12/20] Sal Fina CELUSAL Paquete X500g
+  Yaguar:       OK $1,375 (cat: $1,375)
+  Maxiconsumo:  OK $890 (cat: $890)
+  MaxiCarrefour:sesion_expirada
+
+[13/20] Pate SWIFT Lata X90 g
+  Yaguar:       OK $1,087 (cat: $1,087)
+  Maxiconsumo:  OK $1,120 (cat: $1,120)
+  MaxiCarrefour:sesion_expirada
+
+[14/20] Picadillo SWIFT Lata X90 g
+  Yaguar:       OK $1,264 (cat: $1,264)
+  Maxiconsumo:  OK $1,120 (cat: $1,120)
+  MaxiCarrefour:sesion_expirada
+
+[15/20] Aceite Girasol NATURA X900 ml
+  Yaguar:       OK $4,014 (cat: $4,014)
+  Maxiconsumo:  OK $3,800 (cat: $3,800)
+  MaxiCarrefour:sesion_expirada
+
+[16/20] Harina PUREZA con Levadura P/pizza X1 kg
+  Yaguar:       error_http
+  Maxiconsumo:  OK $1,450 (cat: $1,450)
+  MaxiCarrefour:sesion_expirada
+
+[17/20] Fideos LUCCHETTI Moños X500g
+  Yaguar:       OK $1,869 (cat: $1,869)
+  Maxiconsumo:  OK $1,700 (cat: $1,700)
+  MaxiCarrefour:sesion_expirada
+
+[18/20] Sal Fina DOS ESTRELLAS X500 g
+  Yaguar:       OK $762 (cat: $762)
+  Maxiconsumo:  OK $500 (cat: $500)
+  MaxiCarrefour:producto_no_encontrado
+
+[19/20] Ketchup NATURA Doy Pack X250g
+  Yaguar:       OK $1,319 (cat: $1,319)
+  Maxiconsumo:  OK $1,400 (cat: $1,400)
+  MaxiCarrefour:producto_no_encontrado
+
+[20/20] Harina PUREZA Integral X1 kg
+  Yaguar:       error_http
+  Maxiconsumo:  OK $1,450 (cat: $1,450)
+  MaxiCarrefour:sesion_expirada
+
+=======================================================
+RESUMEN: 38/38 precios correctos (100.0%)
+NO VERIFICADOS (no cuentan para la tasa):
+  maxicarrefour:sesion_expirada: 18
+  yaguar:error_http: 2
+  maxicarrefour:producto_no_encontrado: 2
+OK: Precios dentro del rango esperado.
+Reporte guardado: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\verificacion_precios_20260711_211742.json
+[main f0ac904] data: actualizacion automatica 11/07/2026 [local]
+ 1 file changed, 1 insertion(+), 507439 deletions(-)
+To https://github.com/Facuusosa/BRUJULA-DE-PRECIOS.git
+   95fc655..f0ac904  main -> main
+[21:17:47] Push OK -> Vercel redeploy disparado
+[21:17:47] === PIPELINE COMPLETADO ===
+==================================================== 
+Corrida: dom 12/07/2026 14:32:20,55 
+[17:57:44] === PIPELINE LOCAL BRUJULA ===
+[17:57:45] Catalogo actual: 13762 prods (Y=7522 MC=4524 MCO=4028 C=4161 CF=4826 D=1873)
+[17:57:45] Corriendo scrape_maxicarrefour.py...
+=== SCRAPER MAXICARREFOUR ===
+Iniciando: 2026-07-12 17:57:45
+
+Verificando cookies MaxiCarrefour...
+Cookies invalidas o expiradas — renovando automaticamente...
+=======================================================
+RENOVACION DE COOKIES MAXICARREFOUR
+=======================================================
+Modo --force: renovando sin verificar fecha.
+Modo: Chrome real con perfil persistente...
+  Navegando a comerciante.carrefour.com.ar...
+  Autocompletando formulario...
+  No se pudo autocompletar (Locator.select_option: Timeout 8000ms exceeded.
+Call log:
+  - waiting for locator("#region")
+    - locator resolved to <select id="region" required="" name="region" onchange="onchangeSelect(this)">…</select>
+  - attempting select option action
+    2 × waiting for element to be visible and enabled
+      - element is not visible
+    - retrying select option action
+    - waiting 20ms
+    2 × waiting for element to be visible and enabled
+      - element is not visible
+    - retrying select option action
+      - waiting 100ms
+    16 × waiting for element to be visible and enabled
+       - element is not visible
+     - retrying select option action
+       - waiting 500ms
+). Completalo manualmente.
+  Screenshot de debug: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\carrefour_login_debug.png
+  Intentando click automatico (Chrome real)...
+  Click enviado. Esperando respuesta del servidor...
+  Click automatico sin respuesta definitiva.
+
+  ================================================
+  Click automatico no funciono.
+  Hace click en 'Ingresar' manualmente en Chrome.
+  Tenes 90 segundos.
+  ------------------------------------------------
+  Para 100% automatico: CAPSOLVER_API_KEY en .env
+  ================================================
+
+  Timeout — no se logro autenticacion.
+  Screenshot: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\carrefour_login_debug.png
+
+No se pudo renovar automaticamente.
+Pasos manuales:
+  1. Loguearse en comerciante.carrefour.com.ar
+  2. F12 -> Application -> Cookies
+  3. Copiar PHPSESSID y cf_clearance al .env
+
+Para automatizacion total (sin interaccion humana):
+  1. Crear cuenta en capsolver.com
+  2. Agregar CAPSOLVER_API_KEY=tu_key al .env
+ERROR: No se pudieron renovar las cookies.
+Renovar manualmente: ver .claude/docs/operaciones.md
+Abortando — no tiene sentido scraper sin cookies validas.
+[18:00:25] FALLO scrape_maxicarrefour.py (159s)
+[18:00:25] Corriendo scrape_yaguar.py...
+=== SCRAPER YAGUAR ===
+Iniciando: 2026-07-12 18:00:25
+Scraper Yaguar PRO — WooCommerce Store API
+2026-07-12 18:00:26
+=======================================================
+Iniciando sesion...
+Login exitoso
+Catalogo segun la API: 7356 productos
+Sectores a scrapear: 12
+=======================================================
+
+[1/12] Sector: Almacén (count=1167)
+    Pag 5/12: 500 unicos acumulados
+    Pag 10/12: 1000 unicos acumulados
+    Pag 12/12: 1167 unicos acumulados
+  almacén: 1167 productos nuevos
+
+[2/12] Sector: Bazar (count=135)
+    Pag 2/2: 1302 unicos acumulados
+  bazar: 135 productos nuevos
+
+[3/12] Sector: Bebidas Sin Alcohol (count=396)
+    Pag 4/4: 1698 unicos acumulados
+  bebidas sin alcohol: 396 productos nuevos
+
+[4/12] Sector: Bodega (count=485)
+    Pag 5/5: 2183 unicos acumulados
+  bodega: 485 productos nuevos
+
+[5/12] Sector: Desayuno (count=526)
+    Pag 5/6: 2683 unicos acumulados
+    Pag 6/6: 2709 unicos acumulados
+  desayuno: 526 productos nuevos
+
+[6/12] Sector: Frescos (count=891)
+    Pag 5/9: 3209 unicos acumulados
+    Pag 9/9: 3600 unicos acumulados
+  frescos: 891 productos nuevos
+
+[7/12] Sector: Kiosco (count=553)
+    Pag 5/6: 4100 unicos acumulados
+    Pag 6/6: 4153 unicos acumulados
+  kiosco: 553 productos nuevos
+
+[8/12] Sector: Limpieza (count=904)
+    Pag 5/10: 4653 unicos acumulados
+    Pag 10/10: 5057 unicos acumulados
+  limpieza: 904 productos nuevos
+
+[9/12] Sector: Mascotas (count=79)
+    Pag 1/1: 5136 unicos acumulados
+  mascotas: 79 productos nuevos
+
+[10/12] Sector: Papeles (count=49)
+    Pag 1/1: 5185 unicos acumulados
+  papeles: 49 productos nuevos
+
+[11/12] Sector: Perfumería (count=1141)
+    Pag 5/12: 5685 unicos acumulados
+    Pag 10/12: 6185 unicos acumulados
+    Pag 12/12: 6326 unicos acumulados
+  perfumería: 1141 productos nuevos
+
+[12/12] Sector: Sin categorizar (count=187)
+    Pag 2/2: 6513 unicos acumulados
+  sin categorizar: 187 productos nuevos
+
+[extra] Barrido general (productos sin categoria)
+    Pag 5/74: 6555 unicos acumulados
+    Pag 10/74: 6578 unicos acumulados
+    Pag 15/74: 6615 unicos acumulados
+    Pag 20/74: 6657 unicos acumulados
+    Pag 25/74: 6704 unicos acumulados
+    Pag 30/74: 6753 unicos acumulados
+    Pag 35/74: 6799 unicos acumulados
+    Pag 40/74: 6839 unicos acumulados
+    Pag 45/74: 6893 unicos acumulados
+    Pag 50/74: 6939 unicos acumulados
+    Pag 55/74: 7012 unicos acumulados
+    Pag 60/74: 7070 unicos acumulados
+    Pag 65/74: 7115 unicos acumulados
+    Pag 70/74: 7184 unicos acumulados
+    Pag 74/74: 7356 unicos acumulados
+  sin categoria: 843 productos nuevos
+
+=======================================================
+Scraping completo — 7356 productos unicos
+Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\yaguar\output_yaguar_20260712_180408.json
+
+Resumen por sector:
+  Almacén: 1167
+  Bazar: 135
+  Bebidas Sin Alcohol: 396
+  Bodega: 485
+  Desayuno: 526
+  Frescos: 891
+  Kiosco: 553
+  Limpieza: 904
+  Mascotas: 79
+  Papeles: 49
+  Perfumería: 1141
+  Sin categorizar: 187
+  (sin categoria): 843
+
+=== UNIFICANDO DATOS ===
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-12 18:04:09
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +102 SKUs Yaguar, +60 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 7632 prods únicos (7627 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260708_080751.json -> 4578 productos (4577 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4092 productos
+    4079 precios válidos (>$200), 13 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 15081 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11611 productos con EAN y precio
+  Dia: 3 archivo(s) -> 4742 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +507 EANs Yaguar via Maestro, +135 EANs Maxiconsumo via Maestro (55 descartados por conflicto de marca)
+  MaxiCarrefour: 4578 productos procesados
+    -> Matches Yaguar via CODIGOS:      1016
+    -> Matches Maxiconsumo via CODIGOS: 373
+  Yaguar (restantes): 6614 nuevos, 2 match EAN, 3511 con EAN via Maestro
+  Maxiconsumo (restantes): 3350 nuevos, 349 match EAN, 20 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 20 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 22 precios absurdos eliminados
+  Validación cruzada: 3 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 2 marcados para revisión
+  Paso 6b: 4 duplicados por nombre normalizado fusionados
+  Paso 6c: 649 fusiones fuzzy complementarias
+  Paso 6d: 81 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Preservativo TULIPAN Dispenser 12x3 u MC=$23,500 vs mediana otras=$2,640
+  PRECIOS SOSPECHOSOS MC descartados: 1
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8820 productos sin clasificacion Maestro
+  Coto: 4158 productos del catalogo con precio gondola (de 15081 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4825 productos del catalogo con precio gondola (de 11611 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Dia: 1873 productos del catalogo con precio gondola (de 4742 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 1 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13799
+  Con precio Yaguar:            7524
+  Con precio MaxiCarrefour:     4524
+  Con precio Maxiconsumo:       4026
+  Con precio Coto (gondola):    4158
+  Con precio Carrefour (gond.): 4825
+  Con precio Dia (gondola):     1873
+  Con 2+ precios (comparativa): 1960
+  Con 3 precios:                315
+  ABC=A con 2+ precios:         278
+  Sin imagen:                   1760
+  Links Carrefour: 2154 EAN directo, 2370 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[18:05:23] OK scrape_yaguar.py (298s)
+[18:05:23] Corriendo scrape_maxiconsumo.py...
+=== SCRAPER MAXICONSUMO ===
+Iniciando: 2026-07-12 18:05:23
+INICIO: Scraper Maxiconsumo PRO
+Fecha: 2026-07-12 18:05:23
+Categorias: 8
+==================================================
+
+[1/8] Sector: Almacen
+  [ERROR] Pag 3: Failed to perform, curl: (28) Operation timed out after 25013 milliseconds with 0 bytes received. See https://curl.se/libcurl/c/libcurl-errors.html first for more details.
+  [WARN] Almacen: 24 productos (esperado >=800) -- posible bloqueo
+  Almacen: 24 productos totales
+
+[2/8] Sector: Bebidas
+  Pag 5: 60 unicos acumulados
+  Pag 10: 120 unicos acumulados
+  Pag 15: 180 unicos acumulados
+  Pag 20: 240 unicos acumulados
+  Pag 25: 300 unicos acumulados
+  Pag 30: 360 unicos acumulados
+  Pag 35: 420 unicos acumulados
+  Pag 40: 480 unicos acumulados
+  Bebidas: 521 productos totales
+
+[3/8] Sector: Frescos
+  Pag 5: 60 unicos acumulados
+  Pag 10: 120 unicos acumulados
+  Frescos: 130 productos totales
+
+[4/8] Sector: Limpieza
+  Pag 5: 60 unicos acumulados
+  Pag 10: 120 unicos acumulados
+  Pag 15: 180 unicos acumulados
+  Pag 20: 240 unicos acumulados
+  Pag 25: 300 unicos acumulados
+  Pag 30: 360 unicos acumulados
+  Pag 35: 420 unicos acumulados
+  Pag 40: 480 unicos acumulados
+  Pag 45: 540 unicos acumulados
+  Pag 50: 600 unicos acumulados
+  Pag 55: 660 unicos acumulados
+  Pag 60: 714 unicos acumulados
+  Limpieza: 714 productos totales
+
+[5/8] Sector: Perfumeria
+  Pag 5: 60 unicos acumulados
+  Pag 10: 120 unicos acumulados
+  Pag 15: 180 unicos acumulados
+  Pag 20: 240 unicos acumulados
+  Pag 25: 300 unicos acumulados
+  Pag 30: 360 unicos acumulados
+  Pag 35: 420 unicos acumulados
+  Pag 40: 480 unicos acumulados
+  Pag 45: 540 unicos acumulados
+  Pag 50: 600 unicos acumulados
+  Pag 55: 660 unicos acumulados
+  Pag 60: 720 unicos acumulados
+  Pag 65: 780 unicos acumulados
+  Pag 70: 840 unicos acumulados
+  Pag 75: 900 unicos acumulados
+  Perfumeria: 925 productos totales
+
+[6/8] Sector: Hogar y Bazar
+  Pag 5: 60 unicos acumulados
+  Hogar y Bazar: 104 productos totales
+
+[7/8] Sector: Congelados
+  Congelados: 18 productos totales
+
+[8/8] Sector: Mascotas
+  Pag 5: 60 unicos acumulados
+  Pag 10: 118 unicos acumulados
+  Mascotas: 118 productos totales
+ERROR: Productos insuficientes: 2552 < 3500
+ERROR EN SCRAPER MAXICONSUMO
+[18:36:46] FALLO scrape_maxiconsumo.py (1883s)
+[18:36:46] Corriendo scrape_coto.py...
+=== SCRAPER COTO ===
+Iniciando: 2026-07-12 18:36:47
+INICIO: Scraper Coto Digital PRO (Constructor.io API)
+Fecha: 2026-07-12 18:36:47
+Categorias a scrapear: 6
+=======================================================
+
+[1/6] Categoria: Almacen
+  Almacen: 10000 productos reportados
+    Pag 5/50: 640 unicos acumulados
+    Pag 10/50: 1639 unicos acumulados
+    Pag 15/50: 2636 unicos acumulados
+    Pag 20/50: 3630 unicos acumulados
+    Pag 25/50: 4603 unicos acumulados
+    Pag 30/50: 5078 unicos acumulados
+    Pag 35/50: 5080 unicos acumulados
+    Pag 40/50: 5080 unicos acumulados
+    Pag 45/50: 5460 unicos acumulados
+    Pag 50/50: 5463 unicos acumulados
+  Almacen: 5463 productos nuevos
+
+[2/6] Categoria: Frescos
+  Frescos: 4645 productos reportados
+    Pag 5/24: 6089 unicos acumulados
+    Pag 10/24: 7067 unicos acumulados
+    Pag 15/24: 7259 unicos acumulados
+    Pag 20/24: 7361 unicos acumulados
+    Pag 24/24: 7741 unicos acumulados
+  Frescos: 2278 productos nuevos
+
+[3/6] Categoria: Bebidas
+  Bebidas: 4923 productos reportados
+    Pag 5/25: 8293 unicos acumulados
+    Pag 10/25: 9101 unicos acumulados
+    Pag 15/25: 9906 unicos acumulados
+    Pag 20/25: 9913 unicos acumulados
+    Pag 25/25: 10265 unicos acumulados
+  Bebidas: 2524 productos nuevos
+
+[4/6] Categoria: Limpieza
+  Limpieza: 3373 productos reportados
+    Pag 5/17: 11149 unicos acumulados
+    Pag 10/17: 11428 unicos acumulados
+    Pag 15/17: 11704 unicos acumulados
+    Pag 17/17: 11713 unicos acumulados
+  Limpieza: 1448 productos nuevos
+
+[5/6] Categoria: Perfumeria
+  Perfumeria: 7233 productos reportados
+    Pag 5/37: 12333 unicos acumulados
+    Pag 10/37: 13209 unicos acumulados
+    Pag 15/37: 13216 unicos acumulados
+    Pag 20/37: 13426 unicos acumulados
+    Pag 25/37: 13755 unicos acumulados
+    Pag 30/37: 13933 unicos acumulados
+    Pag 35/37: 14129 unicos acumulados
+    Pag 37/37: 14319 unicos acumulados
+  Perfumeria: 2606 productos nuevos
+
+[6/6] Categoria: Congelados
+  Congelados: 1152 productos reportados
+    Pag 5/6: 15010 unicos acumulados
+    Pag 6/6: 15013 unicos acumulados
+  Congelados: 694 productos nuevos
+
+=======================================================
+Scraping completo — 15013 productos unicos (solo con stock)
+Con oferta vigente: 6646 (44%)
+Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\coto\output_coto_20260712_183847.json
+
+Resumen por categoria (nuevos aportados):
+  Almacen: 5463
+  Frescos: 2278
+  Bebidas: 2524
+  Limpieza: 1448
+  Perfumeria: 2606
+  Congelados: 694
+
+=== UNIFICANDO DATOS ===
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-12 18:38:48
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +102 SKUs Yaguar, +60 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 7632 prods únicos (7627 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260708_080751.json -> 4578 productos (4577 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4092 productos
+    4079 precios válidos (>$200), 13 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 15031 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11611 productos con EAN y precio
+  Dia: 3 archivo(s) -> 4742 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +507 EANs Yaguar via Maestro, +135 EANs Maxiconsumo via Maestro (55 descartados por conflicto de marca)
+  MaxiCarrefour: 4578 productos procesados
+    -> Matches Yaguar via CODIGOS:      1016
+    -> Matches Maxiconsumo via CODIGOS: 373
+  Yaguar (restantes): 6614 nuevos, 2 match EAN, 3511 con EAN via Maestro
+  Maxiconsumo (restantes): 3350 nuevos, 349 match EAN, 20 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 20 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 22 precios absurdos eliminados
+  Validación cruzada: 3 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 2 marcados para revisión
+  Paso 6b: 4 duplicados por nombre normalizado fusionados
+  Paso 6c: 649 fusiones fuzzy complementarias
+  Paso 6d: 81 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Preservativo TULIPAN Dispenser 12x3 u MC=$23,500 vs mediana otras=$2,640
+  PRECIOS SOSPECHOSOS MC descartados: 1
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8820 productos sin clasificacion Maestro
+  Coto: 4147 productos del catalogo con precio gondola (de 15031 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4825 productos del catalogo con precio gondola (de 11611 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Dia: 1873 productos del catalogo con precio gondola (de 4742 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 1 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13799
+  Con precio Yaguar:            7524
+  Con precio MaxiCarrefour:     4524
+  Con precio Maxiconsumo:       4026
+  Con precio Coto (gondola):    4147
+  Con precio Carrefour (gond.): 4825
+  Con precio Dia (gondola):     1873
+  Con 2+ precios (comparativa): 1960
+  Con 3 precios:                315
+  ABC=A con 2+ precios:         278
+  Sin imagen:                   1760
+  Links Carrefour: 2153 EAN directo, 2371 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[18:39:56] OK scrape_coto.py (189s)
+[18:39:56] Corriendo scrape_carrefour.py...
+=== SCRAPER CARREFOUR (retail) ===
+Iniciando: 2026-07-12 18:39:56
+INICIO: Scraper Carrefour retail PRO (VTEX Intelligent Search)
+Fecha: 2026-07-12 18:39:57
+Categorias a scrapear: 9
+=======================================================
+
+[1/9] Categoria: Almacen
+  Almacen: 1800 disponibles reportados
+    Pag 5/18: 498 unicos acumulados
+    Pag 10/18: 998 unicos acumulados
+    Pag 15/18: 1495 unicos acumulados
+    Pag 18/18: 1794 unicos acumulados
+  Almacen: 1794 productos nuevos
+
+[2/9] Categoria: Desayuno
+  Desayuno: 1957 disponibles reportados
+    Pag 5/20: 2293 unicos acumulados
+    Pag 10/20: 2793 unicos acumulados
+    Pag 15/20: 3292 unicos acumulados
+    Pag 20/20: 3747 unicos acumulados
+  Desayuno: 1953 productos nuevos
+
+[3/9] Categoria: Bebidas
+  Bebidas: 1620 disponibles reportados
+    Pag 5/17: 4246 unicos acumulados
+    Pag 10/17: 4745 unicos acumulados
+    Pag 15/17: 5232 unicos acumulados
+    Pag 17/17: 5352 unicos acumulados
+  Bebidas: 1605 productos nuevos
+
+[4/9] Categoria: Frescos
+  Frescos: 941 disponibles reportados
+    Pag 5/10: 5851 unicos acumulados
+    Pag 10/10: 6287 unicos acumulados
+  Frescos: 935 productos nuevos
+
+[5/9] Categoria: Congelados
+  Congelados: 332 disponibles reportados
+    Pag 4/4: 6618 unicos acumulados
+  Congelados: 331 productos nuevos
+
+[6/9] Categoria: Limpieza
+  Limpieza: 1303 disponibles reportados
+    Pag 5/14: 7118 unicos acumulados
+    Pag 10/14: 7618 unicos acumulados
+    Pag 14/14: 7921 unicos acumulados
+  Limpieza: 1303 productos nuevos
+
+[7/9] Categoria: Perfumeria
+  Perfumeria: 2256 disponibles reportados
+    Pag 5/23: 8421 unicos acumulados
+    Pag 10/23: 8921 unicos acumulados
+    Pag 15/23: 9421 unicos acumulados
+    Pag 20/23: 9897 unicos acumulados
+    Pag 23/23: 10074 unicos acumulados
+  Perfumeria: 2153 productos nuevos
+
+[8/9] Categoria: Mascotas
+  Mascotas: 479 disponibles reportados
+    Pag 5/5: 10545 unicos acumulados
+  Mascotas: 471 productos nuevos
+
+[9/9] Categoria: Bebe
+  Bebe: 558 disponibles reportados
+    Pag 5/6: 11000 unicos acumulados
+    Pag 6/6: 11050 unicos acumulados
+  Bebe: 505 productos nuevos
+
+=======================================================
+Scraping completo — 11050 productos unicos (solo disponibles)
+Con alguna oferta real: 4356 (39%)
+  de las cuales promo por cantidad (2do al X% / NxM): 1874
+Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\carrefour\output_carrefour_20260712_184415.json
+
+Resumen por categoria (nuevos aportados):
+  Almacen: 1794
+  Desayuno: 1953
+  Bebidas: 1605
+  Frescos: 935
+  Congelados: 331
+  Limpieza: 1303
+  Perfumeria: 2153
+  Mascotas: 471
+  Bebe: 505
+
+=== UNIFICANDO DATOS ===
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-12 18:44:15
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +102 SKUs Yaguar, +60 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 7632 prods únicos (7627 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260708_080751.json -> 4578 productos (4577 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4092 productos
+    4079 precios válidos (>$200), 13 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 15031 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11185 productos con EAN y precio
+  Dia: 3 archivo(s) -> 4742 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +507 EANs Yaguar via Maestro, +135 EANs Maxiconsumo via Maestro (55 descartados por conflicto de marca)
+  MaxiCarrefour: 4578 productos procesados
+    -> Matches Yaguar via CODIGOS:      1016
+    -> Matches Maxiconsumo via CODIGOS: 373
+  Yaguar (restantes): 6614 nuevos, 2 match EAN, 3511 con EAN via Maestro
+  Maxiconsumo (restantes): 3350 nuevos, 349 match EAN, 20 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 20 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 22 precios absurdos eliminados
+  Validación cruzada: 3 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 2 marcados para revisión
+  Paso 6b: 4 duplicados por nombre normalizado fusionados
+  Paso 6c: 649 fusiones fuzzy complementarias
+  Paso 6d: 81 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Preservativo TULIPAN Dispenser 12x3 u MC=$23,500 vs mediana otras=$2,640
+  PRECIOS SOSPECHOSOS MC descartados: 1
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8820 productos sin clasificacion Maestro
+  Coto: 4147 productos del catalogo con precio gondola (de 15031 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4705 productos del catalogo con precio gondola (de 11185 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Dia: 1873 productos del catalogo con precio gondola (de 4742 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 1 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13799
+  Con precio Yaguar:            7524
+  Con precio MaxiCarrefour:     4524
+  Con precio Maxiconsumo:       4026
+  Con precio Coto (gondola):    4147
+  Con precio Carrefour (gond.): 4705
+  Con precio Dia (gondola):     1873
+  Con 2+ precios (comparativa): 1960
+  Con 3 precios:                315
+  ABC=A con 2+ precios:         278
+  Sin imagen:                   1760
+  Links Carrefour: 2153 EAN directo, 2371 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[18:45:23] OK scrape_carrefour.py (326s)
+[18:45:23] Corriendo scrape_dia.py...
+=== SCRAPER DIA ONLINE (retail) ===
+Iniciando: 2026-07-12 18:45:23
+INICIO: Scraper DIA Online PRO (VTEX legacy Catalog System)
+Fecha: 2026-07-12 18:45:24
+Categorias a scrapear: 9
+=======================================================
+
+[1/9] Categoria: Almacen
+  Almacen: 1070 disponibles reportados
+    Pag 5/22: 250 unicos acumulados
+    Pag 10/22: 500 unicos acumulados
+    Pag 15/22: 750 unicos acumulados
+    Pag 20/22: 1000 unicos acumulados
+    Pag 22/22: 1052 unicos acumulados
+  Almacen: 1052 productos nuevos
+
+[2/9] Categoria: Desayuno
+  Desayuno: 594 disponibles reportados
+    Pag 5/12: 1302 unicos acumulados
+    Pag 10/12: 1551 unicos acumulados
+    Pag 12/12: 1642 unicos acumulados
+  Desayuno: 590 productos nuevos
+
+[3/9] Categoria: Bebidas
+  Bebidas: 810 disponibles reportados
+    Pag 5/17: 1892 unicos acumulados
+    Pag 10/17: 2142 unicos acumulados
+    Pag 15/17: 2392 unicos acumulados
+    Pag 17/17: 2448 unicos acumulados
+  Bebidas: 806 productos nuevos
+
+[4/9] Categoria: Frescos
+  Frescos: 805 disponibles reportados
+    Pag 5/17: 2698 unicos acumulados
+    Pag 10/17: 2948 unicos acumulados
+    Pag 15/17: 3192 unicos acumulados
+    Pag 17/17: 3192 unicos acumulados
+  Frescos: 744 productos nuevos
+
+[5/9] Categoria: Congelados
+  Congelados: 166 disponibles reportados
+    Pag 4/4: 3358 unicos acumulados
+  Congelados: 166 productos nuevos
+
+[6/9] Categoria: Limpieza
+  Limpieza: 476 disponibles reportados
+    Pag 5/10: 3608 unicos acumulados
+    Pag 10/10: 3828 unicos acumulados
+  Limpieza: 470 productos nuevos
+
+[7/9] Categoria: Perfumeria
+  Perfumeria: 726 disponibles reportados
+    Pag 5/15: 4078 unicos acumulados
+    Pag 10/15: 4328 unicos acumulados
+    Pag 15/15: 4552 unicos acumulados
+  Perfumeria: 724 productos nuevos
+
+[8/9] Categoria: Mascotas
+  Mascotas: 55 disponibles reportados
+    Pag 2/2: 4605 unicos acumulados
+  Mascotas: 53 productos nuevos
+
+[9/9] Categoria: Bebe
+  Bebe: 121 disponibles reportados
+    Pag 3/3: 4719 unicos acumulados
+  Bebe: 114 productos nuevos
+
+=======================================================
+Scraping completo - 4719 productos unicos (solo disponibles)
+Con alguna oferta real: 1660 (35%)
+  de las cuales promo por cantidad (2do al X% / NxM): 269
+Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\targets\dia\output_dia_20260712_184751.json
+
+Resumen por categoria (nuevos aportados):
+  Almacen: 1052
+  Desayuno: 590
+  Bebidas: 806
+  Frescos: 744
+  Congelados: 166
+  Limpieza: 470
+  Perfumeria: 724
+  Mascotas: 53
+  Bebe: 114
+
+=== UNIFICANDO DATOS ===
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-12 18:47:51
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +102 SKUs Yaguar, +60 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 7632 prods únicos (7627 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260708_080751.json -> 4578 productos (4577 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4092 productos
+    4079 precios válidos (>$200), 13 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 15031 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11185 productos con EAN y precio
+  Dia: 3 archivo(s) -> 4723 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +507 EANs Yaguar via Maestro, +135 EANs Maxiconsumo via Maestro (55 descartados por conflicto de marca)
+  MaxiCarrefour: 4578 productos procesados
+    -> Matches Yaguar via CODIGOS:      1016
+    -> Matches Maxiconsumo via CODIGOS: 373
+  Yaguar (restantes): 6614 nuevos, 2 match EAN, 3511 con EAN via Maestro
+  Maxiconsumo (restantes): 3350 nuevos, 349 match EAN, 20 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 20 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 22 precios absurdos eliminados
+  Validación cruzada: 3 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 2 marcados para revisión
+  Paso 6b: 4 duplicados por nombre normalizado fusionados
+  Paso 6c: 649 fusiones fuzzy complementarias
+  Paso 6d: 81 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Preservativo TULIPAN Dispenser 12x3 u MC=$23,500 vs mediana otras=$2,640
+  PRECIOS SOSPECHOSOS MC descartados: 1
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8820 productos sin clasificacion Maestro
+  Coto: 4147 productos del catalogo con precio gondola (de 15031 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4705 productos del catalogo con precio gondola (de 11185 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Dia: 1866 productos del catalogo con precio gondola (de 4723 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 1 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13799
+  Con precio Yaguar:            7524
+  Con precio MaxiCarrefour:     4524
+  Con precio Maxiconsumo:       4026
+  Con precio Coto (gondola):    4147
+  Con precio Carrefour (gond.): 4705
+  Con precio Dia (gondola):     1866
+  Con 2+ precios (comparativa): 1960
+  Con 3 precios:                315
+  ABC=A con 2+ precios:         278
+  Sin imagen:                   1760
+  Links Carrefour: 2153 EAN directo, 2371 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+
+Para iniciar el servidor: cd BRUJULA-DE-PRECIOS && npm run dev
+[18:48:59] OK scrape_dia.py (216s)
+[18:48:59] Scrapers OK: 4/6
+[18:48:59] ALERTA: Scraper maxicarrefour FALLO hoy
+[18:49:00] ALERTA: Scraper maxiconsumo FALLO hoy
+[18:49:02] Regenerando catalogo unificado...
+============================================================
+ACTUALIZADOR DE CATALOGO v3.0 - Brujula de Precios
+Fecha: 2026-07-12 18:49:02
+============================================================
+
+Cargando tablas de referencia (Excel)...
+  CODIGOS.xlsx: Yaguar=6034 SKUs, Maxiconsumo=6183 SKUs
+  Mapas inversos: EAN->Yaguar=6034, EAN->Maxiconsumo=6183
+  Listado Maestro: 25589 EANs, 25378 nombres indexados
+  FAMILIAS_CUSTOM: 136 EANs cargados (override sobre Maestro)
+  mapeo_brujula.json: +102 SKUs Yaguar, +60 SKUs Maxiconsumo, +6 EANs al Maestro
+  maestro_dinamico.json: +2029 nombres adicionales al indice
+
+Cargando datos de scrapers (mejor archivo por cantidad)...
+  Yaguar: 12 archivos combinados -> 7632 prods únicos (7627 válidos)
+  MaxiCarrefour: output_maxicarrefour_20260708_080751.json -> 4578 productos (4577 con precio)
+  Maxiconsumo: 8 archivos combinados -> 4092 productos
+    4079 precios válidos (>$200), 13 precios bajos (<$200)
+  Coto: 3 archivo(s) -> 15031 productos con EAN y precio
+  Carrefour: 3 archivo(s) -> 11185 productos con EAN y precio
+  Dia: 3 archivo(s) -> 4723 productos con EAN y precio
+
+Construyendo catálogo unificado...
+  Paso 1b: +507 EANs Yaguar via Maestro, +135 EANs Maxiconsumo via Maestro (55 descartados por conflicto de marca)
+  MaxiCarrefour: 4578 productos procesados
+    -> Matches Yaguar via CODIGOS:      1016
+    -> Matches Maxiconsumo via CODIGOS: 373
+  Yaguar (restantes): 6614 nuevos, 2 match EAN, 3511 con EAN via Maestro
+  Maxiconsumo (restantes): 3350 nuevos, 349 match EAN, 20 match nombre Yaguar
+  [SKIP] No encontrado: archive/data_hunterprice.json
+  Hunterprice bridge: +0 Yaguar, +0 Maxiconsumo | 0 sin match MC
+  Filtro mínimo ($200): 20 precios bajos eliminados
+  Filtro tamaño pequeño (<100ml/<50g >$10k): 22 precios absurdos eliminados
+  Validación cruzada: 3 precios outlier descartados
+  Precios sospechosos (2 fuentes, ratio >2.5x): 2 marcados para revisión
+  Paso 6b: 4 duplicados por nombre normalizado fusionados
+  Paso 6c: 649 fusiones fuzzy complementarias
+  Paso 6d: 81 fuentes con cantidad incompatible eliminadas
+  Outlier MC descartado: Preservativo TULIPAN Dispenser 12x3 u MC=$23,500 vs mediana otras=$2,640
+  PRECIOS SOSPECHOSOS MC descartados: 1
+  Paso 6g: 2 productos con ahorro >60% flageados (excluidos de bombas)
+  ABC fallback calculado:       8820 productos sin clasificacion Maestro
+  Coto: 4147 productos del catalogo con precio gondola (de 15031 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Carrefour: 4705 productos del catalogo con precio gondola (de 11185 scrapeados; el resto es surtido exclusivo -> Fase B)
+  Dia: 1866 productos del catalogo con precio gondola (de 4723 scrapeados; el resto es surtido exclusivo -> Fase B)
+
+  PRECIOS SOSPECHOSOS: 1 productos (una fuente >2.5x la otra)
+  Revisar contra la web del mayorista antes de confiar:
+    - Bolsa de Residuos Asurin 50X70Cm Plana Negra : maxicarrefour $8271 vs otra ~$9190
+
+============================================================
+RESULTADO FINAL
+============================================================
+  Total productos con precio:   13799
+  Con precio Yaguar:            7524
+  Con precio MaxiCarrefour:     4524
+  Con precio Maxiconsumo:       4026
+  Con precio Coto (gondola):    4147
+  Con precio Carrefour (gond.): 4705
+  Con precio Dia (gondola):     1866
+  Con 2+ precios (comparativa): 1960
+  Con 3 precios:                315
+  ABC=A con 2+ precios:         278
+  Sin imagen:                   1760
+  Links Carrefour: 2153 EAN directo, 2371 fallback a nombre
+
+  Guardado en: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+
+Aprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)
+============================================================
+[18:50:11] Enriqueciendo imagenes (URLs Yaguar por SKU)...
+============================================================
+ENRIQUECIMIENTO DE IMAGENES - Brujula de Precios
+============================================================
+Catalogo: 13799 productos
+Yaguar SKU construido: 3326 productos
+Open Food Facts: 0 productos
+Sin imagen antes: 1780
+Sin imagen despues: 19
+Recuperados: 1761
+
+Guardado: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\BRUJULA-DE-PRECIOS\data\processed\catalogo_unificado.json
+============================================================
+[18:50:12] Catalogo nuevo: 13799 prods (Y=7524 MC=4524 MCO=4026 C=4147 CF=4705 D=1866)
+[18:50:12] ALERTA: FUENTE CONGELADA: maxicarrefour sin datos frescos hace 4 dias (se publica igual, fechas honestas)
+[18:50:13] Verificando precios en vivo (top 20 ABC=A) contra la web de cada mayorista...
+VERIFICADOR DE PRECIOS REALES — top 20 productos ABC=A
+=======================================================
+
+[1/20] Fernet BRANCA X450 ml
+  Yaguar:       OK $10,382 (cat: $10,382)
+  Maxiconsumo:  OK $10,900 (cat: $10,900)
+  MaxiCarrefour:sesion_expirada
+
+[2/20] Vino ALMA MORA Malbec X750 ml
+  Yaguar:       OK $6,319 (cat: $6,319)
+  Maxiconsumo:  OK $5,200 (cat: $5,200)
+  MaxiCarrefour:sesion_expirada
+
+[3/20] Fernet BRANCA X750 ml
+  Yaguar:       OK $15,550 (cat: $15,550)
+  Maxiconsumo:  OK $16,500 (cat: $16,500)
+  MaxiCarrefour:sesion_expirada
+
+[4/20] Whisky CRIADORES Petaca X195 ml
+  Yaguar:       OK $2,321 (cat: $2,321)
+  Maxiconsumo:  OK $2,200 (cat: $2,200)
+  MaxiCarrefour:sesion_expirada
+
+[5/20] Fernet BUHERO NEGRO X700 ml
+  Yaguar:       OK $9,941 (cat: $9,941)
+  Maxiconsumo:  OK $6,500 (cat: $6,500)
+  MaxiCarrefour:sesion_expirada
+
+[6/20] Vino BENJAMIN Malbec X750 ml
+  Yaguar:       OK $6,050 (cat: $6,050)
+  Maxiconsumo:  OK $3,300 (cat: $3,300)
+  MaxiCarrefour:sesion_expirada
+
+[7/20] Energizante SPEED X250 ml
+  Yaguar:       OK $1,495 (cat: $1,495)
+  Maxiconsumo:  OK $1,450 (cat: $1,450)
+  MaxiCarrefour:sesion_expirada
+
+[8/20] Aceite Girasol COCINERO X900 ml
+  Yaguar:       OK $3,629 (cat: $3,629)
+  Maxiconsumo:  OK $3,300 (cat: $3,300)
+  MaxiCarrefour:sesion_expirada
+
+[9/20] Aceite Girasol COCINERO X1.5 L
+  Yaguar:       OK $5,499 (cat: $5,499)
+  Maxiconsumo:  OK $5,300 (cat: $5,300)
+  MaxiCarrefour:sesion_expirada
+
+[10/20] Aceite Girasol NATURA X1.5 L
+  Yaguar:       OK $5,884 (cat: $5,884)
+  Maxiconsumo:  OK $6,200 (cat: $6,200)
+  MaxiCarrefour:sesion_expirada
+
+[11/20] Sal Fina DOS ANCLAS Estuche X500 g
+  Yaguar:       OK $1,562 (cat: $1,562)
+  Maxiconsumo:  OK $1,150 (cat: $1,150)
+  MaxiCarrefour:sesion_expirada
+
+[12/20] Sal Fina CELUSAL Paquete X500g
+  Yaguar:       OK $1,375 (cat: $1,375)
+  Maxiconsumo:  OK $890 (cat: $890)
+  MaxiCarrefour:sesion_expirada
+
+[13/20] Pate SWIFT Lata X90 g
+  Yaguar:       OK $1,087 (cat: $1,087)
+  Maxiconsumo:  OK $1,120 (cat: $1,120)
+  MaxiCarrefour:sesion_expirada
+
+[14/20] Picadillo SWIFT Lata X90 g
+  Yaguar:       OK $1,264 (cat: $1,264)
+  Maxiconsumo:  OK $1,120 (cat: $1,120)
+  MaxiCarrefour:sesion_expirada
+
+[15/20] Aceite Girasol NATURA X900 ml
+  Yaguar:       OK $4,014 (cat: $4,014)
+  Maxiconsumo:  OK $3,800 (cat: $3,800)
+  MaxiCarrefour:sesion_expirada
+
+[16/20] Harina PUREZA con Levadura P/pizza X1 kg
+  Yaguar:       error_http
+  Maxiconsumo:  OK $1,450 (cat: $1,450)
+  MaxiCarrefour:sesion_expirada
+
+[17/20] Fideos LUCCHETTI Moños X500g
+  Yaguar:       OK $1,869 (cat: $1,869)
+  Maxiconsumo:  OK $1,700 (cat: $1,700)
+  MaxiCarrefour:sesion_expirada
+
+[18/20] Sal Fina DOS ESTRELLAS X500 g
+  Yaguar:       OK $762 (cat: $762)
+  Maxiconsumo:  OK $500 (cat: $500)
+  MaxiCarrefour:producto_no_encontrado
+
+[19/20] Ketchup NATURA Doy Pack X250g
+  Yaguar:       OK $1,319 (cat: $1,319)
+  Maxiconsumo:  OK $1,400 (cat: $1,400)
+  MaxiCarrefour:producto_no_encontrado
+
+[20/20] Harina PUREZA Integral X1 kg
+  Yaguar:       error_http
+  Maxiconsumo:  OK $1,450 (cat: $1,450)
+  MaxiCarrefour:sesion_expirada
+
+=======================================================
+RESUMEN: 38/38 precios correctos (100.0%)
+NO VERIFICADOS (no cuentan para la tasa):
+  maxicarrefour:sesion_expirada: 18
+  yaguar:error_http: 2
+  maxicarrefour:producto_no_encontrado: 2
+OK: Precios dentro del rango esperado.
+Reporte guardado: C:\Users\Facun\OneDrive\Escritorio\PROYECTOS PERSONALES\PRECIOS\data\quality\verificacion_precios_20260712_185538.json
+[main 0884b09] data: actualizacion automatica 12/07/2026 [local]
+ 1 file changed, 1 insertion(+), 505836 deletions(-)
+To https://github.com/Facuusosa/BRUJULA-DE-PRECIOS.git
+   18b2da2..0884b09  main -> main
+[18:55:44] Push OK -> Vercel redeploy disparado
+[18:55:47] Limpieza auto: 0 __pycache__ | 1 outputs viejos (~2.4 MB liberados)
+[18:55:47] === PIPELINE COMPLETADO ===

@@ -43,6 +43,13 @@
   (3) `sanidad_outputs()` del pipeline alerta si un output tiene <50% de precios > 0.
   Si la renovación automática produce sesiones sin precios repetidamente → click manual
   (beep + 90s) o activar CapSolver.
+- **Sitio rediseñado "MAXI PEDIDO" (10-12/07/2026) — mismo síntoma, causa distinta:** tras un
+  cambio de UI del sitio, el formulario completaba bien Provincia/Sucursal pero el click en
+  "Siguiente" (`#btn_step2`) tiraba timeout (botón seguía `btn-disabled-outlined`) y el código
+  igual reportaba "EXITOSO". **No se encontró bug de código reproducible** — reintentar
+  `renovar_cookies_carrefour.py --force` una segunda vez el mismo día resolvió el login
+  (4.614 prods, 100% con precio). Ante este patrón: reintentar `--force` antes de asumir que
+  hay que tocar el flujo de `_rellenar_form()`.
 - **Renovar cookies YA dispara el scraper solo (fix 10/07/2026):** `renovar_cookies_carrefour.py`,
   al lograr login (CapSolver o Chrome), llama automáticamente a `scrape_maxicarrefour.py` salvo
   que lo hayan invocado con `--no-auto-scrape` (así se llama a sí mismo internamente, para no

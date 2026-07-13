@@ -1,21 +1,41 @@
 # Estado Vivo — Brújula de Precios
-**Última actualización:** 11/07/2026 (madrugada) — EXTRACCIÓN 100% mayoristas + revisión automática del pipeline. Próximo: login MCF rediseñado + OUTREACH.
+**Última actualización:** 12/07/2026 (noche) — MCF recuperado (login en falso, mismo patrón que 10/07), Maxiconsumo rescatado de timeout, catálogo publicado con 2.195 comparables. Próximo: gap de EAN Yaguar.
 
 ## PRÓXIMOS 3 PASOS (sesión siguiente — en este orden)
-1. **Login MCF roto por rediseño del sitio** (~30-60 min, con Facu adelante): Carrefour
-   rediseñó el B2B el 10/07 ("MAXI PEDIDO") — la renovación automática loguea pero la sesión
-   queda en tienda WARNES (el .env pide AVELLANEDA) y todos los precios vienen `private`.
-   Diagnóstico con la ventana de Chrome abierta sobre `scripts/renovar_cookies_carrefour.py`
-   (flujo de selección de tienda post-login). Screenshot del estado:
-   `data/quality/carrefour_login_debug.png`. Mientras: la app publica MCF del 08/07, honesto.
-2. **Revisar la corrida del pipeline de las 10:00** — primera prueba real de todo lo del 10/07
-   (Yaguar API, sanidad de duplicados, VEREDICTO.md, toast). El hook SessionStart ya muestra
-   el estado al abrir la sesión, solo hay que leerlo.
-3. **OUTREACH** — sigue armado y sin enviar desde el 15/06. El catálogo está más fuerte que
-   nunca (14.000 productos). El bloqueador no es código.
+1. **RETOMAR ACÁ — Gap de EAN de Yaguar (44% sin mapear, ~3.250 productos).** Es la palanca
+   real para subir cuántos productos se pueden comparar entre mayoristas (medido 12/07: el
+   techo físico entre distribuidores ronda ~2.200, pero Yaguar solo tiene 56% de sus productos
+   con EAN en `CODIGOS.xlsx` — Maxiconsumo tiene 85%). Detalle completo, números y vías a
+   evaluar en memoria `project_matching_ean` — aplicar Regla #00 (investigar 2-3 opciones
+   antes de recomendar) antes de tocar código.
+2. **OUTREACH** — sigue armado y sin enviar desde el 15/06. El catálogo está más fuerte que
+   nunca (13.800+ productos, MCF y MCO al día). El bloqueador no es código.
+3. **Alerta abierta de baja prioridad**: Maxiconsumo falló en la corrida automática del
+   12/07 18:48 (no investigado, el catálogo usó fallback del 11/07 sin problema). Si se repite,
+   ver `.claude/rules/02-scrapers.md` — patrón conocido de timeout transitorio de red.
 
 Después (encolado): refactor de carga de datos del frontend (JSON de 18,6 MB viaja embebido
 en el bundle — ya roza lo inaceptable en 4G) → destraba publicar ~20k exclusivos de cadenas (Fase B).
+
+## HECHO 12/07 — MCF recuperado + Maxiconsumo rescatado + catálogo publicado (2 veces)
+- **Maxiconsumo**: la corrida automática de la noche del 11/07 falló por timeout de red
+  transitorio en la página 9 del sector Almacén (curl: Operation timed out) — el seguro de
+  calidad frenó antes de publicar datos incompletos (2.624 < mínimo 3.500), tal como debía.
+  Relanzado solo (`python scrape_maxiconsumo.py`): 3.691 productos, 100% con precio. Publicado.
+- **MaxiCarrefour**: diagnóstico interactivo con Facu (Chrome visible). El formulario de login
+  SÍ completaba bien (matcheaba "AVELLANEDA"), pero el click en "Siguiente" tiraba timeout y el
+  código igual reportaba "EXITOSO" — mismo patrón de login en falso del 10/07. **Reintentar
+  `renovar_cookies_carrefour.py --force` una segunda vez lo resolvió**: 4.614 productos, 100%
+  con precio, verificado 59/59 contra la web en vivo. No se encontró bug de código fijo —
+  parece inestabilidad puntual del reCAPTCHA/timing del sitio nuevo.
+- **Catálogo publicado dos veces** (patrón manual replicando `pipeline_local.py`: actualizar
+  catálogo → `verificar_precios_real.py 20` → commit+push submódulo → puntero repo principal):
+  primero con MCO fresco (1.990 comparables), después con MCF fresco también (**2.195
+  comparables, 396 con 3 precios** — subió de 322). Ambos verificados 100% contra la web real.
+- **Investigación de matching** (a pedido de Facu, "no capturamos tantos materiales como
+  pensé"): confirmado que `CODIGOS.xlsx` SÍ se usa, medido el techo real de comparables
+  cross-mayorista y el gap accionable de EAN de Yaguar. Detalle completo en memoria
+  `project_matching_ean` (nueva).
 
 ## HECHO 10/07 (noche) — Extracción 100% de mayoristas + pipeline que avisa solo
 - **Yaguar estaba ROTO hace 2 semanas** (el sitio eliminó la navegación HTML; el scraper
@@ -290,6 +310,7 @@ Primer comerciante pagador. Todo lo que no acerque a eso es ruido.
 
 | Fecha | Qué se hizo |
 |---|---|
+| 12/07/2026 | **Explicación del sistema de matching + MCF recuperado + investigación de EAN.** Sesión arrancó con Facu pidiendo entender cómo matchea el catálogo (EAN vs fuzzy) — investigado con subagente + verificación propia en código. Pipeline corrido, Maxiconsumo rescatado de un timeout transitorio, catálogo publicado. Diagnóstico interactivo en vivo (Chrome visible) del login roto de MaxiCarrefour: mismo patrón de "login en falso" del 10/07, resuelto reintentando `--force` una segunda vez (no fue necesario tocar código). Catálogo republicado con MCF fresco: 2.195 comparables (subió de 1.990). Medido el techo real de matching cross-mayorista y el gap accionable de EAN de Yaguar (56% mapeado vs 85% de Maxiconsumo) — encolado como próxima tarea. Detalle en memoria `project_matching_ean`. |
 | 10/07/2026 (noche) | **Logos de fuentes + DOMINIO CERRADO.** Logos de Carrefour/Yaguar/Maxiconsumo recortados con Pillow (Carrefour recompuesto de vertical a horizontal — la causa era el asset, no el código) + altura unificada 26px en bomba-list-item. Verificado local y PROD con Puppeteer, deployado (submódulo `1922eca`). Dominio propio verificado end-to-end: www.brujuladeprecios.com.ar HTTP 200 + SSL válido, apex y tilde redirigen bien — pendiente de propagación CERRADO. Próximo paso acordado: OUTREACH (disparador "continuemos con el mensaje para los clientes"). |
 | 02-04/07/2026 | **Rediseño "Explorá por categoría" — iterado con Facu y deployado.** Proceso: 3 propuestas en mockup (design-lab) → Facu eligió collage vivo + badge de ahorro → iteración sobre UNA tarjeta (6 variantes → hero+escolta ganadora) → Facu curó sus propias fotos (fondo blanco, carpetas en public/) → medición de bbox por píxeles con sharp para escalado uniforme → implementación real + deploy verificado en prod. Además: flechas desktop en los 4 carruseles (h-scroll.tsx), categorías vacías ocultas, portadas estáticas viejas eliminadas. Skill impeccable actualizada a v3.9.1 (hook de diseño activo en cada write). Pendiente: fotos de Facu para Bazar/Congelados/Kiosco/Mascotas/Desayuno. |
 | 19/06/2026 | **Panel outreach v4 — JS bug resuelto, en producción.** Causa raíz: en Python `'''...'''`, `\'` → `'` (backslash consumido), rompiendo todos los `onclick="fn(\'...\')"`. Fix definitivo: JS extraído a `scripts/panel_outreach_app.js` (sin Python de por medio), `rebuild_panel.py` lo lee e inyecta. Fix adicional: `checkPw()` usaba `.value` del input vacío en lugar del URL param → `|| params.get("pw")`. Verificado con Puppeteer: JS OK, 70 comercios, detalle abre, guarda en Vercel Blob. Todo listo para empezar a enviar. |
