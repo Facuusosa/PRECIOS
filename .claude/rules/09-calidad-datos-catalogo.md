@@ -1,5 +1,35 @@
 # Regla: Calidad de datos del catálogo
 
+## Fusiones fuzzy: dos EANs reales distintos NUNCA se fusionan (14/07/2026 — caso Playadito)
+
+El Paso 6c de `actualizar_catalogo.py` fusionaba variantes DISTINTAS de una misma marca
+con igual cantidad (Playadito común vs LATA vs DESPALADA dan Jaccard justo 0.75 = `_TH6`)
+y descartaba EN SILENCIO la fuente del absorbido si la base ya la tenía. Efecto medido:
+~520 productos desaparecidos del catálogo y ~250 comparaciones falsas visibles (precio de
+variante A junto a variante B). La Yerba Playadito 500g (EAN ...911), presente en 5 fuentes,
+no existía en el catálogo.
+
+Reglas permanentes derivadas (guards agregados ese día — no quitarlos):
+- **Dos productos con EAN real distinto jamás se fusionan**, sin importar el score fuzzy
+  (el 6b ya lo hacía; el 6c no — era una inconsistencia interna).
+- **Una fusión "complementaria" nunca puede descartar datos**: si ambos productos tienen
+  precio en la misma fuente, no son complementarios → no fusionar. Descartar un registro
+  en silencio está prohibido en cualquier paso nuevo.
+- Cada corrida escribe auditoría en `data/quality/fusiones_6c.json` (aplicadas + descartadas).
+- Señal de recaída: si "fusiones fuzzy complementarias" del log vuelve a saltar de ~130 a
+  600+, algo quitó los guards.
+
+## Expansión autónoma de mapeo SKU→EAN vía cadenas (14/07/2026)
+
+`expandir_mapeo_con_cadenas()` corre en cada `actualizar_catalogo.py` ANTES del constructor:
+usa los ~22k pares EAN+nombre de Coto/Carrefour/Día/MCF como diccionario para resolver EANs
+de Yaguar/Maxiconsumo. Similitud ≥0.85 (con marca igual + cantidad canónica ±10%) se aprende
+solo y persiste en `mapeo_brujula.json`; 0.75–0.85 va a `data/quality/matches_pendientes.json`
+(revisión manual; los rechazados se anotan ahí y no se vuelven a proponer); los mapeos
+aprendidos con cantidad divergente vs góndola caen en `data/quality/mapeos_sospechosos.json`.
+OJO: hay DOS mecanismos que escriben `mapeo_brujula.json` (este y el auto-aprendizaje viejo
+al final de `main()`) — ambos solo agregan, nunca pisan, y usan indent=2. Mantener así.
+
 ## Cache público de Yaguar ≠ precio real (01/07/2026 — caso Fernet Branca 750)
 
 Síntoma: Facu (anónimo, browser real) veía $17.772 en la ficha de Yaguar; el catálogo

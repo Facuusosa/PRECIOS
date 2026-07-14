@@ -434,6 +434,29 @@ def cargar_excel_referencia():
     return yag_sku_to_ean, mco_sku_to_ean, ean_to_yag_sku, ean_to_mco_sku, ean_to_master, nombre_norm_to_ean, ean_to_familia
 
 # ---------------------------------------------------------------------------
+# Cantidad canónica: volumen -> ml, peso -> g. Se usa el nombre CRUDO
+# (no clave_nombre) para no perder la 'L' de litros ni los decimales.
+# ---------------------------------------------------------------------------
+_CANT_VOL_L   = re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:l|lt|lts|litro|litros)\b", re.IGNORECASE)
+_CANT_VOL_ML  = re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:ml|cc)\b", re.IGNORECASE)
+_CANT_PESO_KG = re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:kg|kilo|kilos)\b", re.IGNORECASE)
+_CANT_PESO_G  = re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:g|gr|grs|gramos)\b", re.IGNORECASE)
+
+def _cantidad_canonica(nombre):
+    """Devuelve (dimension, valor) -> ('vol', ml) o ('peso', g). None si no hay
+    cantidad clara. Orden L->ml->kg->g para que 'kg' no caiga en 'g' ni 'ml' en 'l'."""
+    s = (nombre or "").lower().replace(",", ".")
+    m = _CANT_VOL_L.search(s)
+    if m:  return ("vol",  round(float(m.group(1)) * 1000))
+    m = _CANT_VOL_ML.search(s)
+    if m:  return ("vol",  round(float(m.group(1))))
+    m = _CANT_PESO_KG.search(s)
+    if m:  return ("peso", round(float(m.group(1)) * 1000))
+    m = _CANT_PESO_G.search(s)
+    if m:  return ("peso", round(float(m.group(1))))
+    return None
+
+# ---------------------------------------------------------------------------
 # Carga de scrapers
 # ---------------------------------------------------------------------------
 def precio_promedio(data):
@@ -785,6 +808,221 @@ def cargar_hunterprice():
 # ---------------------------------------------------------------------------
 # Constructor del catálogo unificado
 # ---------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
+# Expansión autónoma del mapeo SKU->EAN usando fuentes con EAN nativo
+# (cadenas + MaxiCarrefour) como diccionario de nombres.
+#   - sim >= 0.85 -> se aprende solo y se persiste en mapeo_brujula.json
+#   - 0.75 <= sim < 0.85 -> cola de revisión en data/quality/matches_pendientes.json
+# Guards anti falso positivo: marca (primer token significativo) igual +
+# cantidad canónica en la misma dimensión con tolerancia 10% (misma idea que 6d).
+# Diseñado 14/07/2026: simulación midió 133 matches Yaguar + 34 MCO en banda
+# alta con 12/12 correctos en muestra; el índice se realimenta con cada scrape.
+# ---------------------------------------------------------------------------
+MAPEO_BRUJULA_FILE      = os.path.join(RAW_DIR, "mapeo_brujula.json")
+MATCHES_PENDIENTES_FILE = os.path.join(BASE_DIR, "data", "quality", "matches_pendientes.json")
+MAPEOS_SOSPECHOSOS_FILE = os.path.join(BASE_DIR, "data", "quality", "mapeos_sospechosos.json")
+
+_EXP_TH_AUTO     = 0.85
+_EXP_TH_REVISION = 0.75
+_EXP_STOP = {"de", "la", "el", "en", "y", "x", "con", "por", "para", "un", "una",
+             "del", "los", "las", "al", "ml", "gr", "cc", "kg", "sin", "bot",
+             "pet", "brik", "fco", "sdo", "pvc", "p", "s", "c"}
+# Tokens de categoría que no identifican marca (para elegir el token de marca)
+_EXP_CATEGORIA = {"gaseosa", "agua", "soda", "jugo", "cerveza", "vino", "aceite",
+                  "arroz", "azucar", "harina", "leche", "yogur", "manteca", "queso",
+                  "yerba", "cafe", "te", "sal", "fideos", "galletita", "galleta",
+                  "chocolate", "caramelo", "caramelos", "golosina", "snack", "papel",
+                  "detergente", "jabon", "shampoo", "desodorante", "lavandina",
+                  "suavizante", "servilleta", "mayonesa", "ketchup", "mostaza",
+                  "salsa", "vinagre", "gelatina", "polvo", "mate", "cocido",
+                  "licor", "amargo", "atun", "pure", "edulcorante", "espuma",
+                  "polenta", "desinfectante", "higienico", "hig"}
+
+def _exp_tokens(nombre):
+    cl = clave_nombre(nombre)
+    return {w for w in cl.split() if len(w) > 1 and w not in _EXP_STOP}
+
+def _exp_marca(nombre):
+    cl = clave_nombre(nombre)
+    for w in cl.split():
+        if len(w) > 2 and w not in _EXP_STOP and w not in _EXP_CATEGORIA and not w[0].isdigit():
+            return w
+    return ""
+
+def expandir_mapeo_con_cadenas(yaguar_data, maxiconsumo_data, fuentes_con_ean,
+                               yag_sku_to_ean, mco_sku_to_ean,
+                               ean_to_yag_sku, ean_to_mco_sku,
+                               nombre_norm_to_ean, ean_to_master):
+    """Resuelve EANs de productos Yaguar/Maxiconsumo que CODIGOS y el Maestro no
+    cubren, matcheando sus nombres contra los pares EAN+nombre frescos de las
+    fuentes con EAN nativo. MUTA los dicts de mapeo en memoria (la corrida actual
+    ya aprovecha lo aprendido) y persiste el aprendizaje en mapeo_brujula.json.
+    fuentes_con_ean: lista de (nombre_fuente, data) con campos ean/nombre/precio.
+    """
+    # --- 1. Índice EAN -> nombres de las fuentes confiables ---
+    entries  = []                  # (ean, fuente, token_set, marca, qty, nombre)
+    word_idx = defaultdict(list)
+    ean_nombres = defaultdict(dict)   # ean -> {fuente: nombre} (para auto-correccion)
+    for fuente, data in fuentes_con_ean:
+        for p in data:
+            ean = str(p.get("ean", "")).strip()
+            nombre = p.get("nombre", "")
+            if not ean or len(ean) < 8 or not nombre or p.get("precio", 0) <= 0:
+                continue
+            ean_nombres[ean][fuente] = nombre
+            ws = _exp_tokens(nombre)
+            if not ws:
+                continue
+            i = len(entries)
+            entries.append((ean, fuente, ws, _exp_marca(nombre), _cantidad_canonica(nombre), nombre))
+            for w in ws:
+                word_idx[w].append(i)
+
+    def _buscar(nombre):
+        ws_p = _exp_tokens(nombre)
+        if not ws_p:
+            return None
+        m_p = _exp_marca(nombre)
+        q_p = _cantidad_canonica(nombre)
+        cands = set()
+        for w in ws_p:
+            cands.update(word_idx.get(w, []))
+        best_sim, best_i = 0.0, None
+        for i in cands:
+            ean, fte, ws_c, m_c, q_c, nom_c = entries[i]
+            sim = len(ws_p & ws_c) / len(ws_p | ws_c)
+            if sim <= best_sim:
+                continue
+            if m_p and m_c and m_p != m_c:
+                continue
+            if q_p and q_c:
+                if q_p[0] != q_c[0]:
+                    continue
+                if abs(q_p[1] - q_c[1]) > 0.10 * max(q_p[1], q_c[1]):
+                    continue
+            best_sim, best_i = sim, i
+        return (best_sim, best_i) if best_i is not None else None
+
+    # --- 2. Cargar estado persistente ---
+    mb = {}
+    if os.path.isfile(MAPEO_BRUJULA_FILE):
+        with open(MAPEO_BRUJULA_FILE, encoding="utf-8") as f:
+            mb = json.load(f)
+    mb.setdefault("por_sku_yaguar", {})
+    mb.setdefault("por_sku_maxiconsumo", {})
+    mb.setdefault("por_ean", {})
+
+    rechazados = set()
+    if os.path.isfile(MATCHES_PENDIENTES_FILE):
+        try:
+            with open(MATCHES_PENDIENTES_FILE, encoding="utf-8") as f:
+                rechazados = set(json.load(f).get("rechazados", []))
+        except (json.JSONDecodeError, OSError):
+            pass
+
+    # --- 3. Buscar matches para los productos sin EAN ---
+    pendientes = []
+    n_auto = {"yaguar": 0, "maxiconsumo": 0}
+    lotes = [
+        ("yaguar",      yaguar_data,      yag_sku_to_ean, ean_to_yag_sku, "por_sku_yaguar"),
+        ("maxiconsumo", maxiconsumo_data, mco_sku_to_ean, ean_to_mco_sku, "por_sku_maxiconsumo"),
+    ]
+    for etiqueta, data, sku_to_ean, ean_to_sku, clave_mb in lotes:
+        for p in data:
+            sku = str(p.get("sku", "")).strip()
+            nombre = p.get("nombre", "")
+            if not sku or not nombre or p.get("precio", 0) <= 0:
+                continue
+            if sku_to_ean.get(sku) or nombre_norm_to_ean.get(clave_nombre(nombre)):
+                continue  # ya resuelve por CODIGOS/mapeo/Maestro
+            r = _buscar(nombre)
+            if not r:
+                continue
+            sim, i = r
+            ean, fte, _, _, _, nom_cadena = entries[i]
+            if sim >= _EXP_TH_AUTO:
+                if ean in ean_to_sku:
+                    continue  # ese EAN ya pertenece a otro SKU de esta fuente
+                sku_to_ean[sku] = ean
+                ean_to_sku[ean] = sku
+                mb[clave_mb][sku] = ean
+                # Display limpio: si el Maestro no conoce el EAN, usar el nombre
+                # de la cadena como nombre de verificación
+                if ean not in ean_to_master:
+                    ean_to_master[ean] = {"nombre": nom_cadena, "sector": "",
+                                          "categoria": "", "marca": "", "abc": "",
+                                          "familia": ""}
+                    mb["por_ean"].setdefault(ean, {"nombre_verificacion": nom_cadena})
+                n_auto[etiqueta] += 1
+            elif sim >= _EXP_TH_REVISION:
+                clave_rechazo = f"{etiqueta}:{sku}:{ean}"
+                if clave_rechazo not in rechazados:
+                    pendientes.append({
+                        "fuente": etiqueta, "sku": sku, "nombre": nombre,
+                        "ean_candidato": ean, "nombre_cadena": nom_cadena,
+                        "fuente_cadena": fte, "similitud": round(sim, 3),
+                    })
+
+    # --- 4. Auto-corrección: auditar lo aprendido contra los nombres frescos ---
+    # Solo los mapeos APRENDIDOS (mapeo_brujula) — CODIGOS.xlsx es curado a mano.
+    # Los packs NxM se saltean: "4UNX276GR" (total) vs "4 Uni X 69 Gr" (unitario)
+    # es el mismo producto expresado distinto y genera falsa alarma.
+    _pack_re = re.compile(r"\d+\s*(?:un|uni|u)?\s*x\s*\d+", re.IGNORECASE)
+    sospechosos = []
+    por_sku_data = {"por_sku_yaguar": {str(p.get("sku", "")).strip(): p.get("nombre", "")
+                                       for p in yaguar_data},
+                    "por_sku_maxiconsumo": {str(p.get("sku", "")).strip(): p.get("nombre", "")
+                                            for p in maxiconsumo_data}}
+    for clave_mb, sku_nombres in por_sku_data.items():
+        for sku, ean in mb.get(clave_mb, {}).items():
+            nombre_may = sku_nombres.get(sku, "")
+            if not nombre_may or ean not in ean_nombres:
+                continue
+            if _pack_re.search(nombre_may):
+                continue
+            q_may = _cantidad_canonica(nombre_may)
+            if not q_may:
+                continue
+            for fte, nom_cad in ean_nombres[ean].items():
+                if _pack_re.search(nom_cad):
+                    continue
+                q_cad = _cantidad_canonica(nom_cad)
+                if q_cad and q_cad[0] == q_may[0] and \
+                   abs(q_cad[1] - q_may[1]) > 0.10 * max(q_cad[1], q_may[1]):
+                    sospechosos.append({
+                        "mapeo": clave_mb, "sku": sku, "ean": ean,
+                        "nombre_mayorista": nombre_may, "nombre_cadena": nom_cad,
+                        "fuente_cadena": fte,
+                    })
+                    break
+
+    # --- 5. Persistir ---
+    try:
+        # indent=2 para no reescribir el archivo entero: el auto-aprendizaje
+        # viejo de main() usa indent=2 y ambos mecanismos escriben acá
+        with open(MAPEO_BRUJULA_FILE, "w", encoding="utf-8") as f:
+            json.dump(mb, f, ensure_ascii=False, indent=2)
+        quality_dir = os.path.dirname(MATCHES_PENDIENTES_FILE)
+        os.makedirs(quality_dir, exist_ok=True)
+        with open(MATCHES_PENDIENTES_FILE, "w", encoding="utf-8") as f:
+            json.dump({"fecha": datetime.now().isoformat(timespec="seconds"),
+                       "pendientes": pendientes,
+                       "rechazados": sorted(rechazados)}, f, ensure_ascii=False, indent=1)
+        if sospechosos:
+            with open(MAPEOS_SOSPECHOSOS_FILE, "w", encoding="utf-8") as f:
+                json.dump({"fecha": datetime.now().isoformat(timespec="seconds"),
+                           "sospechosos": sospechosos}, f, ensure_ascii=False, indent=1)
+        elif os.path.isfile(MAPEOS_SOSPECHOSOS_FILE):
+            os.remove(MAPEOS_SOSPECHOSOS_FILE)
+    except OSError as e:
+        print(f"  [WARN] No se pudo persistir expansion de mapeo: {e}")
+
+    print(f"  Expansion via cadenas: +{n_auto['yaguar']} EANs Yaguar y "
+          f"+{n_auto['maxiconsumo']} Maxiconsumo aprendidos (persistidos), "
+          f"{len(pendientes)} a revision, {len(sospechosos)} mapeos sospechosos")
+    return n_auto, pendientes
+
+
 def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                        yag_sku_to_ean, mco_sku_to_ean,
                        ean_to_yag_sku, ean_to_mco_sku,
@@ -1628,7 +1866,8 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
 
     _TH6 = 0.75  # subido de 0.65 — evita fusionar "Fernet 1882" con "Fernet Branca"
 
-    def _buscar_candidato(ws_p, ns_p, index_entries, index_wi, usados, cl_p="", id_p=""):
+    def _buscar_candidato(ws_p, ns_p, index_entries, index_wi, usados, cl_p="", id_p="",
+                          ean_p="", precios_p=None):
         """Devuelve (idx_en_lista_final, sim) del mejor match fuzzy."""
         cands = set()
         for w in ws_p:
@@ -1649,7 +1888,23 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 continue  # cantidades incompatibles
             if _pack_count(cl_p) != _pack_count(cl_c):
                 continue  # pack count incompatible
-            id_c = lista_final[lf_idx]["id_unificado"]
+            cand = lista_final[lf_idx]
+            id_c = cand["id_unificado"]
+            # Guard EAN (mismo criterio que 6b): dos EANs reales distintos = productos
+            # genuinamente distintos, aunque el nombre dé Jaccard alto. Caso Playadito
+            # 14/07/2026: "X500 g" (911) vs "500 g LATA" (089) daban sim=0.75 y se
+            # fusionaban, borrando la variante comun del catalogo.
+            ean_c = cand.get("ean", "")
+            if ean_p and ean_c and ean_p != ean_c:
+                _stats6c["ean_distinto"] += 1
+                continue
+            # Complementariedad estricta: si ambos ya tienen precio en la MISMA fuente
+            # (SKUs distintos de esa fuente), no son el mismo producto — fusionar
+            # descartaria uno de los dos registros en silencio.
+            if precios_p and any(v > 0 and cand["precios"].get(f, 0) > 0
+                                 for f, v in precios_p.items()):
+                _stats6c["fuente_solapada"] += 1
+                continue
             if not _familia_compat(id_p, id_c):
                 continue  # FAMILIAs distintas → presentaciones incompatibles
             # Identificadores numéricos de variante (>=3 dígitos) deben coincidir — evita "1882" vs "Branca"
@@ -1688,6 +1943,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
 
     fusiones_fuzzy = 0
     usados_como_base = set()   # índices de lista_final que ya absorbieron algo
+    _stats6c = {"ean_distinto": 0, "fuente_solapada": 0}
 
     # parche: { idx_eliminado: idx_base }
     parches = {}
@@ -1718,7 +1974,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             if pr.get(fuente_falt, 0) > 0:
                 continue  # ya tiene esta fuente
 
-            lf_idx, sim = _buscar_candidato(ws_p, ns_p, entries_f, wi_f, usados_como_base | set(parches.keys()) | {idx_p}, cl_p=cl_p, id_p=p["id_unificado"])
+            lf_idx, sim = _buscar_candidato(ws_p, ns_p, entries_f, wi_f, usados_como_base | set(parches.keys()) | {idx_p}, cl_p=cl_p, id_p=p["id_unificado"], ean_p=p.get("ean", ""), precios_p=pr)
             if lf_idx is None:
                 continue
 
@@ -1752,6 +2008,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             break  # una fusión por producto es suficiente
 
     # Aplicar parches
+    _auditoria_6c = []
     for idx_elim, idx_base in parches.items():
         p_elim = lista_final[idx_elim]
         p_base = lista_final[idx_base]
@@ -1764,10 +2021,32 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         if not p_base.get("abc") and p_elim.get("abc"):
             p_base["abc"] = p_elim["abc"]
         p_elim["_eliminar"] = True
+        _auditoria_6c.append({
+            "base_id":     p_base["id_unificado"],
+            "base_nombre": p_base["nombre_display"],
+            "absorbido_id":     p_elim["id_unificado"],
+            "absorbido_nombre": p_elim["nombre_display"],
+            "fuentes_movidas":  sorted(p_elim.get("fuentes", {}).keys()),
+        })
 
     lista_final = [p for p in lista_final if not p.get("_eliminar")]
 
-    print(f"  Paso 6c: {fusiones_fuzzy} fusiones fuzzy complementarias")
+    # Auditoria de fusiones 6c (se pisa en cada corrida) — revisable por auditor-catalogo
+    try:
+        quality_dir = os.path.join(BASE_DIR, "data", "quality")
+        os.makedirs(quality_dir, exist_ok=True)
+        with open(os.path.join(quality_dir, "fusiones_6c.json"), "w", encoding="utf-8") as f:
+            json.dump({"fecha": datetime.now().isoformat(timespec="seconds"),
+                       "aplicadas": len(_auditoria_6c),
+                       "descartadas_ean_distinto": _stats6c["ean_distinto"],
+                       "descartadas_fuente_solapada": _stats6c["fuente_solapada"],
+                       "fusiones": _auditoria_6c}, f, ensure_ascii=False, indent=1)
+    except OSError as e:
+        print(f"  [WARN] No se pudo escribir fusiones_6c.json: {e}")
+
+    print(f"  Paso 6c: {fusiones_fuzzy} fusiones fuzzy complementarias "
+          f"({_stats6c['ean_distinto']} candidatos descartados por EAN distinto, "
+          f"{_stats6c['fuente_solapada']} por fuente solapada)")
 
     # ------------------------------------------------------------------
     # PASO 6d: Validación de cantidad entre fuentes (cleanup defensivo)
@@ -1793,27 +2072,6 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
     def _tiene_pack_nxm(nombre_crudo):
         """True si el nombre contiene formato pack multiplo (NxM con unidad)."""
         return bool(_PACK_NxM_RE.search(nombre_crudo or ""))
-
-    # Cantidad canónica: volumen -> ml, peso -> g. Se usa el nombre CRUDO
-    # (no clave_nombre) para no perder la 'L' de litros ni los decimales.
-    _CANT_VOL_L   = re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:l|lt|lts|litro|litros)\b", re.IGNORECASE)
-    _CANT_VOL_ML  = re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:ml|cc)\b", re.IGNORECASE)
-    _CANT_PESO_KG = re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:kg|kilo|kilos)\b", re.IGNORECASE)
-    _CANT_PESO_G  = re.compile(r"(\d+(?:[.,]\d+)?)\s*(?:g|gr|grs|gramos)\b", re.IGNORECASE)
-
-    def _cantidad_canonica(nombre):
-        """Devuelve (dimension, valor) -> ('vol', ml) o ('peso', g). None si no hay
-        cantidad clara. Orden L->ml->kg->g para que 'kg' no caiga en 'g' ni 'ml' en 'l'."""
-        s = (nombre or "").lower().replace(",", ".")
-        m = _CANT_VOL_L.search(s)
-        if m:  return ("vol",  round(float(m.group(1)) * 1000))
-        m = _CANT_VOL_ML.search(s)
-        if m:  return ("vol",  round(float(m.group(1))))
-        m = _CANT_PESO_KG.search(s)
-        if m:  return ("peso", round(float(m.group(1)) * 1000))
-        m = _CANT_PESO_G.search(s)
-        if m:  return ("peso", round(float(m.group(1))))
-        return None
 
     fuentes_eliminadas_6d = 0
     _ANCHOR_ORDER = ["maxicarrefour", "yaguar", "maxiconsumo"]
@@ -1989,6 +2247,16 @@ def main():
     coto        = cargar_cadena("coto", "Coto")
     carrefour   = cargar_cadena("carrefour", "Carrefour")
     dia         = cargar_cadena("dia", "Dia")
+
+    print("\nExpandiendo mapeo SKU->EAN con nombres frescos de cadenas...")
+    expandir_mapeo_con_cadenas(
+        yaguar, maxiconsumo,
+        [("coto", coto), ("carrefour", carrefour), ("dia", dia),
+         ("maxicarrefour", maxicarre)],
+        yag_sku_to_ean, mco_sku_to_ean,
+        ean_to_yag_sku, ean_to_mco_sku,
+        nombre_norm_to_ean, ean_to_master,
+    )
 
     print("\nConstruyendo catálogo unificado...")
     catalogo, aprendizaje_yag, aprendizaje_mco = construir_catalogo(
