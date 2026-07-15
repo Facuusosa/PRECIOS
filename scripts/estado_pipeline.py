@@ -47,9 +47,12 @@ if os.path.exists(ALERTA):
 # Materiales de matching esperando revision manual de Facu (pedido 14/07/2026:
 # "haceme acordar siempre"). Claude debe RECORDARSELO al abrir la sesion.
 n_pend = n_sosp = 0
+artifact_url = ""
 try:
     if os.path.exists(MATCHES_PEND):
-        n_pend = len(json.load(open(MATCHES_PEND, encoding="utf-8")).get("pendientes", []))
+        _mp = json.load(open(MATCHES_PEND, encoding="utf-8"))
+        n_pend = len(_mp.get("pendientes", []))
+        artifact_url = _mp.get("artifact_url", "")
     if os.path.exists(MAPEOS_SOSP):
         n_sosp = len(json.load(open(MAPEOS_SOSP, encoding="utf-8")).get("sospechosos", []))
 except (json.JSONDecodeError, OSError):
@@ -58,6 +61,9 @@ if n_pend or n_sosp:
     print(f"\nMATERIALES DE MATCHING A REVISAR CON FACU: {n_pend} matches probables "
           f"(data/quality/matches_pendientes.json) + {n_sosp} mapeos sospechosos "
           f"(data/quality/mapeos_sospechosos.json).")
+    if artifact_url:
+        print(f"-> Pagina de revision con checkboxes (tildar + 'Copiar resultado' + "
+              f"pegar a Claude): {artifact_url}")
     print("-> Recordarselo a Facu al inicio de la sesion; cada aprobado = un comparable mas.")
 
 # Frescura del output mas reciente por fuente
