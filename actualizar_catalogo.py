@@ -848,6 +848,7 @@ _EXP_ABREV = {
     "descr": "descremada", "descrem": "descremada",
     "past": "pasteurizada",
     "multivit": "multivitaminas", "multivitaminica": "multivitaminas",
+    "ls": "serenisima",   # el Maestro abrevia "Leche LS Liviana..."
 }
 
 def _exp_tokens(nombre):
@@ -880,20 +881,32 @@ def expandir_mapeo_con_cadenas(yaguar_data, maxiconsumo_data, fuentes_con_ean,
     entries  = []                  # (ean, fuente, token_set, marca, qty, nombre)
     word_idx = defaultdict(list)
     ean_nombres = defaultdict(dict)   # ean -> {fuente: nombre} (para auto-correccion)
+
+    def _indexar(ean, fuente, nombre):
+        ean_nombres[ean][fuente] = nombre
+        ws = _exp_tokens(nombre)
+        if not ws:
+            return
+        i = len(entries)
+        entries.append((ean, fuente, ws, _exp_marca(nombre), _cantidad_canonica(nombre), nombre))
+        for w in ws:
+            word_idx[w].append(i)
+
     for fuente, data in fuentes_con_ean:
         for p in data:
             ean = str(p.get("ean", "")).strip()
             nombre = p.get("nombre", "")
             if not ean or len(ean) < 8 or not nombre or p.get("precio", 0) <= 0:
                 continue
-            ean_nombres[ean][fuente] = nombre
-            ws = _exp_tokens(nombre)
-            if not ws:
-                continue
-            i = len(entries)
-            entries.append((ean, fuente, ws, _exp_marca(nombre), _cantidad_canonica(nombre), nombre))
-            for w in ws:
-                word_idx[w].append(i)
+            _indexar(ean, fuente, nombre)
+
+    # El Listado Maestro tambien entra al indice (pedido Facu 15/07/2026): sus
+    # 25k nombres ya alimentaban el lookup exacto y el fuzzy 1b, pero no esta
+    # via con guards nuevos (marca en cualquier posicion, digitos, bandas).
+    for ean, m in ean_to_master.items():
+        nombre = (m or {}).get("nombre", "")
+        if nombre and len(nombre) >= 4 and len(ean) >= 8 and ean not in ean_nombres:
+            _indexar(ean, "maestro", nombre)
 
     def _buscar(nombre):
         ws_p = _exp_tokens(nombre)
@@ -962,6 +975,8 @@ def expandir_mapeo_con_cadenas(yaguar_data, maxiconsumo_data, fuentes_con_ean,
                 continue
             sim, i = r
             ean, fte, _, _, _, nom_cadena = entries[i]
+            if f"{etiqueta}:{sku}:{ean}" in rechazados:
+                continue  # rechazado a mano por Facu — no re-aprender nunca
             if sim >= _EXP_TH_AUTO:
                 if ean in ean_to_sku:
                     continue  # ese EAN ya pertenece a otro SKU de esta fuente
@@ -989,7 +1004,15 @@ def expandir_mapeo_con_cadenas(yaguar_data, maxiconsumo_data, fuentes_con_ean,
     # Solo los mapeos APRENDIDOS (mapeo_brujula) — CODIGOS.xlsx es curado a mano.
     # Los packs NxM se saltean: "4UNX276GR" (total) vs "4 Uni X 69 Gr" (unitario)
     # es el mismo producto expresado distinto y genera falsa alarma.
+    # Los que Facu ya reviso y mantuvo (lista 'aceptados') no se re-proponen.
     _pack_re = re.compile(r"\d+\s*(?:un|uni|u)?\s*x\s*\d+", re.IGNORECASE)
+    aceptados = set()
+    if os.path.isfile(MAPEOS_SOSPECHOSOS_FILE):
+        try:
+            with open(MAPEOS_SOSPECHOSOS_FILE, encoding="utf-8") as f:
+                aceptados = set(json.load(f).get("aceptados", []))
+        except (json.JSONDecodeError, OSError):
+            pass
     sospechosos = []
     por_sku_data = {"por_sku_yaguar": {str(p.get("sku", "")).strip(): p.get("nombre", "")
                                        for p in yaguar_data},
@@ -999,6 +1022,8 @@ def expandir_mapeo_con_cadenas(yaguar_data, maxiconsumo_data, fuentes_con_ean,
         for sku, ean in mb.get(clave_mb, {}).items():
             nombre_may = sku_nombres.get(sku, "")
             if not nombre_may or ean not in ean_nombres:
+                continue
+            if f"{clave_mb}:{sku}:{ean}" in aceptados:
                 continue
             if _pack_re.search(nombre_may):
                 continue
@@ -1030,10 +1055,11 @@ def expandir_mapeo_con_cadenas(yaguar_data, maxiconsumo_data, fuentes_con_ean,
             json.dump({"fecha": datetime.now().isoformat(timespec="seconds"),
                        "pendientes": pendientes,
                        "rechazados": sorted(rechazados)}, f, ensure_ascii=False, indent=1)
-        if sospechosos:
+        if sospechosos or aceptados:
             with open(MAPEOS_SOSPECHOSOS_FILE, "w", encoding="utf-8") as f:
                 json.dump({"fecha": datetime.now().isoformat(timespec="seconds"),
-                           "sospechosos": sospechosos}, f, ensure_ascii=False, indent=1)
+                           "sospechosos": sospechosos,
+                           "aceptados": sorted(aceptados)}, f, ensure_ascii=False, indent=1)
         elif os.path.isfile(MAPEOS_SOSPECHOSOS_FILE):
             os.remove(MAPEOS_SOSPECHOSOS_FILE)
     except OSError as e:
@@ -2484,10 +2510,22 @@ def main():
             if p.get("ean") and p.get("precio", 0) > 0
         }
 
+        # Rechazos manuales de Facu (matches_pendientes.json): tampoco este
+        # mecanismo puede re-aprenderlos — sin esto, un mapeo eliminado a mano
+        # volvia a entrar por el fuzzy 1b en la corrida siguiente
+        _rechazados_mb = set()
+        _mp_file = os.path.join(BASE_DIR, "data", "quality", "matches_pendientes.json")
+        if os.path.isfile(_mp_file):
+            try:
+                with open(_mp_file, encoding="utf-8") as f:
+                    _rechazados_mb = set(json.load(f).get("rechazados", []))
+            except (json.JSONDecodeError, OSError):
+                pass
+
         nuevas_yag = nuevas_mco = 0
 
         for sku, ean in aprendizaje_yag.items():
-            if ean not in mc_eans:
+            if ean not in mc_eans or f"yaguar:{sku}:{ean}" in _rechazados_mb:
                 continue
             if sku not in mb["por_sku_yaguar"]:
                 mb["por_sku_yaguar"][sku] = ean
@@ -2498,7 +2536,7 @@ def main():
                     }
 
         for sku, ean in aprendizaje_mco.items():
-            if ean not in mc_eans:
+            if ean not in mc_eans or f"maxiconsumo:{sku}:{ean}" in _rechazados_mb:
                 continue
             if sku not in mb["por_sku_maxiconsumo"]:
                 mb["por_sku_maxiconsumo"][sku] = ean
