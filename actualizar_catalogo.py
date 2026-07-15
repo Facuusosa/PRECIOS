@@ -867,6 +867,42 @@ def _exp_marca(nombre):
             return w
     return ""
 
+def _tfidf_trigramas(textos):
+    """Matriz TF-IDF sparse de trigramas de caracteres, normalizada L2.
+    Hecha a mano con scipy para no sumar scikit-learn (~80MB) al pipeline.
+    Devuelve (matriz_csr, vocabulario) — vocabulario para vectorizar queries."""
+    from scipy.sparse import csr_matrix
+    import math
+    vocab = {}
+    filas, cols, vals = [], [], []
+    df = defaultdict(int)
+    docs_tri = []
+    for texto in textos:
+        s = f" {texto} "
+        tri = defaultdict(int)
+        for i in range(len(s) - 2):
+            tri[s[i:i+3]] += 1
+        docs_tri.append(tri)
+        for g in tri:
+            df[g] += 1
+    n = len(textos)
+    idf = {g: math.log(n / (1 + d)) + 1 for g, d in df.items()}
+    for fi, tri in enumerate(docs_tri):
+        norm = 0.0
+        pares = []
+        for g, tf in tri.items():
+            if g not in vocab:
+                vocab[g] = len(vocab)
+            w = tf * idf[g]
+            pares.append((vocab[g], w))
+            norm += w * w
+        norm = math.sqrt(norm) or 1.0
+        for ci, w in pares:
+            filas.append(fi); cols.append(ci); vals.append(w / norm)
+    m = csr_matrix((vals, (filas, cols)), shape=(n, len(vocab)))
+    return m, vocab, idf
+
+
 def expandir_mapeo_con_cadenas(yaguar_data, maxiconsumo_data, fuentes_con_ean,
                                yag_sku_to_ean, mco_sku_to_ean,
                                ean_to_yag_sku, ean_to_mco_sku,
@@ -957,6 +993,7 @@ def expandir_mapeo_con_cadenas(yaguar_data, maxiconsumo_data, fuentes_con_ean,
 
     # --- 3. Buscar matches para los productos sin EAN ---
     pendientes = []
+    sin_match = []   # (etiqueta, sku, nombre, tokens) -> pase TF-IDF 3b
     n_auto = {"yaguar": 0, "maxiconsumo": 0}
     lotes = [
         ("yaguar",      yaguar_data,      yag_sku_to_ean, ean_to_yag_sku, "por_sku_yaguar"),
@@ -972,8 +1009,11 @@ def expandir_mapeo_con_cadenas(yaguar_data, maxiconsumo_data, fuentes_con_ean,
                 continue  # ya resuelve por CODIGOS/mapeo/Maestro
             r = _buscar(nombre)
             if not r:
+                sin_match.append((etiqueta, sku, nombre, _exp_tokens(nombre)))
                 continue
             sim, i = r
+            if sim < _EXP_TH_REVISION:
+                sin_match.append((etiqueta, sku, nombre, _exp_tokens(nombre)))
             ean, fte, _, _, _, nom_cadena = entries[i]
             if f"{etiqueta}:{sku}:{ean}" in rechazados:
                 continue  # rechazado a mano por Facu — no re-aprender nunca
@@ -999,6 +1039,73 @@ def expandir_mapeo_con_cadenas(yaguar_data, maxiconsumo_data, fuentes_con_ean,
                         "ean_candidato": ean, "nombre_cadena": nom_cadena,
                         "fuente_cadena": fte, "similitud": round(sim, 3),
                     })
+
+    # --- 3b. Pase TF-IDF de trigramas — MODO CALIBRACION: solo propone ---
+    # Encuentra candidatos que el Jaccard de palabras enteras no ve (abreviaturas
+    # sin mapear, typos, reordenamientos). NO auto-aprende: todo va a pendientes
+    # hasta calibrar el umbral con el feedback de Facu sobre la primera tanda.
+    _TFIDF_TH = 0.80
+    if sin_match and entries:
+        try:
+            from scipy.sparse import csr_matrix
+            import math as _math
+            corpus = [" ".join(sorted(ws)) for _, _, ws, _, _, _ in entries]
+            m_idx, vocab, idf = _tfidf_trigramas(corpus)
+            m_idx_t = m_idx.T.tocsr()
+            tf_prop = 0
+            B = 200
+            for b0 in range(0, len(sin_match), B):
+                bloque = sin_match[b0:b0 + B]
+                filas, cols, vals = [], [], []
+                for qi, (_, _, _, ws_q) in enumerate(bloque):
+                    s = f" {' '.join(sorted(ws_q))} "
+                    tri = defaultdict(int)
+                    for i in range(len(s) - 2):
+                        tri[s[i:i+3]] += 1
+                    norm, pares = 0.0, []
+                    for g, tf in tri.items():
+                        if g in vocab:
+                            w = tf * idf[g]
+                            pares.append((vocab[g], w)); norm += w * w
+                    norm = _math.sqrt(norm) or 1.0
+                    for ci, w in pares:
+                        filas.append(qi); cols.append(ci); vals.append(w / norm)
+                q = csr_matrix((vals, (filas, cols)), shape=(len(bloque), len(vocab)))
+                sims = q.dot(m_idx_t).tocsr()
+                for qi in range(len(bloque)):
+                    fila = sims.getrow(qi)
+                    if fila.nnz == 0:
+                        continue
+                    j = int(fila.indices[fila.data.argmax()])
+                    cos = float(fila.data.max())
+                    if cos < _TFIDF_TH:
+                        continue
+                    etiqueta, sku, nombre_q, ws_q = bloque[qi]
+                    ean, fte, ws_c, m_c, q_c, nom_c = entries[j]
+                    # mismos guards que el pase principal
+                    if f"{etiqueta}:{sku}:{ean}" in rechazados:
+                        continue
+                    m_q = _exp_marca(nombre_q)
+                    if m_q and m_c and m_q != m_c and m_c not in ws_q and m_q not in ws_c:
+                        continue
+                    q_q = _cantidad_canonica(nombre_q)
+                    if q_q and q_c:
+                        if q_q[0] != q_c[0]:
+                            continue
+                        if abs(q_q[1] - q_c[1]) > 0.10 * max(q_q[1], q_c[1]):
+                            continue
+                    d_q = {t for t in ws_q if t.isdigit()}
+                    d_c = {t for t in ws_c if t.isdigit()}
+                    if d_q and d_c and not (d_q & d_c):
+                        continue
+                    pendientes.append({"fuente": etiqueta, "sku": sku, "nombre": nombre_q,
+                                       "ean_candidato": ean, "nombre_cadena": nom_c,
+                                       "fuente_cadena": fte,
+                                       "similitud": round(cos, 3), "via": "tfidf"})
+                    tf_prop += 1
+            print(f"  TF-IDF trigramas: {tf_prop} candidatos nuevos (solo revision — modo calibracion)")
+        except Exception as e:
+            print(f"  [WARN] Pase TF-IDF fallo (se continua sin el): {e}")
 
     # --- 4. Auto-corrección: auditar lo aprendido contra los nombres frescos ---
     # Solo los mapeos APRENDIDOS (mapeo_brujula) — CODIGOS.xlsx es curado a mano.
