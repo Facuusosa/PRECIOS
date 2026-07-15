@@ -30,6 +30,20 @@ aprendidos con cantidad divergente vs góndola caen en `data/quality/mapeos_sosp
 OJO: hay DOS mecanismos que escriben `mapeo_brujula.json` (este y el auto-aprendizaje viejo
 al final de `main()`) — ambos solo agregan, nunca pisan, y usan indent=2. Mantener así.
 
+Lecciones del caso leche sachet (15/07/2026 — EAN 7790742348005), no regresionar:
+- **Los dígitos sueltos ("1"/"2"/"3") se conservan en `_exp_tokens`**: son el % de grasa
+  u otra variante. Filtrarlos hizo que la leche 2% se llevara el EAN de la 1%.
+- **El guard de marca acepta la marca en cualquier posición del nombre** (Yaguar suele
+  arrancar con el descriptor: "PARCIALMENTE DESCREMADA LA SERENISIMA..."). Solo rechaza
+  si la marca detectada de un lado no aparece como token en el otro.
+- `_fusionar_grupo` (6a/6b): base = EAN con respaldo en Maestro > EAN sin respaldo > sin
+  EAN; colisión de fuente la gana el registro con `fecha_scraping` más fresco. Antes un
+  SKU discontinuado con EAN muerto de CODIGOS.xlsx pisaba al SKU vigente y publicaba un
+  precio viejo 26% más caro.
+- Scraper Maxiconsumo: una página entera "disponibilidad crítica" NO corta la categoría
+  (frescos declara ~977 pero solo ~120 tienen stock; el sitio ordena por disponibilidad).
+  Fin de paginación = página sin items o página repetida (Magento repite al pasarse).
+
 ## Cache público de Yaguar ≠ precio real (01/07/2026 — caso Fernet Branca 750)
 
 Síntoma: Facu (anónimo, browser real) veía $17.772 en la ficha de Yaguar; el catálogo

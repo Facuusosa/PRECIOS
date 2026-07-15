@@ -75,9 +75,18 @@ def limpiar_precio(texto):
 
 
 def parsear_pagina(html, sector):
+    """Devuelve (productos_con_stock, skus_crudos_de_la_pagina).
+
+    skus_crudos incluye tambien los sin stock: el bucle de paginacion los
+    necesita para distinguir 'pagina sin items' (fin real) de 'pagina entera
+    sin stock' (hay que seguir) y para detectar la pagina repetida que Magento
+    devuelve al pasarse del final. Verificado 14/07/2026: frescos.html pag 11
+    venia 100% sin stock y el corte viejo (if not prods) tiraba la categoria.
+    """
     soup = BeautifulSoup(html, "html.parser")
     items = soup.find_all("li", class_="item product product-item")
     productos = []
+    skus_crudos = []
     for item in items:
         try:
             enlace = item.find("a", class_="product-item-link")
@@ -87,6 +96,7 @@ def parsear_pagina(html, sector):
             link = enlace.get("href", "")
             sku_m = re.search(r"-(\d+)(?:\.html)?$", link)
             sku = sku_m.group(1) if sku_m else ""
+            skus_crudos.append(sku or nombre)
 
             # Saltar productos sin stock (precio inflado o no disponible)
             sin_stock = bool(item.find(string=re.compile(r"disponibilidad cr[ií]tica", re.IGNORECASE)))
@@ -114,7 +124,7 @@ def parsear_pagina(html, sector):
             })
         except Exception:
             continue
-    return productos
+    return productos, skus_crudos
 
 
 def scrape_categoria(session_ignored, nombre_display, slug, idx, total):
@@ -124,8 +134,10 @@ def scrape_categoria(session_ignored, nombre_display, slug, idx, total):
 
     sector_prods = {}
     pagina = 1
+    skus_pagina_anterior = None
+    MAX_PAGINAS = 300   # tope duro: 12/pag x 300 = 3600, mas que cualquier categoria
 
-    while True:
+    while pagina <= MAX_PAGINAS:
         url = url_base if pagina == 1 else f"{url_base}?p={pagina}"
         try:
             r = session.get(url, impersonate=IMPERSONATE, headers=HEADERS, timeout=25)
@@ -133,9 +145,13 @@ def scrape_categoria(session_ignored, nombre_display, slug, idx, total):
                 print(f"  [WARN] Pag {pagina}: status {r.status_code}")
                 break
 
-            prods = parsear_pagina(r.text, nombre_display)
-            if not prods:
-                break
+            prods, skus_crudos = parsear_pagina(r.text, nombre_display)
+            if not skus_crudos:
+                break  # pagina sin items = fin real de la categoria
+            if skus_crudos == skus_pagina_anterior:
+                break  # Magento repite la misma pagina al pasarse del final
+            skus_pagina_anterior = skus_crudos
+            # OJO: prods vacio con items crudos = pagina entera sin stock -> seguir
 
             nuevos = 0
             for p in prods:
@@ -146,9 +162,6 @@ def scrape_categoria(session_ignored, nombre_display, slug, idx, total):
 
             if pagina % 5 == 0:
                 print(f"  Pag {pagina}: {len(sector_prods)} unicos acumulados")
-
-            if nuevos == 0:
-                break
 
             pagina += 1
             time.sleep(DELAY)

@@ -836,11 +836,28 @@ _EXP_CATEGORIA = {"gaseosa", "agua", "soda", "jugo", "cerveza", "vino", "aceite"
                   "suavizante", "servilleta", "mayonesa", "ketchup", "mostaza",
                   "salsa", "vinagre", "gelatina", "polvo", "mate", "cocido",
                   "licor", "amargo", "atun", "pure", "edulcorante", "espuma",
-                  "polenta", "desinfectante", "higienico", "hig"}
+                  "polenta", "desinfectante", "higienico", "hig",
+                  "parcialmente", "descremada", "entera", "liviana"}
+
+# Abreviaturas que las cadenas usan y los mayoristas escriben completas (o al
+# reves). Caso leche 14/07: Carrefour "ultra parc descremada multivit" vs Yaguar
+# "PARCIALMENTE DESCREMADA" daba sim 0.67 (<0.75) y el match no se proponia.
+# Solo expansiones univocas — nada ambiguo tipo "desc" (descremada/descartable).
+_EXP_ABREV = {
+    "parc": "parcialmente", "parcial": "parcialmente",
+    "descr": "descremada", "descrem": "descremada",
+    "past": "pasteurizada",
+    "multivit": "multivitaminas", "multivitaminica": "multivitaminas",
+}
 
 def _exp_tokens(nombre):
+    # Los digitos sueltos SE CONSERVAN: "1"/"2"/"3" suelen ser el % de grasa u
+    # otra variante (caso 14/07: leche 2% se llevo el EAN de la 1% porque ambos
+    # tokenizaban identico). Un digito decorativo baja un poco el sim de pares
+    # buenos (falso negativo leve) — preferible a fusionar variantes (grave).
     cl = clave_nombre(nombre)
-    return {w for w in cl.split() if len(w) > 1 and w not in _EXP_STOP}
+    return {_EXP_ABREV.get(w, w) for w in cl.split()
+            if (len(w) > 1 or w.isdigit()) and w not in _EXP_STOP}
 
 def _exp_marca(nombre):
     cl = clave_nombre(nombre)
@@ -894,7 +911,12 @@ def expandir_mapeo_con_cadenas(yaguar_data, maxiconsumo_data, fuentes_con_ean,
             if sim <= best_sim:
                 continue
             if m_p and m_c and m_p != m_c:
-                continue
+                # El "primer token significativo" no siempre es la marca (Yaguar:
+                # "PARCIALMENTE DESCREMADA LA SERENISIMA..." da "parcialmente").
+                # Aceptar si la marca detectada de un lado esta como token en el
+                # otro; rechazar solo si ninguna aparece enfrente (MANAOS/IVESS).
+                if m_c not in ws_p and m_p not in ws_c:
+                    continue
             if q_p and q_c:
                 if q_p[0] != q_c[0]:
                     continue
@@ -1778,12 +1800,38 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             p["imagen"] = f"https://tupedido.carrefour.com.ar/imagenesPDA/{ean}.jpg"
 
     def _fusionar_grupo(items):
-        """Fusiona una lista de productos al mejor representante (prioridad: EAN real)."""
-        base = max(items, key=lambda x: bool(x.get("ean")))
+        """Fusiona una lista de productos al mejor representante.
+
+        Base: EAN con respaldo en el Maestro > EAN a secas > sin EAN. Caso leche
+        14/07/2026: un SKU Yaguar discontinuado con EAN muerto de CODIGOS.xlsx
+        (sin respaldo en ningun lado) le ganaba como base al SKU vigente, y el
+        producto quedaba aislado del merge de cadenas.
+        Colision de fuente (ambos registros tienen la misma fuente): gana el de
+        fecha_scraping mas reciente — antes se descartaba silenciosamente el del
+        absorbido y podia publicarse el precio de un SKU discontinuado.
+        """
+        def _rango_base(x):
+            e = x.get("ean", "")
+            return 2 if (e and e in ean_to_master) else (1 if e else 0)
+        base = max(items, key=_rango_base)
         for item in items:
+            if item is base:
+                continue
             for fuente, precio in item["precios"].items():
-                if precio > 0 and base["precios"].get(fuente, 0) == 0:
+                if precio <= 0:
+                    continue
+                info_item = item.get("fuentes", {}).get(fuente)
+                if base["precios"].get(fuente, 0) == 0:
                     base["precios"][fuente] = precio
+                    if info_item and fuente not in base["fuentes"]:
+                        base["fuentes"][fuente] = info_item
+                elif info_item:
+                    # fechas ISO (YYYY-MM-DD): comparacion lexicografica valida
+                    f_base = str(base.get("fuentes", {}).get(fuente, {}).get("fecha_scraping", ""))
+                    f_item = str(info_item.get("fecha_scraping", ""))
+                    if f_item > f_base:
+                        base["precios"][fuente] = precio
+                        base["fuentes"][fuente] = info_item
             for fuente, info in item.get("fuentes", {}).items():
                 if fuente not in base["fuentes"]:
                     base["fuentes"][fuente] = info
