@@ -30,6 +30,19 @@ aprendidos con cantidad divergente vs góndola caen en `data/quality/mapeos_sosp
 OJO: hay DOS mecanismos que escriben `mapeo_brujula.json` (este y el auto-aprendizaje viejo
 al final de `main()`) — ambos solo agregan, nunca pisan, y usan indent=2. Mantener así.
 
+Memorias persistentes del flujo de revisión (15/07/2026 — no romper):
+- `matches_pendientes.json` → lista `rechazados` ("fuente:sku:ean"): bloquea re-aprendizaje
+  en LOS DOS mecanismos (expansión y fuzzy 1b de main). Sin eso, un rechazo manual volvía
+  a entrar solo en la corrida siguiente.
+- `mapeos_sospechosos.json` → lista `aceptados`: sospechosos que Facu revisó y mantuvo
+  (packs multiplicados, rediseños) — no se re-proponen.
+- **Pase TF-IDF de trigramas (3b)**: encuentra typos ("250GGR") y abreviaturas crudas
+  ("C/sem") que el Jaccard de palabras no ve. Está en MODO CALIBRACIÓN: `via: "tfidf"`
+  solo va a pendientes, jamás auto-aprende, hasta calibrar umbral con feedback real de
+  Facu (primera tanda de 300 en el artifact con checkboxes, esperando revisión).
+- Restricción de presupuesto (permanente): mejoras de matching solo gratuitas/locales —
+  nada de APIs pagas (decisión Facu 15/07).
+
 Lecciones del caso leche sachet (15/07/2026 — EAN 7790742348005), no regresionar:
 - **Los dígitos sueltos ("1"/"2"/"3") se conservan en `_exp_tokens`**: son el % de grasa
   u otra variante. Filtrarlos hizo que la leche 2% se llevara el EAN de la 1%.
