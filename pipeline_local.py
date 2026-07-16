@@ -2,16 +2,17 @@
 Pipeline LOCAL para Brujula de Precios.
 
 Corre en la PC de Facu (Programador de tareas de Windows) cada manana. Reemplaza al
-cron de Railway: aca los 3 scrapers funcionan porque usan la IP de casa (Maxiconsumo
+cron de Railway: aca los scrapers funcionan porque usan la IP de casa (Maxiconsumo
 bloquea IPs de datacenter, por eso fallaba en la nube).
 
 Secuencia:
-  1. Corre los 3 scrapers via sus wrappers (que ya manejan cookies de MaxiCarrefour
-     y el enriquecimiento de Maxiconsumo).
-  2. Regenera el catalogo unificado consolidado con los 3.
+  1. Corre los 6 scrapers (3 mayoristas + 3 cadenas) via sus wrappers (que ya
+     manejan cookies de MaxiCarrefour y el enriquecimiento de Maxiconsumo).
+  2. Regenera el catalogo unificado consolidado con todas las fuentes.
   3. Chequeo anti-reciclaje: si el total de productos cae mucho o una fuente queda en
      cero, NO pushea y avisa (evita publicar datos rotos/viejos en silencio).
-  4. git push -> Vercel redeploy automatico.
+  4. Gate de verificacion en vivo (top 20 ABC=A vs la web de cada mayorista).
+  5. git push -> Vercel redeploy automatico.
 
 No necesita tokens: usa el git local ya configurado de Facu.
 Uso manual:  python pipeline_local.py
@@ -36,6 +37,13 @@ BRUJULA_DIR = RAIZ / "BRUJULA-DE-PRECIOS"
 CATALOGO = BRUJULA_DIR / "data" / "processed" / "catalogo_unificado.json"
 CAIDA_MAX = 0.15  # si el total de productos cae mas que esto, no se publica
 
+# NTFY_TOPIC (push al celular) vive en .env, no en el ambiente del task scheduler
+try:
+    from dotenv import load_dotenv
+    load_dotenv(RAIZ / ".env")
+except ImportError:
+    pass
+
 
 def log(msg):
     print(f"[{datetime.now().strftime('%H:%M:%S')}] {msg}", flush=True)
@@ -43,6 +51,8 @@ def log(msg):
 
 ALERTAS_MD = RAIZ / "data" / "quality" / "ALERTA.md"
 VEREDICTO_MD = RAIZ / "data" / "quality" / "VEREDICTO.md"
+HISTORIAL_CSV = RAIZ / "data" / "quality" / "historial_corridas.csv"
+FUENTES = ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia")
 
 # Estado de la corrida para el veredicto final (se escribe SIEMPRE via atexit,
 # incluso si un sys.exit() corta el pipeline a mitad de camino)
@@ -70,20 +80,57 @@ def _toast(titulo, msg):
         pass
 
 
-def alertar(msg, accion=""):
-    """Alerta visible: ALERTA.md (lo lee Claude en /inicio-sesion) + toast + beep + log.
+def _ntfy(msg, accion=""):
+    """Push al celular via ntfy.sh. Opt-in: sin NTFY_TOPIC en .env no hace nada.
+    Gratis y sin cuenta — resuelve que el toast/beep de las 10am nadie los ve.
+    Best-effort igual que el toast."""
+    topic = os.getenv("NTFY_TOPIC", "")
+    if not topic:
+        return
+    try:
+        import urllib.request
+        cuerpo = msg + (f"\nAccion: {accion}" if accion else "")
+        req = urllib.request.Request(
+            f"https://ntfy.sh/{topic}",
+            data=cuerpo.encode("utf-8"),
+            headers={"Title": "Brujula: pipeline con problemas",
+                     "Priority": "high", "Tags": "warning"},
+        )
+        urllib.request.urlopen(req, timeout=10)
+    except Exception:
+        pass
 
-    Punto unico de notificacion — si algun dia hace falta push al celu (ntfy),
-    se agrega aca y llega desde todos los chequeos a la vez.
+
+def alertar(msg, accion=""):
+    """Alerta visible: ALERTA.md (lo lee Claude en /inicio-sesion) + toast +
+    push ntfy (opt-in) + beep + log. Punto unico de notificacion.
     """
     log(f"ALERTA: {msg}")
     _corrida["alertas"].append(msg)
     ts = datetime.now().strftime("%d/%m/%Y %H:%M")
-    with open(ALERTAS_MD, "a", encoding="utf-8") as f:
-        f.write(f"\n## {ts} — {msg}\n")
-        if accion:
-            f.write(f"Accion sugerida: {accion}\n")
+    entrada = f"\n## {ts} — {msg}\n"
+    if accion:
+        entrada += f"Accion sugerida: {accion}\n"
+    # Insertar ANTES de '## Resueltas': con append al final, las alertas nuevas
+    # quedaban debajo de las resueltas (paso del 13 al 15/07/2026). Si el read
+    # falla (lock transitorio de OneDrive), caer al append viejo — reescribir el
+    # archivo con contenido vacio borraria todo el historial de alertas.
+    try:
+        contenido = ALERTAS_MD.read_text(encoding="utf-8")
+        marca = "\n## Resueltas"
+        if marca in contenido:
+            contenido = contenido.replace(marca, entrada + marca, 1)
+        else:
+            contenido += entrada
+        ALERTAS_MD.write_text(contenido, encoding="utf-8")
+    except OSError:
+        try:
+            with open(ALERTAS_MD, "a", encoding="utf-8") as f:
+                f.write(entrada)
+        except OSError:
+            pass
     _toast("Brujula: pipeline con problemas", msg.replace("'", ""))
+    _ntfy(msg, accion)
     try:
         import winsound
         # Patron grave-grave-agudo, distinto al del renovador de cookies (880/1100)
@@ -142,6 +189,51 @@ def sanidad_outputs():
     return resultados
 
 
+def registrar_historial():
+    """Una fila por corrida -> historial_corridas.csv (append, nunca se pisa).
+
+    VEREDICTO.md se sobreescribe en cada corrida: sin esto no hay forma barata de
+    ver rachas ("MCF fallo 3 corridas seguidas") ni degradacion lenta de conteos.
+    """
+    ok = _corrida.get("scrapers", {})
+    conteos = _corrida.get("conteos_dict", {})
+    fila = [
+        datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        _corrida["fase"],
+        ";".join(m for m, v in ok.items() if v),
+        ";".join(m for m, v in ok.items() if not v),
+        str(conteos.get("total", "")),
+    ] + [str(conteos.get(m, "")) for m in FUENTES] + [str(len(_corrida["alertas"]))]
+    try:
+        nuevo = not HISTORIAL_CSV.exists()
+        with open(HISTORIAL_CSV, "a", encoding="utf-8") as f:
+            if nuevo:
+                f.write("timestamp,fase,scrapers_ok,scrapers_fallo,total,"
+                        + ",".join(FUENTES) + ",n_alertas\n")
+            f.write(",".join(fila) + "\n")
+    except OSError:
+        pass
+
+
+def fallos_consecutivos(may):
+    """Corridas consecutivas hacia atras en que 'may' fallo, segun el historial.
+    La corrida actual todavia no esta en el CSV (se escribe via atexit)."""
+    try:
+        lineas = HISTORIAL_CSV.read_text(encoding="utf-8").strip().splitlines()[1:]
+    except OSError:
+        return 0
+    racha = 0
+    for linea in reversed(lineas):
+        campos = linea.split(",")
+        if len(campos) < 4:
+            break
+        if may in campos[3].split(";"):
+            racha += 1
+        else:
+            break
+    return racha
+
+
 def escribir_veredicto():
     """Estado compacto de la ultima corrida -> VEREDICTO.md. Registrado via atexit:
     se escribe SIEMPRE, incluso si un sys.exit() corta el pipeline a mitad de camino.
@@ -178,6 +270,7 @@ def escribir_veredicto():
         VEREDICTO_MD.write_text("\n".join(lineas) + "\n", encoding="utf-8")
     except OSError:
         pass
+    registrar_historial()
 
 
 def contar_por_fuente():
@@ -308,10 +401,15 @@ def main():
     _corrida["scrapers"] = dict(ok)
     for may, exito in ok.items():
         if not exito:
-            alertar(f"Scraper {may} FALLO hoy",
-                    "revisar data/quality/pipeline_local.log — si es MCF, probar scripts/renovar_cookies_carrefour.py --force")
+            racha = fallos_consecutivos(may) + 1  # +1: la corrida actual
+            if racha >= 3:
+                alertar(f"Scraper {may} FALLO -- {racha} corridas seguidas (CRONICO)",
+                        "no es un fallo puntual: revisar el patron en data/quality/historial_corridas.csv y pipeline_local.log")
+            else:
+                alertar(f"Scraper {may} FALLO hoy",
+                        "revisar data/quality/pipeline_local.log — si es MCF, probar scripts/renovar_cookies_carrefour.py --force")
     if sum(ok.values()) == 0:
-        log("ERROR: los 3 scrapers fallaron - el catalogo no se toca")
+        log("ERROR: fallaron los 6 scrapers - el catalogo no se toca")
         sys.exit(1)
 
     # Sanidad de outputs: duplicados masivos = scraper repitiendo paginas
@@ -332,6 +430,7 @@ def main():
         f"(Y={despues['yaguar']} MC={despues['maxicarrefour']} MCO={despues['maxiconsumo']} "
         f"C={despues['coto']} CF={despues['carrefour']} D={despues['dia']})")
     _corrida["fase"] = "catalogo regenerado"
+    _corrida["conteos_dict"] = despues
     _corrida["conteos"] = (f"{despues['total']} prods (Y={despues['yaguar']} "
                            f"MC={despues['maxicarrefour']} MCO={despues['maxiconsumo']} "
                            f"C={despues['coto']} CF={despues['carrefour']} D={despues['dia']})")

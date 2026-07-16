@@ -1,11 +1,37 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import glob
+import json
 import os
 import sys
 import subprocess
+import time
 from datetime import datetime
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+
+def _output_sano_de_hoy() -> str:
+    """Ruta del output MCF de hoy con >50% de precios > 0, o '' si no hay.
+
+    Lo usa el rescate nocturno (renovar_cookies_diario.bat --solo-si-falta-hoy):
+    si la corrida de la manana ya trajo datos sanos, no hay que scrapear de nuevo.
+    """
+    hoy = datetime.now().strftime("%Y%m%d")
+    patron = os.path.join(BASE_DIR, "targets", "maxicarrefour", f"output_maxicarrefour_{hoy}_*.json")
+    resultado = ""
+    for ruta in sorted(glob.glob(patron), reverse=True):
+        try:
+            with open(ruta, encoding="utf-8") as f:
+                data = json.load(f)
+        except (json.JSONDecodeError, OSError):
+            continue
+        prods = data if isinstance(data, list) else data.get("productos", [])
+        con_precio = sum(1 for p in prods if p.get("precio", 0) > 0)
+        if prods and con_precio > len(prods) * 0.5:
+            resultado = ruta
+            break
+    return resultado
 
 
 def _cookies_vigentes() -> bool:
@@ -63,20 +89,36 @@ def main():
     print("=== SCRAPER MAXICARREFOUR ===")
     print(f"Iniciando: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
 
+    if "--solo-si-falta-hoy" in sys.argv:
+        ya_scrapeado = _output_sano_de_hoy()
+        if ya_scrapeado:
+            print(f"Ya hay output sano de hoy ({os.path.basename(ya_scrapeado)}) -- nada que hacer.")
+            sys.exit(0)
+        print("Sin output sano de hoy -- corriendo el rescate.")
+
     env = {**os.environ, "PYTHONUTF8": "1", "PYTHONUNBUFFERED": "1"}
 
     # Siempre verificar cookies antes de scraper — no solo por fecha
     print("\nVerificando cookies MaxiCarrefour...")
     if not _cookies_vigentes():
-        print("Cookies invalidas o expiradas — renovando automaticamente...")
-        # --no-auto-scrape: este wrapper ya sigue con el scraping el solo mas abajo,
-        # asi el renovador no lo dispara tambien y se scrapea 2 veces seguidas.
-        r = subprocess.run(
-            ["python", "scripts/renovar_cookies_carrefour.py", "--force", "--no-auto-scrape"],
-            cwd=BASE_DIR, env=env
-        )
+        # 2 intentos: desde el rediseño MAXI PEDIDO el login falla de forma
+        # intermitente y el 2do intento suele prender (ALERTA.md 12/07/2026 —
+        # antes ese reintento lo hacia Facu a mano por la tarde).
+        for intento in (1, 2):
+            print(f"Cookies invalidas o expiradas -- renovando automaticamente (intento {intento}/2)...")
+            # --no-auto-scrape: este wrapper ya sigue con el scraping el solo mas abajo,
+            # asi el renovador no lo dispara tambien y se scrapea 2 veces seguidas.
+            r = subprocess.run(
+                ["python", "scripts/renovar_cookies_carrefour.py", "--force", "--no-auto-scrape"],
+                cwd=BASE_DIR, env=env
+            )
+            if r.returncode == 0:
+                break
+            if intento == 1:
+                print("Renovacion fallida -- esperando 60s antes del segundo intento...")
+                time.sleep(60)
         if r.returncode != 0:
-            print("ERROR: No se pudieron renovar las cookies.")
+            print("ERROR: No se pudieron renovar las cookies (2 intentos).")
             print("Renovar manualmente: ver .claude/docs/operaciones.md")
             print("Abortando — no tiene sentido scraper sin cookies validas.")
             sys.exit(1)

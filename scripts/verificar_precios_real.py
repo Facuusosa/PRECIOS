@@ -343,11 +343,25 @@ def main():
         for clave, cant in sorted(no_verificados.items(), key=lambda x: -x[1]):
             print(f"  {clave}: {cant}")
 
+    # Fuente entera ciega -> inconcluso. La tasa global no lo ve: el 15/07/2026
+    # los 20 checks MCF dieron sesion_expirada y el gate salio exit 0 con 97.4%
+    # calculado solo sobre Yaguar+MCO — MCF publico sin red de seguridad.
+    fuentes_ciegas = []
+    for fuente in _MAYORISTAS:
+        intentos = sum(1 for rp in resultados if fuente in rp["fuentes"])
+        efectivos = sum(1 for rp in resultados
+                        if rp["fuentes"].get(fuente, {}).get("estado") in ("ok", "diverge"))
+        if intentos >= 5 and efectivos == 0:
+            fuentes_ciegas.append(fuente)
+            print(f"FUENTE SIN VERIFICAR: {fuente} ({intentos} intentos, 0 comparaciones efectivas)")
+
     if verificados_total < MIN_VERIFICADOS:
         print(f"INCONCLUSO: solo {verificados_total} precios comparados (minimo: {MIN_VERIFICADOS}) — "
               "no hay evidencia suficiente para aprobar ni bloquear.")
     elif tasa < 80:
         print("ALERTA: Mas del 20% de precios divergen — el catalogo puede estar desactualizado.")
+    elif fuentes_ciegas:
+        print(f"INCONCLUSO: fuente(s) sin verificar: {', '.join(fuentes_ciegas)} -- el resto dentro del rango.")
     else:
         print("OK: Precios dentro del rango esperado.")
 
@@ -361,13 +375,17 @@ def main():
             "tasa_ok_pct": round(tasa, 1),
             "ok": ok_total,
             "verificados": verificados_total,
+            "fuentes_sin_verificar": fuentes_ciegas,
             "resultados": resultados,
         }, f, ensure_ascii=False, indent=2)
     print(f"Reporte guardado: {out_path}")
 
-    if verificados_total < MIN_VERIFICADOS:
+    # Prioridad: divergencia real (1) > inconcluso (2) > ok (0)
+    if verificados_total >= MIN_VERIFICADOS and tasa < 80:
+        sys.exit(1)
+    if verificados_total < MIN_VERIFICADOS or fuentes_ciegas:
         sys.exit(2)
-    sys.exit(0 if tasa >= 80 else 1)
+    sys.exit(0)
 
 
 if __name__ == "__main__":

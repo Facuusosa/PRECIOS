@@ -121,7 +121,12 @@ def _goto_con_reintentos(page, url: str, intentos: int = 3) -> bool:
 
 
 def _esta_autenticado(page) -> bool:
-    """XHR en el browser actual para verificar autenticacion."""
+    """XHR en el browser actual para verificar autenticacion.
+
+    Exige señal POSITIVA (data-price con digito), igual que _cookies_vigentes()
+    del wrapper: solo descartar señales negativas validaba como "EXITOSO" sesiones
+    semi-autenticadas sin precios (incidentes 10/07 y 12/07/2026 — sitio MAXI PEDIDO
+    lista productos pero con data-price="private" hasta pasar el reCAPTCHA)."""
     try:
         result = page.evaluate("""
             async () => {
@@ -130,55 +135,129 @@ def _esta_autenticado(page) -> bool:
                         '/products?currentUrl=sec/bebidas&filters=&orderBy=default&currentPage=1&itemsPerPage=1&method=productsList',
                         {headers: {'X-Requested-With': 'XMLHttpRequest'}}
                     );
-                    return (await r.text()).substring(0, 150);
+                    return (await r.text()).substring(0, 5000);
                 } catch(e) { return 'ERROR:' + e.message; }
             }
         """)
-        return bool(result) and "item_card_public" not in result \
-               and not result.startswith("ERROR:") and len(result) > 10
+        if not result or result.startswith("ERROR:") or "item_card_public" in result:
+            return False
+        return bool(re.search(r'data-price="\d', result))
     except Exception:
         return False
 
 
 def _rellenar_form(page, PWTimeout):
-    """Autocompletata el formulario de login."""
+    """Autocompleta el formulario de login (sitio rediseñado MAXI PEDIDO).
+
+    Dos particularidades del form nuevo (verificadas con inspeccion de DOM y
+    computed styles el 15/07/2026 — causa de los fallos cronicos 03-15/07):
+    1. El step2 arranca pidiendo la modalidad de entrega (#checkbox_retiro);
+       sin ese click los selects de Provincia/Sucursal no se montan.
+    2. Los selects e inputs tienen bounding box 0x0 (widget custom del CSS)
+       aunque computedStyle diga visible — para Playwright son invisibles y
+       select_option()/fill() mueren SIEMPRE por timeout, aunque el form se
+       vea perfecto en pantalla. Por eso se usa force=True: saltea el chequeo
+       de visibilidad pero mantiene eventos confiables via CDP (isTrusted=true).
+       NO reemplazar por dispatchEvent de JS puro: isTrusted=false hace que el
+       reCAPTCHA Enterprise bloquee el submit (probado el 15/07/2026).
+    """
     page.locator("[onclick='openDerivator()']").first.click(timeout=10000)
     page.wait_for_selector("#step1", state="visible", timeout=8000)
     page.locator("#business").click(timeout=8000)
     page.wait_for_selector("#step2", state="visible", timeout=8000)
     page.wait_for_timeout(500)
 
-    page.locator("#region").select_option(CARREFOUR_PROVINCIA, timeout=8000)
+    try:
+        if page.locator("#checkbox_retiro").is_visible():
+            page.locator("#checkbox_retiro").click(timeout=5000)
+            page.wait_for_timeout(1500)
+    except Exception:
+        pass  # variante vieja del form, sin paso de modalidad
+
+    page.locator("#region").select_option(CARREFOUR_PROVINCIA, force=True, timeout=8000)
     page.wait_for_timeout(2500)
 
     page.wait_for_function(
         "document.querySelector('#seller').options.length > 1", timeout=8000
     )
-    opciones = page.locator("#seller option").all()
-    valor_sucursal = None
-    for opt in opciones:
-        texto = (opt.text_content() or "").strip()
-        if CARREFOUR_SUCURSAL.lower() in texto.lower():
-            valor_sucursal = opt.get_attribute("value")
-            print(f"  Match sucursal: '{texto}'")
-            break
+    # Lookup del value por texto (solo lectura — la interaccion va con force)
+    valor_sucursal = page.evaluate("""
+        (suc) => {
+            const opt = Array.from(document.querySelector('#seller').options)
+                .find(o => o.text.toLowerCase().includes(suc.toLowerCase()));
+            return opt ? {value: opt.value, texto: opt.text.trim()} : null;
+        }
+    """, CARREFOUR_SUCURSAL)
     if not valor_sucursal:
         raise Exception(f"Sucursal '{CARREFOUR_SUCURSAL}' no encontrada en el dropdown")
-    page.locator("#seller").select_option(value=valor_sucursal, timeout=5000)
+    print(f"  Match sucursal: '{valor_sucursal['texto']}'")
+    page.locator("#seller").select_option(value=valor_sucursal["value"], force=True, timeout=5000)
     page.wait_for_timeout(500)
 
-    page.locator("#user-name").fill(CARREFOUR_NOMBRE)
-    page.locator("#user-cuit").fill(CARREFOUR_CUIT)
-    page.locator("#user-phone").fill(CARREFOUR_TELEFONO)
-    page.locator("#user-email").fill(CARREFOUR_EMAIL)
+    page.locator("#user-name").fill(CARREFOUR_NOMBRE, force=True)
+    page.locator("#user-cuit").fill(CARREFOUR_CUIT, force=True)
+    page.locator("#user-phone").fill(CARREFOUR_TELEFONO, force=True)
+    page.locator("#user-email").fill(CARREFOUR_EMAIL, force=True)
     page.wait_for_timeout(400)
 
     try:
         checkbox = page.locator("#remember")
-        if checkbox.is_visible(timeout=2000) and not checkbox.is_checked():
-            checkbox.check(timeout=3000)
+        if not checkbox.is_checked():
+            checkbox.check(force=True, timeout=3000)
     except Exception:
         pass
+
+
+def _screenshot_debug(page, etiqueta=""):
+    try:
+        DEBUG_SCREENSHOT.parent.mkdir(parents=True, exist_ok=True)
+        page.screenshot(path=str(DEBUG_SCREENSHOT))
+        print(f"  Screenshot de debug{etiqueta}: {DEBUG_SCREENSHOT}")
+    except Exception:
+        pass
+
+
+def _autocompletar_con_reset(page, context, PWTimeout) -> bool:
+    """_rellenar_form() con recuperacion del estado 'semi-adentro'.
+
+    Desde el rediseño MAXI PEDIDO (07/2026), el perfil persistente recuerda la
+    sucursal: la home carga con el toast de bienvenida y SIN el formulario de
+    login (#region queda en el DOM pero invisible), aunque la sesion PHP del
+    server ya este muerta. En ese estado _rellenar_form() falla siempre y el
+    click posterior va a ciegas — causa de ~12 corridas de las 10:00 fallidas
+    (03-15/07/2026). El fix: si el form no aparece, limpiar cookies + storage
+    del sitio y recargar para forzar el flujo de primera visita, donde el form
+    conocido vuelve a existir. El historial del perfil (score reCAPTCHA) no se
+    pierde: clear_cookies() no toca historial de navegacion.
+    """
+    print("  Autocompletando formulario...")
+    try:
+        _rellenar_form(page, PWTimeout)
+        print("  Formulario completo.")
+        return True
+    except Exception as e:
+        print(f"  Form no disponible ({str(e)[:120]})")
+        _screenshot_debug(page, " (1er intento)")
+
+    print("  Estado semi-autenticado detectado: limpiando sesion local y recargando...")
+    try:
+        context.clear_cookies()
+        page.evaluate("localStorage.clear(); sessionStorage.clear()")
+    except Exception as e:
+        print(f"  No se pudo limpiar la sesion local ({str(e)[:80]})")
+    if not _goto_con_reintentos(page, BASE_URL):
+        return False
+    page.wait_for_timeout(5000)
+
+    print("  Reintentando formulario con sitio en primera visita...")
+    try:
+        _rellenar_form(page, PWTimeout)
+        print("  Formulario completo (2do intento).")
+        return True
+    except Exception as e:
+        print(f"  No se pudo autocompletar tras el reset ({str(e)[:120]}). Completalo manualmente.")
+        _screenshot_debug(page, " (2do intento)")
+        return False
 
 
 def _extraer_y_guardar_cookies(context) -> bool:
@@ -417,20 +496,7 @@ def renovar_con_chrome() -> bool:
             if _esta_autenticado(page):
                 print("  Perfil ya autenticado -- extrayendo cookies.")
             else:
-                print("  Autocompletando formulario...")
-                try:
-                    _rellenar_form(page, PWTimeout)
-                    print("  Formulario completo.")
-                except Exception as e:
-                    print(f"  No se pudo autocompletar ({e}). Completalo manualmente.")
-                    # Screenshot de diagnostico: si el form cambio de estructura,
-                    # esto muestra que estaba viendo Playwright al fallar
-                    try:
-                        DEBUG_SCREENSHOT.parent.mkdir(parents=True, exist_ok=True)
-                        page.screenshot(path=str(DEBUG_SCREENSHOT))
-                        print(f"  Screenshot de debug: {DEBUG_SCREENSHOT}")
-                    except Exception:
-                        pass
+                _autocompletar_con_reset(page, context, PWTimeout)
 
                 # --- Intento automatico: click con Chrome real + delays humanos ---
                 print("  Intentando click automatico (Chrome real)...")
@@ -449,6 +515,18 @@ def renovar_con_chrome() -> bool:
                     btn.click(timeout=5000)
                     print("  Click enviado. Esperando respuesta del servidor...")
                     page.wait_for_timeout(6000)
+                    # Sitio rediseñado (15/07/2026): tras "Siguiente" puede
+                    # aparecer #step3 con el boton final "Ingresar" — sin ese
+                    # segundo click el login queda a mitad de camino. Solo se
+                    # busca DENTRO de #step3 (el header tiene otro "Ingresar").
+                    try:
+                        btn_final = page.locator('#step3 button:has-text("Ingresar")').first
+                        if btn_final.is_visible():
+                            btn_final.click(timeout=5000)
+                            print("  Click en 'Ingresar' (paso final) enviado.")
+                            page.wait_for_timeout(6000)
+                    except Exception:
+                        pass
                 except Exception as e:
                     print(f"  Click automatico fallido: {e}")
 

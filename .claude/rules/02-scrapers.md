@@ -25,8 +25,22 @@
   `data/carrefour_profile` — el reCAPTCHA suele pasar sin humano por el historial del perfil;
   si falla, beep + 90s para click manual). Modo 100% sin humano disponible: `CAPSOLVER_API_KEY`
   en `.env` (no activado — activar solo si el auto-click empieza a fallar seguido).
-- La tarea nocturna `renovar_cookies_diario.bat` (20hs, umbral 25 días) queda como respaldo;
-  el control real es el pre-scrape.
+- **Form de login MAXI PEDIDO (diagnosticado y arreglado 15/07/2026)** — causa de ~12
+  corridas de las 10am fallidas (03-15/07): el sitio rediseñado (a) agrega un paso previo
+  de modalidad de entrega (`#checkbox_retiro`) sin el cual `#region`/`#seller` no se montan,
+  y (b) sus selects/inputs tienen bounding box 0x0 (widget custom del CSS) — Playwright los
+  considera invisibles y `select_option()`/`fill()` mueren SIEMPRE por timeout aunque el form
+  se vea perfecto en pantalla. Fix en `_rellenar_form()`: click a la modalidad + `force=True`
+  en cada interacción. NUNCA reemplazar por `dispatchEvent` de JS puro: genera eventos con
+  `isTrusted=false` y el reCAPTCHA Enterprise bloquea el submit (probado ese mismo día).
+  Si el form vuelve a fallar tras otro rediseño: inspeccionar el DOM real (selects, ids,
+  visibilidad y computed styles) ANTES de tocar el flujo — dos veces ya fue la estructura.
+- La tarea nocturna `renovar_cookies_diario.bat` (20hs) es desde el 15/07/2026 un RESCATE
+  real: corre `scrape_maxicarrefour.py --solo-si-falta-hoy` (si la mañana ya trajo output
+  MCF sano no hace nada; si falló, renueva+scrapea con Facu en casa para el click de
+  respaldo). El chequeo viejo por edad (25 días) era teatro — la sesión muere en horas.
+  Además `scrape_maxicarrefour.py` reintenta la renovación una 2da vez (espera 60s) antes
+  de abortar: el 2do intento suele prender (patrón documentado el 12/07).
 - **Navegación con reintentos (fix 10/07/2026):** `_goto_con_reintentos()` — 3 intentos de
   60s con espera incremental (10s/30s). Antes un único `page.goto` de 30s que fallaba por
   un timeout transitorio de Cloudflare mataba el scrape del día entero (pasó 7 de 8 días,
