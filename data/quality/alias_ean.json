@@ -1,0 +1,14 @@
+{
+  "_doc": "Pares curados de EANs equivalentes: mismo producto fisico con 2 codigos de barra (rediseño del fabricante, codigo viejo del Maestro/CODIGOS.xlsx, codigo de distribuidora). El constructor reemplaza el alias por el canonico ANTES de agrupar, asi las fuentes se unifican en una sola entrada. SOLO se agregan pares con aprobacion humana explicita de Facu — nada automatico escribe aca (regla 09: dos EANs reales distintos jamas se fusionan solos). Formato: alias -> canonico.",
+  "alias": {
+    "7790290001193": "7790290101602"
+  },
+  "_historial": [
+    {
+      "alias": "7790290001193",
+      "canonico": "7790290101602",
+      "producto": "Fernet Branca 750 ml (MCO tenia el EAN clasico viejo; MCF/Yaguar/cadenas usan el actual)",
+      "aprobado": "Facu 16/07/2026 (chat: 'maxiconsumo no aparece' en la ficha del X750)"
+    }
+  ]
+}
