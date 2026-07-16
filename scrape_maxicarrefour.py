@@ -104,6 +104,7 @@ def main():
         # 2 intentos: desde el rediseño MAXI PEDIDO el login falla de forma
         # intermitente y el 2do intento suele prender (ALERTA.md 12/07/2026 —
         # antes ese reintento lo hacia Facu a mano por la tarde).
+        renovada_ok = False
         for intento in (1, 2):
             print(f"Cookies invalidas o expiradas -- renovando automaticamente (intento {intento}/2)...")
             # --no-auto-scrape: este wrapper ya sigue con el scraping el solo mas abajo,
@@ -112,17 +113,24 @@ def main():
                 ["python", "scripts/renovar_cookies_carrefour.py", "--force", "--no-auto-scrape"],
                 cwd=BASE_DIR, env=env
             )
-            if r.returncode == 0:
+            # Revalidar con curl_cffi (la MISMA via que usa el scraper): el
+            # 16/07/2026 el renovador reporto exito (el browser veia precios)
+            # pero la sesion resulto data-price="private" para curl_cffi y el
+            # scrape entero salio con 0/4062 precios. Exit 0 del renovador NO
+            # garantiza sesion utilizable por el scraper.
+            if r.returncode == 0 and _cookies_vigentes():
+                renovada_ok = True
                 break
             if intento == 1:
-                print("Renovacion fallida -- esperando 60s antes del segundo intento...")
+                print("Renovacion fallida o sesion inutilizable para el scraper -- "
+                      "esperando 60s antes del segundo intento...")
                 time.sleep(60)
-        if r.returncode != 0:
+        if not renovada_ok:
             print("ERROR: No se pudieron renovar las cookies (2 intentos).")
             print("Renovar manualmente: ver .claude/docs/operaciones.md")
             print("Abortando — no tiene sentido scraper sin cookies validas.")
             sys.exit(1)
-        print("Cookies renovadas OK.")
+        print("Cookies renovadas OK (sesion validada con request real).")
     else:
         print("Cookies vigentes OK.")
 

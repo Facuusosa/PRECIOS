@@ -822,6 +822,30 @@ MAPEO_BRUJULA_FILE      = os.path.join(RAW_DIR, "mapeo_brujula.json")
 MATCHES_PENDIENTES_FILE = os.path.join(BASE_DIR, "data", "quality", "matches_pendientes.json")
 MAPEOS_SOSPECHOSOS_FILE = os.path.join(BASE_DIR, "data", "quality", "mapeos_sospechosos.json")
 
+# ---------------------------------------------------------------------------
+# Alias de EAN curados a mano (data/quality/alias_ean.json): mismo producto
+# fisico con 2 codigos de barra (caso Fernet Branca 750, 16/07/2026 — el precio
+# MCO quedaba en una entrada duplicada y la comparativa se partia en dos).
+# El reemplazo corre en cada punto donde una fuente resuelve su EAN, ANTES de
+# agrupar — asi la maquinaria existente unifica sin fuzzy. SOLO entran pares
+# aprobados por Facu; nada automatico escribe ese archivo (regla 09).
+# ---------------------------------------------------------------------------
+ALIAS_EAN_FILE = os.path.join(BASE_DIR, "data", "quality", "alias_ean.json")
+
+def _cargar_alias_ean():
+    try:
+        with open(ALIAS_EAN_FILE, encoding="utf-8") as f:
+            alias = json.load(f).get("alias", {})
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+    # Resolver cadenas de 1 nivel (a->b, b->c => a->c) y evitar ciclos
+    return {a: alias.get(c, c) for a, c in alias.items() if a != alias.get(c, c)}
+
+_ALIAS_EAN = _cargar_alias_ean()
+
+def _ean_canonico(ean):
+    return _ALIAS_EAN.get(ean, ean)
+
 _EXP_TH_AUTO     = 0.85
 _EXP_TH_REVISION = 0.75
 _EXP_STOP = {"de", "la", "el", "en", "y", "x", "con", "por", "para", "un", "una",
@@ -1218,7 +1242,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         ean = sku_to_ean.get(str(sku).strip(), "")
         if not ean and nombre:
             ean = nombre_norm_to_ean.get(clave_nombre(nombre), "")
-        return ean
+        return _ean_canonico(ean)
 
     # ------------------------------------------------------------------
     # PASO 1: Indexar Yaguar y Maxiconsumo por SKU y por nombre
@@ -1362,6 +1386,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             ean_resuelto, _score = _fuzzy_ean_1b(p.get("nombre", ""))
             if ean_resuelto and _score >= _APRENDIZAJE_TH:
                 _aprendizaje_yag[sku] = ean_resuelto
+        ean_resuelto = _ean_canonico(ean_resuelto)
         if ean_resuelto and ean_resuelto not in ean_to_yag_sku:
             ean_to_yag_sku[ean_resuelto] = sku
             yag_sku_set.add(sku)
@@ -1410,12 +1435,27 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             _from_fuzzy = True
         if _from_fuzzy and ean_resuelto and _score >= _APRENDIZAJE_TH:
             _aprendizaje_mco[sku] = ean_resuelto
+        ean_resuelto = _ean_canonico(ean_resuelto)
         if ean_resuelto and ean_resuelto not in ean_to_mco_sku:
             ean_to_mco_sku[ean_resuelto] = sku
             mco_sku_set.add(sku)
             ean_mco_nuevos += 1
 
     print(f"  Paso 1b: +{ean_yag_nuevos} EANs Yaguar via Maestro, +{ean_mco_nuevos} EANs Maxiconsumo via Maestro ({ean_mco_brand_skip} descartados por conflicto de marca)")
+
+    # Alias curados: renombrar claves de los indices ean->sku que vinieron de
+    # CODIGOS.xlsx/mapeo con un EAN alias (ej. MCO Branca 750 mapeado al codigo
+    # viejo 001193). Sin esto, el hub MCF busca por el canonico y no los ve.
+    _alias_renombrados = 0
+    if _ALIAS_EAN:
+        for _idx in (ean_to_yag_sku, ean_to_mco_sku):
+            for _e in list(_idx.keys()):
+                _c = _ean_canonico(_e)
+                if _c != _e:
+                    _idx.setdefault(_c, _idx.pop(_e))
+                    _alias_renombrados += 1
+        if _alias_renombrados:
+            print(f"  Alias EAN: {_alias_renombrados} claves de indices renombradas al canonico")
 
     # ------------------------------------------------------------------
     # PASO 2: MaxiCarrefour como HUB (100% EAN)
@@ -1424,7 +1464,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
     stats_mc = {"match_yag": 0, "match_mco": 0, "nuevo": 0}
 
     for p in maxicarre_data:
-        ean    = str(p.get("ean", "")).strip()
+        ean    = _ean_canonico(str(p.get("ean", "")).strip())
         nombre = p.get("nombre", "")
         precio = p.get("precio", 0)
         if not ean or not nombre:
@@ -2488,7 +2528,7 @@ def main():
         for clave, etiqueta, data in cadenas:
             matches = 0
             for pc in data:
-                ean = str(pc.get("ean", "")).strip()
+                ean = _ean_canonico(str(pc.get("ean", "")).strip())
                 precio = pc.get("precio", 0)
                 if not ean or precio <= 0:
                     continue
