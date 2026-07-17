@@ -1,7 +1,56 @@
 {
   "_doc": "Pares curados de EANs equivalentes: mismo producto fisico con 2 codigos de barra (rediseño del fabricante, codigo viejo del Maestro/CODIGOS.xlsx, codigo de distribuidora). El constructor reemplaza el alias por el canonico ANTES de agrupar, asi las fuentes se unifican en una sola entrada. SOLO se agregan pares con aprobacion humana explicita de Facu — nada automatico escribe aca (regla 09: dos EANs reales distintos jamas se fusionan solos). Formato: alias -> canonico.",
   "alias": {
-    "7790290001193": "7790290101602"
+    "7790290001193": "7790290101602",
+    "7790070433121": "7790070431417",
+    "7791880000428": "7790070433091",
+    "7792180142795": "7792180004758",
+    "7790520997944": "7790520997678",
+    "7798140251699": "7798140256731",
+    "7509546686608": "7891024028018",
+    "42300083": "42277057",
+    "7791293008653": "7791293045870",
+    "7791293019345": "7791293050805",
+    "7793100194337": "7891024132647",
+    "7790520986153": "7790520997678",
+    "7791293019369": "7791293050812",
+    "7791293010557": "7791293045818",
+    "7500435012089": "7501006721317",
+    "7790740508975": "7790740000448",
+    "7794000960138": "7794000007109",
+    "7794000001800": "7794000006379",
+    "7790740508968": "7790740000431",
+    "7790580530600": "7790580178109",
+    "7500435191913": "7500435231268",
+    "7500435020114": "7500435231237",
+    "7500435020107": "7500435231244",
+    "7500435004664": "7790990003220",
+    "7790070416636": "7790070433237",
+    "7792222040669": "7792360094319",
+    "7791293021270": "7791293050652",
+    "7500435206648": "7500435162586",
+    "7791813421054": "7791813828419",
+    "7790480089390": "7790480089963",
+    "7798140251286": "7798140256779",
+    "7790060007905": "7790070433244",
+    "7790580133313": "7790580131470",
+    "7500435012515": "7500435229814",
+    "7790310984161": "7790310983553",
+    "5000281015279": "5000291026548",
+    "7791540042706": "7791540053184",
+    "7790240142099": "7790240042092",
+    "7797906054376": "7790290101480",
+    "7791560000120": "80432400432",
+    "4005808315680": "4006000120294",
+    "7790520991249": "7790520028723",
+    "97792410527906": "7792410527903",
+    "7791293014838": "7506306241176",
+    "7792280000209": "7792280005716",
+    "82184090466": "82184090473",
+    "9002490247737": "90435225",
+    "7791337000148": "7790315000149",
+    "7790520997012": "7790520028723",
+    "7790740508982": "7790740000455"
   },
   "_historial": [
     {
@@ -9,6 +58,300 @@
       "canonico": "7790290101602",
       "producto": "Fernet Branca 750 ml (MCO tenia el EAN clasico viejo; MCF/Yaguar/cadenas usan el actual)",
       "aprobado": "Facu 16/07/2026 (chat: 'maxiconsumo no aparece' en la ficha del X750)"
+    },
+    {
+      "alias": "7790070433121",
+      "canonico": "7790070431417",
+      "producto": "ARROZ GALLO ORO PARBOIL BOLSA 1 kg <-> Arroz Parboil GALLO ORO Bolsa X1 kg (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7791880000428",
+      "canonico": "7790070433091",
+      "producto": "ARROZ GALLO ORO PARBOIL CAJA 1 kg <-> Arroz Parboil GALLO ORO Estuche X1 kg (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7792180142795",
+      "canonico": "7792180004758",
+      "producto": "PAN RALLADO MAMA COCINA 1 kg <-> Pan Rallado MAMA COCINA X1 kg (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7790520997944",
+      "canonico": "7790520997678",
+      "producto": "INSECTICIDA RAID CASA y JARDIN 360 ml <-> Insecti RAID Casa y Jardin X360/380 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7798140251699",
+      "canonico": "7798140256731",
+      "producto": "ACONDICIONADOR TIO NACHO ENGROSADOR 415 ml <-> Acond TIO NACHO Engrosador X415 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7509546686608",
+      "canonico": "7891024028018",
+      "producto": "ENJUAGUE BUCAL COLGATE TOTAL CLEAN MINT 500 ml <-> Enj Bucal COLGATE Total Cleanmint X500 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "42300083",
+      "canonico": "42277057",
+      "producto": "CREMA NIVEA FACIAL CUIDADO NUTRITIVO 100 ml <-> Crema Facial NIVEA Cuid Nutr X100 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7791293008653",
+      "canonico": "7791293045870",
+      "producto": "ACONDICIONADOR SEDAL LISO PERFECTO 190 ml <-> Acond SEDAL Liso Perfecto X190 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7791293019345",
+      "canonico": "7791293050805",
+      "producto": "JABON de TOCADOR LUX JAZMIN CREMOSO 3X120 g <-> Jabon LUX Jazmin Cremoso 3 u x 120 g (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7793100194337",
+      "canonico": "7891024132647",
+      "producto": "CREMA DENTAL COLGATE SENSITIVE PRO ALIVIO 110 g <-> Crema Dent COLGATE Sens Original X110gs (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7790520986153",
+      "canonico": "7790520997678",
+      "producto": "INSECTICIDA RAID CASA JARDIN 360 ml <-> Insecti RAID Casa y Jardin X360/380 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7791293019369",
+      "canonico": "7791293050812",
+      "producto": "JABON de TOCADOR LUX LIRIO AZUL 3X120 g <-> Jabon LUX Lirio Azul 3 u x 120 g (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7791293010557",
+      "canonico": "7791293045818",
+      "producto": "SHAMPOO SEDAL LISO PERFECTO 650 ml <-> Shampoo SEDAL Liso Perfecto X650 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7500435012089",
+      "canonico": "7501006721317",
+      "producto": "ACONDICIONADOR PANTENE RESTAURACION 400 ml <-> Acond PANTENE PRO-V Restauracion X400 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7790740508975",
+      "canonico": "7790740000448",
+      "producto": "SHAMPOO PLUSBELLE ESENCIA RESTAURACION 970 ml <-> Shampoo PLUSBELLE ESEN Restaura X970 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7794000960138",
+      "canonico": "7794000007109",
+      "producto": "MAYONESA HELLMANNS LIVIANA DOY PACK 475 g <-> Mayonesa HELLMANNS Liviana D/pack X475 g (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7794000001800",
+      "canonico": "7794000006379",
+      "producto": "PURE de PAPA KNORR RECETA COMPLETA 125 g <-> Pure de Papa KNORR Receta Completa X125g (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7790740508968",
+      "canonico": "7790740000431",
+      "producto": "SHAMPOO PLUSBELLE ESENCIA CONTROL FRIZZ 970 ml <-> Shampoo PLUSBELLE ESEN Ctrl Frizz X970 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7790580530600",
+      "canonico": "7790580178109",
+      "producto": "CARAMELOS MISKY MASTICABLES SURTIDOS 800 g <-> Caramelos MISKY Masticables X800 g (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7500435191913",
+      "canonico": "7500435231268",
+      "producto": "SHAMPOO HEAD & SHOULDERS ANTI COMEZON 650 ml <-> Shampoo H&S Anticomezon X650 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7500435020114",
+      "canonico": "7500435231237",
+      "producto": "SHAMPOO HEAD & SHOULDERS ANTI COMEZON 375 ml <-> Shampoo H&S Anticomezon X375 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7500435020107",
+      "canonico": "7500435231244",
+      "producto": "SHAMPOO HEAD & SHOULDERS ANTI COMEZON 180 ml <-> Shampoo H&S Anticomezon X180 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7500435004664",
+      "canonico": "7790990003220",
+      "producto": "Jabon Liquido ARIEL Doy Pack X3 L(BAJA) <-> Jabon Liq ARIEL Platinum D/p X3 L (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7790070416636",
+      "canonico": "7790070433237",
+      "producto": "PAN RALLADO PREFERIDO AJO PEREJIL 500 g <-> Pan Rallado Ajo y Perejil Preferido 500 g (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7792222040669",
+      "canonico": "7792360094319",
+      "producto": "CHOCOLATE PARA TAZA BONAFIDE 100 g <-> Chocolate Taza 60 Cacao Bonafide 100 g (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7791293021270",
+      "canonico": "7791293050652",
+      "producto": "FIJADOR LORD CHESELINE CLASSIC 150 g <-> Gel LORD CHESELINE Extra Fijación X150 g (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7500435206648",
+      "canonico": "7500435162586",
+      "producto": "SHAMPOO HEAD&SHOULDERS PROTECCION CAIDA 650 ml <-> Shampoo H&S Proteccion Caida X650 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, batch auditor-catalogo)"
+    },
+    {
+      "alias": "7791813421054",
+      "canonico": "7791813828419",
+      "producto": "GASEOSA PEPSI COLA BLACK 1,5 L <-> Gaseosa PEPSI Black X1.5 L (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7790480089390",
+      "canonico": "7790480089963",
+      "producto": "YERBA la TRANQUERA LIVIANA 1 kg <-> Yerba la TRANQUERA Liviana X1 kg (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7798140251286",
+      "canonico": "7798140256779",
+      "producto": "ACONDICIONADOR TIO NACHO HERBOLARIA MILENARIA 415 ml <-> Acond TIO NACHO Herbolaria X415 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7790060007905",
+      "canonico": "7790070433244",
+      "producto": "REBOZADOR PREFERIDO 1 kg <-> Rebozador Horno Preferido Bolsa 1 kg (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7790580133313",
+      "canonico": "7790580131470",
+      "producto": "BAÑO de REPOSTERIA AGUILA CHOCOLATE con LECHE 150 g <-> Baño Reposteria AGUILA Leche X150 g (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7500435012515",
+      "canonico": "7500435229814",
+      "producto": "ACONDICIONADOR PANTENE DETOX 400 ml <-> Acond PANTENE PRO-V Detox X400 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7790310984161",
+      "canonico": "7790310983553",
+      "producto": "PAPAS FRITAS PEHUAMAR ACANALADAS 230 g <-> Papas Fritas PEHUAMAR Acanal X230g (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "5000281015279",
+      "canonico": "5000291026548",
+      "producto": "GIN TANQUERAY DRY 700 ml <-> Gin Tanqueray Royale 700 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7791540042706",
+      "canonico": "7791540053184",
+      "producto": "VINO FRIZZE EVOLUTION BLUE 1 L <-> Coctel FRIZZE Evolution Blue X1 L (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7790240142099",
+      "canonico": "7790240042092",
+      "producto": "VINO ALMA MORA SYRAH 750 ml <-> Vino ALMA MORA Syrah X750 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7797906054376",
+      "canonico": "7790290101480",
+      "producto": "FERNET BRANCA MENTA 450 ml <-> Fernet BRANCA Menta X450 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7791560000120",
+      "canonico": "80432400432",
+      "producto": "WHISKY CHIVAS REGAL 12 ANOS 1 L <-> Whisky Importado 12 Anos Chivas Regal 1L (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "4005808315680",
+      "canonico": "4006000120294",
+      "producto": "CREMA NIVEA BODY NUTRITIVA 100 ml <-> Crema Corp NIVEA Milk Nutritiva X125 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7790520991249",
+      "canonico": "7790520028723",
+      "producto": "LUSTRAMUEBLE CERAMICOL NARANJA 360 ml <-> Lustramuebles CERAMICOL Naranja X360 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "97792410527906",
+      "canonico": "7792410527903",
+      "producto": "WHISKY HIRAM WALKER 750 ml <-> Whisky HIRAM WALKER Etiq. Negra X750 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7791293014838",
+      "canonico": "7506306241176",
+      "producto": "ANTITRANSPIRANTE MASCULINO DOVE INVISIBLE DRY 150 ml <-> Antitr DOVE Invisible Care A/m72hsx150 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7792280000209",
+      "canonico": "7792280005716",
+      "producto": "YERBA CACHAMATE ROSA 1 kg <-> Yerba CACHAMATE Rosa X1 kg (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "82184090466",
+      "canonico": "82184090473",
+      "producto": "Whisky JACK DANIEL'S X 750 ml <-> Whisky JACK DANIEL'S X 700 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "9002490247737",
+      "canonico": "90435225",
+      "producto": "ENERGIZANTE RED BULL 355 ml <-> Bebida Energizante Red Bull Lata 355 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7791337000148",
+      "canonico": "7790315000149",
+      "producto": "AGUA VILLA del SUR 1.65 L <-> Agua Mineral VILLA del SUR X1.65 L (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7790520997012",
+      "canonico": "7790520028723",
+      "producto": "LUSTRAMUEBLES CERAMICOL NARANJA AEROSOL 360 ml <-> Lustramuebles CERAMICOL Naranja X360 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7790740508982",
+      "canonico": "7790740000455",
+      "producto": "SHAMPOO PLUSBELLE ESENCIA LARGO SALUD 970 ml <-> Shampoo PLUSBELLE ESEN Saludable X970 ml (fuente maxicarrefour)",
+      "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
     }
   ]
 }

@@ -43,6 +43,42 @@ Memorias persistentes del flujo de revisión (15/07/2026 — no romper):
 - Restricción de presupuesto (permanente): mejoras de matching solo gratuitas/locales —
   nada de APIs pagas (decisión Facu 15/07).
 
+## Barrido ampliado de fragmentación EAN-EAN vía agente `auditor-catalogo` (17/07/2026)
+
+Más allá de `matches_pendientes.json` (SKU sin EAN → EAN), existe otro tipo de fragmentación:
+dos productos que YA tienen EAN real cada uno, pero DISTINTO (mismo producto físico, código
+de barras diferente por fabricante/importador/rediseño — caso semilla: Fernet Branca 750,
+ver `alias_ean.json`). El agente `auditor-catalogo` puede barrer esto comparando productos
+EXCLUSIVOS de una sola fuente entre sí (script ad-hoc, no versionado en el repo — vive en el
+scratchpad de la sesión que lo corrió). Hallazgos operativos:
+
+- **Coto/Carrefour/Día no tienen productos exclusivos**: cualquier producto de esas 3 cadenas
+  que no tenga mayorista fusionado, casi siempre tiene TAMBIÉN MaxiCarrefour con el mismo EAN
+  (ya integradas). El barrido cruzado real termina siendo 100% Yaguar/Maxiconsumo vs
+  MaxiCarrefour — no es un bug del método, es la composición real de los datos.
+- **Forzar cruces con pool chico de candidatos genera falsos positivos**: al cruzar TODOS los
+  pares de fuentes (no solo el emparejamiento principal), con un pool de ~276 productos
+  exclusivos de MaxiCarrefour el algoritmo "fuerza" el mejor match disponible aunque sea malo
+  (6 de 7 candidatos "alta confianza" de esa ronda eran variante de vino/línea de producto
+  distinta del mismo fabricante — Malbec vs Pinot Noir, Champagne vs Vino Tinto, Aclarante vs
+  Engrosador). Con pool grande (4600+ vs 2000+) la tasa de falsos positivos es mucho menor.
+  Regla: desconfiar de "alta confianza" cuando el grupo candidato del lado B es chico (<500).
+- **Productos de Yaguar/Maxiconsumo sin EAN propio** (`ean_a == ""`, tienen `sku_a` igual):
+  NO van a `alias_ean.json` (que es EAN→EAN) — van a `mapeo_brujula.json` como
+  `por_sku_{fuente}[sku] = ean_canonico`, igual que un match normal.
+- **EAN con formato roto** (14 dígitos con un caracter de más, o 12 con uno de menos) se
+  aplican TAL CUAL están guardados en el catálogo — nunca "corregir" el dígito a ojo. El
+  alias apunta desde el valor exacto que trae la fuente, para que `_ean_canonico()` lo
+  resuelva sin importar que el dato de origen tenga un error de tipeo.
+- Mecanismo de revisión usado: 2 Artifacts (páginas HTML con checkboxes ✓/✕, ver historial
+  de esta sesión) — **las descargas de archivo a disco NO funcionan desde un Artifact**
+  (sandboxing de seguridad de la plataforma, confirmado con Facu abriendo en Chrome real, no
+  solo en el visor embebido de VSCode). El flujo que sí funciona: Facu copia/pega una lista
+  corta de IDs (`fuente:sku` o `ean_a:ean_b`), Claude la cruza contra los archivos reales del
+  proyecto para reconstruir y aplicar. Cada tanda aplicada se registra explícitamente en
+  `fragmentacion_ampliada.json` (`aprobados`/`rechazados`, listas de `ean_a:ean_b`) para que
+  el Artifact se pueda regenerar mostrando SOLO lo pendiente real.
+
 Lecciones del caso leche sachet (15/07/2026 — EAN 7790742348005), no regresionar:
 - **Los dígitos sueltos ("1"/"2"/"3") se conservan en `_exp_tokens`**: son el % de grasa
   u otra variante. Filtrarlos hizo que la leche 2% se llevara el EAN de la 1%.
@@ -122,19 +158,25 @@ del 5% del score máximo, gana el más reciente.
 Productos con precio de hace >30 días aparecían como información vigente en el frontend.
 Ejemplo: Cerveza Quilmes Yaguar $1.410 del 20/04 (38 días viejo) mostrada como precio actual.
 **Fix aplicado:** `actualizar_catalogo.py` ahora agrega `precio_stale: true` y
-`dias_desde_scraping: N` en la fuente del producto cuando la fecha supera 30 días.
+`dias_desde_scraping: N` en la fuente del producto. **Actualizado 16/07/2026: el umbral real
+en código es `STALE_DIAS = 14`** (`actualizar_catalogo.py:2555`), no 30 — bajado en algún
+punto sin actualizar esta regla. Verificar el valor en código ante cualquier duda, no confiar
+en este número.
 
-## Cómo usar precio_stale en el frontend
+## Cómo se usa precio_stale/dias_desde_scraping en el frontend (verificado 16/07/2026)
 
-En `BRUJULA-DE-PRECIOS/lib/data.ts` y las vistas del catálogo:
-- Si `fuente.precio_stale == true` → mostrar el precio con indicador visual (gris, tachado, o
-  badge "desactualizado") en lugar de precio vigente
-- No usar precios stale en el cálculo de "mejor precio" ni en el ranking de bombas
+Ya está IMPLEMENTADO, no es solo un flag sin consumir. `lib/data.ts` expone `frescuraDe()`
+con 3 niveles (no solo el booleano `precio_stale`): fresco ≤3 días (verde), reciente 4-14
+días (dorado), viejo >14 días (rojo) — con label exacto "Hoy"/"Ayer"/"N días". El componente
+`components/frescura-pill.tsx` lo renderiza (punto de color + texto, title con fecha exacta
+al hover) y se consume en `bomba-list-item.tsx`, `vista-lista.tsx`, `vista-detalle.tsx` y
+`vista-catalogo.tsx`. Un precio de 3-4 días SÍ se distingue visualmente de uno de hoy.
 
 ## Señales de alerta para detectar precios incorrectos
 
 - Ahorro cross-mayorista >60%: investigar antes de mostrar como bomba real
-- `fecha_scraping` de hace >30 días: el precio puede no reflejar la realidad
+- `fecha_scraping` de hace >14 días: el precio puede no reflejar la realidad (umbral real,
+  ver arriba)
 - Productos donde nombre_yaguar o nombre_maxiconsumo están vacíos pero hay precio de ese
   mayorista: el match fue fuzzy no confirmado — riesgo de falso positivo
 

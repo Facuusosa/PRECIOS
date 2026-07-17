@@ -20,6 +20,7 @@ VEREDICTO = os.path.join(BASE, "data", "quality", "VEREDICTO.md")
 ALERTA = os.path.join(BASE, "data", "quality", "ALERTA.md")
 MATCHES_PEND = os.path.join(BASE, "data", "quality", "matches_pendientes.json")
 MAPEOS_SOSP = os.path.join(BASE, "data", "quality", "mapeos_sospechosos.json")
+FRAGMENTACION_AMPLIADA = os.path.join(BASE, "data", "quality", "fragmentacion_ampliada.json")
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
@@ -65,6 +66,25 @@ if n_pend or n_sosp:
         print(f"-> Pagina de revision con checkboxes (tildar + 'Copiar resultado' + "
               f"pegar a Claude): {artifact_url}")
     print("-> Recordarselo a Facu al inicio de la sesion; cada aprobado = un comparable mas.")
+
+# Candidatos de alias EAN-EAN (mismo producto fisico, codigo distinto por fabricante/
+# importador) detectados por el agente auditor-catalogo mas alla del matching automatico
+# (16/07/2026). No se auto-aplican: requieren aprobacion explicita, igual que Fernet Branca.
+n_frag = 0
+frag_url = ""
+try:
+    if os.path.exists(FRAGMENTACION_AMPLIADA):
+        _fa = json.load(open(FRAGMENTACION_AMPLIADA, encoding="utf-8"))
+        n_frag = len(_fa.get("candidatos", []))
+        frag_url = _fa.get("artifact_url", "")
+except (json.JSONDecodeError, OSError):
+    pass
+if n_frag:
+    print(f"\nCANDIDATOS DE ALIAS EAN A REVISAR: {n_frag} pares mismo-producto-distinto-EAN "
+          f"(data/quality/fragmentacion_ampliada.json).")
+    if frag_url:
+        print(f"-> Pagina de revision con checkboxes: {frag_url}")
+    print("-> Recordarselo a Facu al inicio de la sesion; cada aprobado = un alias mas en alias_ean.json.")
 
 # Frescura del output mas reciente por fuente
 print("\nUltimo output por fuente:")
