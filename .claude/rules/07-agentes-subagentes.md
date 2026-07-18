@@ -67,3 +67,55 @@ indica que el agente relanzó el mismo scraper una segunda vez sin darse cuenta 
 seguía vivo, y dos `open(path, "w")` concurrentes se pisaron. No tocar el scraper (el `open("w")`
 es correcto) — el fix es de proceso: antes de relanzar cualquier scraper, verificar con
 `tasklist`/`Get-Process` que no haya una instancia ya corriendo.
+
+## Las skills del PROYECTO no se invocan con la tool `Skill` (16/07/2026)
+
+Intentar `Skill(skill: "cerrar-sesion")` (o cualquier otra skill propia de Brújula listada en
+`HERRAMIENTAS.md`: `status-proyecto`, `pipeline-datos`, etc.) falla con "Unknown skill" — la
+tool `Skill` solo conoce las skills nativas del SDK (`artifact-design`, `impeccable`, etc.),
+no los archivos sueltos de `.claude/skills/*.md` del proyecto. Esos se activan cuando el
+usuario tipea `/nombre` directo en la CLI (el harness expande el archivo como contexto),
+NO son invocables programáticamente por Claude durante la sesión.
+
+**Cómo aplicar:** si Facu pide correr una skill del proyecto, leer el archivo
+`.claude/skills/[nombre].md` con la tool `Read` y seguir sus pasos manualmente — no intentar
+`Skill(...)` con esos nombres, va a fallar.
+
+## Puppeteer pierde el estado (localStorage) si cambian las `launchOptions` (16/07/2026)
+
+Cada llamada a `puppeteer_navigate` con `launchOptions` distintas a la anterior reinicia el
+browser completo (documentado en la propia tool: "If changed and not null, browser restarts").
+Si se navega una vez con `{"headless": false, "defaultViewport": null}` para tener una ventana
+visible y persistente, y despues se hace otro `navigate` sin especificar `launchOptions` (o con
+otras), se pierde el localStorage — pasó 3 veces en una sesión armando una lista de productos,
+cada vez hubo que reconstruir desde cero.
+
+**Cómo aplicar:** una vez elegidas las `launchOptions` para una sesión de trabajo con estado
+persistente (ej. una lista en "Mi Lista"), repetirlas IDÉNTICAS en cada `navigate` posterior
+hasta terminar esa tarea.
+
+## No usar `Read` sobre resultados de tools que devuelven JSON gigante (16/07/2026)
+
+Un resultado de `puppeteer_evaluate` que lee `localStorage` completo (con imágenes, links,
+etc.) puede pesar 60-70KB — leerlo con la tool `Read` para pasarlo a otro lado quema decenas
+de miles de tokens de contexto de una sola vez, sin necesidad real de "ver" ese contenido.
+
+**Cómo aplicar:** si hace falta extraer/reconstruir datos desde un archivo de resultado
+grande, usar `Bash`/`python3` para parsearlo y escribir el resultado a otro archivo
+directamente — nunca `Read` el archivo completo en el contexto de la conversación solo para
+volcarlo a otro lado.
+
+## `taskkill //IM` por nombre de proceso mata también las apps reales del usuario (17/07/2026)
+
+Al limpiar un Chrome headless que se lanzó manualmente (vía `chrome.exe --headless
+--screenshot=...` para rasterizar un SVG a PNG, sin pasar por Puppeteer), se cerró con
+`taskkill //F //IM chrome.exe //T` para "limpiar". Ese comando mata **todas** las instancias
+de `chrome.exe` del sistema — si Facu tenía el navegador real abierto con pestañas, se cerraron
+de golpe sin guardarlas. Mismo riesgo aplica a `node.exe`, `python.exe`, etc.: cualquier proceso
+que el usuario pueda tener corriendo por su cuenta.
+
+**Cómo aplicar:** para matar un proceso que YO lancé (headless Chrome, un scraper, un server de
+dev), targetear el PID exacto devuelto al lanzarlo (`Start-Process` guarda `.Id`, o `tasklist`
+filtrado por línea de comando/hora de inicio) — nunca `taskkill //IM <nombre>` ni
+`Stop-Process -Name` a secas cuando el proceso puede tener instancias del usuario corriendo.
+Si no se puede aislar el PID con certeza, preguntar antes de matar por nombre.
