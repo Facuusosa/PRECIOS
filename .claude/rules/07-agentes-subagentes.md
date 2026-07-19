@@ -119,3 +119,27 @@ dev), targetear el PID exacto devuelto al lanzarlo (`Start-Process` guarda `.Id`
 filtrado por línea de comando/hora de inicio) — nunca `taskkill //IM <nombre>` ni
 `Stop-Process -Name` a secas cuando el proceso puede tener instancias del usuario corriendo.
 Si no se puede aislar el PID con certeza, preguntar antes de matar por nombre.
+
+## Chrome headless (`--screenshot`) puede tirar "Acceso denegado" escribiendo dentro de `OneDrive\Escritorio` (19/07/2026)
+
+Regenerando las historias de `design-lab/redes/` (ver su README), el comando estándar
+`chrome.exe --headless --screenshot=...` empezó a fallar con
+`Failed to write file ...: Acceso denegado. (0x5)` para CUALQUIER nombre de archivo dentro
+de esa carpeta del proyecto (que vive bajo `OneDrive\Escritorio`) — no es intermitente, una
+vez que arranca falla siempre en esa carpeta durante el resto de la sesión. Se descartó
+Controlled Folder Access de Windows Defender (`(Get-MpPreference).EnableControlledFolderAccess`
+devolvió `0`, desactivado) y los permisos ACL de la carpeta (`icacls` mostraba control total
+para el usuario). Sospecha: algún AV heurístico bloqueando escrituras repetidas de un proceso
+headless no reconocido — no se confirmó la causa exacta, pero SÍ se confirmó el workaround.
+
+**Workaround que funciona siempre:** un `cp`/`shutil.copy2` normal SÍ puede escribir en esa
+misma carpeta sin problema (no está bloqueada en general, solo las escrituras de Chrome). La
+solución: que Chrome (o ffmpeg) escriba SIEMPRE a una carpeta fuera de OneDrive (`%TEMP%` del
+sistema, o el scratchpad de la sesión) y recién después copiar el archivo final ya generado
+a la carpeta real del proyecto con una copia de archivo normal.
+
+**Cómo aplicar:** si un comando de Chrome headless (`--screenshot=`) o un script que invoque
+Chrome/ffmpeg tira este error apuntando a una ruta bajo `OneDrive\Escritorio\...`, no intentar
+arreglar permisos ni reintentar en el mismo lugar — redirigir la escritura a
+`%TEMP%`/scratchpad y copiar el resultado final con `cp`/`shutil.copy2`. Ya aplicado en
+`design-lab/redes/exportar_videos.py` (constante `TMP_ROOT`).
