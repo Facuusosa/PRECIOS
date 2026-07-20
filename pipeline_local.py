@@ -6,7 +6,7 @@ cron de Railway: aca los scrapers funcionan porque usan la IP de casa (Maxiconsu
 bloquea IPs de datacenter, por eso fallaba en la nube).
 
 Secuencia:
-  1. Corre los 6 scrapers (3 mayoristas + 3 cadenas) via sus wrappers (que ya
+  1. Corre los 8 scrapers (3 mayoristas + 5 cadenas) via sus wrappers (que ya
      manejan cookies de MaxiCarrefour y el enriquecimiento de Maxiconsumo).
   2. Regenera el catalogo unificado consolidado con todas las fuentes.
   3. Chequeo anti-reciclaje: si el total de productos cae mucho o una fuente queda en
@@ -52,7 +52,7 @@ def log(msg):
 ALERTAS_MD = RAIZ / "data" / "quality" / "ALERTA.md"
 VEREDICTO_MD = RAIZ / "data" / "quality" / "VEREDICTO.md"
 HISTORIAL_CSV = RAIZ / "data" / "quality" / "historial_corridas.csv"
-FUENTES = ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia")
+FUENTES = ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia", "masonline", "jumbo")
 
 # Estado de la corrida para el veredicto final (se escribe SIEMPRE via atexit,
 # incluso si un sys.exit() corta el pipeline a mitad de camino)
@@ -154,7 +154,7 @@ def sanidad_outputs():
     repetidas del rate-limit) fue invisible 2 semanas porque nadie comparaba
     registros contra unicos. Este check lo atrapa en la primera corrida."""
     resultados = {}
-    for may in ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia"):
+    for may in ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia", "masonline", "jumbo"):
         carpeta = RAIZ / "targets" / may
         outputs = [f for f in sorted(carpeta.glob(f"output_{may}_*.json"))
                    if "raw" not in f.stem and "enriched" not in f.stem]
@@ -276,7 +276,7 @@ def escribir_veredicto():
 def contar_por_fuente():
     """Productos con precio por fuente en el catalogo actual (para anti-reciclaje)."""
     conteo = {"total": 0, "yaguar": 0, "maxicarrefour": 0, "maxiconsumo": 0,
-              "coto": 0, "carrefour": 0, "dia": 0}
+              "coto": 0, "carrefour": 0, "dia": 0, "masonline": 0, "jumbo": 0}
     if not CATALOGO.exists():
         return conteo
     with open(CATALOGO, encoding="utf-8") as f:
@@ -285,7 +285,7 @@ def contar_por_fuente():
     conteo["total"] = len(prods)
     for p in prods:
         precios = p.get("precios", {})
-        for may in ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia"):
+        for may in ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia", "masonline", "jumbo"):
             if precios.get(may, 0) > 0:
                 conteo[may] += 1
     return conteo
@@ -343,7 +343,7 @@ def limpiar_automatico():
     limite = datetime.now() - timedelta(days=30)
     borrados_outputs = 0
     mb_liberados = 0.0
-    for mayorista in ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia"):
+    for mayorista in ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia", "masonline", "jumbo"):
         carpeta = RAIZ / "targets" / mayorista
         if not carpeta.exists():
             continue
@@ -383,7 +383,8 @@ def main():
     antes = contar_por_fuente()
     log(f"Catalogo actual: {antes['total']} prods "
         f"(Y={antes['yaguar']} MC={antes['maxicarrefour']} MCO={antes['maxiconsumo']} "
-        f"C={antes['coto']} CF={antes['carrefour']} D={antes['dia']})")
+        f"C={antes['coto']} CF={antes['carrefour']} D={antes['dia']} "
+        f"MAS={antes['masonline']} JUM={antes['jumbo']})")
 
     ok = {
         # MaxiCarrefour primero: es el unico que puede pedir un click manual
@@ -395,6 +396,8 @@ def main():
         "coto":          run_scraper("scrape_coto.py"),
         "carrefour":     run_scraper("scrape_carrefour.py"),
         "dia":           run_scraper("scrape_dia.py"),
+        "masonline":     run_scraper("scrape_masonline.py"),
+        "jumbo":         run_scraper("scrape_jumbo.py"),
     }
     log(f"Scrapers OK: {sum(ok.values())}/{len(ok)}")
     _corrida["fase"] = "scrapers"
@@ -409,7 +412,7 @@ def main():
                 alertar(f"Scraper {may} FALLO hoy",
                         "revisar data/quality/pipeline_local.log — si es MCF, probar scripts/renovar_cookies_carrefour.py --force")
     if sum(ok.values()) == 0:
-        log("ERROR: fallaron los 6 scrapers - el catalogo no se toca")
+        log("ERROR: fallaron los 8 scrapers - el catalogo no se toca")
         sys.exit(1)
 
     # Sanidad de outputs: duplicados masivos = scraper repitiendo paginas
@@ -428,12 +431,14 @@ def main():
     despues = contar_por_fuente()
     log(f"Catalogo nuevo: {despues['total']} prods "
         f"(Y={despues['yaguar']} MC={despues['maxicarrefour']} MCO={despues['maxiconsumo']} "
-        f"C={despues['coto']} CF={despues['carrefour']} D={despues['dia']})")
+        f"C={despues['coto']} CF={despues['carrefour']} D={despues['dia']} "
+        f"MAS={despues['masonline']} JUM={despues['jumbo']})")
     _corrida["fase"] = "catalogo regenerado"
     _corrida["conteos_dict"] = despues
     _corrida["conteos"] = (f"{despues['total']} prods (Y={despues['yaguar']} "
                            f"MC={despues['maxicarrefour']} MCO={despues['maxiconsumo']} "
-                           f"C={despues['coto']} CF={despues['carrefour']} D={despues['dia']})")
+                           f"C={despues['coto']} CF={despues['carrefour']} D={despues['dia']} "
+                           f"MAS={despues['masonline']} JUM={despues['jumbo']})")
 
     if antes["total"] > 0:
         caida = (antes["total"] - despues["total"]) / antes["total"]
@@ -444,8 +449,11 @@ def main():
     # Minimos historicos por fuente: si cae por debajo, algo salio mal.
     # coto/carrefour/dia: son matches EAN contra el catalogo (coto 4.116, dia 1.832
     # medidos el 06/07/2026), NO el total scrapeado — el minimo va sobre lo que entra al catalogo
+    # masonline/jumbo: medido 20/07/2026 (primera corrida real) - 2.726 y 3.381
+    # matches EAN contra el catalogo respectivamente, mismo margen ~65% que dia
     minimos_fuente = {"yaguar": 4000, "maxicarrefour": 3000, "maxiconsumo": 3000,
-                      "coto": 3000, "carrefour": 3000, "dia": 1200}
+                      "coto": 3000, "carrefour": 3000, "dia": 1200,
+                      "masonline": 1800, "jumbo": 2200}
     for may, minimo in minimos_fuente.items():
         if antes[may] > 100 and despues[may] == 0:
             alertar(f"{may} quedo en 0 precios (antes {antes[may]}) - NO se publica",
