@@ -8,7 +8,7 @@ El selector "Uso la app como" (perfil) define cuál ve primero cada uno.
 
 ## MVP — incluye (rediseño completo 26/04/2026)
 - Calculador de margen funcional
-- 3 mayoristas: Yaguar, Maxicarrefour, Maxiconsumo + 3 cadenas: Coto, Carrefour, Dia
+- 3 mayoristas: Yaguar, Maxicarrefour, Maxiconsumo + 5 cadenas: Coto, Carrefour, Dia, Masonline, Jumbo (sumadas 20/07/2026)
 - 6 vistas: Inicio, Catálogo, Detalle, Comparativa, Herramientas, Perfil
 
 ## MVP — NO incluye

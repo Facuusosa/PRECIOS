@@ -11,6 +11,8 @@
 - Coto (`targets/coto/scraper_pro.py`) — CADENA minorista (referencia góndola, no precio de compra); API pública Constructor.io, sin credenciales
 - Carrefour retail (`targets/carrefour/scraper_pro.py`) — CADENA minorista; API VTEX Intelligent Search pública, sin credenciales. NO confundir con MaxiCarrefour (mayorista B2B, otro sitio)
 - Dia (`targets/dia/scraper_pro.py`) — CADENA minorista; API VTEX legacy Catalog System pública, sin credenciales, sin anti-bot
+- Masonline (`targets/masonline/scraper_pro.py`) — CADENA minorista; API VTEX legacy Catalog System pública, sin credenciales, sin anti-bot
+- Jumbo (`targets/jumbo/scraper_pro.py`) — CADENA minorista (Cencosud); API VTEX Intelligent Search pública, sin credenciales. ListPrice viene roto (no se usa como precio regular, ver docstring del scraper)
 
 ## Entrypoints clave
 - Frontend: `BRUJULA-DE-PRECIOS/app/page.tsx`

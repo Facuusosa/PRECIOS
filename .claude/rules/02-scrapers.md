@@ -175,6 +175,52 @@ python scrape_dia.py            → scraper + actualizar_catalogo.py
   Bebidas(164), Frescos(121), Congelados(200), Limpieza(282), Perfumeria(216), Mascotas(71),
   Bebe(53) — IDs numericos de categoria, no slugs.
 
+## Masonline (cadena minorista — API VTEX legacy, documentado 20/07/2026)
+- Sitio sobre VTEX (CloudFront, sin Cloudflare, sin auth) — mismo perfil que Coto/
+  Carrefour/Dia. Usa el legacy Catalog System igual que Dia (`fq=C:{id}`).
+- **El arbol de categorias NO tiene agrupador "super"**: a diferencia de Dia/Jumbo,
+  cada nodo del arbol (`/api/catalog_system/pub/category/tree/2`) ya es una categoria
+  especifica de grano fino (ids 200xxx, ej "Aceites, Vinagres y Aderezos"). El scraper
+  agrupa manualmente varios ids bajo un mismo sector display (Almacen=12 ids, Perfumeria=
+  14 ids, etc.) — ver `CATEGORIAS` en `targets/masonline/scraper_pro.py`.
+- **ListPrice SI es confiable** (a diferencia de Jumbo, ver abajo): ratios medidos entre
+  Price y ListPrice van de 1.18x a 2.5x maximo — ofertas reales, ~8% del catalogo.
+- **Volumen:** 7.433 scrapeados / 2.726 con match EAN contra el catalogo (medido
+  20/07/2026).
+- `MIN_PRODUCTS_EXPECTED` calibrado a 5.500 (el bruto por categoria suma ~29.800, pero
+  el filtro de disponibilidad + dedupe por EAN entre categorias solapadas deja ~7.400
+  reales — no calibrar este umbral sobre el bruto, calibrar sobre el numero real medido).
+
+## Jumbo (cadena minorista Cencosud — API VTEX Intelligent Search, documentado 20/07/2026)
+- Sitio sobre VTEX (CloudFront, sin Cloudflare, sin auth).
+- **El legacy Catalog System NO sirve en este sitio**: `fq=C:{id}` con categorias de
+  nivel 1 (ej Almacen=1, 29.809 productos) funciona, pero con IDs de subcategoria
+  (nivel 2/3) devuelve SIEMPRE 0 — Jumbo solo indexa productos en la categoria raiz
+  para el legacy. Se uso Intelligent Search en su lugar.
+- **El Intelligent Search con el slug simple en el path NO filtra** (mismo bug ya
+  documentado para Dia: `recordsFiltered` identico ~88k para cualquier categoria =
+  fallback al catalogo completo). La ruta que SI filtra es con el prefijo
+  `category-1/{slug}` (mismo patron que Carrefour retail):
+  `/api/io/_v/api/intelligent-search/product_search/category-1/{slug}?page=N&count=100&hideUnavailableItems=true`.
+- Caps identicos a Carrefour (count<=100, page<=50, techo ~5.000/ruta) — con
+  `hideUnavailableItems=true` ninguna de las 15 categorias "super" supera 3.900
+  (Almacen, la mas grande), no hizo falta bajar a category-2.
+- **BUG CRITICO DE DATOS — ListPrice viene roto en el 100% del catalogo** (medido
+  20/07/2026 sobre 10.450 productos: los ~10.347 que tenian ListPrice>Price daban un
+  ratio mediano de 82x, hasta 8.264x — ej Price=$2.799 vs ListPrice=$231.405 en un
+  Kitkat de $2.800 real). No es una oferta real, es un campo nunca actualizado en el
+  feed de Jumbo. **`precio_regular` se fija SIEMPRE igual a `precio`** en
+  `targets/jumbo/scraper_pro.py` — NUNCA revertir esto sin volver a medir el ratio real
+  contra la web (umbral razonable: <3x, igual criterio que se uso para descartar el bug).
+  Si esto se pasa por alto, la app va a mostrar "99% OFF" falso en casi todo Jumbo.
+- **Volumen:** 10.450 scrapeados / 3.381 con match EAN contra el catalogo (medido
+  20/07/2026).
+- Categorias "super" (15, ids/slugs en `CATEGORIAS` de `targets/jumbo/scraper_pro.py`):
+  Almacen, Bebidas, Frutas y Verduras, Carnes, Pescados y Mariscos, Quesos y Fiambres,
+  Lacteos, Congelados, Panaderia y Pasteleria, Rotiseria, Perfumeria, Limpieza, Mascotas,
+  Mundo Bebe, Pastas Frescas — excluye Electro(15), Hogar y textil(16), Tiempo Libre(465,
+  deportes/jugueteria), Sin Categoria(9999), Felices Fiestas(10038, estacional).
+
 ## Cada scraper debe
 - Guardar output con timestamp: `output_{mayorista}_{YYYYMMDD_HHMMSS}.json`
 - Loguear errores por sector sin detener los demás
