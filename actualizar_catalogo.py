@@ -651,6 +651,8 @@ def _fallback_mc_desde_catalogo():
             "ean":             prod.get("ean") or prod.get("id_unificado", ""),
             "nombre":          fuente.get("nombre") or prod.get("nombre_display", ""),
             "precio":          precio_mc,
+            "precio_regular":  fuente.get("precio_regular", 0),
+            "oferta":          fuente.get("oferta", ""),
             "link":            fuente.get("link", ""),
             "imagen":          fuente.get("imagen", prod.get("imagen", "")),
             "sector":          prod.get("sector", ""),
@@ -1233,7 +1235,8 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             "subcategoria":   subcategoria,
             "abc":            abc,
             "precios":        {"yaguar": 0, "maxicarrefour": 0, "maxiconsumo": 0,
-                               "coto": 0, "carrefour": 0, "dia": 0},
+                               "coto": 0, "carrefour": 0, "dia": 0,
+                               "masonline": 0, "jumbo": 0},
             "fuentes":        {},
         }
 
@@ -1477,7 +1480,14 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
 
         entry = nuevo_producto(ean, ean, nombre_display, imagen_mc, sector, subcategoria, abc)
         entry["precios"]["maxicarrefour"] = precio
-        entry["fuentes"]["maxicarrefour"] = {"nombre": nombre, "imagen": imagen_mc, "link": _carrefour_search_link(ean), "fecha_scraping": p.get("fecha_scraping") or p.get("fecha", "")}
+        entry["fuentes"]["maxicarrefour"] = {
+            "nombre": nombre, "imagen": imagen_mc, "link": _carrefour_search_link(ean),
+            "fecha_scraping": p.get("fecha_scraping") or p.get("fecha", ""),
+            # Folleto/Oportunidad Maxi: mismo criterio que Coto/Carrefour retail
+            # (precio = efectivo, regular + texto para mostrar ambos)
+            "precio_regular": p.get("precio_regular", 0),
+            "oferta": p.get("oferta", ""),
+        }
 
         # Buscar Yaguar via mapa inverso EAN->SKU
         yag_sku = ean_to_yag_sku.get(ean)
@@ -2468,11 +2478,14 @@ def main():
     coto        = cargar_cadena("coto", "Coto")
     carrefour   = cargar_cadena("carrefour", "Carrefour")
     dia         = cargar_cadena("dia", "Dia")
+    masonline   = cargar_cadena("masonline", "Masonline")
+    jumbo       = cargar_cadena("jumbo", "Jumbo")
 
     print("\nExpandiendo mapeo SKU->EAN con nombres frescos de cadenas...")
     expandir_mapeo_con_cadenas(
         yaguar, maxiconsumo,
         [("coto", coto), ("carrefour", carrefour), ("dia", dia),
+         ("masonline", masonline), ("jumbo", jumbo),
          ("maxicarrefour", maxicarre)],
         yag_sku_to_ean, mco_sku_to_ean,
         ean_to_yag_sku, ean_to_mco_sku,
@@ -2518,7 +2531,8 @@ def main():
     # (gondola) y adentro generarian falsos positivos. Fuera del constructor no
     # contaminan ni pueden ser descartadas. Decision de producto: solo agregan
     # precio a EANs que ya existen — los exclusivos quedan para la Fase B.
-    cadenas = [("coto", "Coto", coto), ("carrefour", "Carrefour", carrefour), ("dia", "Dia", dia)]
+    cadenas = [("coto", "Coto", coto), ("carrefour", "Carrefour", carrefour), ("dia", "Dia", dia),
+               ("masonline", "Masonline", masonline), ("jumbo", "Jumbo", jumbo)]
     if any(data for _, _, data in cadenas):
         idx_ean = {}
         for p in catalogo:
@@ -2555,7 +2569,7 @@ def main():
     STALE_DIAS = 14
     from datetime import date as _date
     hoy = _date.today()
-    _mayoristas = ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia")
+    _mayoristas = ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia", "masonline", "jumbo")
     precios_stale = 0
     for p in catalogo:
         fuentes = p.get("fuentes", {})
@@ -2600,6 +2614,8 @@ def main():
     con_coto = sum(1 for p in catalogo if p["precios"].get("coto", 0) > 0)
     con_carr = sum(1 for p in catalogo if p["precios"].get("carrefour", 0) > 0)
     con_dia  = sum(1 for p in catalogo if p["precios"].get("dia", 0) > 0)
+    con_mas  = sum(1 for p in catalogo if p["precios"].get("masonline", 0) > 0)
+    con_jum  = sum(1 for p in catalogo if p["precios"].get("jumbo", 0) > 0)
     # Las metricas de comparativa miden SOLO mayoristas (coto es referencia gondola)
     _KEYS_MAY = ("yaguar", "maxicarrefour", "maxiconsumo")
     def _n_mayoristas(p):
@@ -2619,6 +2635,8 @@ def main():
     print(f"  Con precio Coto (gondola):    {con_coto}")
     print(f"  Con precio Carrefour (gond.): {con_carr}")
     print(f"  Con precio Dia (gondola):     {con_dia}")
+    print(f"  Con precio Masonline (gond.): {con_mas}")
+    print(f"  Con precio Jumbo (gondola):   {con_jum}")
     print(f"  Con 2+ precios (comparativa): {multi}")
     print(f"  Con 3 precios:                {tres}")
     print(f"  ABC=A con 2+ precios:         {abc_a_multi}")

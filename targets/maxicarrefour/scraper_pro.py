@@ -102,12 +102,24 @@ def parsear_pagina(html, sector_display):
 
             precio = 0.0
             price_div = item.find(class_="number_price")
+            cart = item.find(class_="cart_button")
             if price_div:
                 precio = limpiar_precio(price_div.get_text(strip=True))
-            else:
-                cart = item.find(class_="cart_button")
-                if cart:
-                    precio = limpiar_precio(cart.get("data-price", ""))
+            elif cart:
+                precio = limpiar_precio(cart.get("data-price", ""))
+
+            # Oferta (folleto/oportunidad): discounted_number_price trae el precio
+            # regular tachado (<s>...</s>), data-salename el nombre de la promo.
+            # Guard con precio_regular > precio (igual criterio que Coto/Carrefour
+            # retail) para no contar ruido de datos si el salename viene sin regular.
+            precio_regular = 0.0
+            regular_div = item.find(class_="discounted_number_price")
+            if regular_div:
+                precio_regular = limpiar_precio(regular_div.get_text(strip=True))
+            oferta = cart.get("data-salename", "").strip() if cart else ""
+            if not (oferta and precio_regular > precio):
+                precio_regular = 0.0
+                oferta = ""
 
             img = item.select_one("img.principal_img")
             imagen = (img.get("src", "") if img
@@ -117,7 +129,6 @@ def parsear_pagina(html, sector_display):
 
             sector = sector_display
             subcategoria = ""
-            cart = item.find(class_="cart_button")
             if cart:
                 sec_attr = cart.get("data-sector", "").strip()
                 sub_attr = cart.get("data-section", "").strip()
@@ -129,6 +140,8 @@ def parsear_pagina(html, sector_display):
             productos.append({
                 "nombre": nombre,
                 "precio": precio,
+                "precio_regular": precio_regular,
+                "oferta": oferta,
                 "ean": ean,
                 "sku": ean,
                 "sector": sector,
