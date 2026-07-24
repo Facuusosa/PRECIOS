@@ -143426,6 +143426,57 @@
     },
     "7791866004471": {
       "nombre_verificacion": "Salsa Barbacoa Natura 250 Ml."
+    },
+    "7793360105944": {
+      "nombre_verificacion": "Tomate Cubeteado La Campagnola 400 Gr"
+    },
+    "7794990880300": {
+      "nombre_verificacion": "Queso Muzzarella en Fetas 180 Gr La Paulina"
+    },
+    "7791476081008": {
+      "nombre_verificacion": "Trigo Burgol 500 Grs Egran"
+    },
+    "7791476022001": {
+      "nombre_verificacion": "Harina De Maíz Egran 500 Gr"
+    },
+    "2572645000007": {
+      "nombre_verificacion": "Queso Pategrás x 1 Kg La Paulina"
+    },
+    "7798187210178": {
+      "nombre_verificacion": "Papas Fritas Pay Quento 110 Gr"
+    },
+    "7798094224237": {
+      "nombre_verificacion": "Alfajor Fulbito Black 30 G"
+    },
+    "7793253007249": {
+      "nombre_verificacion": "Esponja Mortimer Lana De Acero 12 U"
+    },
+    "7791664000668": {
+      "nombre_verificacion": "Ravioles Pollo / Verdura La Italiana 1000 Gr"
+    },
+    "7790070318855": {
+      "nombre_verificacion": "Fideos Municiones Lucchetti 500gr"
+    },
+    "7790560000819": {
+      "nombre_verificacion": "Paño Multiuso Sed Metal Suave 3 U"
+    },
+    "7798085681513": {
+      "nombre_verificacion": "Jugo Citric De Pomelo 1 L"
+    },
+    "7791293051994": {
+      "nombre_verificacion": "Shampoo Dove Reconstrucción Aminoácido 650ml"
+    },
+    "7798124851679": {
+      "nombre_verificacion": "Jamón Cocido Trozer Feteado 200 G"
+    },
+    "7792360071501": {
+      "nombre_verificacion": "Galletitas Orange Bitter Donuts 78 Gr"
+    },
+    "7799155001774": {
+      "nombre_verificacion": "Agua sin gas Brio pet 2.25 lts"
+    },
+    "7793147574093": {
+      "nombre_verificacion": "Cerveza sin alcohol Heineken en lata 473 ml"
     }
   },
   "por_sku_yaguar": {
@@ -147558,7 +147609,30 @@
     "87080": "7791337009981",
     "55948": "7500435155847",
     "80612": "7790580138721",
-    "77559": "7509552876482"
+    "77559": "7509552876482",
+    "87555": "7793360105944",
+    "1921": "7790260013164",
+    "75800": "7794990880300",
+    "89650": "7793890261516",
+    "35025": "7791476081008",
+    "35018": "7791476022001",
+    "89895": "7798187210178",
+    "2710": "7794000006881",
+    "75983": "7790742167101",
+    "89955": "7798094224237",
+    "87183": "7793253007249",
+    "83319": "7790940518033",
+    "29599": "7791664000668",
+    "84306": "7793913013443",
+    "35932": "7793147009199",
+    "73938": "7798085681513",
+    "85551": "7790550000171",
+    "90127": "7791293051994",
+    "85871": "7798124851679",
+    "19000": "7792360071501",
+    "82897": "8445290585042",
+    "87364": "7799155001774",
+    "87362": "7793147574093"
   },
   "por_sku_maxiconsumo": {
     "469": "7790950001969",
@@ -149965,6 +150039,14 @@
     "14400": "7790070761033",
     "28808": "7790550000171",
     "28975": "7500435260602",
-    "17849": "7791905023777"
+    "17849": "7791905023777",
+    "5854": "2572645000007",
+    "13464": "7790070231871",
+    "30020": "7790070318855",
+    "25534": "7790742331304",
+    "11657": "7790560000819",
+    "27868": "7791813888468",
+    "24429": "7791813888475",
+    "436": "7798131200620"
   }
 }

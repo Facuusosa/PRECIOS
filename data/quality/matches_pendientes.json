@@ -1,31 +1,58 @@
 {
- "fecha": "2026-07-17T00:57:36",
+ "fecha": "2026-07-24T20:31:02",
  "pendientes": [
   {
    "fuente": "yaguar",
-   "sku": "87555",
-   "nombre": "TOMATE LA CAMPAGNOLA CUBETEADO 400GR",
-   "ean_candidato": "7793360105944",
-   "nombre_cadena": "Tomate Cubeteado LA CAMPAGNOLA Lata 400 Gr",
+   "sku": "87359",
+   "nombre": "CERVEZA AMSTEL LATA 710CC",
+   "ean_candidato": "7793147572853",
+   "nombre_cadena": "Cerveza Amstel 710 Ml.",
+   "fuente_cadena": "dia",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87371",
+   "nombre": "AVENA QUAKER TRADICIONAL EXTRA FINA 470GR",
+   "ean_candidato": "7792170555512",
+   "nombre_cadena": "Avena extra fina QUAKER 470g",
    "fuente_cadena": "coto",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "75408",
+   "nombre": "LECHE UAT LAS TRES NIÑAS DESCREMADA 1LT",
+   "ean_candidato": "7798338290301",
+   "nombre_cadena": "Leche Descremada 1 Lts Las Tres Niñas",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "76627",
+   "nombre": "EDULCORANTE CHUKER CLASICO LIQUIDO 200ML",
+   "ean_candidato": "7792129004535",
+   "nombre_cadena": "Edulcorante líquido 200 Ml Chuker",
+   "fuente_cadena": "jumbo",
    "similitud": 0.8
   },
   {
    "fuente": "yaguar",
-   "sku": "82820",
-   "nombre": "GASEOSA FANTA SIN AZUCAR 1,75LT",
-   "ean_candidato": "7790895012310",
-   "nombre_cadena": "Gaseosa Naranja S Azucar Fanta Pet X 1.75 Lt.",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.8
+   "sku": "426",
+   "nombre": "CACAO CHOCOLINO 360GR",
+   "ean_candidato": "7790150830468",
+   "nombre_cadena": "Cacao Chocolino Fortificado 360gr",
+   "fuente_cadena": "masonline",
+   "similitud": 0.75
   },
   {
    "fuente": "yaguar",
    "sku": "87533",
    "nombre": "POSTRE DANETTE FLAN CARAMELO 190GR",
    "ean_candidato": "7791337010604",
-   "nombre_cadena": "Danette Flan con caramelo 190gr",
-   "fuente_cadena": "coto",
+   "nombre_cadena": "Flan con caramelo Danette 190 grs",
+   "fuente_cadena": "carrefour",
    "similitud": 0.8
   },
   {
@@ -39,6 +66,348 @@
   },
   {
    "fuente": "yaguar",
+   "sku": "87026",
+   "nombre": "QUESO REGGIANITO LA PAULINA TROZADO XKG",
+   "ean_candidato": "2000587000002",
+   "nombre_cadena": "Queso Reggianito La Paulina Xkg",
+   "fuente_cadena": "coto",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "73812",
+   "nombre": "QUESO CREMOSO CREMON HORMA X KG",
+   "ean_candidato": "2505301000004",
+   "nombre_cadena": "Queso cremoso Cremón x kg",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "40507",
+   "nombre": "QUESO BARRA TYBO LA PAULINA X KG",
+   "ean_candidato": "2506438000004",
+   "nombre_cadena": "Queso barra tybo tradicional La Paulina x kg.",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "4037",
+   "nombre": "QUESO PATEGRAS LA PAULINA KG",
+   "ean_candidato": "2572645000007",
+   "nombre_cadena": "Queso Pategrás x 1 Kg La Paulina",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "86817",
+   "nombre": "GALLETITAS PASEO PIZZA 250GR",
+   "ean_candidato": "7792180145437",
+   "nombre_cadena": "Galletitas Crackers Pizza Paseo 250g",
+   "fuente_cadena": "coto",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "84374",
+   "nombre": "TABLETA BON O BON CHOCOLATE RELLENO 160GR",
+   "ean_candidato": "7790580143862",
+   "nombre_cadena": "Chocolate Bon O Bon En Tableta 160 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "73825",
+   "nombre": "CHOCOLATE COFLER LECHE CON ALMENDRAS 55GR",
+   "ean_candidato": "7790580103484",
+   "nombre_cadena": "Chocolate Con Leche Cofler 55 Gr",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89716",
+   "nombre": "CARAMELOS MOGUL MASTICABLES CONFITADOS 70GR",
+   "ean_candidato": "7790580150662",
+   "nombre_cadena": "Caramelos Masticables Confitados Extreme 70gr Mogul",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87506",
+   "nombre": "TABLETA BON O BON CHOCOLATE RELLENO 48GR",
+   "ean_candidato": "7790580117979",
+   "nombre_cadena": "Tableta Chocolate con Galleta y Relleno 48 Grs Bon O Bon",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "86153",
+   "nombre": "BIZCOCHUELO BONAFIDE CHOCMAN BLACK 35GR",
+   "ean_candidato": "7792360096597",
+   "nombre_cadena": "Bizcochuelo Black Chocman X 35 Grs",
+   "fuente_cadena": "maxicarrefour",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "73819",
+   "nombre": "CHOCOLATE COFLER 3 PLACERES 55GR",
+   "ean_candidato": "7790580103491",
+   "nombre_cadena": "Tableta Chocolate 3 Placeres Cofler 55 Gr",
+   "fuente_cadena": "masonline",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "35477",
+   "nombre": "CHOCOLATE COFLER AIREADO LECHE/BLANCO 55GR",
+   "ean_candidato": "7790580103415",
+   "nombre_cadena": "Chocolate Blanco Aireado Cofler 55gr",
+   "fuente_cadena": "masonline",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "82777",
+   "nombre": "GALLETITAS OBLEA SINFONIA LIMON 100GR",
+   "ean_candidato": "7798126071747",
+   "nombre_cadena": "Oblea Sinfonia De Limon 100 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "75591",
+   "nombre": "MAGDALENAS DON SATUR DULCE DE LECHE 220GR",
+   "ean_candidato": "7795735601174",
+   "nombre_cadena": "Magdalenas Sabor Vainilla con Dulce de Leche 220 Grs Don Satur",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "79303",
+   "nombre": "JABON EN POLVO SKIP BAJA ESPUMA 2,5KG",
+   "ean_candidato": "7791290793545",
+   "nombre_cadena": "Jabon en polvo Skip Bio-Enzimas Baja espuma 2,5 Kg",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89906",
+   "nombre": "DETERGENTE MAGISTRAL PUREZA ACTIVA BOT.500ML",
+   "ean_candidato": "7790990004005",
+   "nombre_cadena": "Detergente para Lavavajillas Pureza Activa 500 Ml Magistral",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87499",
+   "nombre": "ESCOBILLON VIRULANA BARRENDERO EXTERIOR",
+   "ean_candidato": "7794440707058",
+   "nombre_cadena": "Barrendero Exterior Virulana",
+   "fuente_cadena": "masonline",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "82549",
+   "nombre": "REPUESTO MOPA VIRULANA ALGODON",
+   "ean_candidato": "7794440006564",
+   "nombre_cadena": "Mopa De Algodón Virulana",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "76023",
+   "nombre": "LIMPIADOR LIQUIDO POETT PRIMAVERA 900ML",
+   "ean_candidato": "7793253003609",
+   "nombre_cadena": "Limpiador Líquido Música en Primavera 900 Ml Poett",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89454",
+   "nombre": "ALIMENTO PARA GATOS WHISKAS ADULTO CARNE 3KG",
+   "ean_candidato": "7797453972352",
+   "nombre_cadena": "Alimento Whiskas Para Gatos Carne 3kg",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "76694",
+   "nombre": "ALIMENTO PARA PERROS DOG CHOW ADULTOS PAVO POUCH 100GR",
+   "ean_candidato": "7891000115619",
+   "nombre_cadena": "Alimento Para Perros Dog Chow Adultos 100 Gr",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87452",
+   "nombre": "CEPILLO DENTAL COLGATE PRO CUIDADO CARBON 4UN",
+   "ean_candidato": "7509546695006",
+   "nombre_cadena": "Cepillo de dientes Colgate pro cuidado carbón 4 uni",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89377",
+   "nombre": "SHAMPOO HERBAL ESSENCES REP.ARGAN 400ML",
+   "ean_candidato": "190679000088",
+   "nombre_cadena": "Shampoo Herbal Essences Argan 400ml",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "83856",
+   "nombre": "JABON DE TOCADOR REXONA ANTIBACTERIAL ALOE 3X90GR",
+   "ean_candidato": "7791293040646",
+   "nombre_cadena": "Jabón Antibacterial Rexona Aloe 3x90gr",
+   "fuente_cadena": "masonline",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "80289",
+   "nombre": "ALFAJOR SIMPLE NIGHT NEGRO 50GR",
+   "ean_candidato": "7791672002067",
+   "nombre_cadena": "Alfajor Negro Simple Night 50 Grs Fantoche",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "16185",
+   "nombre": "CHOCOLATE FULL MANI 150GR",
+   "ean_candidato": "7790380025108",
+   "nombre_cadena": "Chocolate Georgalos Full Mani 150g",
+   "fuente_cadena": "coto",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "82186",
+   "nombre": "PAN MENDIA LACTAL 360GR",
+   "ean_candidato": "7790522011969",
+   "nombre_cadena": "Pan de Molde Lactal 360 Grs Mendia",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "86900",
+   "nombre": "BIZCOCHUELO BROWNIE 9 DE ORO CHOCOLATE 45GR",
+   "ean_candidato": "7792180145314",
+   "nombre_cadena": "Brownie de chocolate 9 de Oro 45 grs",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "86963",
+   "nombre": "GASEOSA COCA COLA PET 600CC",
+   "ean_candidato": "7790895006968",
+   "nombre_cadena": "Gaseosa COCA COLA X600 ml(BAJA)",
+   "fuente_cadena": "maestro",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "14825",
+   "nombre": "OBLEA CHOCOLATE BON O BON BCO 30GR",
+   "ean_candidato": "7790580346614",
+   "nombre_cadena": "Oblea Bañada Chocolate Bco Bon O Bon 30 Gr",
+   "fuente_cadena": "masonline",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89488",
+   "nombre": "POSTRE GANDARA CHOCOLATE 120GR",
+   "ean_candidato": "7798335284037",
+   "nombre_cadena": "Postre Sabor Chocolate Gandara 120g",
+   "fuente_cadena": "coto",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89489",
+   "nombre": "POSTRE GANDARA KIDS DULCE DE LECHE 120GR",
+   "ean_candidato": "7798335284020",
+   "nombre_cadena": "Postre De Dulce De Leche Gandara 120 Gr",
+   "fuente_cadena": "masonline",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "26838",
+   "nombre": "JABON LIQUIDO QUERUBIN BOTELLA 1,5LT",
+   "ean_candidato": "7791905003328",
+   "nombre_cadena": "Jabón líquido para ropa Querubín botella 1.5 lts",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87578",
+   "nombre": "VINO TERMIDOR ECO BLANCO DULCE 1LT",
+   "ean_candidato": "7791540045066",
+   "nombre_cadena": "Vino Blanco Dulce Termidor 1000 Cc",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "73843",
+   "nombre": "CHOCOLATE BOMBON BON O BON SURTIDO 255GR",
+   "ean_candidato": "7790580119126",
+   "nombre_cadena": "Bombón Surtido Bon O Bon 255 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "73822",
+   "nombre": "CHOCOLATE COFLER AIREADO CON ALMENDRAS 55GR",
+   "ean_candidato": "7790580033408",
+   "nombre_cadena": "Chocolate Cofler Aireado 55 Gr",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "90084",
+   "nombre": "GALLETITAS 9 DE ORO PEPAS 140GR",
+   "ean_candidato": "7792180143266",
+   "nombre_cadena": "Pepas 9 De Oro 140gr",
+   "fuente_cadena": "masonline",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "754",
+   "nombre": "ESPECIAS DOS ANCLAS PROVENZAL 25GR",
+   "ean_candidato": "7792900009230",
+   "nombre_cadena": "Provenzal Dos Anclas 25 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
    "sku": "87532",
    "nombre": "POSTRE DANETTE CHOCOLATE 190GR",
    "ean_candidato": "7791337010598",
@@ -48,12 +417,402 @@
   },
   {
    "fuente": "yaguar",
-   "sku": "12670",
-   "nombre": "ARROZ TIO CARLOS LARGO FINO 00000 1KG",
-   "ean_candidato": "7798023691475",
-   "nombre_cadena": "Arroz Largo Fino S&P 00000 X 1 kg",
+   "sku": "89744",
+   "nombre": "ALIMENTO PARA GATOS PET’S CLASS GATITOS POLLO/LECHE 85GR",
+   "ean_candidato": "7798139796682",
+   "nombre_cadena": "Alimento para Gatos Húmedo Sabor Pollo y Leche Gatitos 85 Grs Pet's Class",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.778
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "86821",
+   "nombre": "CONGELADOS NUGGETS SAURIO SADIA 900GR",
+   "ean_candidato": "7891515629465",
+   "nombre_cadena": "Nuggets Saurio Sadia X 900 Gr",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "86449",
+   "nombre": "OBLEA CHOCOLATE MANTECOL 27GR",
+   "ean_candidato": "7790380026426",
+   "nombre_cadena": "Oblea Mantecol 27 Gr.",
+   "fuente_cadena": "dia",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "14235",
+   "nombre": "OLEO CALCAREO ESTRELLA 500ML",
+   "ean_candidato": "7790064104839",
+   "nombre_cadena": "Oleo Calcáreo Estrella Manzanilla 500 Ml",
+   "fuente_cadena": "masonline",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89622",
+   "nombre": "DESODORANTE NIVEA FRESH COCONUT 150ML",
+   "ean_candidato": "4006000196084",
+   "nombre_cadena": "Desodorante Antitranspirante Fresh Coconut 150 Ml Nivea",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "84315",
+   "nombre": "LECHE UAT TREGAR ENTERA 1LT",
+   "ean_candidato": "7793913001822",
+   "nombre_cadena": "Leche Entera 1 Lts Tregar",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "35023",
+   "nombre": "TRIGO CANDEAL EGRAN 500GR",
+   "ean_candidato": "7791476080001",
+   "nombre_cadena": "Trigo Candeal Pelado 500 Grs Egran",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "78999",
+   "nombre": "SEMILLAS YARI CHIA 250GR",
+   "ean_candidato": "7798125100554",
+   "nombre_cadena": "Semillas de Chía 250 Grs",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "9998",
+   "nombre": "SAL CELUSAL FINA LIGHT ESTUCHE 500GR",
+   "ean_candidato": "7790072179607",
+   "nombre_cadena": "Sal Fina Light 500 Grs Celusal",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "82820",
+   "nombre": "GASEOSA FANTA SIN AZUCAR 1,75LT",
+   "ean_candidato": "7790895012310",
+   "nombre_cadena": "Gaseosa Naranja S Azucar Fanta Pet X 1.75 Lt.",
+   "fuente_cadena": "maxicarrefour",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "82089",
+   "nombre": "GASEOSA CUNNINGTON POMELO 3LT",
+   "ean_candidato": "7790639003864",
+   "nombre_cadena": "Gaseosa Cunnington Pomelo Suave 3 L",
+   "fuente_cadena": "masonline",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87457",
+   "nombre": "YERBA VERDEFLOR PEPERINA 500GR",
+   "ean_candidato": "7793670400500",
+   "nombre_cadena": "Yerba Mate Verdeflor Con Peperina 500 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "25808",
+   "nombre": "SORRENTINOS LA ITALIANA RICOTA 600GR",
+   "ean_candidato": "7791664000224",
+   "nombre_cadena": "Sorrentinos de Ricota Frescas 600 Grs La Italiana",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "86291",
+   "nombre": "CHOCOLATE TODDY RELLENO COOKIES BLANCO 60GR",
+   "ean_candidato": "7790380025139",
+   "nombre_cadena": "Chocolate Blanco Con Cookies 60 Grs Toddy",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "81729",
+   "nombre": "GALLETITAS MILKA MOUSSE DE CHOCOLATE 116GR",
+   "ean_candidato": "7622202210075",
+   "nombre_cadena": "Galletitas Dulces Milka Mousse Chocolate 116 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "84692",
+   "nombre": "DESINFECTANTE X 5 360CC",
+   "ean_candidato": "7792389000056",
+   "nombre_cadena": "Desinfectante en aerosol X-5 360 cc.",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87690",
+   "nombre": "MAYONESA LIVIAN OLIVA 250CC",
+   "ean_candidato": "7790130003653",
+   "nombre_cadena": "Mayonesa con Aceite de Oliva 250 Cc Livian",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87662",
+   "nombre": "TOALLAS HUMEDAS BABYSEC ULTRAFRESH 150UN",
+   "ean_candidato": "7896061990694",
+   "nombre_cadena": "Toallas Húmedas Ultrafresh Tripack 150 Un Babysec",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "13899",
+   "nombre": "QUESO MUZZARELLA BARRAZA X KG",
+   "ean_candidato": "7790309000049",
+   "nombre_cadena": "Queso Muzzarella 500 Grs Barraza",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "84840",
+   "nombre": "QUESO MUZZARELLA MEDITERRANEA X KG",
+   "ean_candidato": "7798099130069",
+   "nombre_cadena": "Queso Muzzarella Mediterránea 250 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "90059",
+   "nombre": "MAIZ PISINGALLO LA ESPAÑOLA 400GR",
+   "ean_candidato": "7798066030903",
+   "nombre_cadena": "Maiz Pisingallo La Española Gourmet 400 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "90118",
+   "nombre": "CONGELADOS HIELO CRISTAL HIELO X 4KG",
+   "ean_candidato": "7798124020037",
+   "nombre_cadena": "Hielo Cristal 4 Kg",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "28953",
+   "nombre": "ACEITE OLIOVITA OLIVA BOTELLA 500 CC",
+   "ean_candidato": "7798061190312",
+   "nombre_cadena": "Aceite de Oliva 500 Ml Oliovita",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "27558",
+   "nombre": "DULCE LA GIOCONDA BATATA Y CHOCOLATE 700 GR",
+   "ean_candidato": "7798318340705",
+   "nombre_cadena": "Dulce de Batata 700 Grs La Gioconda",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "948",
+   "nombre": "GELATINA EXQUISITA DURAZNO 25 GR",
+   "ean_candidato": "7790070100788",
+   "nombre_cadena": "Gelatina Exquisita Sabor Durazno 25 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "25814",
+   "nombre": "PALITOS PEHUAMAR QUESO 620 GR",
+   "ean_candidato": "7790310985533",
+   "nombre_cadena": "Palitos Sabor Queso Pehuamar 620g",
+   "fuente_cadena": "coto",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "28732",
+   "nombre": "PAN BRIOSH PANCHO 210 GR",
+   "ean_candidato": "7793890259322",
+   "nombre_cadena": "Pan para Pancho Briosh x 6 Un 210 Grs",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "15958",
+   "nombre": "SALSA ARCOR PIZZA DOYPACK 340 GR",
+   "ean_candidato": "7790580133153",
+   "nombre_cadena": "Salsa para Pizza 340 Grs Arcor",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "28480",
+   "nombre": "AGUA NESTLE PUREZA VITAL 1.5 LT",
+   "ean_candidato": "7792799000905",
+   "nombre_cadena": "Agua Sin Gas 1.5 Lts Nestle Pureza Vital",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "20566",
+   "nombre": "CERVEZA CORONA 710 CC",
+   "ean_candidato": "7792798003716",
+   "nombre_cadena": "Cerveza Rubia 710 Ml Corona",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "17515",
+   "nombre": "GASEOSA CUNNINGTON CLASICA POMELO 2.25 LT",
+   "ean_candidato": "7790639003451",
+   "nombre_cadena": "Gaseosa Cunnington Pomelo 2,25 Lt.",
+   "fuente_cadena": "dia",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "27571",
+   "nombre": "QUESO BARRAZA CREMOSO 1 KG",
+   "ean_candidato": "2594420000002",
+   "nombre_cadena": "Queso Cremoso Barraza",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "21109",
+   "nombre": "QUESO LA PAULINA DOBLE CREMA 1 KG",
+   "ean_candidato": "2547027000005",
+   "nombre_cadena": "Queso Cremoso Doble Crema x 1 Kg La Paulina",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "14569",
+   "nombre": "QUESO LA PAULINA REGGIANITO 1 KG",
+   "ean_candidato": "2549015000004",
+   "nombre_cadena": "Queso Reggianito Trozado x 1 Kg La Paulina",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "27137",
+   "nombre": "QUESO LA SERENISIMA REGGIANITO ¼ HORMA 1 kg",
+   "ean_candidato": "2541852000001",
+   "nombre_cadena": "Queso Reggianito x 1 Kg La Serenisima",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "1815",
+   "nombre": "INSECTICIDA RAID MAX CUCARACHAS ARAÑAS 360 CC",
+   "ean_candidato": "7790520025777",
+   "nombre_cadena": "Insecticida Raid Max Cucarachas 360 Ml",
+   "fuente_cadena": "masonline",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "18936",
+   "nombre": "LIMPIADOR REX ACERO INOXIDABLE GATILLO 500 CC",
+   "ean_candidato": "7793350000716",
+   "nombre_cadena": "Limpiador de Acero Inoxidable 500 Cc Rex",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.833
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "28742",
+   "nombre": "DESODORANTE MASCULINO DOVE ALL BODY SHEA BUTTER & CEDAR 150 ML",
+   "ean_candidato": "7791293051635",
+   "nombre_cadena": "Desodorante Dove All Body Deo Shea Butter & Cedar 150 Ml",
+   "fuente_cadena": "masonline",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "6776",
+   "nombre": "TOALLITAS FEMENINAS LADYSOFT ULTRA DELGADA SUAVE 8 UN",
+   "ean_candidato": "7790250097587",
+   "nombre_cadena": "Toallitas Femeninas Ultra Tela Suave x 8 Un Ladysoft",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "17814",
+   "nombre": "TOALLITAS FEMENINAS LADYSOFT ULTRA DELGADA SUAVE 16 UN",
+   "ean_candidato": "7790250097594",
+   "nombre_cadena": "Toallitas Femeninas Ultra Tela Suave x 16 Un Ladysoft",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.75
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89476",
+   "nombre": "COMIDA LISTA PASTA VELOCE RAMEN POLLO 85GR",
+   "ean_candidato": "8500549433236",
+   "nombre_cadena": "Ramen Pollo X 85 Gr Pasta Veloce",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.829,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87547",
+   "nombre": "SALSA ARCOR BOLOGNESA DOY PACK 340GR",
+   "ean_candidato": "7793360130014",
+   "nombre_cadena": "Salsa Bolognesa 340 Grs Arcor",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.823,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87206",
+   "nombre": "MAYONESA TAU OLIVA 290GR",
+   "ean_candidato": "7798146139359",
+   "nombre_cadena": "Mayonesa Sabor Oliva 290 Grs Tau Delta",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.802,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "27619",
+   "nombre": "SALSA NOEL FILETTO DOY PACK 340GR",
+   "ean_candidato": "7790580134471",
+   "nombre_cadena": "Salsa Filetto NOEL Doypack X340 g",
    "fuente_cadena": "maestro",
-   "similitud": 0.805,
+   "similitud": 0.808,
    "via": "tfidf"
   },
   {
@@ -63,17 +822,17 @@
    "ean_candidato": "7798422620298",
    "nombre_cadena": "Bebida energizante Monster Peachy Keen 473 ml",
    "fuente_cadena": "carrefour",
-   "similitud": 0.863,
+   "similitud": 0.86,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
    "sku": "89733",
    "nombre": "ENERGIZANTE SPEED UNLIMITED ZERO 250CC",
-   "ean_candidato": "7798119220015",
-   "nombre_cadena": "Energizante Speed Unlimited Lata 250 CC",
-   "fuente_cadena": "coto",
-   "similitud": 0.879,
+   "ean_candidato": "7798119220374",
+   "nombre_cadena": "Energizante Speed Unlimited Zero 269 Ml",
+   "fuente_cadena": "masonline",
+   "similitud": 0.905,
    "via": "tfidf"
   },
   {
@@ -83,77 +842,17 @@
    "ean_candidato": "7790895643286",
    "nombre_cadena": "Coca-Cola Zero Edición Limitada 473 Ml",
    "fuente_cadena": "coto",
-   "similitud": 0.848,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "87271",
-   "nombre": "AGUA SIERRA DE LOS PADRES SIN GAS POMELO 1.5LT",
-   "ean_candidato": "7798065730347",
-   "nombre_cadena": "Agua Sab SIERRA D/PADRES Pomelo X1.5 L",
-   "fuente_cadena": "maestro",
-   "similitud": 0.862,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "87270",
-   "nombre": "AGUA SIERRA DE LOS PADRES SIN GAS NARANJA 1.5LT",
-   "ean_candidato": "7798065730323",
-   "nombre_cadena": "Agua Sab SIERRA D/PADRES Naranja X1.5 L",
-   "fuente_cadena": "maestro",
    "similitud": 0.847,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
-   "sku": "87269",
-   "nombre": "AGUA SIERRA DE LOS PADRES SIN GAS MANZANA 1.5LT",
-   "ean_candidato": "7798065730361",
-   "nombre_cadena": "Agua Sab SIERRA D/PADRES Manzana X1.5 L",
-   "fuente_cadena": "maestro",
-   "similitud": 0.857,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "86205",
-   "nombre": "GASEOSA ICE LIMON 3LT",
-   "ean_candidato": "7795176771528",
-   "nombre_cadena": "Gaseosa ICE Lima Limon Botella X3 L",
-   "fuente_cadena": "maestro",
-   "similitud": 0.81,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "84325",
-   "nombre": "AGUA LIVRA POMELO 1,5LT",
-   "ean_candidato": "7791913005772",
-   "nombre_cadena": "Agua Sab Con Gas Pomelo Livra Pet X 1.5 Lt",
+   "sku": "89889",
+   "nombre": "VINO CANCILLER BLEND BLANCO DULCE 1125CM",
+   "ean_candidato": "7790314080463",
+   "nombre_cadena": "Vino Blanco Dulce Blend Canciller Bot X 1125 Cc",
    "fuente_cadena": "maxicarrefour",
    "similitud": 0.861,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "79561",
-   "nombre": "GASEOSA SPRITE LIMA LIMON PET 375CM3",
-   "ean_candidato": "7790895000829",
-   "nombre_cadena": "Gaseosa Sprite Lima-Limón 500 Ml.",
-   "fuente_cadena": "dia",
-   "similitud": 0.862,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "75894",
-   "nombre": "GASEOSA MARINARO PREMIUM GRANADINA 3LT",
-   "ean_candidato": "7795176001168",
-   "nombre_cadena": "Gaseosa MARINARO Premium Cola X3 L",
-   "fuente_cadena": "maestro",
-   "similitud": 0.84,
    "via": "tfidf"
   },
   {
@@ -163,27 +862,7 @@
    "ean_candidato": "77990112",
    "nombre_cadena": "Licor 3 PLUMAS Cafe al Cognac X200 ml",
    "fuente_cadena": "maestro",
-   "similitud": 0.803,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "15687",
-   "nombre": "LICOR TRES PLUMAS CAFE/DULCE DE LECHE 750CC",
-   "ean_candidato": "7790260002090",
-   "nombre_cadena": "Licor De Cafe Tres Plumas X 750 Cc",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.841,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "1967",
-   "nombre": "LICOR TRES PLUMAS HUEVO 700CC",
-   "ean_candidato": "7790260013058",
-   "nombre_cadena": "Licor de Huevo 3 PLUMAS X700 ml",
-   "fuente_cadena": "maestro",
-   "similitud": 0.862,
+   "similitud": 0.801,
    "via": "tfidf"
   },
   {
@@ -191,39 +870,9 @@
    "sku": "112000",
    "nombre": "VINO FINCA NATALINA CHARDONAY 750CC",
    "ean_candidato": "7797942007091",
-   "nombre_cadena": "Vino Chardonnay Auténtico Finca Natalina 750ml",
-   "fuente_cadena": "coto",
-   "similitud": 0.806,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "27876",
-   "nombre": "VINO HUMBERTO CANALE BLUSH 750CC",
-   "ean_candidato": "7790805750363",
-   "nombre_cadena": "Vino rosado dulce blush Humberto Canale 750 ml",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.868,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "13745",
-   "nombre": "VINO AGUMA CABERNET SAUVIGNON 750CC",
-   "ean_candidato": "7790945006825",
-   "nombre_cadena": "Vino Cabernet Sauvignon Sade 750ml",
-   "fuente_cadena": "coto",
-   "similitud": 0.806,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "13744",
-   "nombre": "VINO AGUMA RESERVA CABERNET SAUVIGNON 750CC",
-   "ean_candidato": "7798074865276",
-   "nombre_cadena": "Vino Cabernet Sauvignon Reserva Salentein 750ml",
-   "fuente_cadena": "coto",
-   "similitud": 0.802,
+   "nombre_cadena": "Vino Chardonnay Finca Natalina 750 Cc",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.933,
    "via": "tfidf"
   },
   {
@@ -231,9 +880,9 @@
    "sku": "89942",
    "nombre": "CAFE MORENITA TOSTADO BLEND BRASIL 250GGR",
    "ean_candidato": "7790170949201",
-   "nombre_cadena": "Café tostado molido Morenita brasil 250 grs",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.816,
+   "nombre_cadena": "Café Molido La Morenita Tostado Brasil 250 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.817,
    "via": "tfidf"
   },
   {
@@ -243,7 +892,7 @@
    "ean_candidato": "7790150037140",
    "nombre_cadena": "Café tostado molido La Virginia sutil 250 grs",
    "fuente_cadena": "carrefour",
-   "similitud": 0.888,
+   "similitud": 0.89,
    "via": "tfidf"
   },
   {
@@ -270,9 +919,9 @@
    "fuente": "yaguar",
    "sku": "89939",
    "nombre": "CAFE LA VIRGINIA TOSTADO MAS 250GGR",
-   "ean_candidato": "7790150037041",
-   "nombre_cadena": "Cafe Tostado Molido La Virginia X 250 Grs",
-   "fuente_cadena": "maxicarrefour",
+   "ean_candidato": "7790150007501",
+   "nombre_cadena": "Café Molido La Virginia Tostado 250 G",
+   "fuente_cadena": "masonline",
    "similitud": 0.831,
    "via": "tfidf"
   },
@@ -283,7 +932,7 @@
    "ean_candidato": "7795184000801",
    "nombre_cadena": "Dulce de Membrillo NOEL Caja X5 kg",
    "fuente_cadena": "maestro",
-   "similitud": 0.835,
+   "similitud": 0.832,
    "via": "tfidf"
   },
   {
@@ -293,7 +942,7 @@
    "ean_candidato": "7793046001034",
    "nombre_cadena": "Dulce de Batata DULCOR Vaini. Cajon X5 kg",
    "fuente_cadena": "maestro",
-   "similitud": 0.808,
+   "similitud": 0.81,
    "via": "tfidf"
   },
   {
@@ -303,7 +952,17 @@
    "ean_candidato": "7799086000266",
    "nombre_cadena": "Edulcorante LEDESMA Stevia Sobre X50 u",
    "fuente_cadena": "maestro",
-   "similitud": 0.851,
+   "similitud": 0.853,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "85105",
+   "nombre": "EDULCORANTE CHUCKER STEVIA LIQUIDO 400ML",
+   "ean_candidato": "7792129004566",
+   "nombre_cadena": "Edulcorante Líquido con Stevia 400 Cc Chuker",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.814,
    "via": "tfidf"
   },
   {
@@ -313,7 +972,7 @@
    "ean_candidato": "7790150101667",
    "nombre_cadena": "Café instantáneo suave La Virginia 50 g.",
    "fuente_cadena": "carrefour",
-   "similitud": 0.805,
+   "similitud": 0.801,
    "via": "tfidf"
   },
   {
@@ -323,57 +982,7 @@
    "ean_candidato": "7790490998026",
    "nombre_cadena": "Edulcorante Clásico Forte Hileret 40 Gr.",
    "fuente_cadena": "dia",
-   "similitud": 0.838,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "75680",
-   "nombre": "DULCE DE BATATA ORIETA VAINILLA BANDEJA 500GR",
-   "ean_candidato": "7792260619391",
-   "nombre_cadena": "Dulce de batata con chocolate en bandeja Orieta 500 g.",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.822,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "75612",
-   "nombre": "YERBA DON ARREGUI CON BURRITO 500GR",
-   "ean_candidato": "7798067630485",
-   "nombre_cadena": "Yerba Mate Con Burrito Arregui X 500 Grs",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.845,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "71219",
-   "nombre": "YERBA DON ARREGUI CEDRON 500GR",
-   "ean_candidato": "7798067630027",
-   "nombre_cadena": "Yerba Mate Con Cedron Arregui X 500 Grs",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.837,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "28919",
-   "nombre": "YERBA DON ARREGUI PEPERINA 500GR",
-   "ean_candidato": "7798067630034",
-   "nombre_cadena": "Yerba mate con peperina Arregui 500 g.",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.843,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "28257",
-   "nombre": "YERBA MAS SABOR COMPUESTA 500GR",
-   "ean_candidato": "7798342717153",
-   "nombre_cadena": "Yerba S&P Compuesta X500 g",
-   "fuente_cadena": "maestro",
-   "similitud": 0.812,
+   "similitud": 0.834,
    "via": "tfidf"
   },
   {
@@ -383,7 +992,7 @@
    "ean_candidato": "7790217000575",
    "nombre_cadena": "Yerba Mate Menta La Cumbrecita 500g",
    "fuente_cadena": "coto",
-   "similitud": 0.885,
+   "similitud": 0.887,
    "via": "tfidf"
   },
   {
@@ -393,7 +1002,27 @@
    "ean_candidato": "7795184006100",
    "nombre_cadena": "Mermelada NOEL Naranja Light X390 g",
    "fuente_cadena": "maestro",
-   "similitud": 0.827,
+   "similitud": 0.83,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89660",
+   "nombre": "YOGUR TREGAR ENTERO CON ARANDANOS 160GR",
+   "ean_candidato": "7793913013252",
+   "nombre_cadena": "Yogur Entero Tregar Arándano 160 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.931,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87508",
+   "nombre": "CONGELADO RELLENO P/FAJITAS GRANJA DEL SOL VEGETALES/POLLO 550GR",
+   "ean_candidato": "7790070103918",
+   "nombre_cadena": "Relleno Para Fajitas Granja Del Sol Vegetales Y Pollo 500 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.834,
    "via": "tfidf"
   },
   {
@@ -401,189 +1030,79 @@
    "sku": "87507",
    "nombre": "CONGELADO RELLENO P/FAJITAS GRANJA DEL SOL VEGETALES 550GR",
    "ean_candidato": "7790070103901",
-   "nombre_cadena": "Relleno para fajitas vegetales Granja del Sol 500 grs",
-   "fuente_cadena": "carrefour",
+   "nombre_cadena": "Relleno Para Fajitas Granja Del Sol Vegetales 500 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.818,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87246",
+   "nombre": "MEDALLON UNION GANADERA SIN SAL 2UNX120GR",
+   "ean_candidato": "7793281493946",
+   "nombre_cadena": "Medallón Sin Sal X 2 Un Union Ganadera",
+   "fuente_cadena": "jumbo",
    "similitud": 0.817,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
-   "sku": "86766",
-   "nombre": "PAPAS FRITAS SWIFT TRADICIONAL 700GR",
-   "ean_candidato": "7790360981042",
-   "nombre_cadena": "Papas Corte Tradicional Swift 700g",
+   "sku": "84310",
+   "nombre": "YOGUR BEBIBLE TREGAR ENTERO VAINILLA 900GR",
+   "ean_candidato": "7793913013603",
+   "nombre_cadena": "Yogur descremado bebible Tregar de vainilla 900 g.",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.822,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89072",
+   "nombre": "QUESO CREMOSO MEDITERRANEA XKG",
+   "ean_candidato": "7798099131202",
+   "nombre_cadena": "Queso cremoso MEDITERRANEA 500g",
    "fuente_cadena": "coto",
-   "similitud": 0.836,
+   "similitud": 0.837,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
-   "sku": "86660",
-   "nombre": "PAN HAMBURGUESA DON YEYO C/SESAMO 4UN",
-   "ean_candidato": "7798217933398",
-   "nombre_cadena": "Pan De Hamburguesas Con Sésamo X 4 Uni",
-   "fuente_cadena": "coto",
-   "similitud": 0.802,
+   "sku": "84928",
+   "nombre": "HUEVOS COLOR DOÑA LALA CARTON 6 UNI.",
+   "ean_candidato": "724751045041",
+   "nombre_cadena": "Huevos Color Doña Lala X 12u Carton",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.912,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
-   "sku": "85874",
-   "nombre": "YOGUR MANFREY PARCIALMENTE DESCREMADO CON TROZOS DE FRUTILLA 150GR",
-   "ean_candidato": "7791058004159",
-   "nombre_cadena": "Yogur Parcialmente Descremado Con Frutos Manfrey 150 Gr.",
-   "fuente_cadena": "dia",
-   "similitud": 0.839,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "85034",
-   "nombre": "CONGELADOS CHOCLO AMARILLO GREEN LIFE BOLSA 2.5KG",
-   "ean_candidato": "7790670002468",
-   "nombre_cadena": "Choclo Amarillo GREEN LIFE X2.5 kg",
-   "fuente_cadena": "maestro",
-   "similitud": 0.806,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "85033",
-   "nombre": "CONGELADOS MIX PRIMAVERA GREEN LIFE BOLSA 2.5KG",
-   "ean_candidato": "7790670002505",
-   "nombre_cadena": "Mix Primavera GREEN LIFE X2.5 kg",
-   "fuente_cadena": "maestro",
-   "similitud": 0.813,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "84709",
-   "nombre": "TAPA DE EMPANADA TAPAMAR HORNO HOJALDRE GIGANTE 12UN",
-   "ean_candidato": "7795942000081",
-   "nombre_cadena": "Tapa Empanada TAPAMAR Hojaldre X12 u",
-   "fuente_cadena": "maestro",
-   "similitud": 0.814,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "84706",
-   "nombre": "TAPA DE PASCUALINA TAPAMAR CRIOLLA 2UN",
-   "ean_candidato": "7798056680095",
-   "nombre_cadena": "Tapa Pascualina TAPAMANIA Criolla X400g",
-   "fuente_cadena": "maestro",
-   "similitud": 0.858,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "84705",
-   "nombre": "TAPA DE PASCUALINA TAPAMAR HORNO 2UN",
-   "ean_candidato": "7798056680071",
-   "nombre_cadena": "Tapa Pascualina TAPAMANIA Horno X400g",
-   "fuente_cadena": "maestro",
-   "similitud": 0.839,
+   "sku": "84923",
+   "nombre": "HUEVOS BLANCO DOÑA LALA CARTON 6 UNI.",
+   "ean_candidato": "724751034960",
+   "nombre_cadena": "Huevos Blancos Doña Lala X 6u Carton",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.95,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
    "sku": "83151",
    "nombre": "QUESO PROVOLETA SANTA ROSA BARRA X KG",
-   "ean_candidato": "2507512000002",
-   "nombre_cadena": "Queso provoleta parrillero Santa Rosa x kg.",
+   "ean_candidato": "2573224000005",
+   "nombre_cadena": "Queso Provoleta x 1 Kg Santa Rosa",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.862,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "75937",
+   "nombre": "QUESO SARDO MILKAUT TROZOS X KG",
+   "ean_candidato": "2507514000000",
+   "nombre_cadena": "Queso Sardo Milkaut trozado x kg.",
    "fuente_cadena": "carrefour",
-   "similitud": 0.812,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "80881",
-   "nombre": "MORTADELA LA CASONA BOLOGNA FAMILIAR 300GR",
-   "ean_candidato": "7794110765135",
-   "nombre_cadena": "Mortadela la CASONA Bologna Fam. X300 g",
-   "fuente_cadena": "maestro",
-   "similitud": 0.864,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "80874",
-   "nombre": "SALAMIN LA CASONA PICADO GRUESO AL VACIO 180GR",
-   "ean_candidato": "7794110718452",
-   "nombre_cadena": "Salamin la CASONA Pic. Grueso E/v X180 g",
-   "fuente_cadena": "maestro",
-   "similitud": 0.816,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "78452",
-   "nombre": "PAN LA PERLA LACTAL LACTEADO 620GR",
-   "ean_candidato": "7790903000551",
-   "nombre_cadena": "Pan De Mesa Lacteado La Perla 620g",
-   "fuente_cadena": "coto",
-   "similitud": 0.836,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "76813",
-   "nombre": "PAN HAMBURGUESA LA PANERITA 4UNX220GR",
-   "ean_candidato": "7798185030020",
-   "nombre_cadena": "Pan Hamburguesa la PANERITA X4 u (220g)",
-   "fuente_cadena": "maestro",
-   "similitud": 0.813,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "76812",
-   "nombre": "PAN LA PANERITA PANCHO 6UNX250GR",
-   "ean_candidato": "7798185030013",
-   "nombre_cadena": "Pan de Pancho la PANERITA X6 u (250g)",
-   "fuente_cadena": "maestro",
-   "similitud": 0.811,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "76395",
-   "nombre": "YOGUR DESCREMADO YOFREY FIRME VAINILLA 140G",
-   "ean_candidato": "7791058790359",
-   "nombre_cadena": "Yogur Parcialmente Descremado Vainilla Yofrey 140 Gr.",
-   "fuente_cadena": "dia",
-   "similitud": 0.831,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "76394",
-   "nombre": "YOGUR DESCREMADO YOFREY FIRME FRUTILLA 140G",
-   "ean_candidato": "7791058790342",
-   "nombre_cadena": "Yogur Parcialmente Descremado Frutilla Yofrey 140 Gr.",
-   "fuente_cadena": "dia",
-   "similitud": 0.802,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "75800",
-   "nombre": "QUESO MUZZARELLA LA PAULINA FETAS 180GR",
-   "ean_candidato": "7794990880218",
-   "nombre_cadena": "La Paulina queso mozzarella en fetas 180 grs",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.847,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "72588",
-   "nombre": "TAPA DE EMPANADA LA SALTEÑA SIN TACC 12UN",
-   "ean_candidato": "7790070622075",
-   "nombre_cadena": "Tapa para empanada sin tacc La salteña mas crocante 12 uni",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.826,
+   "similitud": 0.86,
    "via": "tfidf"
   },
   {
@@ -593,97 +1112,27 @@
    "ean_candidato": "7790360967411",
    "nombre_cadena": "Hamburguesas SWIFT 2 Uni X 125 Gr Clásicas Xl",
    "fuente_cadena": "coto",
-   "similitud": 0.844,
+   "similitud": 0.843,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
-   "sku": "70785",
-   "nombre": "FIAMBRE DE CERDO DE PATA LARIO GRANDE X KG",
-   "ean_candidato": "2305007000007",
-   "nombre_cadena": "Fiambre cocido Lario pata de cerdo x kg.",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.808,
+   "sku": "5908",
+   "nombre": "QUESO CREMOSO CREMON DOBLE CREMA X KG HORMA",
+   "ean_candidato": "2547026000006",
+   "nombre_cadena": "Queso Cremoso Doble Crema Horma x Kg La Paulina",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.86,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
-   "sku": "29777",
-   "nombre": "YOGUR ILOLAY ENTERO CON COLCHON DE FRUTILLA 150GR",
-   "ean_candidato": "7790787035007",
-   "nombre_cadena": "Yogur Entero ILOLAY Frutillas Colchón Frutas 150g",
-   "fuente_cadena": "coto",
-   "similitud": 0.896,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "29144",
-   "nombre": "TAPA DE EMPANADA MAR DEL PLATA CRIOLLA 12UN",
-   "ean_candidato": "7795942000142",
-   "nombre_cadena": "Tapa Empanada TAPAMAR Criolla X12 u",
-   "fuente_cadena": "maestro",
-   "similitud": 0.836,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "29598",
-   "nombre": "RAVIOLES LA ITALIANA RICOTA/JAMON/MUZZARELLA 1KG",
-   "ean_candidato": "7790522118040",
-   "nombre_cadena": "Ravioles Mendia ricota muzzarella y jamón 1 kg.",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.811,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "29140",
-   "nombre": "TAPA DE EMPANADA MAR DEL PLATA HOJALDRE 12UN",
-   "ean_candidato": "7795942000081",
-   "nombre_cadena": "Tapa Empanada TAPAMAR Hojaldre X12 u",
-   "fuente_cadena": "maestro",
-   "similitud": 0.852,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "28763",
-   "nombre": "YOGUR MOMY ENTERO CON CEREAL VAINILLA 180GR",
-   "ean_candidato": "7792401110282",
-   "nombre_cadena": "Yogur C/cereales MOMY Vainilla X180g",
-   "fuente_cadena": "maestro",
-   "similitud": 0.879,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "14838",
-   "nombre": "TAPA PASCUALINA LA SANTIAGUEÑA CRIOLLA 2UN.360GR",
-   "ean_candidato": "7793806000253",
-   "nombre_cadena": "Tapa Pascualina la SANTIAGUEÑA Cr.x360 g",
-   "fuente_cadena": "maestro",
-   "similitud": 0.814,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "6498",
-   "nombre": "QUESO REGGIANITO SANTA ROSA TROZOS X KG",
-   "ean_candidato": "2507518000006",
-   "nombre_cadena": "Queso reggianito trozado Santa Rosa x kg.",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.88,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "4037",
-   "nombre": "QUESO PATEGRAS LA PAULINA KG",
-   "ean_candidato": "2088440000000",
-   "nombre_cadena": "Pategrás LA PAULINA x Kg",
-   "fuente_cadena": "coto",
-   "similitud": 0.875,
+   "sku": "4823",
+   "nombre": "SALAMIN SELLO DE ORO PICADO GRUESO X KG",
+   "ean_candidato": "2595471000003",
+   "nombre_cadena": "Salamín de Cerdo Picado Grueso x 1 Kg Sello De Oro",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.884,
    "via": "tfidf"
   },
   {
@@ -698,52 +1147,12 @@
   },
   {
    "fuente": "yaguar",
-   "sku": "80439",
-   "nombre": "CHOCOLATE HAMLET MEGAMANI 165GR",
-   "ean_candidato": "7794612115964",
-   "nombre_cadena": "Chocolate HAMLET Mega C/alm./mani X165 g",
-   "fuente_cadena": "maestro",
-   "similitud": 0.826,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "73825",
-   "nombre": "CHOCOLATE COFLER LECHE CON ALMENDRAS 55GR",
-   "ean_candidato": "7790580103439",
-   "nombre_cadena": "Chocolate Cofler Air con almendras 55 g.",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.854,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "90042",
-   "nombre": "CARAMELOS MASTICABLES MOGUL EXTREME CONFITES 30GR",
-   "ean_candidato": "7790580104382",
-   "nombre_cadena": "Caramelos Masticables Confitados Mogul 30g",
-   "fuente_cadena": "coto",
-   "similitud": 0.822,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "89955",
-   "nombre": "ALFAJOR FULBITO BLACK 30GR",
-   "ean_candidato": "77902320",
-   "nombre_cadena": "Alfajor Fulbito Maní 30 Gr.",
-   "fuente_cadena": "dia",
-   "similitud": 0.807,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "86291",
-   "nombre": "CHOCOLATE TODDY RELLENO COOKIES BLANCO 60GR",
-   "ean_candidato": "7790380025139",
-   "nombre_cadena": "Chocolate Blanco Cookies & Cream Toddy 60g",
-   "fuente_cadena": "coto",
-   "similitud": 0.815,
+   "sku": "89951",
+   "nombre": "CHOCOLATE COFLER AIREADO LECHE BLANCO 27GR",
+   "ean_candidato": "7790580103378",
+   "nombre_cadena": "Chocolate Sabor Blanco Aireado 27 Grs Cofler",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.895,
    "via": "tfidf"
   },
   {
@@ -753,7 +1162,7 @@
    "ean_candidato": "7790040375000",
    "nombre_cadena": "Alfajor Chocolate 3.0 B N X 73.5 Grs",
    "fuente_cadena": "maxicarrefour",
-   "similitud": 0.818,
+   "similitud": 0.821,
    "via": "tfidf"
   },
   {
@@ -771,49 +1180,19 @@
    "sku": "81395",
    "nombre": "ALFAJOR AGUILA TRIPLE MINITORTA CLASICO 69GR",
    "ean_candidato": "7790040133587",
-   "nombre_cadena": "Alfajor Minitorta Clásica Aguila 69g",
-   "fuente_cadena": "coto",
+   "nombre_cadena": "Alfajor Minitorta Clásica 69 Grs Aguila",
+   "fuente_cadena": "jumbo",
    "similitud": 0.868,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
-   "sku": "80553",
-   "nombre": "CHOCOLATE MILKA LECHE CON ALMENDRAS 50GR",
-   "ean_candidato": "7622210745620",
-   "nombre_cadena": "Chocolate Milka Con Almendras 55 Gr.",
+   "sku": "29927",
+   "nombre": "BIZCOCHUELO BONAFIDE CHOCMAN 35GR",
+   "ean_candidato": "7792360096634",
+   "nombre_cadena": "Bizcochuelo Chocman de Bonafide con Baño Semi Amargo 35 Gr.",
    "fuente_cadena": "dia",
-   "similitud": 0.807,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "77818",
-   "nombre": "OBLEA CHOCOLATE CHOCOLINAS XL 45GR",
-   "ean_candidato": "7790580131586",
-   "nombre_cadena": "Oblea Choco. COFLER Chocolinas Xl X45 g",
-   "fuente_cadena": "maestro",
-   "similitud": 0.806,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "73819",
-   "nombre": "CHOCOLATE COFLER 3 PLACERES 55GR",
-   "ean_candidato": "7790580106560",
-   "nombre_cadena": "Tableta De Chocolate Tres Placeres Cofler X 55 Grs",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.807,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "35477",
-   "nombre": "CHOCOLATE COFLER AIREADO LECHE/BLANCO 55GR",
-   "ean_candidato": "7790580103415",
-   "nombre_cadena": "Chocolate blanco Cofler air 55 g.",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.814,
+   "similitud": 0.823,
    "via": "tfidf"
   },
   {
@@ -823,7 +1202,7 @@
    "ean_candidato": "7790070411365",
    "nombre_cadena": "Bizcochos Arroz GALLO Salados X100 g*",
    "fuente_cadena": "maestro",
-   "similitud": 0.874,
+   "similitud": 0.875,
    "via": "tfidf"
   },
   {
@@ -833,7 +1212,17 @@
    "ean_candidato": "7790070411358",
    "nombre_cadena": "Bizcochos Arroz GALLO Dulces X100 g*",
    "fuente_cadena": "maestro",
-   "similitud": 0.828,
+   "similitud": 0.829,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "13408",
+   "nombre": "CARAMELOS BUTTER TOFFEES DULCE DE LECHE 822GR",
+   "ean_candidato": "7790580118853",
+   "nombre_cadena": "Caramelos BUTTER TOFFEES Bon/bon X822 g",
+   "fuente_cadena": "maestro",
+   "similitud": 0.851,
    "via": "tfidf"
   },
   {
@@ -843,17 +1232,7 @@
    "ean_candidato": "7792180146106",
    "nombre_cadena": "Galletitas snack Crujitas sabor queso 120 grs",
    "fuente_cadena": "carrefour",
-   "similitud": 0.866,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "86184",
-   "nombre": "CARAMELOS LIPO VIENA RELL.FRUTALES 454GR",
-   "ean_candidato": "7793024001087",
-   "nombre_cadena": "Caramelos LIPO Viena X454g",
-   "fuente_cadena": "maestro",
-   "similitud": 0.801,
+   "similitud": 0.877,
    "via": "tfidf"
   },
   {
@@ -863,7 +1242,7 @@
    "ean_candidato": "7792360094500",
    "nombre_cadena": "Chocolate Con Leche Y Maní Vizzio 35 Grm",
    "fuente_cadena": "coto",
-   "similitud": 0.806,
+   "similitud": 0.803,
    "via": "tfidf"
   },
   {
@@ -873,7 +1252,7 @@
    "ean_candidato": "7793024002145",
    "nombre_cadena": "Caramelos LIPO Gajitos Surtidos X150g",
    "fuente_cadena": "maestro",
-   "similitud": 0.846,
+   "similitud": 0.848,
    "via": "tfidf"
   },
   {
@@ -888,22 +1267,32 @@
   },
   {
    "fuente": "yaguar",
+   "sku": "74194",
+   "nombre": "TOSTADAS TOSTI CLASICA SIN SAL 200GR",
+   "ean_candidato": "7794529041608",
+   "nombre_cadena": "Tostadas Clásicas 200 Grs Tosti",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.886,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "70859",
+   "nombre": "GALLETITAS CACHAFAZ CON CHIPS CHOCOLATE 225GR",
+   "ean_candidato": "7798128000691",
+   "nombre_cadena": "Galletitas Avena Chips Cachafaz X 225 Grs",
+   "fuente_cadena": "maxicarrefour",
+   "similitud": 0.821,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
    "sku": "70858",
    "nombre": "GALLETITAS CACHAFAZ GRANOLA Y ALMENDRAS 225GR",
    "ean_candidato": "7798128000707",
    "nombre_cadena": "Galletitas Cachafaz avena, granola, almendras y maní 225 g.",
    "fuente_cadena": "carrefour",
-   "similitud": 0.89,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "71019",
-   "nombre": "CARAMELOS FLYNN PAFF TUTTI FRUTTI XXL 24UN",
-   "ean_candidato": "7790380028109",
-   "nombre_cadena": "Caramelos masticables Flynn Paff XXL tutti frutti 30 g.",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.859,
+   "similitud": 0.889,
    "via": "tfidf"
   },
   {
@@ -913,17 +1302,47 @@
    "ean_candidato": "7790580128821",
    "nombre_cadena": "Pastillas De Goma Jelly Buttons Mogul Paq 220 Grm",
    "fuente_cadena": "coto",
-   "similitud": 0.827,
+   "similitud": 0.82,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
    "sku": "89907",
    "nombre": "DETERGENTE MAGISTRAL CREMA ULTR/LIMON BOT.500ML",
-   "ean_candidato": "7790990003411",
-   "nombre_cadena": "Detergente Crem Ultra Limon Magistral Bot X 500Cc",
+   "ean_candidato": "7790990003039",
+   "nombre_cadena": "Detergente Ultra Limon Magistral Bot X 500 Cc",
    "fuente_cadena": "maxicarrefour",
-   "similitud": 0.892,
+   "similitud": 0.884,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89863",
+   "nombre": "DESODORANTE AMBIENTE GLADE COCO VIBES 315CM",
+   "ean_candidato": "7790520031778",
+   "nombre_cadena": "Desodorante de Ambiente Coco Vibes 315 Cc Glade",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.873,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89901",
+   "nombre": "JABON EN POLVO ZORRO BICARB.LAV.MAN/MULTI.400GR",
+   "ean_candidato": "7790990003886",
+   "nombre_cadena": "Jabon En Polvo Lav Mano Bicarb A E Zorro X 800Grm",
+   "fuente_cadena": "maxicarrefour",
+   "similitud": 0.813,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89862",
+   "nombre": "LIMPIADOR LIQUIDO BLEM MULTISUPERFICIES CITRUS GATILLO 400CM",
+   "ean_candidato": "7790520031495",
+   "nombre_cadena": "Limpiador Multisuperficies Gatillo Citrus 400 Ml Blem",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.866,
    "via": "tfidf"
   },
   {
@@ -933,37 +1352,7 @@
    "ean_candidato": "7791290796362",
    "nombre_cadena": "Desinfectante De Ambiente Floral Cif 360cc",
    "fuente_cadena": "coto",
-   "similitud": 0.845,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "89554",
-   "nombre": "INSECTICIDA X5 CUCARACHA HORMIGAS ARAÑAS 360CM3",
-   "ean_candidato": "8480017419538",
-   "nombre_cadena": "Insecticida Mata Cucarachas y Hormigas DIA 360 Ml.",
-   "fuente_cadena": "dia",
-   "similitud": 0.801,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "89550",
-   "nombre": "JABON LIQUIDO BORITA PARA DILUIR 500CC",
-   "ean_candidato": "7798426254611",
-   "nombre_cadena": "Jabon Liquido BONUX . P/diluir X500 ml",
-   "fuente_cadena": "maestro",
-   "similitud": 0.806,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "87499",
-   "nombre": "ESCOBILLON VIRULANA BARRENDERO EXTERIOR",
-   "ean_candidato": "7794440007059",
-   "nombre_cadena": "Escobillón Virulana para exteriores",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.81,
+   "similitud": 0.848,
    "via": "tfidf"
   },
   {
@@ -973,7 +1362,7 @@
    "ean_candidato": "7791290796683",
    "nombre_cadena": "Suavizante Plancha Facil Vivere X 900 Cc",
    "fuente_cadena": "maxicarrefour",
-   "similitud": 0.844,
+   "similitud": 0.841,
    "via": "tfidf"
   },
   {
@@ -983,7 +1372,7 @@
    "ean_candidato": "7790990003190",
    "nombre_cadena": "Jabón Líquido Platinum Ariel 800ml",
    "fuente_cadena": "coto",
-   "similitud": 0.821,
+   "similitud": 0.816,
    "via": "tfidf"
   },
   {
@@ -993,37 +1382,17 @@
    "ean_candidato": "7790520026187",
    "nombre_cadena": "Pastilla P Inodoro Citrus Pato X 25 Grs",
    "fuente_cadena": "maxicarrefour",
-   "similitud": 0.82,
+   "similitud": 0.823,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
-   "sku": "84690",
-   "nombre": "LIMPIADOR LIQUIDO JARDIN RELAX CRISTAL 900ML",
-   "ean_candidato": "7792389002272",
-   "nombre_cadena": "Limpiador JARDIN Relax Cristalino X900 ml",
-   "fuente_cadena": "maestro",
-   "similitud": 0.809,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "84683",
-   "nombre": "DETERGENTE BORA MAGIC NARANJA/POMELO 500ML",
-   "ean_candidato": "7792389081123",
-   "nombre_cadena": "Detergente BORA MAGIC Nar/pom X500 ml",
-   "fuente_cadena": "maestro",
-   "similitud": 0.835,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "82647",
-   "nombre": "ESPONJA DEA ACERO INOXIDABLE",
-   "ean_candidato": "8480017283436",
-   "nombre_cadena": "Esponja de Acero Inoxidable Dia 1 Ud.",
-   "fuente_cadena": "dia",
-   "similitud": 0.806,
+   "sku": "79739",
+   "nombre": "DESODORANTE AMBIENTE GLADE LAVANDA 360ML",
+   "ean_candidato": "7790520998279",
+   "nombre_cadena": "Desodorante de Ambiente Limón 360 Ml Glade",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.856,
    "via": "tfidf"
   },
   {
@@ -1031,9 +1400,9 @@
    "sku": "76424",
    "nombre": "LIMPIADOR LIQUIDO POETT ESPRITU PLAY 900ML",
    "ean_candidato": "7793253003944",
-   "nombre_cadena": "Limpiador líquido aromatizante Poett espíritu play 900 ml.",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.808,
+   "nombre_cadena": "Limpiador Líquido Espíritu Play 900 Ml Poett",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.917,
    "via": "tfidf"
   },
   {
@@ -1043,97 +1412,7 @@
    "ean_candidato": "7791290794160",
    "nombre_cadena": "Canasta Inodoro 4En1 Citrus Vim X 35 Grs",
    "fuente_cadena": "maxicarrefour",
-   "similitud": 0.831,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "70457",
-   "nombre": "LIMPIADOR LIQUIDO ODEX ANTIGRASA DOY PACK 450ML",
-   "ean_candidato": "7791905004387",
-   "nombre_cadena": "Limpiador líquido Odex antigrasa cocina 450 cc.",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.81,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "28962",
-   "nombre": "LIMPIADOR LIQUIDO JARDIN CITRONELLA 900CC",
-   "ean_candidato": "7792389001022",
-   "nombre_cadena": "Limpiador JARDIN Citronella Crem. X900 ml",
-   "fuente_cadena": "maestro",
-   "similitud": 0.81,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "24462",
-   "nombre": "LIMPIADOR LIQUIDO JARDIN ARPEGE CREMOSO 900CC",
-   "ean_candidato": "7792389000698",
-   "nombre_cadena": "Limpiador JARDIN Arpege Crem. X900 ml",
-   "fuente_cadena": "maestro",
-   "similitud": 0.816,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "24164",
-   "nombre": "INSECTICIDA X 5 CUCARACHAS/HORMIGAS 360CC",
-   "ean_candidato": "8480017419538",
-   "nombre_cadena": "Insecticida Mata Cucarachas y Hormigas DIA 360 Ml.",
-   "fuente_cadena": "dia",
-   "similitud": 0.845,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "20646",
-   "nombre": "LIMPIADOR LIQUIDO JARDIN LAVANDA 4LT",
-   "ean_candidato": "7792389000278",
-   "nombre_cadena": "Limpiador Liq. Conc. JARDIN Lavanda X4 L",
-   "fuente_cadena": "maestro",
-   "similitud": 0.803,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "21176",
-   "nombre": "SUAVIZANTE BORITA BEBE DOY PACK 900CC",
-   "ean_candidato": "7792389079373",
-   "nombre_cadena": "Suavizante BORITA Bebe D/p X900 ml",
-   "fuente_cadena": "maestro",
-   "similitud": 0.803,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "21112",
-   "nombre": "LIMPIADOR LIQUIDO JARDIN ARPEGE 4LT",
-   "ean_candidato": "7792389000308",
-   "nombre_cadena": "Limpiador Liq. Conc. JARDIN Arpege X4 L",
-   "fuente_cadena": "maestro",
-   "similitud": 0.824,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "5941",
-   "nombre": "LIMPIADOR LIQUIDO JARDIN ARPEGE 900ML",
-   "ean_candidato": "7792389000698",
-   "nombre_cadena": "Limpiador JARDIN Arpege Crem. X900 ml",
-   "fuente_cadena": "maestro",
-   "similitud": 0.81,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "1638",
-   "nombre": "INSECTICIDA X 5 MATA MOSCAS Y MOSQUITOS 360CC",
-   "ean_candidato": "8480017419545",
-   "nombre_cadena": "Insecticida Mata Moscas y Mosquitos DIA 360 Ml.",
-   "fuente_cadena": "dia",
-   "similitud": 0.876,
+   "similitud": 0.84,
    "via": "tfidf"
   },
   {
@@ -1141,9 +1420,9 @@
    "sku": "87356",
    "nombre": "PIEDRAS SANITARIAS PETS CLASS 4KGM",
    "ean_candidato": "7798139793124",
-   "nombre_cadena": "PIEDRAS SANITARIAS Pets Class X2 kg",
-   "fuente_cadena": "maestro",
-   "similitud": 0.85,
+   "nombre_cadena": "Piedras Sanitarias Pets Class  2 Kg",
+   "fuente_cadena": "masonline",
+   "similitud": 0.842,
    "via": "tfidf"
   },
   {
@@ -1151,29 +1430,19 @@
    "sku": "87355",
    "nombre": "PIEDRAS SANITARIAS PETS CLASS 2KGM",
    "ean_candidato": "7798139793124",
-   "nombre_cadena": "PIEDRAS SANITARIAS Pets Class X2 kg",
-   "fuente_cadena": "maestro",
-   "similitud": 0.828,
+   "nombre_cadena": "Piedras Sanitarias Pets Class  2 Kg",
+   "fuente_cadena": "masonline",
+   "similitud": 0.82,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
-   "sku": "7240",
-   "nombre": "ALIMENTO PARA PERROS FLECKY CACHORROS CARNE 10KG",
-   "ean_candidato": "7794270003054",
-   "nombre_cadena": "ALIMENTO PERRO Flecky Cachorro X10 kg",
-   "fuente_cadena": "maestro",
-   "similitud": 0.838,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "89453",
-   "nombre": "ALIMENTO PARA PERROS PEDIGREE ADULTO POLLO EN SALSA 100GR",
-   "ean_candidato": "7797453000802",
-   "nombre_cadena": "Alimento húmedo para perro Pedigree 100 g. adultos pollo",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.803,
+   "sku": "89455",
+   "nombre": "ALIMENTO PARA PERROS PEDIGREE CACHORRO ETAPA 1 3KG",
+   "ean_candidato": "7797453001519",
+   "nombre_cadena": "Alimento Para Perros Pedigree Cachorros 3 Kg",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.85,
    "via": "tfidf"
   },
   {
@@ -1183,37 +1452,27 @@
    "ean_candidato": "7797453974110",
    "nombre_cadena": "Alimento seco para perro Pedigree cachorro raza pequeña 3 kg",
    "fuente_cadena": "carrefour",
-   "similitud": 0.883,
+   "similitud": 0.881,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
-   "sku": "76694",
-   "nombre": "ALIMENTO PARA PERROS DOG CHOW ADULTOS PAVO POUCH 100GR",
-   "ean_candidato": "7891000115619",
-   "nombre_cadena": "Alimento para Perros Dog Chow Adulto Pavo 100 Gr.",
-   "fuente_cadena": "dia",
-   "similitud": 0.874,
+   "sku": "73295",
+   "nombre": "ALIMENTO PARA PERROS DOG CHOW CACHORRO POLLO POUCH 100GR",
+   "ean_candidato": "7891000115695",
+   "nombre_cadena": "Alimento Para Perros Dog Chow Cachorros 100 Gr",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.827,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
-   "sku": "86280",
-   "nombre": "ALIMENTO PERROS SABROSITOS ADULTOS VARIEDADES 8KG",
-   "ean_candidato": "7798073177486",
-   "nombre_cadena": "Alimento seco para perro adulto Sabrositos variedades 8 Kg",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.878,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "84242",
-   "nombre": "HIGIENICO PAPEL HIGIENOL BLANCO HOJA SIMPLE FRESH ALOE 6 ROLLOS 30M",
-   "ean_candidato": "7790250016229",
-   "nombre_cadena": "Papel Higienico Hs Fresh Aloe Higienol 6 X 30M",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.801,
+   "sku": "29277",
+   "nombre": "ALIMENTO PARA GATOS WHISKAS ADULTOS SALMON POUCH 85GR",
+   "ean_candidato": "7797453000413",
+   "nombre_cadena": "Alimento Adulto Salmon Pouch Whiskas 85 Gr",
+   "fuente_cadena": "masonline",
+   "similitud": 0.88,
    "via": "tfidf"
   },
   {
@@ -1221,9 +1480,29 @@
    "sku": "79880",
    "nombre": "PAPEL HIGIENICO HIGIENOL MAX HOJA SIMPLE 4X80M",
    "ean_candidato": "7790250015840",
-   "nombre_cadena": "Papel Higiénico HIGIENOL Max Hoja Simple 100 M 4 Un",
-   "fuente_cadena": "coto",
-   "similitud": 0.825,
+   "nombre_cadena": "Papel Higiénico Higienol Max Hoja Simple 100 M 4 U",
+   "fuente_cadena": "masonline",
+   "similitud": 0.82,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "7864",
+   "nombre": "DESODORANTE NIVEA DRY IMPACT 150ML",
+   "ean_candidato": "4005900573766",
+   "nombre_cadena": "Desodorante Antit Dry Impact Nivea Men 150 Ml",
+   "fuente_cadena": "masonline",
+   "similitud": 0.832,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89998",
+   "nombre": "TOALLAS FEMENINAS SIEMPRE LIBRE CONFORT ULTA FINA CON ALAS 8UN",
+   "ean_candidato": "7790010002752",
+   "nombre_cadena": "Toallas Femeninas Confort Ultrafina x 8 Un Siempre Libre",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.871,
    "via": "tfidf"
   },
   {
@@ -1233,7 +1512,7 @@
    "ean_candidato": "7891010257392",
    "nombre_cadena": "Jabon Liquido Con Glicerina Johnsons Baby 180 Ml.",
    "fuente_cadena": "dia",
-   "similitud": 0.88,
+   "similitud": 0.879,
    "via": "tfidf"
   },
   {
@@ -1271,8 +1550,8 @@
    "sku": "87198",
    "nombre": "CREMA TRATAMIENTO DOVE MASCARA CAPILAR HIDRATACION 300GR",
    "ean_candidato": "7791293050881",
-   "nombre_cadena": "Mascara capilar Dove hidratacion 300 g.",
-   "fuente_cadena": "carrefour",
+   "nombre_cadena": "Máscara Capilar Dove Hidratación 300g",
+   "fuente_cadena": "masonline",
    "similitud": 0.832,
    "via": "tfidf"
   },
@@ -1281,99 +1560,39 @@
    "sku": "78641",
    "nombre": "SHAMPOO FRUCTIS REC.NUTRITIVA 200ML",
    "ean_candidato": "7509552922288",
-   "nombre_cadena": "Shampoo Fructis Recarga Nutritiva 200ml",
-   "fuente_cadena": "coto",
+   "nombre_cadena": "Shampoo Recarga Nutritiva Fructis X 200 Cc",
+   "fuente_cadena": "maxicarrefour",
    "similitud": 0.883,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
-   "sku": "83760",
-   "nombre": "TOALLAS FEMENINAS ALWAYS XTRA TRIPLE PROTECCION DIA SUAVE CON ALAS 8UN",
-   "ean_candidato": "7500435229654",
-   "nombre_cadena": "Always xtra triple protección suave toallas 8 uni",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.873,
+   "sku": "84363",
+   "nombre": "SHAMPOO PANTENE REVITALIZACION 400ML",
+   "ean_candidato": "7500435235457",
+   "nombre_cadena": "Shampoo Pantene Revitalizante 400 Ml",
+   "fuente_cadena": "masonline",
+   "similitud": 0.85,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
-   "sku": "83319",
-   "nombre": "TOALLAS FEMENINAS DONCELLA INCONTINENCIA MEDIUM 8UN",
-   "ean_candidato": "7790940518033",
-   "nombre_cadena": "Toallas Incontinencia Medium Doncella Fem X 8 Uni",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.899,
+   "sku": "661",
+   "nombre": "GEL LORD CHESELINE POMELO 150GR",
+   "ean_candidato": "7791293021270",
+   "nombre_cadena": "Gel Lord Cheselin Pomo 150gr",
+   "fuente_cadena": "masonline",
+   "similitud": 0.811,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
-   "sku": "82887",
-   "nombre": "JABON DE TOCADOR DUC CITRUS 3X110GR",
-   "ean_candidato": "7790828104891",
-   "nombre_cadena": "Jabon Tocador DUC Citrus X 110g",
-   "fuente_cadena": "maestro",
-   "similitud": 0.87,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "82886",
-   "nombre": "JABON DE TOCADOR DUC ARMONIC 3X110GR",
-   "ean_candidato": "7790828104877",
-   "nombre_cadena": "Jabon Tocador DUC Armonic X110g",
-   "fuente_cadena": "maestro",
-   "similitud": 0.87,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "7789",
-   "nombre": "DESODORANTE HINDS R ON DELICIOUS 60ML",
-   "ean_candidato": "7794640170102",
-   "nombre_cadena": "Desodorante Antitraspirante HINDS Delicious Roll-on 60 Cc",
+   "sku": "78023",
+   "nombre": "CHOCOLATE VIZZIO LECHE CON MANI 85GR",
+   "ean_candidato": "7792360094548",
+   "nombre_cadena": "Chocolate Con Leche Y Maní Vizzio 85 Grm",
    "fuente_cadena": "coto",
-   "similitud": 0.813,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "21362",
-   "nombre": "TOALLAS HUMEDAS HUGGIES LIMPIEZA EFECTIVA 48UNI",
-   "ean_candidato": "7794626012594",
-   "nombre_cadena": "Toallas Humedas Huggies Limpieza Efectiva x 48 Ud.",
-   "fuente_cadena": "dia",
-   "similitud": 0.859,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "87686",
-   "nombre": "CREMA PARA PEINAR SKALA 3 EN 1 BOMBA DE VITAMINA 250GR",
-   "ean_candidato": "7897042012176",
-   "nombre_cadena": "Crema P/peinar SKALA Bomba de Vit X250g",
-   "fuente_cadena": "maestro",
-   "similitud": 0.829,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "87656",
-   "nombre": "OBLEA BAÑADA KIT KAT TRIPLE CHOCOLATE 41,5GR",
-   "ean_candidato": "7891000422052",
-   "nombre_cadena": "Oblea Kitkat Triple Chocolate X 41.5 Gr.",
-   "fuente_cadena": "dia",
-   "similitud": 0.813,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "80289",
-   "nombre": "ALFAJOR SIMPLE NIGHT NEGRO 50GR",
-   "ean_candidato": "7791672002067",
-   "nombre_cadena": "Alfajor Fantoche choco negro simple night 50 g.",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.82,
+   "similitud": 0.803,
    "via": "tfidf"
   },
   {
@@ -1383,27 +1602,7 @@
    "ean_candidato": "7891000421420",
    "nombre_cadena": "Cápsulas de café cortado Dolce Gusto 10 uni",
    "fuente_cadena": "carrefour",
-   "similitud": 0.865,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "90253",
-   "nombre": "PRESERVATIVOS PLAYBOY MIX TACHAS EXTRA LUBRICADO CONDOMS 6UN",
-   "ean_candidato": "7798194560280",
-   "nombre_cadena": "Preservativos Playboy mix tachas extralubricados 6 uni",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.83,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "90252",
-   "nombre": "PRESERVATIVOS PLAYBOY ULTRA FINOS CONDOMS 6UN",
-   "ean_candidato": "7798194560273",
-   "nombre_cadena": "Preservativos Ultrafinos Playboy X 6 Uni",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.806,
+   "similitud": 0.86,
    "via": "tfidf"
   },
   {
@@ -1413,7 +1612,7 @@
    "ean_candidato": "7790590000407",
    "nombre_cadena": "Fosforos FRAGATA X40 u",
    "fuente_cadena": "maestro",
-   "similitud": 0.832,
+   "similitud": 0.83,
    "via": "tfidf"
   },
   {
@@ -1428,22 +1627,12 @@
   },
   {
    "fuente": "yaguar",
-   "sku": "90247",
-   "nombre": "PRESERVATIVOS PLAYBOY TEXTURADO CONDOMS 6UN",
-   "ean_candidato": "7798194560266",
-   "nombre_cadena": "Preservativos Texturados Playboy X 6 Uni",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.843,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
    "sku": "96",
    "nombre": "FOSFOROS FRAGATA 40X10UN",
    "ean_candidato": "7790590000407",
    "nombre_cadena": "Fosforos FRAGATA X40 u",
    "fuente_cadena": "maestro",
-   "similitud": 0.829,
+   "similitud": 0.824,
    "via": "tfidf"
   },
   {
@@ -1453,27 +1642,7 @@
    "ean_candidato": "7806810209250",
    "nombre_cadena": "BUDINERA Ilko Rectangular X25cm",
    "fuente_cadena": "maestro",
-   "similitud": 0.841,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "80533",
-   "nombre": "CHOCOLATE VIZZIO LECHE 50GR",
-   "ean_candidato": "7792360095002",
-   "nombre_cadena": "Chocolate Con Leche Vizzio 50 Grm",
-   "fuente_cadena": "coto",
-   "similitud": 0.828,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "80208",
-   "nombre": "BAZAR CUCHARON ILKO NYLON BASIC",
-   "ean_candidato": "7806810235037",
-   "nombre_cadena": "CUCHARON Ilko Nylon",
-   "fuente_cadena": "maestro",
-   "similitud": 0.82,
+   "similitud": 0.845,
    "via": "tfidf"
   },
   {
@@ -1483,47 +1652,7 @@
    "ean_candidato": "7806810235006",
    "nombre_cadena": "ESPUMADERA Ilko Nylon",
    "fuente_cadena": "maestro",
-   "similitud": 0.815,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "79554",
-   "nombre": "CHOCOLATE NESTLE LECHE CON MANI 33GR",
-   "ean_candidato": "7613287526236",
-   "nombre_cadena": "Tableta De Chocolate Con Mani Nestle X 33 Grs",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.822,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "90230",
-   "nombre": "ALFAJOR MANTECOL PASTA MANTECOL 40GR",
-   "ean_candidato": "7790380026440",
-   "nombre_cadena": "Alfajor relleno de pasta de maní Mantecol 40 grs",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.83,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "80012",
-   "nombre": "ALFAJOR DE ARROZ CHOCOARROZ DULCE DE LECHE AGRUPADO 6UNX22GR",
-   "ean_candidato": "7790070418203",
-   "nombre_cadena": "Alfajor Arroz Dulce Leche Chocoarroz X 22 Grs",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.802,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "35009",
-   "nombre": "YERBA PIPORE 1KG",
-   "ean_candidato": "7793750009821",
-   "nombre_cadena": "Yerba Mate Con Palo PIPORE 1kg",
-   "fuente_cadena": "coto",
-   "similitud": 0.818,
+   "similitud": 0.816,
    "via": "tfidf"
   },
   {
@@ -1533,37 +1662,27 @@
    "ean_candidato": "7794990878093",
    "nombre_cadena": "Muzzarella LA PAULINA x Kg",
    "fuente_cadena": "coto",
-   "similitud": 0.834,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "14235",
-   "nombre": "OLEO CALCAREO ESTRELLA 500ML",
-   "ean_candidato": "7790064001046",
-   "nombre_cadena": "Oleo Calcareo ESTRELLA BABY X500 ml(BAJA)",
-   "fuente_cadena": "maestro",
-   "similitud": 0.834,
+   "similitud": 0.833,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
    "sku": "13867",
    "nombre": "TAPAS DE EMPANADAS LA SALTEÑA HOJALDRE 12UN",
-   "ean_candidato": "7790236018346",
-   "nombre_cadena": "Tapas para empanada La Salteña hojaldradas x 22 uni",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.807,
+   "ean_candidato": "7790070622013",
+   "nombre_cadena": "Tapas Empanadas Hojaldradas x 12 Un 330 Grs La Salteña",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.822,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
    "sku": "25911",
    "nombre": "GALLETITAS POLVORITA VAINILLA/VAINILLA 152GR",
-   "ean_candidato": "7790040139220",
-   "nombre_cadena": "Galletitas POLVORITA Mini Vai/vai X152g",
-   "fuente_cadena": "maestro",
-   "similitud": 0.844,
+   "ean_candidato": "7790040139190",
+   "nombre_cadena": "Galletitas Polvoritas Sabor Vainilla/Vainilla 152 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.91,
    "via": "tfidf"
   },
   {
@@ -1573,17 +1692,27 @@
    "ean_candidato": "7791293049175",
    "nombre_cadena": "Jabon Tocador Glicerina Neutro Rexona X 90 Grs",
    "fuente_cadena": "maxicarrefour",
-   "similitud": 0.893,
+   "similitud": 0.895,
    "via": "tfidf"
   },
   {
    "fuente": "yaguar",
-   "sku": "84857",
-   "nombre": "QUESO DANBO TONADITA FETEADO 120GR",
-   "ean_candidato": "7798060854413",
-   "nombre_cadena": "Queso Danbo Fetas Tonadita 120 Gr.",
+   "sku": "77700",
+   "nombre": "EDULCORANTE HILERET CLASICO FORTE 100 SOBRES",
+   "ean_candidato": "7790490998026",
+   "nombre_cadena": "Edulcorante Clásico Forte Hileret 40 Gr.",
    "fuente_cadena": "dia",
-   "similitud": 0.853,
+   "similitud": 0.83,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "82188",
+   "nombre": "PAN HAMBURGUESA MENDIA CON SESAMO 210GR",
+   "ean_candidato": "7790522012515",
+   "nombre_cadena": "Pan Hamburguesa MENDIA Sesamo X210(BAJA)",
+   "fuente_cadena": "maestro",
+   "similitud": 0.877,
    "via": "tfidf"
   },
   {
@@ -1603,7 +1732,7 @@
    "ean_candidato": "7799086000266",
    "nombre_cadena": "Edulcorante LEDESMA Stevia Sobre X50 u",
    "fuente_cadena": "maestro",
-   "similitud": 0.833,
+   "similitud": 0.836,
    "via": "tfidf"
   },
   {
@@ -1613,17 +1742,7 @@
    "ean_candidato": "7891962071169",
    "nombre_cadena": "Galletitas Con Chip De Chocolate Sabor Chocolate Bauducco 60g",
    "fuente_cadena": "coto",
-   "similitud": 0.859,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "89340",
-   "nombre": "GALLETITAS CRUJITAS CLASICAS 120GR",
-   "ean_candidato": "7792180146090",
-   "nombre_cadena": "Galletitas snack clásicas Crujitas fp 120 grs",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.822,
+   "similitud": 0.864,
    "via": "tfidf"
   },
   {
@@ -1633,7 +1752,17 @@
    "ean_candidato": "7792180146137",
    "nombre_cadena": "Galletitas snack Crujitas de jamón serrano fp 120 grs",
    "fuente_cadena": "carrefour",
-   "similitud": 0.839,
+   "similitud": 0.838,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "85552",
+   "nombre": "CAFE SUPERCABRALES MOLIDO TOSTADO 125GR",
+   "ean_candidato": "7790550022210",
+   "nombre_cadena": "Cafe Molido Tostado Super Cabrales X 125 Grs",
+   "fuente_cadena": "maxicarrefour",
+   "similitud": 0.889,
    "via": "tfidf"
   },
   {
@@ -1643,7 +1772,7 @@
    "ean_candidato": "7791293051246",
    "nombre_cadena": "Shampoo SEDAL Luminous Uv D/p X300 ml",
    "fuente_cadena": "maestro",
-   "similitud": 0.818,
+   "similitud": 0.816,
    "via": "tfidf"
   },
   {
@@ -1653,7 +1782,7 @@
    "ean_candidato": "7791274200953",
    "nombre_cadena": "Apresto Vais Doypack X 500 Cc",
    "fuente_cadena": "maxicarrefour",
-   "similitud": 0.868,
+   "similitud": 0.863,
    "via": "tfidf"
   },
   {
@@ -1683,7 +1812,7 @@
    "ean_candidato": "7500435252935",
    "nombre_cadena": "Suavizante concentrado Downy brisa suave en botella 350 ml",
    "fuente_cadena": "carrefour",
-   "similitud": 0.881,
+   "similitud": 0.879,
    "via": "tfidf"
   },
   {
@@ -1693,7 +1822,7 @@
    "ean_candidato": "7791337601215",
    "nombre_cadena": "Yogur Firme YOGURISIMO Vainilla X190 g",
    "fuente_cadena": "maestro",
-   "similitud": 0.818,
+   "similitud": 0.815,
    "via": "tfidf"
   },
   {
@@ -1703,37 +1832,17 @@
    "ean_candidato": "7797906055144",
    "nombre_cadena": "Croquetas de Papas Golazo Mccain 700 Gr.",
    "fuente_cadena": "dia",
+   "similitud": 0.824,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "86450",
+   "nombre": "ALFAJOR TODDY BCO.50GR",
+   "ean_candidato": "7790380023630",
+   "nombre_cadena": "Alfajor Toddy Blanco 50 G",
+   "fuente_cadena": "masonline",
    "similitud": 0.823,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "73822",
-   "nombre": "CHOCOLATE COFLER AIREADO CON ALMENDRAS 55GR",
-   "ean_candidato": "7790580103439",
-   "nombre_cadena": "Chocolate Cofler Air con almendras 55 g.",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.888,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "90076",
-   "nombre": "CARAMELOS MOGUL MASTICABLES EXTREME SPLASH 30GR",
-   "ean_candidato": "7790580116873",
-   "nombre_cadena": "Caramelos rellenos Mogul Masti Extreme Splash 30 grs",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.804,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "90078",
-   "nombre": "CHOCOLATE COFLER CHOCOLINAS 140GR",
-   "ean_candidato": "7790580127336",
-   "nombre_cadena": "Tableta de chocolate blanco con chocolinas Cofler 140 grs",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.842,
    "via": "tfidf"
   },
   {
@@ -1743,7 +1852,7 @@
    "ean_candidato": "2000000452630",
    "nombre_cadena": "Queso Barra Tybo LA PAULINA Xkg",
    "fuente_cadena": "coto",
-   "similitud": 0.805,
+   "similitud": 0.81,
    "via": "tfidf"
   },
   {
@@ -1758,12 +1867,992 @@
   },
   {
    "fuente": "yaguar",
-   "sku": "87603",
-   "nombre": "CHOCOLATE AGUILA PARA TAZA 80% CACAO 150GR",
-   "ean_candidato": "7790580142995",
-   "nombre_cadena": "Chocolate AGUILA Negro 80% Cacao X150 g",
+   "sku": "90125",
+   "nombre": "SHAMPOO DOVE HUMECTACION + COCO ANTIOXIDANTE 650ML",
+   "ean_candidato": "7791293051970",
+   "nombre_cadena": "Shampoo Dove Humectación Coco Antioxi 650ml",
+   "fuente_cadena": "masonline",
+   "similitud": 0.893,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "90138",
+   "nombre": "CREMA PONDS CLARANT B3 GRASA 100GR",
+   "ean_candidato": "7501056330309",
+   "nombre_cadena": "Crema Clarant B3 Ponds 100 Grm",
+   "fuente_cadena": "coto",
+   "similitud": 0.846,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "23780",
+   "nombre": "ALGODON DONCELLA DISCOS 80UN",
+   "ean_candidato": "7790064001909",
+   "nombre_cadena": "Algodón Estrella En Discos 80 U.",
+   "fuente_cadena": "maxicarrefour",
+   "similitud": 0.802,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "85822",
+   "nombre": "TIRITAS POLLO CONGELADO SADIA GOLDEN 300GR",
+   "ean_candidato": "7891515586812",
+   "nombre_cadena": "Tiritas de pollo congeladas Sadia Golden en bolsa 300 grs",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.872,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "75411",
+   "nombre": "PASTILLAS GOMA RICOMAS CONITOS FRUTALES 500GR",
+   "ean_candidato": "7790580130305",
+   "nombre_cadena": "Conitos Frutales RICOMAS X500 g",
+   "fuente_cadena": "maestro",
+   "similitud": 0.829,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "75287",
+   "nombre": "TOSTADAS DE ARROZ MOLINOS ALA CLASICA VITAMINAS 150GR",
+   "ean_candidato": "7791120098093",
+   "nombre_cadena": "Tostadas De Arroz Clasicas Molinos Ala X 150 Grs",
+   "fuente_cadena": "maxicarrefour",
+   "similitud": 0.85,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "74187",
+   "nombre": "TOSTADAS TOSTI FINITAS CLASICAS 140GR",
+   "ean_candidato": "7794529041653",
+   "nombre_cadena": "Tostadas Finas Tosti Clasicas 140g",
+   "fuente_cadena": "masonline",
+   "similitud": 0.938,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "70457",
+   "nombre": "LIMPIADOR LIQUIDO ODEX ANTIGRASA DOY PACK 450ML",
+   "ean_candidato": "7791905004387",
+   "nombre_cadena": "Limpiador líquido Odex antigrasa cocina 450 cc.",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.806,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "76658",
+   "nombre": "YOGUR YOGURISIMO FIRME ENTERO FRUTILLA FORTIFICADO 190GR",
+   "ean_candidato": "7791337651227",
+   "nombre_cadena": "Yogur Firme YOGURISIMO Frutilla X190 g",
+   "fuente_cadena": "maestro",
+   "similitud": 0.819,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "84857",
+   "nombre": "QUESO DANBO TONADITA FETEADO 120GR",
+   "ean_candidato": "7798060854413",
+   "nombre_cadena": "Queso Danbo Fetas Tonadita 120 Gr.",
+   "fuente_cadena": "dia",
+   "similitud": 0.854,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "12670",
+   "nombre": "ARROZ TIO CARLOS LARGO FINO 00000 1KG",
+   "ean_candidato": "7798023691475",
+   "nombre_cadena": "Arroz Largo Fino S&P 00000 X 1 kg",
+   "fuente_cadena": "maestro",
+   "similitud": 0.805,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87271",
+   "nombre": "AGUA SIERRA DE LOS PADRES SIN GAS POMELO 1.5LT",
+   "ean_candidato": "7798065730347",
+   "nombre_cadena": "Agua Saborizada  Pomelo Sierra De Los Padres 1,5lt",
+   "fuente_cadena": "masonline",
+   "similitud": 0.835,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87270",
+   "nombre": "AGUA SIERRA DE LOS PADRES SIN GAS NARANJA 1.5LT",
+   "ean_candidato": "7798065733485",
+   "nombre_cadena": "Agua SIERRA D/PADRES X1.5 L",
+   "fuente_cadena": "maestro",
+   "similitud": 0.836,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87269",
+   "nombre": "AGUA SIERRA DE LOS PADRES SIN GAS MANZANA 1.5LT",
+   "ean_candidato": "7798065730361",
+   "nombre_cadena": "Agua Sabor Manzana Sierra De Los Padres 1,5 Lt",
+   "fuente_cadena": "masonline",
+   "similitud": 0.887,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "86205",
+   "nombre": "GASEOSA ICE LIMON 3LT",
+   "ean_candidato": "7795176771528",
+   "nombre_cadena": "Gaseosa ICE Lima Limon Botella X3 L",
+   "fuente_cadena": "maestro",
+   "similitud": 0.806,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "84325",
+   "nombre": "AGUA LIVRA POMELO 1,5LT",
+   "ean_candidato": "7791913005772",
+   "nombre_cadena": "Agua Sab Con Gas Pomelo Livra Pet X 1.5 Lt",
+   "fuente_cadena": "maxicarrefour",
+   "similitud": 0.864,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "84323",
+   "nombre": "AGUA LIVRA MANZANA 1,5LT",
+   "ean_candidato": "7791913000128",
+   "nombre_cadena": "Agua Saborizada Manzana S Gas Livra Pet X 1.5 Lt",
+   "fuente_cadena": "maxicarrefour",
+   "similitud": 0.808,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "79561",
+   "nombre": "GASEOSA SPRITE LIMA LIMON PET 375CM3",
+   "ean_candidato": "7790895000829",
+   "nombre_cadena": "Gaseosa Sprite Lima-Limón 500 Ml.",
+   "fuente_cadena": "dia",
+   "similitud": 0.862,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "75894",
+   "nombre": "GASEOSA MARINARO PREMIUM GRANADINA 3LT",
+   "ean_candidato": "7795176001168",
+   "nombre_cadena": "Gaseosa MARINARO Premium Cola X3 L",
+   "fuente_cadena": "maestro",
+   "similitud": 0.839,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "15687",
+   "nombre": "LICOR TRES PLUMAS CAFE/DULCE DE LECHE 750CC",
+   "ean_candidato": "7790260002090",
+   "nombre_cadena": "Licor De Cafe Tres Plumas X 750 Cc",
+   "fuente_cadena": "maxicarrefour",
+   "similitud": 0.841,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "1967",
+   "nombre": "LICOR TRES PLUMAS HUEVO 700CC",
+   "ean_candidato": "7790260013058",
+   "nombre_cadena": "Licor de Huevo 3 PLUMAS X700 ml",
+   "fuente_cadena": "maestro",
+   "similitud": 0.862,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "27876",
+   "nombre": "VINO HUMBERTO CANALE BLUSH 750CC",
+   "ean_candidato": "7790805750363",
+   "nombre_cadena": "Vino Rosé Blush Dulce Humberto Canale 750ml",
+   "fuente_cadena": "coto",
+   "similitud": 0.85,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "13745",
+   "nombre": "VINO AGUMA CABERNET SAUVIGNON 750CC",
+   "ean_candidato": "7790945006825",
+   "nombre_cadena": "Vino Cabernet Sauvignon Sade 750ml",
+   "fuente_cadena": "coto",
+   "similitud": 0.806,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "13744",
+   "nombre": "VINO AGUMA RESERVA CABERNET SAUVIGNON 750CC",
+   "ean_candidato": "7798074865276",
+   "nombre_cadena": "Vino Cabernet Sauvignon Reserva Salentein 750ml",
+   "fuente_cadena": "coto",
+   "similitud": 0.802,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87456",
+   "nombre": "YERBA VERDEFLOR MENTA Y JENGIBRE 500GR",
+   "ean_candidato": "7793670400562",
+   "nombre_cadena": "Yerba Mate Verdeflor Saborizada Con Menta Y Jengibre 500 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.896,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "75680",
+   "nombre": "DULCE DE BATATA ORIETA VAINILLA BANDEJA 500GR",
+   "ean_candidato": "7792260619391",
+   "nombre_cadena": "Dulce de batata con chocolate en bandeja Orieta 500 g.",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.823,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "75612",
+   "nombre": "YERBA DON ARREGUI CON BURRITO 500GR",
+   "ean_candidato": "7798067630485",
+   "nombre_cadena": "Yerba Mate Con Burrito Arregui X 500 Grs",
+   "fuente_cadena": "maxicarrefour",
+   "similitud": 0.845,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "71219",
+   "nombre": "YERBA DON ARREGUI CEDRON 500GR",
+   "ean_candidato": "7798067630027",
+   "nombre_cadena": "Yerba Mate Con Cedron Arregui X 500 Grs",
+   "fuente_cadena": "maxicarrefour",
+   "similitud": 0.837,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "35026",
+   "nombre": "AVENA EGRAN TRADICONAL 400GR",
+   "ean_candidato": "7791476014044",
+   "nombre_cadena": "Avena Tradicional Egran 400 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.924,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "28919",
+   "nombre": "YERBA DON ARREGUI PEPERINA 500GR",
+   "ean_candidato": "7798067630034",
+   "nombre_cadena": "Yerba mate con peperina Arregui 500 g.",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.845,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "28257",
+   "nombre": "YERBA MAS SABOR COMPUESTA 500GR",
+   "ean_candidato": "7798342717153",
+   "nombre_cadena": "Yerba S&P Compuesta X500 g",
+   "fuente_cadena": "maestro",
+   "similitud": 0.827,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "86766",
+   "nombre": "PAPAS FRITAS SWIFT TRADICIONAL 700GR",
+   "ean_candidato": "7790360981042",
+   "nombre_cadena": "Papas Corte Tradicional Swift 700g",
+   "fuente_cadena": "coto",
+   "similitud": 0.836,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "85874",
+   "nombre": "YOGUR MANFREY PARCIALMENTE DESCREMADO CON TROZOS DE FRUTILLA 150GR",
+   "ean_candidato": "7791058004159",
+   "nombre_cadena": "Yogur Parcialmente Descremado Con Frutos Manfrey 150 Gr.",
+   "fuente_cadena": "dia",
+   "similitud": 0.839,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "85034",
+   "nombre": "CONGELADOS CHOCLO AMARILLO GREEN LIFE BOLSA 2.5KG",
+   "ean_candidato": "7790670002468",
+   "nombre_cadena": "Choclo Amarillo GREEN LIFE X2.5 kg",
+   "fuente_cadena": "maestro",
+   "similitud": 0.803,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "84709",
+   "nombre": "TAPA DE EMPANADA TAPAMAR HORNO HOJALDRE GIGANTE 12UN",
+   "ean_candidato": "7795942000081",
+   "nombre_cadena": "Tapa Empanada TAPAMAR Hojaldre X12 u",
+   "fuente_cadena": "maestro",
+   "similitud": 0.815,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "84706",
+   "nombre": "TAPA DE PASCUALINA TAPAMAR CRIOLLA 2UN",
+   "ean_candidato": "7798056680095",
+   "nombre_cadena": "Tapa Pascualina TAPAMANIA Criolla X400g",
+   "fuente_cadena": "maestro",
+   "similitud": 0.863,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "84705",
+   "nombre": "TAPA DE PASCUALINA TAPAMAR HORNO 2UN",
+   "ean_candidato": "7798056680071",
+   "nombre_cadena": "Tapa Pascualina TAPAMANIA Horno X400g",
+   "fuente_cadena": "maestro",
+   "similitud": 0.843,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "80881",
+   "nombre": "MORTADELA LA CASONA BOLOGNA FAMILIAR 300GR",
+   "ean_candidato": "7794110765135",
+   "nombre_cadena": "Mortadela la CASONA Bologna Fam. X300 g",
+   "fuente_cadena": "maestro",
+   "similitud": 0.863,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "80880",
+   "nombre": "SALCHICHAS LA CASONA COCIDAS SIN PIEL 6UN 190GR",
+   "ean_candidato": "7790360026002",
+   "nombre_cadena": "Salchichas Cocidas sin Piel x 6 Un 190 Grs La Blanca",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.839,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "80874",
+   "nombre": "SALAMIN LA CASONA PICADO GRUESO AL VACIO 180GR",
+   "ean_candidato": "7794110718452",
+   "nombre_cadena": "Salamin la CASONA Pic. Grueso E/v X180 g",
+   "fuente_cadena": "maestro",
+   "similitud": 0.817,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "78452",
+   "nombre": "PAN LA PERLA LACTAL LACTEADO 620GR",
+   "ean_candidato": "7790903000551",
+   "nombre_cadena": "Pan De Mesa Lacteado La Perla 620g",
+   "fuente_cadena": "coto",
+   "similitud": 0.834,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "76813",
+   "nombre": "PAN HAMBURGUESA LA PANERITA 4UNX220GR",
+   "ean_candidato": "7798185030020",
+   "nombre_cadena": "Pan Hamburguesa la PANERITA X4 u (220g)",
+   "fuente_cadena": "maestro",
+   "similitud": 0.81,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "76812",
+   "nombre": "PAN LA PANERITA PANCHO 6UNX250GR",
+   "ean_candidato": "7798185030013",
+   "nombre_cadena": "Pan de Pancho la PANERITA X6 u (250g)",
+   "fuente_cadena": "maestro",
+   "similitud": 0.809,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "76395",
+   "nombre": "YOGUR DESCREMADO YOFREY FIRME VAINILLA 140G",
+   "ean_candidato": "7791058790359",
+   "nombre_cadena": "Yogur Parcialmente Descremado Vainilla Yofrey 140 Gr.",
+   "fuente_cadena": "dia",
+   "similitud": 0.832,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "76394",
+   "nombre": "YOGUR DESCREMADO YOFREY FIRME FRUTILLA 140G",
+   "ean_candidato": "7791058790342",
+   "nombre_cadena": "Yogur Parcialmente Descremado Frutilla Yofrey 140 Gr.",
+   "fuente_cadena": "dia",
+   "similitud": 0.804,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "75949",
+   "nombre": "QUESO PROVOLETA SANTA ROSA TROZOS X KG",
+   "ean_candidato": "2573224000005",
+   "nombre_cadena": "Queso Provoleta x 1 Kg Santa Rosa",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.809,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "75938",
+   "nombre": "QUESO SARDO MILKAUT HORMA X KG",
+   "ean_candidato": "2599189000003",
+   "nombre_cadena": "Queso Sardo x 1 Kg Milkaut",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.812,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "72588",
+   "nombre": "TAPA DE EMPANADA LA SALTEÑA SIN TACC 12UN",
+   "ean_candidato": "7790070622075",
+   "nombre_cadena": "Tapa Para Empanada Sin Tacc La Salteña 330g",
+   "fuente_cadena": "coto",
+   "similitud": 0.829,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "70785",
+   "nombre": "FIAMBRE DE CERDO DE PATA LARIO GRANDE X KG",
+   "ean_candidato": "2305007000007",
+   "nombre_cadena": "Fiambre cocido Lario pata de cerdo x kg.",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.808,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "29777",
+   "nombre": "YOGUR ILOLAY ENTERO CON COLCHON DE FRUTILLA 150GR",
+   "ean_candidato": "7790787035007",
+   "nombre_cadena": "Yogur Entero ILOLAY Frutillas Colchón Frutas 150g",
+   "fuente_cadena": "coto",
+   "similitud": 0.896,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "29144",
+   "nombre": "TAPA DE EMPANADA MAR DEL PLATA CRIOLLA 12UN",
+   "ean_candidato": "7795942000142",
+   "nombre_cadena": "Tapa Empanada TAPAMAR Criolla X12 u",
+   "fuente_cadena": "maestro",
+   "similitud": 0.833,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "29598",
+   "nombre": "RAVIOLES LA ITALIANA RICOTA/JAMON/MUZZARELLA 1KG",
+   "ean_candidato": "7791664000873",
+   "nombre_cadena": "Ravioles La Italiana Ricota, Jamon Y Mozarella X1kg",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.878,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "29140",
+   "nombre": "TAPA DE EMPANADA MAR DEL PLATA HOJALDRE 12UN",
+   "ean_candidato": "7795942000081",
+   "nombre_cadena": "Tapa Empanada TAPAMAR Hojaldre X12 u",
+   "fuente_cadena": "maestro",
+   "similitud": 0.85,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "28763",
+   "nombre": "YOGUR MOMY ENTERO CON CEREAL VAINILLA 180GR",
+   "ean_candidato": "7792401110282",
+   "nombre_cadena": "Yogur C/cereales MOMY Vainilla X180g",
+   "fuente_cadena": "maestro",
+   "similitud": 0.88,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "14838",
+   "nombre": "TAPA PASCUALINA LA SANTIAGUEÑA CRIOLLA 2UN.360GR",
+   "ean_candidato": "7793806000253",
+   "nombre_cadena": "Tapa Pascualina la SANTIAGUEÑA Cr.x360 g",
+   "fuente_cadena": "maestro",
+   "similitud": 0.818,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "6498",
+   "nombre": "QUESO REGGIANITO SANTA ROSA TROZOS X KG",
+   "ean_candidato": "2507518000006",
+   "nombre_cadena": "Queso reggianito trozado Santa Rosa x kg.",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.881,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "80553",
+   "nombre": "CHOCOLATE MILKA LECHE CON ALMENDRAS 50GR",
+   "ean_candidato": "7622210745620",
+   "nombre_cadena": "Chocolate Milka Con Almendras 55 Gr.",
+   "fuente_cadena": "dia",
+   "similitud": 0.808,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "86212",
+   "nombre": "ALFAJOR COFLER BLOCK 40,7GR",
+   "ean_candidato": "7790040143654",
+   "nombre_cadena": "Alfajor Block 40 Gr Cofler",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.85,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "86184",
+   "nombre": "CARAMELOS LIPO VIENA RELL.FRUTALES 454GR",
+   "ean_candidato": "7793024001087",
+   "nombre_cadena": "Caramelos LIPO Viena X454g",
+   "fuente_cadena": "maestro",
+   "similitud": 0.801,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "82791",
+   "nombre": "GALLETITAS GAONA CRUNCHIPS DULCE DE LECHE 172GR",
+   "ean_candidato": "7798126074212",
+   "nombre_cadena": "Galletitas Gaona Crunchips Color 172 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.847,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "71019",
+   "nombre": "CARAMELOS FLYNN PAFF TUTTI FRUTTI XXL 24UN",
+   "ean_candidato": "7790380028109",
+   "nombre_cadena": "Caramelos masticables Flynn Paff XXL tutti frutti 30 g.",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.861,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89554",
+   "nombre": "INSECTICIDA X5 CUCARACHA HORMIGAS ARAÑAS 360CM3",
+   "ean_candidato": "8480017419538",
+   "nombre_cadena": "Insecticida Mata Cucarachas y Hormigas DIA 360 Ml.",
+   "fuente_cadena": "dia",
+   "similitud": 0.8,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89550",
+   "nombre": "JABON LIQUIDO BORITA PARA DILUIR 500CC",
+   "ean_candidato": "7798426254611",
+   "nombre_cadena": "Jabon Liquido BONUX . P/diluir X500 ml",
+   "fuente_cadena": "maestro",
+   "similitud": 0.805,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "84690",
+   "nombre": "LIMPIADOR LIQUIDO JARDIN RELAX CRISTAL 900ML",
+   "ean_candidato": "7792389002272",
+   "nombre_cadena": "Limpiador JARDIN Relax Cristalino X900 ml",
+   "fuente_cadena": "maestro",
+   "similitud": 0.81,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "84683",
+   "nombre": "DETERGENTE BORA MAGIC NARANJA/POMELO 500ML",
+   "ean_candidato": "7792389081123",
+   "nombre_cadena": "Detergente BORA MAGIC Nar/pom X500 ml",
    "fuente_cadena": "maestro",
    "similitud": 0.832,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "82647",
+   "nombre": "ESPONJA DEA ACERO INOXIDABLE",
+   "ean_candidato": "8480017283436",
+   "nombre_cadena": "Esponja de Acero Inoxidable Dia 1 Ud.",
+   "fuente_cadena": "dia",
+   "similitud": 0.802,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "28962",
+   "nombre": "LIMPIADOR LIQUIDO JARDIN CITRONELLA 900CC",
+   "ean_candidato": "7792389001022",
+   "nombre_cadena": "Limpiador JARDIN Citronella Crem. X900 ml",
+   "fuente_cadena": "maestro",
+   "similitud": 0.808,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "24462",
+   "nombre": "LIMPIADOR LIQUIDO JARDIN ARPEGE CREMOSO 900CC",
+   "ean_candidato": "7792389000698",
+   "nombre_cadena": "Limpiador JARDIN Arpege Crem. X900 ml",
+   "fuente_cadena": "maestro",
+   "similitud": 0.815,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "24164",
+   "nombre": "INSECTICIDA X 5 CUCARACHAS/HORMIGAS 360CC",
+   "ean_candidato": "8480017419538",
+   "nombre_cadena": "Insecticida Mata Cucarachas y Hormigas DIA 360 Ml.",
+   "fuente_cadena": "dia",
+   "similitud": 0.844,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "20646",
+   "nombre": "LIMPIADOR LIQUIDO JARDIN LAVANDA 4LT",
+   "ean_candidato": "7792389000278",
+   "nombre_cadena": "Limpiador Liq. Conc. JARDIN Lavanda X4 L",
+   "fuente_cadena": "maestro",
+   "similitud": 0.802,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "21112",
+   "nombre": "LIMPIADOR LIQUIDO JARDIN ARPEGE 4LT",
+   "ean_candidato": "7792389000308",
+   "nombre_cadena": "Limpiador Liq. Conc. JARDIN Arpege X4 L",
+   "fuente_cadena": "maestro",
+   "similitud": 0.825,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "5941",
+   "nombre": "LIMPIADOR LIQUIDO JARDIN ARPEGE 900ML",
+   "ean_candidato": "7792389000698",
+   "nombre_cadena": "Limpiador JARDIN Arpege Crem. X900 ml",
+   "fuente_cadena": "maestro",
+   "similitud": 0.811,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "1638",
+   "nombre": "INSECTICIDA X 5 MATA MOSCAS Y MOSQUITOS 360CC",
+   "ean_candidato": "8480017419545",
+   "nombre_cadena": "Insecticida Mata Moscas y Mosquitos DIA 360 Ml.",
+   "fuente_cadena": "dia",
+   "similitud": 0.873,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "7240",
+   "nombre": "ALIMENTO PARA PERROS FLECKY CACHORROS CARNE 10KG",
+   "ean_candidato": "7794270003054",
+   "nombre_cadena": "ALIMENTO PERRO Flecky Cachorro X10 kg",
+   "fuente_cadena": "maestro",
+   "similitud": 0.836,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "81471",
+   "nombre": "ALIMENTO PARA GATOS WHISKAS PESCADO 3KG",
+   "ean_candidato": "7797453971010",
+   "nombre_cadena": "Alimento Gato Whiskas Pescado 3kg",
+   "fuente_cadena": "masonline",
+   "similitud": 0.959,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89645",
+   "nombre": "TINTURA ISSUE EXPRESS SACHET CASTAÑO CLARO",
+   "ean_candidato": "7793008020431",
+   "nombre_cadena": "Tintura Express Castaño Claro 25 Ml Issue",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.839,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "82887",
+   "nombre": "JABON DE TOCADOR DUC CITRUS 3X110GR",
+   "ean_candidato": "7790828104891",
+   "nombre_cadena": "Jabon Tocador DUC Citrus X 110g",
+   "fuente_cadena": "maestro",
+   "similitud": 0.868,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "82886",
+   "nombre": "JABON DE TOCADOR DUC ARMONIC 3X110GR",
+   "ean_candidato": "7790828104877",
+   "nombre_cadena": "Jabon Tocador DUC Armonic X110g",
+   "fuente_cadena": "maestro",
+   "similitud": 0.87,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "21362",
+   "nombre": "TOALLAS HUMEDAS HUGGIES LIMPIEZA EFECTIVA 48UNI",
+   "ean_candidato": "7794626012594",
+   "nombre_cadena": "Toallas Humedas Huggies Limpieza Efectiva x 48 Ud.",
+   "fuente_cadena": "dia",
+   "similitud": 0.856,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87686",
+   "nombre": "CREMA PARA PEINAR SKALA 3 EN 1 BOMBA DE VITAMINA 250GR",
+   "ean_candidato": "7897042012176",
+   "nombre_cadena": "Crema P/peinar SKALA Bomba de Vit X250g",
+   "fuente_cadena": "maestro",
+   "similitud": 0.827,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87656",
+   "nombre": "OBLEA BAÑADA KIT KAT TRIPLE CHOCOLATE 41,5GR",
+   "ean_candidato": "7891000422052",
+   "nombre_cadena": "Oblea Kitkat Triple Chocolate X 41.5 Gr.",
+   "fuente_cadena": "dia",
+   "similitud": 0.813,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "90255",
+   "nombre": "PAPAS FRITAS NIKITOS JAMON SERANO 65GR",
+   "ean_candidato": "7798052362902",
+   "nombre_cadena": "Papas fritas Nikitos sabor jamón serrano 65 g.",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.924,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "90253",
+   "nombre": "PRESERVATIVOS PLAYBOY MIX TACHAS EXTRA LUBRICADO CONDOMS 6UN",
+   "ean_candidato": "7798194560280",
+   "nombre_cadena": "Preservativos Playboy mix tachas extralubricados 6 uni",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.828,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "90252",
+   "nombre": "PRESERVATIVOS PLAYBOY ULTRA FINOS CONDOMS 6UN",
+   "ean_candidato": "7798194560273",
+   "nombre_cadena": "Preservativos Ultrafinos Playboy X 6 Uni",
+   "fuente_cadena": "maxicarrefour",
+   "similitud": 0.803,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "90247",
+   "nombre": "PRESERVATIVOS PLAYBOY TEXTURADO CONDOMS 6UN",
+   "ean_candidato": "7798194560266",
+   "nombre_cadena": "Preservativos Texturados Playboy X 6 Uni",
+   "fuente_cadena": "maxicarrefour",
+   "similitud": 0.841,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "80533",
+   "nombre": "CHOCOLATE VIZZIO LECHE 50GR",
+   "ean_candidato": "7792360095002",
+   "nombre_cadena": "Chocolate Con Leche Vizzio 50 Grm",
+   "fuente_cadena": "coto",
+   "similitud": 0.823,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "80208",
+   "nombre": "BAZAR CUCHARON ILKO NYLON BASIC",
+   "ean_candidato": "7806810235037",
+   "nombre_cadena": "CUCHARON Ilko Nylon",
+   "fuente_cadena": "maestro",
+   "similitud": 0.821,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "79554",
+   "nombre": "CHOCOLATE NESTLE LECHE CON MANI 33GR",
+   "ean_candidato": "7613287526236",
+   "nombre_cadena": "Tableta De Chocolate Con Mani Nestle X 33 Grs",
+   "fuente_cadena": "maxicarrefour",
+   "similitud": 0.822,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "90230",
+   "nombre": "ALFAJOR MANTECOL PASTA MANTECOL 40GR",
+   "ean_candidato": "7790380026440",
+   "nombre_cadena": "Alfajor relleno de pasta de maní Mantecol 40 grs",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.828,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "35009",
+   "nombre": "YERBA PIPORE 1KG",
+   "ean_candidato": "7793750009821",
+   "nombre_cadena": "Yerba Mate Con Palo PIPORE 1kg",
+   "fuente_cadena": "coto",
+   "similitud": 0.819,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "87611",
+   "nombre": "JABON LIQUIDO GRANBY BAJA ESPUMA PARA DILUIR ROSAS 500ML",
+   "ean_candidato": "7791290796478",
+   "nombre_cadena": "Jabon Liquido Concentrado Para Diluir Granby Baja Espuma Limon 500 Ml.",
+   "fuente_cadena": "dia",
+   "similitud": 0.826,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "90157",
+   "nombre": "GALLETITAS BAUDUCCO RELLENAS CHOCOLATE 108GR",
+   "ean_candidato": "7891962072326",
+   "nombre_cadena": "Galletitas rellenas de frutilla Bauducco 108 grs",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.847,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "90161",
+   "nombre": "ALIMENTO PARA PERROS SABROSITOS ADULTOS MIX CARNE POLLO CERDO 1,5KG",
+   "ean_candidato": "7798073177615",
+   "nombre_cadena": "Alimento para Perros Orgánico Sabor Carne, Pollo y Cerdo Adultos 1.5 Kg Sabrositos",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.853,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "90207",
+   "nombre": "PAN HAMBURGUESA PANACITY PAPA CON PARMESANO 4UN 210GR",
+   "ean_candidato": "7798233800056",
+   "nombre_cadena": "Pan P/hamburguesa PANACITY X4 u(210g)",
+   "fuente_cadena": "maestro",
+   "similitud": 0.874,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "80439",
+   "nombre": "CHOCOLATE HAMLET MEGAMANI 165GR",
+   "ean_candidato": "7794612115964",
+   "nombre_cadena": "Chocolate HAMLET Mega C/alm./mani X165 g",
+   "fuente_cadena": "maestro",
+   "similitud": 0.826,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89718",
+   "nombre": "CARAMELOS MOGUL MASTICABLES CONFITADOS EXTREME SPLASH72GR",
+   "ean_candidato": "7790580150662",
+   "nombre_cadena": "Caramelos Masticables Confitados Extreme 70gr Mogul",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.859,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "77818",
+   "nombre": "OBLEA CHOCOLATE CHOCOLINAS XL 45GR",
+   "ean_candidato": "7790580131586",
+   "nombre_cadena": "Oblea Choco. COFLER Chocolinas Xl X45 g",
+   "fuente_cadena": "maestro",
+   "similitud": 0.806,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "90076",
+   "nombre": "CARAMELOS MOGUL MASTICABLES EXTREME SPLASH 30GR",
+   "ean_candidato": "7790580116873",
+   "nombre_cadena": "Caramelos rellenos Mogul Masti Extreme Splash 30 grs",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.806,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "90078",
+   "nombre": "CHOCOLATE COFLER CHOCOLINAS 140GR",
+   "ean_candidato": "7790580127336",
+   "nombre_cadena": "Tableta de chocolate blanco con chocolinas Cofler 140 grs",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.842,
    "via": "tfidf"
   },
   {
@@ -1777,163 +2866,13 @@
    "via": "tfidf"
   },
   {
-   "fuente": "yaguar",
-   "sku": "90125",
-   "nombre": "SHAMPOO DOVE HUMECTACION + COCO ANTIOXIDANTE 650ML",
-   "ean_candidato": "7791293051970",
-   "nombre_cadena": "Shampoo Dove humectación + coco antioxi 650 ml",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.892,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "90127",
-   "nombre": "SHAMPOO DOVE RECONSTRUCCION + AMINOACIDO 650ML",
-   "ean_candidato": "7791293051994",
-   "nombre_cadena": "Shampoo Dove Reconstrucción+ Aminoácido Experto en Daños DOVE 650 ml",
-   "fuente_cadena": "coto",
-   "similitud": 0.848,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "89744",
-   "nombre": "ALIMENTO PARA GATOS PET’S CLASS GATITOS POLLO/LECHE 85GR",
-   "ean_candidato": "7798139796682",
-   "nombre_cadena": "Alimento húmedo para gato Pet's Class 85 g. gatito pollo y leche",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.806,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "90138",
-   "nombre": "CREMA PONDS CLARANT B3 GRASA 100GR",
-   "ean_candidato": "7501056330309",
-   "nombre_cadena": "Crema Clarant B3 Ponds 100 Grm",
-   "fuente_cadena": "coto",
-   "similitud": 0.851,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "23780",
-   "nombre": "ALGODON DONCELLA DISCOS 80UN",
-   "ean_candidato": "7790064001909",
-   "nombre_cadena": "Algodón Estrella En Discos 80 U.",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.803,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "87611",
-   "nombre": "JABON LIQUIDO GRANBY BAJA ESPUMA PARA DILUIR ROSAS 500ML",
-   "ean_candidato": "7791290796478",
-   "nombre_cadena": "Jabon Liquido Concentrado Para Diluir Granby Baja Espuma Limon 500 Ml.",
-   "fuente_cadena": "dia",
-   "similitud": 0.824,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "90157",
-   "nombre": "GALLETITAS BAUDUCCO RELLENAS CHOCOLATE 108GR",
-   "ean_candidato": "7891962072326",
-   "nombre_cadena": "Galletitas rellenas de frutilla Bauducco 108 grs",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.845,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "85822",
-   "nombre": "TIRITAS POLLO CONGELADO SADIA GOLDEN 300GR",
-   "ean_candidato": "7891515586812",
-   "nombre_cadena": "Tiritas de pollo congeladas Sadia Golden en bolsa 300 grs",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.875,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "90207",
-   "nombre": "PAN HAMBURGUESA PANACITY PAPA CON PARMESANO 4UN 210GR",
-   "ean_candidato": "7798233800056",
-   "nombre_cadena": "Pan P/hamburguesa PANACITY X4 u(210g)",
-   "fuente_cadena": "maestro",
-   "similitud": 0.877,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "75411",
-   "nombre": "PASTILLAS GOMA RICOMAS CONITOS FRUTALES 500GR",
-   "ean_candidato": "7790580130305",
-   "nombre_cadena": "Conitos Frutales RICOMAS X500 g",
-   "fuente_cadena": "maestro",
-   "similitud": 0.83,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "29927",
-   "nombre": "BIZCOCHUELO BONAFIDE CHOCMAN 35GR",
-   "ean_candidato": "7792360096634",
-   "nombre_cadena": "Bizcochuelo Chocman de Bonafide con Baño Semi Amargo 35 Gr.",
-   "fuente_cadena": "dia",
-   "similitud": 0.822,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "76658",
-   "nombre": "YOGUR YOGURISIMO FIRME ENTERO FRUTILLA FORTIFICADO 190GR",
-   "ean_candidato": "7791337651227",
-   "nombre_cadena": "Yogur Firme YOGURISIMO Frutilla X190 g",
-   "fuente_cadena": "maestro",
-   "similitud": 0.822,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "89072",
-   "nombre": "QUESO CREMOSO MEDITERRANEA XKG",
-   "ean_candidato": "7798099131202",
-   "nombre_cadena": "Queso cremoso MEDITERRANEA 500g",
-   "fuente_cadena": "coto",
-   "similitud": 0.847,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "89901",
-   "nombre": "JABON EN POLVO ZORRO BICARB.LAV.MAN/MULTI.400GR",
-   "ean_candidato": "7790990003886",
-   "nombre_cadena": "Jabon En Polvo Lav Mano Bicarb A E Zorro X 800Grm",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.814,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "77700",
-   "nombre": "EDULCORANTE HILERET CLASICO FORTE 100 SOBRES",
-   "ean_candidato": "7790490998026",
-   "nombre_cadena": "Edulcorante Clásico Forte Hileret 40 Gr.",
-   "fuente_cadena": "dia",
-   "similitud": 0.833,
-   "via": "tfidf"
-  },
-  {
    "fuente": "maxiconsumo",
-   "sku": "13464",
-   "nombre": "ACEITE COCINERO OLIVA SUAVE PET 500 CC",
-   "ean_candidato": "7790070265142",
-   "nombre_cadena": "Aceite De Oliva Puro Cocinero Pet X 500 Cc",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.817,
+   "sku": "28954",
+   "nombre": "ACITE OLIOVITA OLIVA PET 250 CC",
+   "ean_candidato": "7798061190305",
+   "nombre_cadena": "Aceite de Oliva 250 Ml Oliovita",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.912,
    "via": "tfidf"
   },
   {
@@ -1941,19 +2880,9 @@
    "sku": "28956",
    "nombre": "ACEITE OLIOVITA OLIVA MEDITERRANEO PET 500 C",
    "ean_candidato": "7798061190596",
-   "nombre_cadena": "Aceite Oliva Virgen Extra OLIOVITA Mediterráneo 500 Ml",
-   "fuente_cadena": "coto",
-   "similitud": 0.842,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "maxiconsumo",
-   "sku": "28953",
-   "nombre": "ACEITE OLIOVITA OLIVA BOTELLA 500 CC",
-   "ean_candidato": "7798061190732",
-   "nombre_cadena": "Aceite Oliva Virgen Extra Oliovita Botella 500 Ml",
-   "fuente_cadena": "coto",
-   "similitud": 0.87,
+   "nombre_cadena": "Aceite De Oliva Mediterráneo 500 Ml Oliovita",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.961,
    "via": "tfidf"
   },
   {
@@ -1963,17 +2892,17 @@
    "ean_candidato": "7794000005198",
    "nombre_cadena": "Ketchup Fanacoa doy pack 250 grs",
    "fuente_cadena": "carrefour",
-   "similitud": 0.834,
+   "similitud": 0.832,
    "via": "tfidf"
   },
   {
    "fuente": "maxiconsumo",
-   "sku": "6685",
-   "nombre": "CAFE BONAFIDE SENSACIONES SUAVE 500 GR",
-   "ean_candidato": "7792360002130",
-   "nombre_cadena": "Café Molido Sensaciones Bonafide Torrado Suave 500 Gr.",
-   "fuente_cadena": "dia",
-   "similitud": 0.826,
+   "sku": "24120",
+   "nombre": "BOMBON BON O BON SURTIDOS 255 GR",
+   "ean_candidato": "7790580119126",
+   "nombre_cadena": "Bombón Surtido Bon O Bon 255 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.967,
    "via": "tfidf"
   },
   {
@@ -1981,9 +2910,9 @@
    "sku": "27013",
    "nombre": "CARAMELOS MOGUL CONFITADOS ROSA 70 GR",
    "ean_candidato": "7790580150648",
-   "nombre_cadena": "Caramelos Masti Confitados Mogul 70g",
-   "fuente_cadena": "coto",
-   "similitud": 0.848,
+   "nombre_cadena": "Caramelos Confitados Mogul Masti 70 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.847,
    "via": "tfidf"
   },
   {
@@ -1993,7 +2922,17 @@
    "ean_candidato": "7790580145675",
    "nombre_cadena": "Dulce de Batata NOEL Caja X5 kg",
    "fuente_cadena": "maestro",
-   "similitud": 0.848,
+   "similitud": 0.846,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "30010",
+   "nombre": "FIDEOS LUCCHETTI ESTRELLAS 500 GR",
+   "ean_candidato": "7790070105431",
+   "nombre_cadena": "Fideos soperos de sémola estrellas LUCCHETTI 500g",
+   "fuente_cadena": "coto",
+   "similitud": 0.819,
    "via": "tfidf"
   },
   {
@@ -2003,7 +2942,7 @@
    "ean_candidato": "7798342713131",
    "nombre_cadena": "Anana S&P en Rodajas X565 g",
    "fuente_cadena": "maestro",
-   "similitud": 0.806,
+   "similitud": 0.803,
    "via": "tfidf"
   },
   {
@@ -2013,7 +2952,17 @@
    "ean_candidato": "7896022086350",
    "nombre_cadena": "Galletitas Rellenas Mousse De Chocolate Isabela 130g",
    "fuente_cadena": "coto",
-   "similitud": 0.856,
+   "similitud": 0.854,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "50886",
+   "nombre": "GALLETITAS POLVORITA VAINILLA FRUTILLA 152 GR",
+   "ean_candidato": "7790040139190",
+   "nombre_cadena": "Galletitas Polvoritas Sabor Vainilla/Vainilla 152 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.815,
    "via": "tfidf"
   },
   {
@@ -2023,17 +2972,27 @@
    "ean_candidato": "7792180146588",
    "nombre_cadena": "Galletitas dulces con canela 9 DE ORO 160g",
    "fuente_cadena": "coto",
-   "similitud": 0.838,
+   "similitud": 0.839,
    "via": "tfidf"
   },
   {
    "fuente": "maxiconsumo",
-   "sku": "26721",
-   "nombre": "LECHE LAS 3 NIÑAS CHOCOLATE 1 LT",
-   "ean_candidato": "7798338291049",
-   "nombre_cadena": "Leche Chocolatada Las 3 Niñas 1 Lt.",
+   "sku": "28205",
+   "nombre": "GALLETITAS TRAVIATA KESITAS 288 GR",
+   "ean_candidato": "7790040150270",
+   "nombre_cadena": "Galletitas Saladas Traviata Kesitas 288 G 3 U",
+   "fuente_cadena": "masonline",
+   "similitud": 0.869,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "29012",
+   "nombre": "LECHE LAS 3 NIÑAS DESCREMADA 0% 1 LT",
+   "ean_candidato": "7798338290035",
+   "nombre_cadena": "Leche Descremada Las 3 Niñas Larga Vida 1 Lt.",
    "fuente_cadena": "dia",
-   "similitud": 0.882,
+   "similitud": 0.807,
    "via": "tfidf"
   },
   {
@@ -2043,7 +3002,7 @@
    "ean_candidato": "7792900991023",
    "nombre_cadena": "Mayonesa DOS ANCLAS D/p X200g",
    "fuente_cadena": "maestro",
-   "similitud": 0.816,
+   "similitud": 0.811,
    "via": "tfidf"
   },
   {
@@ -2053,17 +3012,17 @@
    "ean_candidato": "8480017303394",
    "nombre_cadena": "Baño de Reposteria Semiamargo DIA 150 Gr.",
    "fuente_cadena": "dia",
-   "similitud": 0.826,
+   "similitud": 0.824,
    "via": "tfidf"
   },
   {
    "fuente": "maxiconsumo",
-   "sku": "15958",
-   "nombre": "SALSA ARCOR PIZZA DOYPACK 340 GR",
-   "ean_candidato": "7790580133153",
-   "nombre_cadena": "Salsa Pizza Arcor Doy Pack X 340 Grs",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.882,
+   "sku": "28916",
+   "nombre": "SNACK ALA QUESO HORNEADOS 80 GR",
+   "ean_candidato": "7791120104886",
+   "nombre_cadena": "Snacks Horneados Sabor Queso 80 Grs Molinos Ala",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.806,
    "via": "tfidf"
   },
   {
@@ -2073,7 +3032,7 @@
    "ean_candidato": "7794000006911",
    "nombre_cadena": "Sopa Zapallo Quick Knorr X 5 Uni",
    "fuente_cadena": "maxicarrefour",
-   "similitud": 0.838,
+   "similitud": 0.843,
    "via": "tfidf"
   },
   {
@@ -2083,7 +3042,7 @@
    "ean_candidato": "7790315058201",
    "nombre_cadena": "Agua Mineral Sin Gas Villavicencio Sport X 750 Cc",
    "fuente_cadena": "maxicarrefour",
-   "similitud": 0.851,
+   "similitud": 0.852,
    "via": "tfidf"
   },
   {
@@ -2091,9 +3050,9 @@
    "sku": "25987",
    "nombre": "CERVEZA PATAGONIA AMBER LEGER 730 cc",
    "ean_candidato": "7792798002351",
-   "nombre_cadena": "Cerveza roja Patagonia Amber Lager 730 ml",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.861,
+   "nombre_cadena": "Cerveza Amber Lager 730 Cc Patagonia",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.908,
    "via": "tfidf"
   },
   {
@@ -2103,7 +3062,17 @@
    "ean_candidato": "7790139102449",
    "nombre_cadena": "Aperitivo con alcohol 1882 fernet con pomelo 473 ml",
    "fuente_cadena": "carrefour",
-   "similitud": 0.81,
+   "similitud": 0.809,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "27546",
+   "nombre": "GASEOSA CUNNINGTON CLASICA POMELO 3 LT",
+   "ean_candidato": "7790639003512",
+   "nombre_cadena": "Gaseosa Cunnington De Pomelo Classic 3 L",
+   "fuente_cadena": "masonline",
+   "similitud": 0.905,
    "via": "tfidf"
   },
   {
@@ -2113,7 +3082,7 @@
    "ean_candidato": "7791813888338",
    "nombre_cadena": "Gaseosa PASO de los TOROS Po. X2.45 L",
    "fuente_cadena": "maestro",
-   "similitud": 0.882,
+   "similitud": 0.883,
    "via": "tfidf"
   },
   {
@@ -2123,7 +3092,7 @@
    "ean_candidato": "7790036000466",
    "nombre_cadena": "Jugo BAGGIO PRONTO Multifruta X1 L",
    "fuente_cadena": "maestro",
-   "similitud": 0.892,
+   "similitud": 0.894,
    "via": "tfidf"
   },
   {
@@ -2133,7 +3102,7 @@
    "ean_candidato": "7790036000329",
    "nombre_cadena": "Jugo BAGGIO PRONTO Naranja X1 L",
    "fuente_cadena": "maestro",
-   "similitud": 0.802,
+   "similitud": 0.801,
    "via": "tfidf"
   },
   {
@@ -2153,7 +3122,7 @@
    "ean_candidato": "7798162671673",
    "nombre_cadena": "Vino OVEJA BLACK Malbec 750 ml",
    "fuente_cadena": "maestro",
-   "similitud": 0.84,
+   "similitud": 0.838,
    "via": "tfidf"
   },
   {
@@ -2163,7 +3132,7 @@
    "ean_candidato": "2505587000002",
    "nombre_cadena": "Queso cremoso Puyehue horma x kg.",
    "fuente_cadena": "carrefour",
-   "similitud": 0.845,
+   "similitud": 0.849,
    "via": "tfidf"
   },
   {
@@ -2173,7 +3142,7 @@
    "ean_candidato": "2000000188270",
    "nombre_cadena": "Queso Sardo Horma Puyehue X Kg",
    "fuente_cadena": "coto",
-   "similitud": 0.852,
+   "similitud": 0.856,
    "via": "tfidf"
   },
   {
@@ -2183,27 +3152,17 @@
    "ean_candidato": "2000000188270",
    "nombre_cadena": "Queso Sardo Horma Puyehue X Kg",
    "fuente_cadena": "coto",
-   "similitud": 0.851,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "maxiconsumo",
-   "sku": "27137",
-   "nombre": "QUESO LA SERENISIMA REGGIANITO ¼ HORMA 1 kg",
-   "ean_candidato": "2406934000006",
-   "nombre_cadena": "Queso Reggianito La Serenisima x Kg.",
-   "fuente_cadena": "dia",
-   "similitud": 0.851,
+   "similitud": 0.852,
    "via": "tfidf"
   },
   {
    "fuente": "maxiconsumo",
    "sku": "5824",
    "nombre": "QUESO LA PAULINA PORT SALUT LIGHT 1 KG",
-   "ean_candidato": "2406888000008",
-   "nombre_cadena": "Queso Port Salut La Paulina X Kg.",
-   "fuente_cadena": "dia",
-   "similitud": 0.833,
+   "ean_candidato": "2505628000008",
+   "nombre_cadena": "Queso Port Salut Light La Paulina horma x kg",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.864,
    "via": "tfidf"
   },
   {
@@ -2213,17 +3172,7 @@
    "ean_candidato": "2000000188256",
    "nombre_cadena": "Queso Gouda Horma Puyehue X Kg",
    "fuente_cadena": "coto",
-   "similitud": 0.86,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "maxiconsumo",
-   "sku": "5854",
-   "nombre": "QUESO LA PAULINA PATEGRAS 1 KG",
-   "ean_candidato": "2088440000000",
-   "nombre_cadena": "Pategrás LA PAULINA x Kg",
-   "fuente_cadena": "coto",
-   "similitud": 0.811,
+   "similitud": 0.864,
    "via": "tfidf"
   },
   {
@@ -2231,9 +3180,9 @@
    "sku": "28365",
    "nombre": "YOGHURT MILKAUT FIRME FRUTILLA 180 GR",
    "ean_candidato": "7794820903254",
-   "nombre_cadena": "Yogur Firme Frutilla Milkaut 180 Gr.",
-   "fuente_cadena": "dia",
-   "similitud": 0.819,
+   "nombre_cadena": "Yogur Firme Milkaut Frutilla 180 G",
+   "fuente_cadena": "masonline",
+   "similitud": 0.82,
    "via": "tfidf"
   },
   {
@@ -2241,9 +3190,9 @@
    "sku": "1273",
    "nombre": "CEPILLO LA GAUCHITA ANTOMICO",
    "ean_candidato": "7792459004113",
-   "nombre_cadena": "Cepillo La Gauchita Max Anatómico",
-   "fuente_cadena": "coto",
-   "similitud": 0.856,
+   "nombre_cadena": "Cepillo La Gauchita Anatomico",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.923,
    "via": "tfidf"
   },
   {
@@ -2253,7 +3202,7 @@
    "ean_candidato": "7792459000252",
    "nombre_cadena": "Escoba La Gauchita Barre Mas",
    "fuente_cadena": "coto",
-   "similitud": 0.889,
+   "similitud": 0.891,
    "via": "tfidf"
   },
   {
@@ -2273,7 +3222,7 @@
    "ean_candidato": "7791290794146",
    "nombre_cadena": "Bloque para mochila Vim oceano 2 uni",
    "fuente_cadena": "carrefour",
-   "similitud": 0.838,
+   "similitud": 0.843,
    "via": "tfidf"
   },
   {
@@ -2283,27 +3232,17 @@
    "ean_candidato": "7500435252942",
    "nombre_cadena": "Enjuague Concentrado Brisa De Verano Downy 350ml",
    "fuente_cadena": "coto",
-   "similitud": 0.809,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "maxiconsumo",
-   "sku": "1815",
-   "nombre": "INSECTICIDA RAID MAX CUCARACHAS ARAÑAS 360 CC",
-   "ean_candidato": "7790520025777",
-   "nombre_cadena": "Insecticida Raid Max Mata Cucarachas y Arañas Sin olor en Aerosol 360 Ml.",
-   "fuente_cadena": "dia",
-   "similitud": 0.834,
+   "similitud": 0.811,
    "via": "tfidf"
   },
   {
    "fuente": "maxiconsumo",
    "sku": "24177",
    "nombre": "JABON LIQUIDO GRANBY PARA DILUIR ROSA 500 ML",
-   "ean_candidato": "7791290796478",
-   "nombre_cadena": "Jabón líquido para diluir Granby limón en botella 500 ml",
+   "ean_candidato": "7791290796843",
+   "nombre_cadena": "Jabón líquido para diluir Granby Rosas botella 500 ml",
    "fuente_cadena": "carrefour",
-   "similitud": 0.829,
+   "similitud": 0.889,
    "via": "tfidf"
   },
   {
@@ -2311,29 +3250,9 @@
    "sku": "1487",
    "nombre": "LIMPIADOR Mr MUSCULO VIDRIOS MULTIUSO 900 CC",
    "ean_candidato": "7790520018656",
-   "nombre_cadena": "Limpiador vidrios y multiusos Mr. Músculo brillo sin rayas 900 ml",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.825,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "maxiconsumo",
-   "sku": "1855",
-   "nombre": "LUSTRAMUEBLE CERAMICOL 360 CC",
-   "ean_candidato": "7790520028723",
-   "nombre_cadena": "Lustramueble Naranja Ceramicol Aerosol X 360 Cc",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.843,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "maxiconsumo",
-   "sku": "1406",
-   "nombre": "LUSTRAMUEBLE BLEM NARANJA 360 CC",
-   "ean_candidato": "7790463000152",
-   "nombre_cadena": "Lustramueble BLEM Orig. X360 ml(BAJA)",
-   "fuente_cadena": "maestro",
-   "similitud": 0.801,
+   "nombre_cadena": "Limpiador Vidrios y Multiusos Repuesto 900cc Mr. Músculo",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.894,
    "via": "tfidf"
   },
   {
@@ -2343,7 +3262,7 @@
    "ean_candidato": "7506306254459",
    "nombre_cadena": "Antitranspirante Aero Energy Boost Dove Men X150Cc",
    "fuente_cadena": "maxicarrefour",
-   "similitud": 0.85,
+   "similitud": 0.848,
    "via": "tfidf"
   },
   {
@@ -2353,7 +3272,7 @@
    "ean_candidato": "7500435014342",
    "nombre_cadena": "Cepillo Dental 123 Oral B 2X1 Uni",
    "fuente_cadena": "maxicarrefour",
-   "similitud": 0.806,
+   "similitud": 0.803,
    "via": "tfidf"
   },
   {
@@ -2368,22 +3287,12 @@
   },
   {
    "fuente": "maxiconsumo",
-   "sku": "27397",
-   "nombre": "AGUA CICATRICUR MICELAR NF 200 ml",
-   "ean_candidato": "7798140253945",
-   "nombre_cadena": "Agua micelar Cicatricure 200 ml.",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.813,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "maxiconsumo",
    "sku": "26582",
    "nombre": "JABON LIQUIDO POLYANA VIOLET DOYPACK 220 ML",
    "ean_candidato": "7791905022862",
    "nombre_cadena": "Jabon Liquido Violet POLYANA Doy 220 Ml",
    "fuente_cadena": "coto",
-   "similitud": 0.847,
+   "similitud": 0.844,
    "via": "tfidf"
   },
   {
@@ -2393,7 +3302,7 @@
    "ean_candidato": "7793008017936",
    "nombre_cadena": "Coloracion Tintura Shampoo Rubio Issue 25ml",
    "fuente_cadena": "coto",
-   "similitud": 0.825,
+   "similitud": 0.824,
    "via": "tfidf"
   },
   {
@@ -2403,7 +3312,7 @@
    "ean_candidato": "7806810236263",
    "nombre_cadena": "SARTEN ANTIADHERENTE Ilko 20cm",
    "fuente_cadena": "maestro",
-   "similitud": 0.819,
+   "similitud": 0.813,
    "via": "tfidf"
   },
   {
@@ -2413,7 +3322,7 @@
    "ean_candidato": "7791822675523",
    "nombre_cadena": "BOWL Rigolleau Grande Apilable",
    "fuente_cadena": "maestro",
-   "similitud": 0.82,
+   "similitud": 0.821,
    "via": "tfidf"
   },
   {
@@ -2423,7 +3332,27 @@
    "ean_candidato": "7791822675523",
    "nombre_cadena": "BOWL Rigolleau Grande Apilable",
    "fuente_cadena": "maestro",
-   "similitud": 0.804,
+   "similitud": 0.805,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "28799",
+   "nombre": "ALIMENTO PARA GATOS PETS CLASS CARNE 85 GR",
+   "ean_candidato": "7798139796675",
+   "nombre_cadena": "Alimento Humedo  Gato Carne Pets Class X 85 Grs",
+   "fuente_cadena": "masonline",
+   "similitud": 0.854,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "28716",
+   "nombre": "ALIMENTO PARA ANIMALES WHISKAS POUCH POLLO 85 GR",
+   "ean_candidato": "7797453000550",
+   "nombre_cadena": "Alimento Adulto Pollo Pouch Whiskas 85 Gr",
+   "fuente_cadena": "masonline",
+   "similitud": 0.833,
    "via": "tfidf"
   },
   {
@@ -2431,29 +3360,29 @@
    "sku": "342",
    "nombre": "ALIMENTO PARA GATOS FELIX ATUN 85 GR",
    "ean_candidato": "7891000120774",
-   "nombre_cadena": "Alimento Humedo Para Gatos Sabor Atun Felix 85 Gr.",
-   "fuente_cadena": "dia",
-   "similitud": 0.86,
+   "nombre_cadena": "Alimento Húmedo Para Gato Felix Atún 85 Gr",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.877,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "16572",
+   "nombre": "ALIMENTO PARA GATOS FELIX SALMON 85 GR",
+   "ean_candidato": "7891000241080",
+   "nombre_cadena": "Alimento Húmedo Para Gato Felix Salmón 85 Gr",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.857,
    "via": "tfidf"
   },
   {
    "fuente": "maxiconsumo",
    "sku": "28777",
    "nombre": "ALIMENTO PARA PERROS SABROSITOS ADULTOS MIX 1.5 KG",
-   "ean_candidato": "7798073177417",
-   "nombre_cadena": "Alimento Adulto Sabrositos Mix C C V 1.5 Kg",
-   "fuente_cadena": "maxicarrefour",
-   "similitud": 0.833,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "maxiconsumo",
-   "sku": "28781",
-   "nombre": "ALIMENTO PARA PERROS SABROSITOS ADULTOS VARIEDAD 1.5 KG",
-   "ean_candidato": "7798073177639",
-   "nombre_cadena": "Alimento seco para perro Sabrositos adulto variedades 1.5 kg",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.84,
+   "ean_candidato": "7798073177585",
+   "nombre_cadena": "Alimento Para Perro Sabrositos Mix 1.5 Kg",
+   "fuente_cadena": "masonline",
+   "similitud": 0.848,
    "via": "tfidf"
   },
   {
@@ -2464,6 +3393,16 @@
    "nombre_cadena": "Alimento seco para perro Sabrositos mix c/p/c 8 kg",
    "fuente_cadena": "carrefour",
    "similitud": 0.818,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "28783",
+   "nombre": "ALIMENTO PARA PERROS SABROSITOS ADULTOS VARIEDAD 14 KG + 1",
+   "ean_candidato": "7798073177653",
+   "nombre_cadena": "Alimento para Perros Seco Sabor Variedades Adultos 15 Kg Sabrositos",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.817,
    "via": "tfidf"
   }
  ],

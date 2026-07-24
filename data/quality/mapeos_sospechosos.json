@@ -1,13 +1,237 @@
 {
- "fecha": "2026-07-17T00:57:36",
+ "fecha": "2026-07-24T20:31:02",
  "sospechosos": [
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "2770",
+   "ean": "7622300865559",
+   "nombre_mayorista": "GELATINA POLVO ROYAL TRADICIONAL CEREZA 25GR",
+   "nombre_cadena": "Gelatina ROYAL de Cereza X40g",
+   "fuente_cadena": "maestro"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "11377",
+   "ean": "7790040377806",
+   "nombre_mayorista": "GALLETITAS CRIOLLITAS TRIPACK 300GR",
+   "nombre_cadena": "Galletitas original Criollitas 100 g. x 3 uni",
+   "fuente_cadena": "carrefour"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "20899",
+   "ean": "7790645002936",
+   "nombre_mayorista": "CHAMPIGNONES CARACAS TROZOS 400GR",
+   "nombre_cadena": "Champiñones en Trozos 230 Grs Caracas",
+   "fuente_cadena": "jumbo"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "29280",
+   "ean": "7797453000468",
+   "nombre_mayorista": "ALIMENTO PARA PERROS PEDIGREE CACHORROS CARNE POUCH 85GR",
+   "nombre_cadena": "Alimento Cachorro Carne Pouch Pedigree 100 Gr",
+   "fuente_cadena": "masonline"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "74456",
+   "ean": "7791600064563",
+   "nombre_mayorista": "DESODORANTE CIEL NUIT 186ML",
+   "nombre_cadena": "Desodorante Ciel Nuit 123ml",
+   "fuente_cadena": "masonline"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "76746",
+   "ean": "7791675908571",
+   "nombre_mayorista": "ACEITUNA CASTELL NEGRO DOY PACK 180GR",
+   "nombre_cadena": "Aceitunas Negras 300 Grs Castell",
+   "fuente_cadena": "jumbo"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "76761",
+   "ean": "7791675908946",
+   "nombre_mayorista": "ACEITUNA CASTELL NEGRO DESCAROZADAS DOY PACK 80GR",
+   "nombre_cadena": "Aceitunas Negras Descarozadas 180 Grs Castell",
+   "fuente_cadena": "jumbo"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "77960",
+   "ean": "7790150079904",
+   "nombre_mayorista": "CAFE LA VIRGINIA 20 SAQUITOS 5GR",
+   "nombre_cadena": "Café Molido Torrado 100 Grs x 20 Un La Virginia",
+   "fuente_cadena": "jumbo"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "78313",
+   "ean": "7790520995988",
+   "nombre_mayorista": "DESODORANTE AMBIENTE GLADE AUTOMOTOR REPUESTO MANZANA/CANELA 270ML",
+   "nombre_cadena": "Repuesto Aromatizador de Ambiente Manzana y Canela 175 Cc Glade",
+   "fuente_cadena": "jumbo"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "78315",
+   "ean": "7790520996008",
+   "nombre_mayorista": "DESODORANTE AMBIENTE GLADE AUTOMOTOR REPUESTO HAWAIIAW 270ML",
+   "nombre_cadena": "Repuesto de Desodorante de Ambiente Hawaiian Breeze 175 Cc Glade",
+   "fuente_cadena": "jumbo"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "78316",
+   "ean": "7790520996015",
+   "nombre_mayorista": "DESODORANTE AMBIENTE GLADE AUTOMOTOR REPUESTO LAVANDA/VAINILLA 270ML",
+   "nombre_cadena": "Repuesto Aromatizador de Ambiente Lavanda y Vainilla 175 Cc Glade",
+   "fuente_cadena": "jumbo"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "78317",
+   "ean": "7790520997708",
+   "nombre_mayorista": "DESODORANTE AMBIENTE GLADE AUTOMOTOR FULL LAVANDA/VAINILLA 270ML",
+   "nombre_cadena": "Desodorante de Ambiente Automático Lavanda y Vainilla 175 Cc Glade",
+   "fuente_cadena": "jumbo"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "78857",
+   "ean": "7793433000626",
+   "nombre_mayorista": "SEMILLAS GENSER GIRASOL DOY PACK 120GR",
+   "nombre_cadena": "Semillas GENSER Girasol Doyp. 120/150 g",
+   "fuente_cadena": "maestro"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "79958",
+   "ean": "7794000005839",
+   "nombre_mayorista": "SOPA KNORR CASERA VEGETALES/LETRAS 107,5GR",
+   "nombre_cadena": "Sopa De Letras Knorr Con Vegetales 7.5g",
+   "fuente_cadena": "masonline"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "80906",
+   "ean": "7792180139634",
+   "nombre_mayorista": "BIZCOCHUELO MAMA COCINA BROWNIE CHOCOLATE 425GR",
+   "nombre_cadena": "Premezcla Para Brownies Mamà Cocina X 540gr",
+   "fuente_cadena": "masonline"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "82982",
+   "ean": "7797453001564",
+   "nombre_mayorista": "ALIMENTO PARA PERROS PEDIGREE RAZA PEQUEÑA 1.5KG",
+   "nombre_cadena": "Alimento Para Perros Pedigree Adulto Razas Pequeñas 1kg",
+   "fuente_cadena": "jumbo"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "86538",
+   "ean": "7506306255050",
+   "nombre_mayorista": "DESODORANTE AXE CHERRY SPRITZ 150ML",
+   "nombre_cadena": "Desodorante Axe Cherry Spritz 113ml",
+   "fuente_cadena": "masonline"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "89036",
+   "ean": "7790520996053",
+   "nombre_mayorista": "DESODORANTE AMBIENTES GLADE AUTOMATICO REPUESTO LIMON 270ML",
+   "nombre_cadena": "Aromatizador Automático Limón Repuesto 175cc Glade",
+   "fuente_cadena": "jumbo"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "89302",
+   "ean": "7500435153164",
+   "nombre_mayorista": "DENTIFRICO ORAL B 100% 70GR",
+   "nombre_cadena": "Crema Dental Oral-b 10070gr",
+   "fuente_cadena": "jumbo"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "602542",
+   "ean": "7791905004172",
+   "nombre_mayorista": "DESODORANTE POLYANA AEROSOL AP WOMEN CLASIC 172ML",
+   "nombre_cadena": "Antitranspirante En Aerosol Women Classic Polyana 150 Ml",
+   "fuente_cadena": "masonline"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "90200",
+   "ean": "7791813421412",
+   "nombre_mayorista": "GASEOSA PASO DE LOS TOROS POMELO 2LT",
+   "nombre_cadena": "Gaseosa Sin Azúcar Sabor Pomelo 1.5 Lts Paso de los Toros",
+   "fuente_cadena": "jumbo"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "87531",
+   "ean": "7791337010680",
+   "nombre_mayorista": "POSTRE SERENITO POSTRE DE CAMPEONES VAINILLA 190GR",
+   "nombre_cadena": "Postre Sabor Vainilla x 2 Un 95 Grs Serenito",
+   "fuente_cadena": "jumbo"
+  },
   {
    "mapeo": "por_sku_yaguar",
    "sku": "85675",
    "ean": "7506339332643",
    "nombre_mayorista": "SUAVIZANTE DOWNY BRISA DE VERANO BOTELLA 1LT",
-   "nombre_cadena": "Suavizante Downy Brisa de Verano, Rinde 4L, Perfume de Larga Duración 1L",
-   "fuente_cadena": "carrefour"
+   "nombre_cadena": "Suavizante Downy Brisa de Verão Perfume de Larga Duración Rinde 4L 1 Lt.",
+   "fuente_cadena": "dia"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "87555",
+   "ean": "7793360105944",
+   "nombre_mayorista": "TOMATE LA CAMPAGNOLA CUBETEADO 400GR",
+   "nombre_cadena": "Tomate Cubeteado La Campagnola 340 Gr.",
+   "fuente_cadena": "dia"
+  },
+  {
+   "mapeo": "por_sku_maxiconsumo",
+   "sku": "23081",
+   "ean": "7797453000468",
+   "nombre_mayorista": "ALIMENTO PARA PERROS PEDIGREE POUCH CACHORRO 85 GR",
+   "nombre_cadena": "Alimento Cachorro Carne Pouch Pedigree 100 Gr",
+   "fuente_cadena": "masonline"
+  },
+  {
+   "mapeo": "por_sku_maxiconsumo",
+   "sku": "16988",
+   "ean": "7793940328008",
+   "nombre_mayorista": "QUESO LA SERENISIMA RALLADO 40 GR",
+   "nombre_cadena": "Queso Rallado La Serenísima Reggianito 35 G",
+   "fuente_cadena": "masonline"
+  },
+  {
+   "mapeo": "por_sku_maxiconsumo",
+   "sku": "18953",
+   "ean": "7798054220149",
+   "nombre_mayorista": "GALLETITAS TEREPIN PEPAS 400 GR",
+   "nombre_cadena": "Galletitas Pepas Terepin Membrillo 500gr",
+   "fuente_cadena": "masonline"
+  },
+  {
+   "mapeo": "por_sku_maxiconsumo",
+   "sku": "21416",
+   "ean": "7790990002834",
+   "nombre_mayorista": "JABON LIQUIDO ARIEL PLATINUM DILUIR 500 ML",
+   "nombre_cadena": "Jabón Líquido Concentrado Diluible Rinde 3 Lts Ariel",
+   "fuente_cadena": "jumbo"
+  },
+  {
+   "mapeo": "por_sku_maxiconsumo",
+   "sku": "27690",
+   "ean": "7791675902616",
+   "nombre_mayorista": "ACEITUNA CASTELL VERDE DESCAROZADA DOYPACK 80 GR",
+   "nombre_cadena": "Aceitunas Verdes Descarozadas Castell 180gr",
+   "fuente_cadena": "coto"
   }
  ],
  "aceptados": [
