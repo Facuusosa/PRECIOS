@@ -17,7 +17,10 @@ from curl_cffi import requests
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
-load_dotenv()
+# override=True: el proceso padre (pipeline_local.py) ya cargo el .env viejo
+# antes de que este script renueve cookies -- sin override, python-dotenv no pisa
+# el PHPSESSID muerto heredado y el scraper corre con sesion caida (bug 23/07/2026).
+load_dotenv(override=True)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 BASE_URL = "https://comerciante.carrefour.com.ar"

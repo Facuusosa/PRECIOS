@@ -106,9 +106,36 @@ def _extraer_precio_bulto_cerrado(soup) -> float:
     return 0.0
 
 
+def _get_con_guardian(session, url, timeout_total=25):
+    """session.get() con limite duro de tiempo real via thread daemon.
+
+    Verificado 22/07/2026 (mismo bug que targets/maxiconsumo/scraper_pro.py): una
+    conexion colgada de Cloudflare puede no disparar nunca el timeout de curl_cffi,
+    trabando el ThreadPoolExecutor entero (su __exit__ espera a TODOS los futuros).
+    join(timeout_total) corta la espera pase lo que pase; el thread daemon abandonado
+    no bloquea el cierre del proceso.
+    """
+    resultado = {}
+
+    def _trabajo():
+        try:
+            resultado["r"] = session.get(url, impersonate=IMPERSONATE, timeout=20)
+        except Exception as e:
+            resultado["e"] = e
+
+    t = threading.Thread(target=_trabajo, daemon=True)
+    t.start()
+    t.join(timeout_total)
+    if t.is_alive():
+        raise TimeoutError(f"sin respuesta tras {timeout_total}s (conexion colgada)")
+    if "e" in resultado:
+        raise resultado["e"]
+    return resultado["r"]
+
+
 def extraer_precio_detalle(session, url: str) -> tuple[float, str]:
     try:
-        r = session.get(url, impersonate=IMPERSONATE, timeout=20)
+        r = _get_con_guardian(session, url)
         if r.status_code != 200:
             return 0.0, ""
         html = r.text
