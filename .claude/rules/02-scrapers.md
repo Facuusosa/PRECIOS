@@ -11,6 +11,26 @@
 - Yaguar: `YAGUAR_USERNAME`, `YAGUAR_PASSWORD`
 - Carrefour: `CARREFOUR_PHPSESSID`, `CARREFOUR_CF_CLEARANCE`
 
+## Oferta (precio_regular/oferta) por fuente — auditado 20/07/2026
+- **MaxiCarrefour: SÍ tiene oferta real, capturada desde 20/07.** El mismo HTML de listado
+  (`sec/{slug}`, sin requests extra) trae `discount_percentage`, `discounted_number_price`
+  (`<s>precio regular</s>`) y `sale_name`/`data-salename` ("Folleto Maxi", "Oportunidad Maxi").
+  `parsear_pagina()` en `scraper_pro.py` los captura; `actualizar_catalogo.py:1481` los propaga
+  a `fuentes.maxicarrefour.precio_regular`/`.oferta` igual que las cadenas. ~13% del catálogo.
+- **Yaguar: NO tiene oferta hoy.** La Store API de WooCommerce trae nativamente
+  `prices.regular_price`/`sale_price`/`on_sale` en cada producto — el campo existe y se
+  capturaría gratis si el sitio activa descuentos — pero barrido de ~4.800/7.384 productos +
+  las 143 categorías completas + tags de producto: cero coincidencias con oferta/liquidación/
+  descuento. No hay nada que arreglar en el scraper; es un hecho del sitio, no un bug.
+- **Maxiconsumo: NO tiene oferta capturable, y no es un bug de scraping.** El sitio tiene
+  páginas `/ofertas` y `/promociones`, pero son folletos/revistas semanales en PDF o imagen
+  escaneada (`media/pdf_files/...`), no HTML estructurado — extraerlas requeriría OCR, fuera
+  de alcance. La página `/ofertas-fin-de-semana.html` sí es una categoría normal de Magento,
+  pero el mismo SKU tiene precio IDÉNTICO ahí y en la categoría normal (verificado: $2.899,90
+  en ambos) — es una vidriera curada, no un descuento real. La estructura de "precio por bulto
+  cerrado vs. unitario" que trae CADA producto del sitio (100% de la muestra) tampoco es
+  oferta — es cómo Maxiconsumo vende siempre (descuento por volumen permanente).
+
 ## Cookies MaxiCarrefour — validez y renovación (actualizado 01/07/2026)
 - **La sesión PHP (PHPSESSID) muere en HORAS por inactividad, no en 30 días.** Medido:
   scrape 16:52 OK, a las 19:47 el mismo request devolvía `data-price="private"`.
@@ -25,6 +45,17 @@
   `data/carrefour_profile` — el reCAPTCHA suele pasar sin humano por el historial del perfil;
   si falla, beep + 90s para click manual). Modo 100% sin humano disponible: `CAPSOLVER_API_KEY`
   en `.env` (no activado — activar solo si el auto-click empieza a fallar seguido).
+- **Env var vieja heredada pisaba la cookie fresca (causa raiz real, cerrada 24/07/2026):**
+  el fix del 16/07 (revalidar con `_cookies_vigentes()` tras renovar) redujo el problema pero
+  NO lo eliminó — seguía recurriendo (7 veces en 8 días, siempre "CRONICO"). Causa real:
+  `scrape_maxicarrefour.py` arma el `env` para los subprocesos ANTES de renovar (`pipeline_local.py`
+  ya había cargado el `.env` viejo al arrancar), así que ese dict trae el PHPSESSID muerto de
+  ayer. La revalidación post-renovación SÍ usa `load_dotenv(override=True)` y pasa OK — pero
+  el dict `env` ya estaba copiado antes de esa actualización. `scraper_pro.py` hacía
+  `load_dotenv()` SIN `override=True`: como la variable ya "existía" (vieja), no la pisaba con
+  la fresca del archivo, y el scraper completo corría con la cookie muerta (0/N precios en
+  TODOS los sectores). Fix: `scraper_pro.py:20` ahora usa `load_dotenv(override=True)`. Detalle
+  completo en `data/quality/ALERTA.md` (sección Resueltas, 24/07).
 - **Form de login MAXI PEDIDO (diagnosticado y arreglado 15/07/2026)** — causa de ~12
   corridas de las 10am fallidas (03-15/07): el sitio rediseñado (a) agrega un paso previo
   de modalidad de entrega (`#checkbox_retiro`) sin el cual `#region`/`#seller` no se montan,
@@ -213,8 +244,43 @@ python scrape_dia.py            → scraper + actualizar_catalogo.py
   `targets/jumbo/scraper_pro.py` — NUNCA revertir esto sin volver a medir el ratio real
   contra la web (umbral razonable: <3x, igual criterio que se uso para descartar el bug).
   Si esto se pasa por alto, la app va a mostrar "99% OFF" falso en casi todo Jumbo.
-- **Volumen:** 10.450 scrapeados / 3.381 con match EAN contra el catalogo (medido
-  20/07/2026).
+- **DESCUENTO REAL NO estaba en el listado de categoria — fix 24/07/2026.** El
+  listado (`product_search`) no trae ninguna oferta real (los `teasers[]` de
+  `commertialOffer` vienen SIEMPRE vacios para Jumbo, verificado sobre 2.000+ SKUs
+  con oferta activa — a diferencia de Carrefour, donde si se usan). Comparando la API
+  contra la ficha renderizada con JS (Puppeteer) en muestra al azar: 5/6 productos
+  tenian 25-40% off invisible para el scraper viejo (Kitkat $2.800 -> $1.680, Milka
+  $12.250 -> $7.962,5, etc.) — motor de precios "Jumbo Prime + campañas" que corre
+  100% client-side. Fuente real: `POST https://www.jumbo.com.ar/_v/search-promotions`
+  (mismo dominio, sin auth ni cookies), body `{"seller": PROMO_SELLER, "skus": [...]}`
+  — **limite duro de 20 SKUs por request** (21+ tira 500 "SKU limit exceeded").
+  Devuelve 3 grupos (`sgc`/`jumbo_prime`/`generic`); un SKU puede tener promo en mas
+  de uno a la vez y la ficha real usa SIEMPRE el de mayor prioridad
+  `sgc > jumbo_prime > generic` (logica sacada del bundle JS de la tienda — el
+  frontend muestra el precio Jumbo Prime a cualquier visitante, sin login). Formula
+  verificada 6/6 contra la ficha real, para los 4 `categoryType` que existen
+  (segundo_al, percentual, fixed_price, nxm): `precio = precio_regular *
+  (1 - float(promo["effectiveDiscount"]))`. `seller` NO es el `sellerId: "1"` del
+  listado — es el `defaultSeller` hardcodeado en el bundle JS para la cuenta VTEX
+  `jumboargentinaio` (`jumboargentinaj5202martinez`); con `seller: "1"` el endpoint
+  responde "item no encontrado" para el 100% de los SKUs. Implementado en
+  `fetch_promociones()`/`descuentos_del_lote()` de `targets/jumbo/scraper_pro.py`,
+  corre como pasada final sobre los SKUs unicos ya deduplicados (no por categoria).
+  Si el endpoint cambia de forma: capturar `performance.getEntriesByType('resource')`
+  en una ficha de producto con Puppeteer filtrando "search-promotions", bajar los
+  bundles JS listados y grep `defaultSeller`.
+- **Verificado end-to-end 24/07/2026:** corrida completa 10.546 productos, 3.979
+  (37%) con precio real con descuento, en 7m18s (22:00:48 a 22:08:06) — dentro del
+  presupuesto del pipeline diario. Muestra de 8 productos al azar (4 con oferta, 4
+  sin) contra la ficha real con Puppeteer: 7/8 exactos, 1/8 (Pepsi Black "6x4") con
+  diferencia de $8 sobre $1.607 (0.5%) — causa: `effectiveDiscount` viene redondeado
+  a 2 decimales en el feed de Jumbo (1/3 exacto = 0.3333... se guarda como "0.33"),
+  la ficha real usa la fraccion exacta del NxM. Limitacion conocida y aceptada: solo
+  afecta promos "NxM" cuya fraccion no es exacta a 2 decimales (6x4, no 4x2/3x2/2x1),
+  desvio tipico <1%, no vale la complejidad de parsear el código para recalcular.
+- **Volumen:** 10.546 scrapeados (medido 24/07/2026, tras el fix de precio real) /
+  3.381 con match EAN contra el catalogo (medido 20/07/2026, previo al fix — no
+  cambia con este fix, que solo toca `precio`/`oferta`, no el EAN).
 - Categorias "super" (15, ids/slugs en `CATEGORIAS` de `targets/jumbo/scraper_pro.py`):
   Almacen, Bebidas, Frutas y Verduras, Carnes, Pescados y Mariscos, Quesos y Fiambres,
   Lacteos, Congelados, Panaderia y Pasteleria, Rotiseria, Perfumeria, Limpieza, Mascotas,
@@ -254,6 +320,16 @@ python scrape_dia.py            → scraper + actualizar_catalogo.py
 - **Los links `/producto/{slug}/` hoy redirigen a `/tienda/`** — el campo `link` del output
   queda apuntando ahí igual (si Yaguar restaura las fichas, vuelven a andar solos). Tener
   en cuenta al verificar precios a mano: la ficha web NO carga, usar la Store API.
+- **Caida real del catalogo del 36% el 19/07/2026 (7.456 -> ~4.748), NO es bug** — bajo
+  parejo en casi todas las categorias (Frescos -55%, Almacen -47%, Bebidas -52%, etc.),
+  confirmado con una consulta directa a la API en vivo (anonima, `cf-cache-status: DYNAMIC`
+  = no es cache) que devolvio el mismo 4.748 dos dias seguidos, y `stock_status=outofstock`
+  devuelve 0 — Yaguar dejo de listar productos sin stock (la API ya no los expone ni
+  filtrando explicito). El `MIN_PRODUCTS_EXPECTED` viejo (5.000, calibrado el 10/07 sobre
+  el catalogo grande) generaba "ERROR" y frenaba la publicacion sobre datos en realidad
+  sanos — bajado a 3.500 (26% de margen bajo el piso real actual, mismo criterio de las
+  demas fuentes). Si el total vuelve a subir cerca de 7k, es Yaguar reponiendo stock, no
+  hace falta tocar nada.
 
 ## Anti-bloqueo — reglas permanentes
 - Yaguar (Store API): delay 0.5s de cortesía entre requests; sin throttle detectado en la API
