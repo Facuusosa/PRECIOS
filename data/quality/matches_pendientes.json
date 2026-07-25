@@ -1,5 +1,5 @@
 {
- "fecha": "2026-07-24T20:31:02",
+ "fecha": "2026-07-24T22:14:58",
  "pendientes": [
   {
    "fuente": "yaguar",
@@ -33,8 +33,8 @@
    "sku": "76627",
    "nombre": "EDULCORANTE CHUKER CLASICO LIQUIDO 200ML",
    "ean_candidato": "7792129004535",
-   "nombre_cadena": "Edulcorante líquido 200 Ml Chuker",
-   "fuente_cadena": "jumbo",
+   "nombre_cadena": "Edulcorante Líquido Chuker 200ml",
+   "fuente_cadena": "masonline",
    "similitud": 0.8
   },
   {
@@ -51,8 +51,8 @@
    "sku": "87533",
    "nombre": "POSTRE DANETTE FLAN CARAMELO 190GR",
    "ean_candidato": "7791337010604",
-   "nombre_cadena": "Flan con caramelo Danette 190 grs",
-   "fuente_cadena": "carrefour",
+   "nombre_cadena": "Danette Flan con caramelo 190gr",
+   "fuente_cadena": "coto",
    "similitud": 0.8
   },
   {
@@ -174,6 +174,15 @@
   },
   {
    "fuente": "yaguar",
+   "sku": "77879",
+   "nombre": "GALLETITAS OBLEA BAUDUCCO CHOCOLATE 78GR",
+   "ean_candidato": "7891962058399",
+   "nombre_cadena": "Oblea Chocolate Bauducco 78 Gr",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
    "sku": "82777",
    "nombre": "GALLETITAS OBLEA SINFONIA LIMON 100GR",
    "ean_candidato": "7798126071747",
@@ -219,15 +228,6 @@
   },
   {
    "fuente": "yaguar",
-   "sku": "82549",
-   "nombre": "REPUESTO MOPA VIRULANA ALGODON",
-   "ean_candidato": "7794440006564",
-   "nombre_cadena": "Mopa De Algodón Virulana",
-   "fuente_cadena": "jumbo",
-   "similitud": 0.75
-  },
-  {
-   "fuente": "yaguar",
    "sku": "76023",
    "nombre": "LIMPIADOR LIQUIDO POETT PRIMAVERA 900ML",
    "ean_candidato": "7793253003609",
@@ -258,9 +258,9 @@
    "sku": "87452",
    "nombre": "CEPILLO DENTAL COLGATE PRO CUIDADO CARBON 4UN",
    "ean_candidato": "7509546695006",
-   "nombre_cadena": "Cepillo de dientes Colgate pro cuidado carbón 4 uni",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.75
+   "nombre_cadena": "Cepillo Dental Pro Cuidado Carbón Extra Suave x 4 Un Colgate",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.778
   },
   {
    "fuente": "yaguar",
@@ -294,8 +294,8 @@
    "sku": "16185",
    "nombre": "CHOCOLATE FULL MANI 150GR",
    "ean_candidato": "7790380025108",
-   "nombre_cadena": "Chocolate Georgalos Full Mani 150g",
-   "fuente_cadena": "coto",
+   "nombre_cadena": "Chocolate con Maní Full Maní 150 Grs Georgalos",
+   "fuente_cadena": "jumbo",
    "similitud": 0.8
   },
   {
@@ -320,9 +320,9 @@
    "fuente": "yaguar",
    "sku": "86963",
    "nombre": "GASEOSA COCA COLA PET 600CC",
-   "ean_candidato": "7790895006968",
-   "nombre_cadena": "Gaseosa COCA COLA X600 ml(BAJA)",
-   "fuente_cadena": "maestro",
+   "ean_candidato": "7790895650833",
+   "nombre_cadena": "Gaseosa Cola Regular Coca Cola Pet X 600 Cc",
+   "fuente_cadena": "maxicarrefour",
    "similitud": 0.8
   },
   {
@@ -438,8 +438,8 @@
    "sku": "86449",
    "nombre": "OBLEA CHOCOLATE MANTECOL 27GR",
    "ean_candidato": "7790380026426",
-   "nombre_cadena": "Oblea Mantecol 27 Gr.",
-   "fuente_cadena": "dia",
+   "nombre_cadena": "Oblea 27g Mantecol",
+   "fuente_cadena": "jumbo",
    "similitud": 0.75
   },
   {
@@ -522,6 +522,15 @@
    "nombre_cadena": "Yerba Mate Verdeflor Con Peperina 500 G",
    "fuente_cadena": "masonline",
    "similitud": 0.8
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "75940",
+   "nombre": "QUESO REGGIANITO MILKAUT HORMA X KG",
+   "ean_candidato": "2506435000007",
+   "nombre_cadena": "Queso reggianito Milkaut x kg.",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.75
   },
   {
    "fuente": "yaguar",
@@ -669,6 +678,15 @@
   },
   {
    "fuente": "maxiconsumo",
+   "sku": "17453",
+   "nombre": "ACETO COCINERO MODENA 250 CC",
+   "ean_candidato": "7790070228031",
+   "nombre_cadena": "Aceto balsámico Cocinero modena pet 250 cc.",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "maxiconsumo",
    "sku": "28480",
    "nombre": "AGUA NESTLE PUREZA VITAL 1.5 LT",
    "ean_candidato": "7792799000905",
@@ -692,6 +710,15 @@
    "ean_candidato": "7790639003451",
    "nombre_cadena": "Gaseosa Cunnington Pomelo 2,25 Lt.",
    "fuente_cadena": "dia",
+   "similitud": 0.8
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "22614",
+   "nombre": "JUGO BAGGIO NARANJA 1,5 LT",
+   "ean_candidato": "7790036002606",
+   "nombre_cadena": "Jugo BAGGIO PRONTO Naranja X1.5 L",
+   "fuente_cadena": "maestro",
    "similitud": 0.8
   },
   {
@@ -822,7 +849,7 @@
    "ean_candidato": "7798422620298",
    "nombre_cadena": "Bebida energizante Monster Peachy Keen 473 ml",
    "fuente_cadena": "carrefour",
-   "similitud": 0.86,
+   "similitud": 0.861,
    "via": "tfidf"
   },
   {
@@ -962,7 +989,7 @@
    "ean_candidato": "7792129004566",
    "nombre_cadena": "Edulcorante Líquido con Stevia 400 Cc Chuker",
    "fuente_cadena": "jumbo",
-   "similitud": 0.814,
+   "similitud": 0.815,
    "via": "tfidf"
   },
   {
@@ -1062,7 +1089,7 @@
    "ean_candidato": "7798099131202",
    "nombre_cadena": "Queso cremoso MEDITERRANEA 500g",
    "fuente_cadena": "coto",
-   "similitud": 0.837,
+   "similitud": 0.836,
    "via": "tfidf"
   },
   {
@@ -1222,17 +1249,7 @@
    "ean_candidato": "7790580118853",
    "nombre_cadena": "Caramelos BUTTER TOFFEES Bon/bon X822 g",
    "fuente_cadena": "maestro",
-   "similitud": 0.851,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
-   "sku": "89342",
-   "nombre": "GALLETITAS CRUJITAS QUESO 120GR",
-   "ean_candidato": "7792180146106",
-   "nombre_cadena": "Galletitas snack Crujitas sabor queso 120 grs",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.877,
+   "similitud": 0.852,
    "via": "tfidf"
   },
   {
@@ -1332,7 +1349,7 @@
    "ean_candidato": "7790990003886",
    "nombre_cadena": "Jabon En Polvo Lav Mano Bicarb A E Zorro X 800Grm",
    "fuente_cadena": "maxicarrefour",
-   "similitud": 0.813,
+   "similitud": 0.814,
    "via": "tfidf"
   },
   {
@@ -1392,7 +1409,7 @@
    "ean_candidato": "7790520998279",
    "nombre_cadena": "Desodorante de Ambiente Limón 360 Ml Glade",
    "fuente_cadena": "jumbo",
-   "similitud": 0.856,
+   "similitud": 0.855,
    "via": "tfidf"
   },
   {
@@ -1422,7 +1439,7 @@
    "ean_candidato": "7798139793124",
    "nombre_cadena": "Piedras Sanitarias Pets Class  2 Kg",
    "fuente_cadena": "masonline",
-   "similitud": 0.842,
+   "similitud": 0.841,
    "via": "tfidf"
   },
   {
@@ -1432,7 +1449,7 @@
    "ean_candidato": "7798139793124",
    "nombre_cadena": "Piedras Sanitarias Pets Class  2 Kg",
    "fuente_cadena": "masonline",
-   "similitud": 0.82,
+   "similitud": 0.819,
    "via": "tfidf"
   },
   {
@@ -1443,6 +1460,16 @@
    "nombre_cadena": "Alimento Para Perros Pedigree Cachorros 3 Kg",
    "fuente_cadena": "jumbo",
    "similitud": 0.85,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "89453",
+   "nombre": "ALIMENTO PARA PERROS PEDIGREE ADULTO POLLO EN SALSA 100GR",
+   "ean_candidato": "7797453000802",
+   "nombre_cadena": "Alimento para Perros Húmedo Sabor Pollo Adulto 100 Grs Pedigree",
+   "fuente_cadena": "jumbo",
+   "similitud": 0.865,
    "via": "tfidf"
   },
   {
@@ -1602,7 +1629,7 @@
    "ean_candidato": "7891000421420",
    "nombre_cadena": "Cápsulas de café cortado Dolce Gusto 10 uni",
    "fuente_cadena": "carrefour",
-   "similitud": 0.86,
+   "similitud": 0.859,
    "via": "tfidf"
   },
   {
@@ -1632,7 +1659,7 @@
    "ean_candidato": "7790590000407",
    "nombre_cadena": "Fosforos FRAGATA X40 u",
    "fuente_cadena": "maestro",
-   "similitud": 0.824,
+   "similitud": 0.825,
    "via": "tfidf"
   },
   {
@@ -1652,7 +1679,7 @@
    "ean_candidato": "7806810235006",
    "nombre_cadena": "ESPUMADERA Ilko Nylon",
    "fuente_cadena": "maestro",
-   "similitud": 0.816,
+   "similitud": 0.817,
    "via": "tfidf"
   },
   {
@@ -1747,16 +1774,6 @@
   },
   {
    "fuente": "yaguar",
-   "sku": "89344",
-   "nombre": "GALLETITAS CRUJITAS JAMON SERRANO 120GR",
-   "ean_candidato": "7792180146137",
-   "nombre_cadena": "Galletitas snack Crujitas de jamón serrano fp 120 grs",
-   "fuente_cadena": "carrefour",
-   "similitud": 0.838,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "yaguar",
    "sku": "85552",
    "nombre": "CAFE SUPERCABRALES MOLIDO TOSTADO 125GR",
    "ean_candidato": "7790550022210",
@@ -1812,7 +1829,7 @@
    "ean_candidato": "7500435252935",
    "nombre_cadena": "Suavizante concentrado Downy brisa suave en botella 350 ml",
    "fuente_cadena": "carrefour",
-   "similitud": 0.879,
+   "similitud": 0.88,
    "via": "tfidf"
   },
   {
@@ -1862,7 +1879,7 @@
    "ean_candidato": "7891155008194",
    "nombre_cadena": "COPA Nadir Agua Windsor",
    "fuente_cadena": "maestro",
-   "similitud": 0.859,
+   "similitud": 0.86,
    "via": "tfidf"
   },
   {
@@ -1872,7 +1889,7 @@
    "ean_candidato": "7791293051970",
    "nombre_cadena": "Shampoo Dove Humectación Coco Antioxi 650ml",
    "fuente_cadena": "masonline",
-   "similitud": 0.893,
+   "similitud": 0.892,
    "via": "tfidf"
   },
   {
@@ -1882,7 +1899,7 @@
    "ean_candidato": "7501056330309",
    "nombre_cadena": "Crema Clarant B3 Ponds 100 Grm",
    "fuente_cadena": "coto",
-   "similitud": 0.846,
+   "similitud": 0.847,
    "via": "tfidf"
   },
   {
@@ -2080,9 +2097,9 @@
    "sku": "27876",
    "nombre": "VINO HUMBERTO CANALE BLUSH 750CC",
    "ean_candidato": "7790805750363",
-   "nombre_cadena": "Vino Rosé Blush Dulce Humberto Canale 750ml",
-   "fuente_cadena": "coto",
-   "similitud": 0.85,
+   "nombre_cadena": "Vino rosado dulce blush Humberto Canale 750 ml",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.869,
    "via": "tfidf"
   },
   {
@@ -2092,7 +2109,7 @@
    "ean_candidato": "7790945006825",
    "nombre_cadena": "Vino Cabernet Sauvignon Sade 750ml",
    "fuente_cadena": "coto",
-   "similitud": 0.806,
+   "similitud": 0.805,
    "via": "tfidf"
   },
   {
@@ -2172,7 +2189,7 @@
    "ean_candidato": "7798342717153",
    "nombre_cadena": "Yerba S&P Compuesta X500 g",
    "fuente_cadena": "maestro",
-   "similitud": 0.827,
+   "similitud": 0.826,
    "via": "tfidf"
   },
   {
@@ -2222,7 +2239,7 @@
    "ean_candidato": "7798056680095",
    "nombre_cadena": "Tapa Pascualina TAPAMANIA Criolla X400g",
    "fuente_cadena": "maestro",
-   "similitud": 0.863,
+   "similitud": 0.862,
    "via": "tfidf"
   },
   {
@@ -2272,7 +2289,7 @@
    "ean_candidato": "7790903000551",
    "nombre_cadena": "Pan De Mesa Lacteado La Perla 620g",
    "fuente_cadena": "coto",
-   "similitud": 0.834,
+   "similitud": 0.835,
    "via": "tfidf"
   },
   {
@@ -2282,7 +2299,7 @@
    "ean_candidato": "7798185030020",
    "nombre_cadena": "Pan Hamburguesa la PANERITA X4 u (220g)",
    "fuente_cadena": "maestro",
-   "similitud": 0.81,
+   "similitud": 0.809,
    "via": "tfidf"
   },
   {
@@ -2312,7 +2329,7 @@
    "ean_candidato": "7791058790342",
    "nombre_cadena": "Yogur Parcialmente Descremado Frutilla Yofrey 140 Gr.",
    "fuente_cadena": "dia",
-   "similitud": 0.804,
+   "similitud": 0.803,
    "via": "tfidf"
   },
   {
@@ -2333,6 +2350,16 @@
    "nombre_cadena": "Queso Sardo x 1 Kg Milkaut",
    "fuente_cadena": "jumbo",
    "similitud": 0.812,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "yaguar",
+   "sku": "73096",
+   "nombre": "SALAMIN CHACRA 43 PIVADO FINO X KG",
+   "ean_candidato": "2508648000003",
+   "nombre_cadena": "Salamin picado fino Chacra 43 x kg.",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.835,
    "via": "tfidf"
   },
   {
@@ -2542,7 +2569,7 @@
    "ean_candidato": "7792389000698",
    "nombre_cadena": "Limpiador JARDIN Arpege Crem. X900 ml",
    "fuente_cadena": "maestro",
-   "similitud": 0.815,
+   "similitud": 0.816,
    "via": "tfidf"
   },
   {
@@ -2632,7 +2659,7 @@
    "ean_candidato": "7790828104891",
    "nombre_cadena": "Jabon Tocador DUC Citrus X 110g",
    "fuente_cadena": "maestro",
-   "similitud": 0.868,
+   "similitud": 0.869,
    "via": "tfidf"
   },
   {
@@ -2652,7 +2679,7 @@
    "ean_candidato": "7794626012594",
    "nombre_cadena": "Toallas Humedas Huggies Limpieza Efectiva x 48 Ud.",
    "fuente_cadena": "dia",
-   "similitud": 0.856,
+   "similitud": 0.855,
    "via": "tfidf"
   },
   {
@@ -2732,7 +2759,7 @@
    "ean_candidato": "7806810235037",
    "nombre_cadena": "CUCHARON Ilko Nylon",
    "fuente_cadena": "maestro",
-   "similitud": 0.821,
+   "similitud": 0.822,
    "via": "tfidf"
   },
   {
@@ -2772,7 +2799,7 @@
    "ean_candidato": "7791290796478",
    "nombre_cadena": "Jabon Liquido Concentrado Para Diluir Granby Baja Espuma Limon 500 Ml.",
    "fuente_cadena": "dia",
-   "similitud": 0.826,
+   "similitud": 0.827,
    "via": "tfidf"
   },
   {
@@ -2812,7 +2839,7 @@
    "ean_candidato": "7794612115964",
    "nombre_cadena": "Chocolate HAMLET Mega C/alm./mani X165 g",
    "fuente_cadena": "maestro",
-   "similitud": 0.826,
+   "similitud": 0.825,
    "via": "tfidf"
   },
   {
@@ -2912,7 +2939,7 @@
    "ean_candidato": "7790580150648",
    "nombre_cadena": "Caramelos Confitados Mogul Masti 70 G",
    "fuente_cadena": "masonline",
-   "similitud": 0.847,
+   "similitud": 0.848,
    "via": "tfidf"
   },
   {
@@ -2922,17 +2949,7 @@
    "ean_candidato": "7790580145675",
    "nombre_cadena": "Dulce de Batata NOEL Caja X5 kg",
    "fuente_cadena": "maestro",
-   "similitud": 0.846,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "maxiconsumo",
-   "sku": "30010",
-   "nombre": "FIDEOS LUCCHETTI ESTRELLAS 500 GR",
-   "ean_candidato": "7790070105431",
-   "nombre_cadena": "Fideos soperos de sémola estrellas LUCCHETTI 500g",
-   "fuente_cadena": "coto",
-   "similitud": 0.819,
+   "similitud": 0.845,
    "via": "tfidf"
   },
   {
@@ -2942,7 +2959,7 @@
    "ean_candidato": "7798342713131",
    "nombre_cadena": "Anana S&P en Rodajas X565 g",
    "fuente_cadena": "maestro",
-   "similitud": 0.803,
+   "similitud": 0.804,
    "via": "tfidf"
   },
   {
@@ -2963,16 +2980,6 @@
    "nombre_cadena": "Galletitas Polvoritas Sabor Vainilla/Vainilla 152 G",
    "fuente_cadena": "masonline",
    "similitud": 0.815,
-   "via": "tfidf"
-  },
-  {
-   "fuente": "maxiconsumo",
-   "sku": "23853",
-   "nombre": "GALLETITAS 9 DE ORO DULCE MAMA CANELA 160 GR",
-   "ean_candidato": "7792180146588",
-   "nombre_cadena": "Galletitas dulces con canela 9 DE ORO 160g",
-   "fuente_cadena": "coto",
-   "similitud": 0.839,
    "via": "tfidf"
   },
   {
@@ -3072,7 +3079,7 @@
    "ean_candidato": "7790639003512",
    "nombre_cadena": "Gaseosa Cunnington De Pomelo Classic 3 L",
    "fuente_cadena": "masonline",
-   "similitud": 0.905,
+   "similitud": 0.906,
    "via": "tfidf"
   },
   {
@@ -3122,7 +3129,7 @@
    "ean_candidato": "7798162671673",
    "nombre_cadena": "Vino OVEJA BLACK Malbec 750 ml",
    "fuente_cadena": "maestro",
-   "similitud": 0.838,
+   "similitud": 0.839,
    "via": "tfidf"
   },
   {
@@ -3239,10 +3246,10 @@
    "fuente": "maxiconsumo",
    "sku": "24177",
    "nombre": "JABON LIQUIDO GRANBY PARA DILUIR ROSA 500 ML",
-   "ean_candidato": "7791290796843",
-   "nombre_cadena": "Jabón líquido para diluir Granby Rosas botella 500 ml",
+   "ean_candidato": "7791290796478",
+   "nombre_cadena": "Jabón líquido para diluir Granby limón en botella 500 ml",
    "fuente_cadena": "carrefour",
-   "similitud": 0.889,
+   "similitud": 0.828,
    "via": "tfidf"
   },
   {
@@ -3272,7 +3279,7 @@
    "ean_candidato": "7500435014342",
    "nombre_cadena": "Cepillo Dental 123 Oral B 2X1 Uni",
    "fuente_cadena": "maxicarrefour",
-   "similitud": 0.803,
+   "similitud": 0.802,
    "via": "tfidf"
   },
   {
@@ -3293,6 +3300,16 @@
    "nombre_cadena": "Jabon Liquido Violet POLYANA Doy 220 Ml",
    "fuente_cadena": "coto",
    "similitud": 0.844,
+   "via": "tfidf"
+  },
+  {
+   "fuente": "maxiconsumo",
+   "sku": "11094",
+   "nombre": "SHAMPOO DOVE BOND PEPTIDE 400 ML",
+   "ean_candidato": "7791293051017",
+   "nombre_cadena": "Shampoo Dove Bond Repair + Péptido 400 ml",
+   "fuente_cadena": "carrefour",
+   "similitud": 0.814,
    "via": "tfidf"
   },
   {
@@ -3352,7 +3369,7 @@
    "ean_candidato": "7797453000550",
    "nombre_cadena": "Alimento Adulto Pollo Pouch Whiskas 85 Gr",
    "fuente_cadena": "masonline",
-   "similitud": 0.833,
+   "similitud": 0.832,
    "via": "tfidf"
   },
   {

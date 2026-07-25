@@ -1,5 +1,5 @@
 {
- "fecha": "2026-07-24T20:31:02",
+ "fecha": "2026-07-24T22:14:58",
  "sospechosos": [
   {
    "mapeo": "por_sku_yaguar",
@@ -7,6 +7,14 @@
    "ean": "7622300865559",
    "nombre_mayorista": "GELATINA POLVO ROYAL TRADICIONAL CEREZA 25GR",
    "nombre_cadena": "Gelatina ROYAL de Cereza X40g",
+   "fuente_cadena": "maestro"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "5566",
+   "ean": "7790645001045",
+   "nombre_mayorista": "ANANA GENTLEMAN RODAJAS 820KG",
+   "nombre_cadena": "Anana GENTLEMAN Rodajas Lata X820g",
    "fuente_cadena": "maestro"
   },
   {
@@ -166,7 +174,7 @@
    "sku": "90200",
    "ean": "7791813421412",
    "nombre_mayorista": "GASEOSA PASO DE LOS TOROS POMELO 2LT",
-   "nombre_cadena": "Gaseosa Sin Azúcar Sabor Pomelo 1.5 Lts Paso de los Toros",
+   "nombre_cadena": "Gaseosa Paso De Los Toros Pomelo Light 1.5l",
    "fuente_cadena": "jumbo"
   },
   {
@@ -232,6 +240,14 @@
    "nombre_mayorista": "ACEITUNA CASTELL VERDE DESCAROZADA DOYPACK 80 GR",
    "nombre_cadena": "Aceitunas Verdes Descarozadas Castell 180gr",
    "fuente_cadena": "coto"
+  },
+  {
+   "mapeo": "por_sku_maxiconsumo",
+   "sku": "28973",
+   "ean": "7500435252935",
+   "nombre_mayorista": "ENJUAGUE DOWNY BRISA SUAVE 350 ML",
+   "nombre_cadena": "Suavizante Downy Brisa Suave Rinde 1.4L Perfume Suave de Larga Duracion 350 Ml.",
+   "fuente_cadena": "dia"
   }
  ],
  "aceptados": [
