@@ -52,7 +52,7 @@ def log(msg):
 ALERTAS_MD = RAIZ / "data" / "quality" / "ALERTA.md"
 VEREDICTO_MD = RAIZ / "data" / "quality" / "VEREDICTO.md"
 HISTORIAL_CSV = RAIZ / "data" / "quality" / "historial_corridas.csv"
-FUENTES = ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia", "masonline", "jumbo")
+FUENTES = ("yaguar", "maxicarrefour", "maxiconsumo", "nini", "coto", "carrefour", "dia", "masonline", "jumbo")
 
 # Estado de la corrida para el veredicto final (se escribe SIEMPRE via atexit,
 # incluso si un sys.exit() corta el pipeline a mitad de camino)
@@ -154,7 +154,7 @@ def sanidad_outputs():
     repetidas del rate-limit) fue invisible 2 semanas porque nadie comparaba
     registros contra unicos. Este check lo atrapa en la primera corrida."""
     resultados = {}
-    for may in ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia", "masonline", "jumbo"):
+    for may in ("yaguar", "maxicarrefour", "maxiconsumo", "nini", "coto", "carrefour", "dia", "masonline", "jumbo"):
         carpeta = RAIZ / "targets" / may
         outputs = [f for f in sorted(carpeta.glob(f"output_{may}_*.json"))
                    if "raw" not in f.stem and "enriched" not in f.stem]
@@ -275,7 +275,7 @@ def escribir_veredicto():
 
 def contar_por_fuente():
     """Productos con precio por fuente en el catalogo actual (para anti-reciclaje)."""
-    conteo = {"total": 0, "yaguar": 0, "maxicarrefour": 0, "maxiconsumo": 0,
+    conteo = {"total": 0, "yaguar": 0, "maxicarrefour": 0, "maxiconsumo": 0, "nini": 0,
               "coto": 0, "carrefour": 0, "dia": 0, "masonline": 0, "jumbo": 0}
     if not CATALOGO.exists():
         return conteo
@@ -285,7 +285,7 @@ def contar_por_fuente():
     conteo["total"] = len(prods)
     for p in prods:
         precios = p.get("precios", {})
-        for may in ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia", "masonline", "jumbo"):
+        for may in ("yaguar", "maxicarrefour", "maxiconsumo", "nini", "coto", "carrefour", "dia", "masonline", "jumbo"):
             if precios.get(may, 0) > 0:
                 conteo[may] += 1
     return conteo
@@ -343,7 +343,7 @@ def limpiar_automatico():
     limite = datetime.now() - timedelta(days=30)
     borrados_outputs = 0
     mb_liberados = 0.0
-    for mayorista in ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia", "masonline", "jumbo"):
+    for mayorista in ("yaguar", "maxicarrefour", "maxiconsumo", "nini", "coto", "carrefour", "dia", "masonline", "jumbo"):
         carpeta = RAIZ / "targets" / mayorista
         if not carpeta.exists():
             continue
@@ -382,7 +382,7 @@ def main():
     log("=== PIPELINE LOCAL BRUJULA ===")
     antes = contar_por_fuente()
     log(f"Catalogo actual: {antes['total']} prods "
-        f"(Y={antes['yaguar']} MC={antes['maxicarrefour']} MCO={antes['maxiconsumo']} "
+        f"(Y={antes['yaguar']} MC={antes['maxicarrefour']} MCO={antes['maxiconsumo']} NI={antes['nini']} "
         f"C={antes['coto']} CF={antes['carrefour']} D={antes['dia']} "
         f"MAS={antes['masonline']} JUM={antes['jumbo']})")
 
@@ -393,6 +393,9 @@ def main():
         "maxicarrefour": run_scraper("scrape_maxicarrefour.py"),
         "yaguar":        run_scraper("scrape_yaguar.py"),
         "maxiconsumo":   run_scraper("scrape_maxiconsumo.py"),
+        # Nini: cuenta PRESTADA por un tercero (ver .claude/rules/02-scrapers.md) --
+        # scraper de SOLO LECTURA, nunca confirma/anula pedidos.
+        "nini":          run_scraper("scrape_nini.py"),
         "coto":          run_scraper("scrape_coto.py"),
         "carrefour":     run_scraper("scrape_carrefour.py"),
         "dia":           run_scraper("scrape_dia.py"),
@@ -412,7 +415,7 @@ def main():
                 alertar(f"Scraper {may} FALLO hoy",
                         "revisar data/quality/pipeline_local.log — si es MCF, probar scripts/renovar_cookies_carrefour.py --force")
     if sum(ok.values()) == 0:
-        log("ERROR: fallaron los 8 scrapers - el catalogo no se toca")
+        log(f"ERROR: fallaron los {len(ok)} scrapers - el catalogo no se toca")
         sys.exit(1)
 
     # Sanidad de outputs: duplicados masivos = scraper repitiendo paginas
@@ -430,13 +433,13 @@ def main():
     # --- Chequeo anti-reciclaje / caida abrupta ---
     despues = contar_por_fuente()
     log(f"Catalogo nuevo: {despues['total']} prods "
-        f"(Y={despues['yaguar']} MC={despues['maxicarrefour']} MCO={despues['maxiconsumo']} "
+        f"(Y={despues['yaguar']} MC={despues['maxicarrefour']} MCO={despues['maxiconsumo']} NI={despues['nini']} "
         f"C={despues['coto']} CF={despues['carrefour']} D={despues['dia']} "
         f"MAS={despues['masonline']} JUM={despues['jumbo']})")
     _corrida["fase"] = "catalogo regenerado"
     _corrida["conteos_dict"] = despues
     _corrida["conteos"] = (f"{despues['total']} prods (Y={despues['yaguar']} "
-                           f"MC={despues['maxicarrefour']} MCO={despues['maxiconsumo']} "
+                           f"MC={despues['maxicarrefour']} MCO={despues['maxiconsumo']} NI={despues['nini']} "
                            f"C={despues['coto']} CF={despues['carrefour']} D={despues['dia']} "
                            f"MAS={despues['masonline']} JUM={despues['jumbo']})")
 
@@ -451,6 +454,10 @@ def main():
     # medidos el 06/07/2026), NO el total scrapeado — el minimo va sobre lo que entra al catalogo
     # masonline/jumbo: medido 20/07/2026 (primera corrida real) - 2.726 y 3.381
     # matches EAN contra el catalogo respectivamente, mismo margen ~65% que dia
+    # nini: SIN CALIBRAR a proposito -- no tiene EAN propio (matching por
+    # aprendizaje fuzzy, arranque en frio), el numero de matches crece con cada
+    # corrida. Agregar un minimo aca recien cuando el conteo real se estabilice
+    # (ver con_nini en el log de actualizar_catalogo.py de varias corridas).
     minimos_fuente = {"yaguar": 4000, "maxicarrefour": 3000, "maxiconsumo": 3000,
                       "coto": 3000, "carrefour": 3000, "dia": 1200,
                       "masonline": 1800, "jumbo": 2200}

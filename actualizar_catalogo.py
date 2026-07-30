@@ -28,6 +28,7 @@ BASE_DIR        = os.path.dirname(os.path.abspath(__file__))
 YAGUAR_DIR      = os.path.join(BASE_DIR, "targets", "yaguar")
 MAXICARRE_DIR   = os.path.join(BASE_DIR, "targets", "maxicarrefour")
 MAXICONSUMO_DIR = os.path.join(BASE_DIR, "targets", "maxiconsumo")
+NINI_DIR        = os.path.join(BASE_DIR, "targets", "nini")
 HISTORY_DIR     = os.path.join(BASE_DIR, "data", "history")
 RAW_DIR         = os.path.join(BASE_DIR, "data", "raw")
 CODIGOS_FILE         = os.path.join(RAW_DIR, "CODIGOS.xlsx")
@@ -240,22 +241,29 @@ def cargar_excel_referencia():
     Retorna:
       yag_sku_to_ean  : SKU Yaguar  -> EAN
       mco_sku_to_ean  : SKU Maxiconsumo -> EAN
+      nini_sku_to_ean : SKU Nini -> EAN (solo via mapeo_brujula.json -- Nini no tiene
+                        hoja propia en CODIGOS.xlsx, su API no expone EAN)
       ean_to_yag_sku  : EAN -> SKU Yaguar   (para matching desde MaxiCarrefour)
       ean_to_mco_sku  : EAN -> SKU Maxiconsumo
+      ean_to_nini_sku : EAN -> SKU Nini
       ean_to_master   : EAN -> {nombre, sector, categoria, abc, familia}
       nombre_norm_to_ean : nombre_normalizado -> EAN  (fallback por nombre)
       ean_to_familia  : EAN -> familia_norm   (constraint de matching de presentaciones)
     """
     yag_sku_to_ean  = {}
     mco_sku_to_ean  = {}
+    nini_sku_to_ean = {}
     ean_to_yag_sku  = {}
     ean_to_mco_sku  = {}
+    ean_to_nini_sku = {}
     ean_to_master   = {}
     nombre_norm_to_ean = {}
     ean_to_familia  = {}
 
     if not EXCEL_DISPONIBLE:
-        return yag_sku_to_ean, mco_sku_to_ean, ean_to_yag_sku, ean_to_mco_sku, ean_to_master, nombre_norm_to_ean, ean_to_familia
+        return (yag_sku_to_ean, mco_sku_to_ean, nini_sku_to_ean,
+                ean_to_yag_sku, ean_to_mco_sku, ean_to_nini_sku,
+                ean_to_master, nombre_norm_to_ean, ean_to_familia)
 
     # --- CODIGOS.xlsx ---
     if os.path.isfile(CODIGOS_FILE):
@@ -378,7 +386,7 @@ def cargar_excel_referencia():
         with open(mapeo_brujula_file, encoding="utf-8") as f:
             mb = json.load(f)
 
-        nuevos_yag = nuevos_mco = nuevos_master = 0
+        nuevos_yag = nuevos_mco = nuevos_nini = nuevos_master = 0
 
         # Enriquecer SKU -> EAN (solo agrega, nunca sobreescribe CODIGOS.xlsx)
         for sku, ean in mb.get("por_sku_yaguar", {}).items():
@@ -392,6 +400,12 @@ def cargar_excel_referencia():
                 mco_sku_to_ean[sku] = ean
                 ean_to_mco_sku.setdefault(ean, sku)
                 nuevos_mco += 1
+
+        for sku, ean in mb.get("por_sku_nini", {}).items():
+            if sku not in nini_sku_to_ean:
+                nini_sku_to_ean[sku] = ean
+                ean_to_nini_sku.setdefault(ean, sku)
+                nuevos_nini += 1
 
         # Enriquecer ean_to_master con sector y subcategoria del mapeo
         for ean, datos in mb.get("por_ean", {}).items():
@@ -415,7 +429,8 @@ def cargar_excel_referencia():
                 if not entry.get("abc") and datos.get("abc"):
                     entry["abc"] = datos["abc"]
 
-        print(f"  mapeo_brujula.json: +{nuevos_yag} SKUs Yaguar, +{nuevos_mco} SKUs Maxiconsumo, +{nuevos_master} EANs al Maestro")
+        print(f"  mapeo_brujula.json: +{nuevos_yag} SKUs Yaguar, +{nuevos_mco} SKUs Maxiconsumo, "
+              f"+{nuevos_nini} SKUs Nini, +{nuevos_master} EANs al Maestro")
     else:
         print(f"  [INFO] mapeo_brujula.json no encontrado en {mapeo_brujula_file}")
 
@@ -431,7 +446,9 @@ def cargar_excel_referencia():
                 _dm_nuevos += 1
         print(f"  maestro_dinamico.json: +{_dm_nuevos} nombres adicionales al indice")
 
-    return yag_sku_to_ean, mco_sku_to_ean, ean_to_yag_sku, ean_to_mco_sku, ean_to_master, nombre_norm_to_ean, ean_to_familia
+    return (yag_sku_to_ean, mco_sku_to_ean, nini_sku_to_ean,
+            ean_to_yag_sku, ean_to_mco_sku, ean_to_nini_sku,
+            ean_to_master, nombre_norm_to_ean, ean_to_familia)
 
 # ---------------------------------------------------------------------------
 # Cantidad canónica: volumen -> ml, peso -> g. Se usa el nombre CRUDO
@@ -755,6 +772,69 @@ def cargar_maxiconsumo():
     return combined
 
 
+def cargar_nini():
+    """
+    Combina los últimos archivos de Nini por SKU único (mismo criterio de
+    frescura que cargar_yaguar(): SKUs vistos solo en archivos >30 dias se
+    descartan). La API de Nini ya filtra withStock=true y entrega precio
+    numerico limpio -- no hace falta el fix x1000/x100 de otros scrapers.
+    """
+    from datetime import datetime as _dt
+    archivos = sorted(
+        glob.glob(os.path.join(NINI_DIR, "output_nini_*.json")) +
+        glob.glob(os.path.join(HISTORY_DIR, "nini", "output_nini_*.json")),
+        key=os.path.getmtime, reverse=True
+    )[:12]
+
+    if not archivos:
+        print("  [SKIP] No se encontró output de Nini")
+        return []
+
+    hoy_ts = _dt.now().timestamp()
+    LIMITE_DIAS = 30
+    LIMITE_TS   = hoy_ts - LIMITE_DIAS * 86400
+
+    sku_to_mejor = {}
+    sku_tiene_reciente = set()
+    archivos_validos = 0
+
+    for f in archivos:
+        try:
+            es_reciente = os.path.getmtime(f) >= LIMITE_TS
+            with open(f, encoding="utf-8") as fh:
+                data = json.load(fh)
+            if not data:
+                continue
+            fecha_archivo = extraer_fecha_de_timestamp(f)
+            archivos_validos += 1
+            for p in data:
+                sku = str(p.get("sku", "")).strip()
+                precio = p.get("precio", 0)
+                if not sku or precio <= 0:
+                    continue
+                if not p.get("fecha"):
+                    p["fecha"] = fecha_archivo
+                if es_reciente:
+                    sku_tiene_reciente.add(sku)
+                existing = sku_to_mejor.get(sku)
+                if existing is None or precio > existing.get("precio", 0):
+                    sku_to_mejor[sku] = p
+        except Exception:
+            pass
+
+    skus_descartados = [s for s in sku_to_mejor if s not in sku_tiene_reciente]
+    for s in skus_descartados:
+        del sku_to_mejor[s]
+
+    combined = list(sku_to_mejor.values())
+    con_precio = precios_validos(combined)
+    if skus_descartados:
+        print(f"  Nini: {archivos_validos} archivos combinados -> {len(combined)} prods únicos ({con_precio} válidos) | {len(skus_descartados)} SKUs viejos descartados (>30 dias sin aparecer)")
+    else:
+        print(f"  Nini: {archivos_validos} archivos combinados -> {len(combined)} prods únicos ({con_precio} válidos)")
+    return combined
+
+
 def cargar_cadena(clave, etiqueta):
     """
     Carga generica de fuentes tipo "cadena" (Coto, Carrefour retail):
@@ -932,13 +1012,18 @@ def _tfidf_trigramas(textos):
 def expandir_mapeo_con_cadenas(yaguar_data, maxiconsumo_data, fuentes_con_ean,
                                yag_sku_to_ean, mco_sku_to_ean,
                                ean_to_yag_sku, ean_to_mco_sku,
-                               nombre_norm_to_ean, ean_to_master):
+                               nombre_norm_to_ean, ean_to_master,
+                               nini_data=None, nini_sku_to_ean=None, ean_to_nini_sku=None):
     """Resuelve EANs de productos Yaguar/Maxiconsumo que CODIGOS y el Maestro no
     cubren, matcheando sus nombres contra los pares EAN+nombre frescos de las
     fuentes con EAN nativo. MUTA los dicts de mapeo en memoria (la corrida actual
     ya aprovecha lo aprendido) y persiste el aprendizaje en mapeo_brujula.json.
     fuentes_con_ean: lista de (nombre_fuente, data) con campos ean/nombre/precio.
     """
+    nini_data = nini_data or []
+    nini_sku_to_ean = nini_sku_to_ean if nini_sku_to_ean is not None else {}
+    ean_to_nini_sku = ean_to_nini_sku if ean_to_nini_sku is not None else {}
+
     # --- 1. Índice EAN -> nombres de las fuentes confiables ---
     entries  = []                  # (ean, fuente, token_set, marca, qty, nombre)
     word_idx = defaultdict(list)
@@ -1007,6 +1092,7 @@ def expandir_mapeo_con_cadenas(yaguar_data, maxiconsumo_data, fuentes_con_ean,
             mb = json.load(f)
     mb.setdefault("por_sku_yaguar", {})
     mb.setdefault("por_sku_maxiconsumo", {})
+    mb.setdefault("por_sku_nini", {})
     mb.setdefault("por_ean", {})
 
     rechazados = set()
@@ -1020,10 +1106,11 @@ def expandir_mapeo_con_cadenas(yaguar_data, maxiconsumo_data, fuentes_con_ean,
     # --- 3. Buscar matches para los productos sin EAN ---
     pendientes = []
     sin_match = []   # (etiqueta, sku, nombre, tokens) -> pase TF-IDF 3b
-    n_auto = {"yaguar": 0, "maxiconsumo": 0}
+    n_auto = {"yaguar": 0, "maxiconsumo": 0, "nini": 0}
     lotes = [
-        ("yaguar",      yaguar_data,      yag_sku_to_ean, ean_to_yag_sku, "por_sku_yaguar"),
-        ("maxiconsumo", maxiconsumo_data, mco_sku_to_ean, ean_to_mco_sku, "por_sku_maxiconsumo"),
+        ("yaguar",      yaguar_data,      yag_sku_to_ean,  ean_to_yag_sku,  "por_sku_yaguar"),
+        ("maxiconsumo", maxiconsumo_data, mco_sku_to_ean,  ean_to_mco_sku,  "por_sku_maxiconsumo"),
+        ("nini",        nini_data,        nini_sku_to_ean, ean_to_nini_sku, "por_sku_nini"),
     ]
     for etiqueta, data, sku_to_ean, ean_to_sku, clave_mb in lotes:
         for p in data:
@@ -1150,7 +1237,9 @@ def expandir_mapeo_con_cadenas(yaguar_data, maxiconsumo_data, fuentes_con_ean,
     por_sku_data = {"por_sku_yaguar": {str(p.get("sku", "")).strip(): p.get("nombre", "")
                                        for p in yaguar_data},
                     "por_sku_maxiconsumo": {str(p.get("sku", "")).strip(): p.get("nombre", "")
-                                            for p in maxiconsumo_data}}
+                                            for p in maxiconsumo_data},
+                    "por_sku_nini": {str(p.get("sku", "")).strip(): p.get("nombre", "")
+                                     for p in nini_data}}
     for clave_mb, sku_nombres in por_sku_data.items():
         for sku, ean in mb.get(clave_mb, {}).items():
             nombre_may = sku_nombres.get(sku, "")
@@ -1198,8 +1287,8 @@ def expandir_mapeo_con_cadenas(yaguar_data, maxiconsumo_data, fuentes_con_ean,
     except OSError as e:
         print(f"  [WARN] No se pudo persistir expansion de mapeo: {e}")
 
-    print(f"  Expansion via cadenas: +{n_auto['yaguar']} EANs Yaguar y "
-          f"+{n_auto['maxiconsumo']} Maxiconsumo aprendidos (persistidos), "
+    print(f"  Expansion via cadenas: +{n_auto['yaguar']} EANs Yaguar, "
+          f"+{n_auto['maxiconsumo']} Maxiconsumo, +{n_auto['nini']} Nini aprendidos (persistidos), "
           f"{len(pendientes)} a revision, {len(sospechosos)} mapeos sospechosos")
     return n_auto, pendientes
 
@@ -1208,10 +1297,14 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                        yag_sku_to_ean, mco_sku_to_ean,
                        ean_to_yag_sku, ean_to_mco_sku,
                        ean_to_master, nombre_norm_to_ean,
-                       ean_to_familia=None):
+                       ean_to_familia=None,
+                       nini_data=None, nini_sku_to_ean=None, ean_to_nini_sku=None):
 
     if ean_to_familia is None:
         ean_to_familia = {}
+    nini_data = nini_data or []
+    nini_sku_to_ean = nini_sku_to_ean if nini_sku_to_ean is not None else {}
+    ean_to_nini_sku = ean_to_nini_sku if ean_to_nini_sku is not None else {}
 
     catalogo = {}   # prod_id -> entry
 
@@ -1234,7 +1327,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             "sector":         sector,
             "subcategoria":   subcategoria,
             "abc":            abc,
-            "precios":        {"yaguar": 0, "maxicarrefour": 0, "maxiconsumo": 0,
+            "precios":        {"yaguar": 0, "maxicarrefour": 0, "maxiconsumo": 0, "nini": 0,
                                "coto": 0, "carrefour": 0, "dia": 0,
                                "masonline": 0, "jumbo": 0},
             "fuentes":        {},
@@ -1272,8 +1365,21 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         if nom:
             mco_by_clave[clave_nombre(nom)] = p
 
-    yag_merged = set()   # SKUs de Yaguar ya procesados
-    mco_merged = set()   # SKUs de Maxiconsumo ya procesados
+    nini_by_sku   = {}
+    nini_by_clave = {}
+    for p in nini_data:
+        sku = str(p.get("sku", "")).strip()
+        nom = p.get("nombre", "")
+        if p.get("precio", 0) <= 0:
+            continue
+        if sku:
+            nini_by_sku[sku] = p
+        if nom:
+            nini_by_clave[clave_nombre(nom)] = p
+
+    yag_merged  = set()   # SKUs de Yaguar ya procesados
+    mco_merged  = set()   # SKUs de Maxiconsumo ya procesados
+    nini_merged = set()   # SKUs de Nini ya procesados
 
     # ------------------------------------------------------------------
     # PASO 1b: Enriquecer ean_to_yag_sku y ean_to_mco_sku con Listado Maestro
@@ -1444,7 +1550,30 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             mco_sku_set.add(sku)
             ean_mco_nuevos += 1
 
-    print(f"  Paso 1b: +{ean_yag_nuevos} EANs Yaguar via Maestro, +{ean_mco_nuevos} EANs Maxiconsumo via Maestro ({ean_mco_brand_skip} descartados por conflicto de marca)")
+    # Nini: mismo patrón que Yaguar (su API no entrega EAN crudo -- ver
+    # investigación 29/07/2026 -- el conflicto de marca no aplica sin EAN propio).
+    _aprendizaje_nini = {}
+    ean_nini_nuevos = 0
+    nini_sku_set = set(ean_to_nini_sku.values())
+    for p in nini_data:
+        sku = str(p.get("sku", "")).strip()
+        if not sku or sku in nini_sku_set:
+            continue
+        ean_resuelto = nombre_norm_to_ean.get(clave_nombre(p.get("nombre", "")), "")
+        if ean_resuelto:
+            _aprendizaje_nini[sku] = ean_resuelto
+        else:
+            ean_resuelto, _score = _fuzzy_ean_1b(p.get("nombre", ""))
+            if ean_resuelto and _score >= _APRENDIZAJE_TH:
+                _aprendizaje_nini[sku] = ean_resuelto
+        ean_resuelto = _ean_canonico(ean_resuelto)
+        if ean_resuelto and ean_resuelto not in ean_to_nini_sku:
+            ean_to_nini_sku[ean_resuelto] = sku
+            nini_sku_set.add(sku)
+            ean_nini_nuevos += 1
+
+    print(f"  Paso 1b: +{ean_yag_nuevos} EANs Yaguar via Maestro, +{ean_mco_nuevos} EANs Maxiconsumo via Maestro "
+          f"({ean_mco_brand_skip} descartados por conflicto de marca), +{ean_nini_nuevos} EANs Nini via Maestro")
 
     # Alias curados: renombrar claves de los indices ean->sku que vinieron de
     # CODIGOS.xlsx/mapeo con un EAN alias (ej. MCO Branca 750 mapeado al codigo
@@ -1464,7 +1593,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
     # PASO 2: MaxiCarrefour como HUB (100% EAN)
     #   Para cada producto MC busca en Yaguar y Maxiconsumo via CODIGOS
     # ------------------------------------------------------------------
-    stats_mc = {"match_yag": 0, "match_mco": 0, "nuevo": 0}
+    stats_mc = {"match_yag": 0, "match_mco": 0, "match_nini": 0, "nuevo": 0}
 
     for p in maxicarre_data:
         ean    = _ean_canonico(str(p.get("ean", "")).strip())
@@ -1523,7 +1652,23 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             mco_merged.add(mco_sku)
             stats_mc["match_mco"] += 1
 
+        # Buscar Nini via mapa inverso EAN->SKU (aprendido, sin CODIGOS.xlsx propio)
+        nini_sku = ean_to_nini_sku.get(ean)
+        if nini_sku and nini_sku in nini_by_sku:
+            nini_p = nini_by_sku[nini_sku]
+            nini_precio = nini_p.get("precio", 0)
+            if nini_precio > 0:
+                entry["precios"]["nini"] = nini_precio
+            entry["fuentes"]["nini"] = {
+                "nombre": nini_p.get("nombre", ""),
+                "sku":    nini_sku,
+                "fecha_scraping": nini_p.get("fecha_scraping") or nini_p.get("fecha", ""),
+            }
+            nini_merged.add(nini_sku)
+            stats_mc["match_nini"] += 1
+
         # Elegir la mejor imagen: Carrefour > Maxiconsumo > Yaguar (sin placeholders)
+        # Nini no trae imagenes utilizables desde la API -- no entra a este pool.
         candidatas = [imagen_mc]
         if mco_sku and mco_sku in mco_by_sku:
             candidatas.append(mco_by_sku[mco_sku].get("imagen", ""))
@@ -1541,6 +1686,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
     print(f"  MaxiCarrefour: {stats_mc['nuevo']} productos procesados")
     print(f"    -> Matches Yaguar via CODIGOS:      {stats_mc['match_yag']}")
     print(f"    -> Matches Maxiconsumo via CODIGOS: {stats_mc['match_mco']}")
+    print(f"    -> Matches Nini via aprendizaje:    {stats_mc['match_nini']}")
 
     # ------------------------------------------------------------------
     # PASO 3: Yaguar - productos no mergeados con MaxiCarrefour
@@ -1593,6 +1739,54 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
     print(f"  Yaguar (restantes): {stats_yag['nuevo']} nuevos, "
           f"{stats_yag['match_ean_catalogo']} match EAN, "
           f"{stats_yag['match_nombre_maestro']} con EAN via Maestro")
+
+    # ------------------------------------------------------------------
+    # PASO 3b: Nini - productos no mergeados con MaxiCarrefour
+    #   Mismo tratamiento que Yaguar (PASO 3): la API de Nini no trae imagen
+    #   ni link de producto, asi que esos campos quedan vacios.
+    # ------------------------------------------------------------------
+    stats_nini = {"match_ean_catalogo": 0, "match_nombre_maestro": 0, "nuevo": 0}
+
+    for p in nini_data:
+        sku    = str(p.get("sku", "")).strip()
+        nombre = p.get("nombre", "")
+        precio = p.get("precio", 0)
+        if not nombre or not sku or precio <= 0:
+            continue
+
+        if sku in nini_merged:
+            continue  # ya fue matcheado con MaxiCarrefour
+
+        sector_raw = p.get("categoria", "")
+
+        # Resolver EAN
+        ean = resolver_ean(sku, nini_sku_to_ean, nombre)
+
+        nombre_display, sector, subcategoria, abc = info_master(ean, nombre, sector_raw)
+
+        if ean and ean in catalogo:
+            catalogo[ean]["precios"]["nini"] = precio
+            catalogo[ean]["fuentes"]["nini"] = {"nombre": nombre, "sku": sku, "fecha_scraping": p.get("fecha_scraping") or p.get("fecha", "")}
+            if ean in nombre_norm_to_ean.values():
+                stats_nini["match_ean_catalogo"] += 1
+        else:
+            prod_id = ean if ean else f"nini_{sku}"
+            if prod_id not in catalogo:
+                img_final = f"https://tupedido.carrefour.com.ar/imagenesPDA/{ean}.jpg" if ean else ""
+                entry = nuevo_producto(prod_id, ean, nombre_display, img_final, sector, subcategoria, abc)
+                catalogo[prod_id] = entry
+                stats_nini["nuevo"] += 1
+
+            catalogo[prod_id]["precios"]["nini"] = precio
+            catalogo[prod_id]["fuentes"]["nini"] = {"nombre": nombre, "sku": sku, "fecha_scraping": p.get("fecha_scraping") or p.get("fecha", "")}
+            if ean:
+                stats_nini["match_nombre_maestro"] += 1
+
+        nini_merged.add(sku)
+
+    print(f"  Nini (restantes): {stats_nini['nuevo']} nuevos, "
+          f"{stats_nini['match_ean_catalogo']} match EAN, "
+          f"{stats_nini['match_nombre_maestro']} con EAN via Maestro")
 
     # ------------------------------------------------------------------
     # PASO 4: Maxiconsumo - productos no mergeados
@@ -2026,7 +2220,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         return base
 
     def _es_sintetico(prod_id):
-        return str(prod_id).startswith("yaguar_") or str(prod_id).startswith("mco_")
+        return str(prod_id).startswith(("yaguar_", "mco_", "nini_"))
 
     # Paso 6a: Fusionar duplicados de nombre_display exacto
     por_nombre = defaultdict(list)
@@ -2168,9 +2362,10 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 wi[w].append(ei)
         return entries, wi
 
-    mc_idx_entries,  mc_idx_wi  = _build_index("maxicarrefour", lista_final)
-    yag_idx_entries, yag_idx_wi = _build_index("yaguar", lista_final)
-    mco_idx_entries, mco_idx_wi = _build_index("maxiconsumo", lista_final)
+    mc_idx_entries,   mc_idx_wi   = _build_index("maxicarrefour", lista_final)
+    yag_idx_entries,  yag_idx_wi  = _build_index("yaguar", lista_final)
+    mco_idx_entries,  mco_idx_wi  = _build_index("maxiconsumo", lista_final)
+    nini_idx_entries, nini_idx_wi = _build_index("nini", lista_final)
 
     fusiones_fuzzy = 0
     usados_como_base = set()   # índices de lista_final que ya absorbieron algo
@@ -2183,11 +2378,12 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         if idx_p in usados_como_base or idx_p in parches:
             continue
         pr = p["precios"]
-        tiene_mc  = pr.get("maxicarrefour", 0) > 0
-        tiene_yag = pr.get("yaguar", 0) > 0
-        tiene_mco = pr.get("maxiconsumo", 0) > 0
-        n_fuentes = sum([tiene_mc, tiene_yag, tiene_mco])
-        if n_fuentes == 3:
+        tiene_mc   = pr.get("maxicarrefour", 0) > 0
+        tiene_yag  = pr.get("yaguar", 0) > 0
+        tiene_mco  = pr.get("maxiconsumo", 0) > 0
+        tiene_nini = pr.get("nini", 0) > 0
+        n_fuentes = sum([tiene_mc, tiene_yag, tiene_mco, tiene_nini])
+        if n_fuentes == 4:
             continue  # completo
 
         cl_p = clave_nombre(p["nombre_display"])
@@ -2198,9 +2394,10 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
 
         # Buscar fuentes faltantes en orden de prioridad
         for fuente_falt, entries_f, wi_f in [
-            ("maxicarrefour", mc_idx_entries,  mc_idx_wi),
-            ("yaguar",        yag_idx_entries, yag_idx_wi),
-            ("maxiconsumo",   mco_idx_entries, mco_idx_wi),
+            ("maxicarrefour", mc_idx_entries,   mc_idx_wi),
+            ("yaguar",        yag_idx_entries,  yag_idx_wi),
+            ("maxiconsumo",   mco_idx_entries,  mco_idx_wi),
+            ("nini",          nini_idx_entries, nini_idx_wi),
         ]:
             if pr.get(fuente_falt, 0) > 0:
                 continue  # ya tiene esta fuente
@@ -2305,7 +2502,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
         return bool(_PACK_NxM_RE.search(nombre_crudo or ""))
 
     fuentes_eliminadas_6d = 0
-    _ANCHOR_ORDER = ["maxicarrefour", "yaguar", "maxiconsumo"]
+    _ANCHOR_ORDER = ["maxicarrefour", "yaguar", "maxiconsumo", "nini"]
 
     for p in lista_final:
         precios_activos = {k: v for k, v in p["precios"].items() if v > 0}
@@ -2453,7 +2650,7 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             ean = p.get("id_unificado", "")
             p["familia"] = ean_to_master.get(ean, {}).get("familia", "")
 
-    return lista_final, _aprendizaje_yag, _aprendizaje_mco
+    return lista_final, _aprendizaje_yag, _aprendizaje_mco, _aprendizaje_nini
 
 
 # ---------------------------------------------------------------------------
@@ -2466,8 +2663,8 @@ def main():
     print("=" * 60)
 
     print("\nCargando tablas de referencia (Excel)...")
-    (yag_sku_to_ean, mco_sku_to_ean,
-     ean_to_yag_sku, ean_to_mco_sku,
+    (yag_sku_to_ean, mco_sku_to_ean, nini_sku_to_ean,
+     ean_to_yag_sku, ean_to_mco_sku, ean_to_nini_sku,
      ean_to_master, nombre_norm_to_ean,
      ean_to_familia) = cargar_excel_referencia()
 
@@ -2475,6 +2672,7 @@ def main():
     yaguar      = cargar_yaguar()
     maxicarre   = cargar_maxicarrefour()
     maxiconsumo = cargar_maxiconsumo()
+    nini        = cargar_nini()
     coto        = cargar_cadena("coto", "Coto")
     carrefour   = cargar_cadena("carrefour", "Carrefour")
     dia         = cargar_cadena("dia", "Dia")
@@ -2490,15 +2688,17 @@ def main():
         yag_sku_to_ean, mco_sku_to_ean,
         ean_to_yag_sku, ean_to_mco_sku,
         nombre_norm_to_ean, ean_to_master,
+        nini_data=nini, nini_sku_to_ean=nini_sku_to_ean, ean_to_nini_sku=ean_to_nini_sku,
     )
 
     print("\nConstruyendo catálogo unificado...")
-    catalogo, aprendizaje_yag, aprendizaje_mco = construir_catalogo(
+    catalogo, aprendizaje_yag, aprendizaje_mco, aprendizaje_nini = construir_catalogo(
         yaguar, maxicarre, maxiconsumo,
         yag_sku_to_ean, mco_sku_to_ean,
         ean_to_yag_sku, ean_to_mco_sku,
         ean_to_master, nombre_norm_to_ean,
         ean_to_familia,
+        nini_data=nini, nini_sku_to_ean=nini_sku_to_ean, ean_to_nini_sku=ean_to_nini_sku,
     )
 
     # ------ ABC fallback algorítmico ------
@@ -2569,7 +2769,7 @@ def main():
     STALE_DIAS = 14
     from datetime import date as _date
     hoy = _date.today()
-    _mayoristas = ("yaguar", "maxicarrefour", "maxiconsumo", "coto", "carrefour", "dia", "masonline", "jumbo")
+    _mayoristas = ("yaguar", "maxicarrefour", "maxiconsumo", "nini", "coto", "carrefour", "dia", "masonline", "jumbo")
     precios_stale = 0
     for p in catalogo:
         fuentes = p.get("fuentes", {})
@@ -2611,17 +2811,18 @@ def main():
     con_yag  = sum(1 for p in catalogo if p["precios"]["yaguar"] > 0)
     con_mc   = sum(1 for p in catalogo if p["precios"]["maxicarrefour"] > 0)
     con_mco  = sum(1 for p in catalogo if p["precios"]["maxiconsumo"] > 0)
+    con_nini = sum(1 for p in catalogo if p["precios"].get("nini", 0) > 0)
     con_coto = sum(1 for p in catalogo if p["precios"].get("coto", 0) > 0)
     con_carr = sum(1 for p in catalogo if p["precios"].get("carrefour", 0) > 0)
     con_dia  = sum(1 for p in catalogo if p["precios"].get("dia", 0) > 0)
     con_mas  = sum(1 for p in catalogo if p["precios"].get("masonline", 0) > 0)
     con_jum  = sum(1 for p in catalogo if p["precios"].get("jumbo", 0) > 0)
     # Las metricas de comparativa miden SOLO mayoristas (coto es referencia gondola)
-    _KEYS_MAY = ("yaguar", "maxicarrefour", "maxiconsumo")
+    _KEYS_MAY = ("yaguar", "maxicarrefour", "maxiconsumo", "nini")
     def _n_mayoristas(p):
         return sum(1 for k in _KEYS_MAY if p["precios"].get(k, 0) > 0)
     multi    = sum(1 for p in catalogo if _n_mayoristas(p) >= 2)
-    tres     = sum(1 for p in catalogo if _n_mayoristas(p) == 3)
+    todos_may = sum(1 for p in catalogo if _n_mayoristas(p) == len(_KEYS_MAY))
     abc_a_multi = sum(1 for p in catalogo if p.get("abc") == "A" and _n_mayoristas(p) >= 2)
     sin_img  = sum(1 for p in catalogo if not p.get("imagen"))
 
@@ -2632,13 +2833,14 @@ def main():
     print(f"  Con precio Yaguar:            {con_yag}")
     print(f"  Con precio MaxiCarrefour:     {con_mc}")
     print(f"  Con precio Maxiconsumo:       {con_mco}")
+    print(f"  Con precio Nini:              {con_nini}")
     print(f"  Con precio Coto (gondola):    {con_coto}")
     print(f"  Con precio Carrefour (gond.): {con_carr}")
     print(f"  Con precio Dia (gondola):     {con_dia}")
     print(f"  Con precio Masonline (gond.): {con_mas}")
     print(f"  Con precio Jumbo (gondola):   {con_jum}")
     print(f"  Con 2+ precios (comparativa): {multi}")
-    print(f"  Con 3 precios:                {tres}")
+    print(f"  Con los {len(_KEYS_MAY)} precios mayoristas: {todos_may}")
     print(f"  ABC=A con 2+ precios:         {abc_a_multi}")
     print(f"  Sin imagen:                   {sin_img}")
 
@@ -2665,7 +2867,7 @@ def main():
     # Nunca sobreescribe entradas existentes.
     # ------------------------------------------------------------------
     mapeo_brujula_file = os.path.join(RAW_DIR, "mapeo_brujula.json")
-    if (aprendizaje_yag or aprendizaje_mco) and os.path.isfile(mapeo_brujula_file):
+    if (aprendizaje_yag or aprendizaje_mco or aprendizaje_nini) and os.path.isfile(mapeo_brujula_file):
         with open(mapeo_brujula_file, encoding="utf-8") as f:
             mb = json.load(f)
 
@@ -2687,7 +2889,7 @@ def main():
             except (json.JSONDecodeError, OSError):
                 pass
 
-        nuevas_yag = nuevas_mco = 0
+        nuevas_yag = nuevas_mco = nuevas_nini = 0
 
         for sku, ean in aprendizaje_yag.items():
             if ean not in mc_eans or f"yaguar:{sku}:{ean}" in _rechazados_mb:
@@ -2711,10 +2913,23 @@ def main():
                         "sector": "", "subcategoria": "", "abc": "", "nombre_verificacion": ""
                     }
 
-        if nuevas_yag + nuevas_mco > 0:
+        mb.setdefault("por_sku_nini", {})
+        for sku, ean in aprendizaje_nini.items():
+            if ean not in mc_eans or f"nini:{sku}:{ean}" in _rechazados_mb:
+                continue
+            if sku not in mb["por_sku_nini"]:
+                mb["por_sku_nini"][sku] = ean
+                nuevas_nini += 1
+                if ean not in mb["por_ean"]:
+                    mb["por_ean"][ean] = {
+                        "sector": "", "subcategoria": "", "abc": "", "nombre_verificacion": ""
+                    }
+
+        if nuevas_yag + nuevas_mco + nuevas_nini > 0:
             with open(mapeo_brujula_file, "w", encoding="utf-8") as f:
                 json.dump(mb, f, ensure_ascii=False, indent=2)
-            print(f"\nAprendizaje: +{nuevas_yag} SKUs Yaguar, +{nuevas_mco} SKUs Maxiconsumo nuevos al mapeo")
+            print(f"\nAprendizaje: +{nuevas_yag} SKUs Yaguar, +{nuevas_mco} SKUs Maxiconsumo, "
+                  f"+{nuevas_nini} SKUs Nini nuevos al mapeo")
         else:
             print("\nAprendizaje: sin asociaciones nuevas esta corrida (todo ya estaba en el mapeo)")
     elif not os.path.isfile(mapeo_brujula_file):

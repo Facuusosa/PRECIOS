@@ -1,5 +1,5 @@
 {
- "fecha": "2026-07-24T22:14:58",
+ "fecha": "2026-07-29T21:50:38",
  "sospechosos": [
   {
    "mapeo": "por_sku_yaguar",
@@ -43,11 +43,11 @@
   },
   {
    "mapeo": "por_sku_yaguar",
-   "sku": "74456",
-   "ean": "7791600064563",
-   "nombre_mayorista": "DESODORANTE CIEL NUIT 186ML",
-   "nombre_cadena": "Desodorante Ciel Nuit 123ml",
-   "fuente_cadena": "masonline"
+   "sku": "73337",
+   "ean": "7791078022706",
+   "nombre_mayorista": "CEREAL GRANIX BOCADITO RELLENO FRUTILLA 130GR",
+   "nombre_cadena": "Cereal Bocadito Granix Frutilla 180 Gr.",
+   "fuente_cadena": "dia"
   },
   {
    "mapeo": "por_sku_yaguar",
@@ -107,14 +107,6 @@
   },
   {
    "mapeo": "por_sku_yaguar",
-   "sku": "78857",
-   "ean": "7793433000626",
-   "nombre_mayorista": "SEMILLAS GENSER GIRASOL DOY PACK 120GR",
-   "nombre_cadena": "Semillas GENSER Girasol Doyp. 120/150 g",
-   "fuente_cadena": "maestro"
-  },
-  {
-   "mapeo": "por_sku_yaguar",
    "sku": "79958",
    "ean": "7794000005839",
    "nombre_mayorista": "SOPA KNORR CASERA VEGETALES/LETRAS 107,5GR",
@@ -163,30 +155,6 @@
   },
   {
    "mapeo": "por_sku_yaguar",
-   "sku": "602542",
-   "ean": "7791905004172",
-   "nombre_mayorista": "DESODORANTE POLYANA AEROSOL AP WOMEN CLASIC 172ML",
-   "nombre_cadena": "Antitranspirante En Aerosol Women Classic Polyana 150 Ml",
-   "fuente_cadena": "masonline"
-  },
-  {
-   "mapeo": "por_sku_yaguar",
-   "sku": "90200",
-   "ean": "7791813421412",
-   "nombre_mayorista": "GASEOSA PASO DE LOS TOROS POMELO 2LT",
-   "nombre_cadena": "Gaseosa Paso De Los Toros Pomelo Light 1.5l",
-   "fuente_cadena": "jumbo"
-  },
-  {
-   "mapeo": "por_sku_yaguar",
-   "sku": "87531",
-   "ean": "7791337010680",
-   "nombre_mayorista": "POSTRE SERENITO POSTRE DE CAMPEONES VAINILLA 190GR",
-   "nombre_cadena": "Postre Sabor Vainilla x 2 Un 95 Grs Serenito",
-   "fuente_cadena": "jumbo"
-  },
-  {
-   "mapeo": "por_sku_yaguar",
    "sku": "85675",
    "ean": "7506339332643",
    "nombre_mayorista": "SUAVIZANTE DOWNY BRISA DE VERANO BOTELLA 1LT",
@@ -200,6 +168,14 @@
    "nombre_mayorista": "TOMATE LA CAMPAGNOLA CUBETEADO 400GR",
    "nombre_cadena": "Tomate Cubeteado La Campagnola 340 Gr.",
    "fuente_cadena": "dia"
+  },
+  {
+   "mapeo": "por_sku_yaguar",
+   "sku": "90132",
+   "ean": "7509546703107",
+   "nombre_mayorista": "JABON DE TOCADOR PALMOLIVE FRAMBUESA MORA 4UN 340GR",
+   "nombre_cadena": "Jabón De Tocador Palmolive Naturals Toque Nutritivo x4 85 grs",
+   "fuente_cadena": "carrefour"
   },
   {
    "mapeo": "por_sku_maxiconsumo",
@@ -248,6 +224,62 @@
    "nombre_mayorista": "ENJUAGUE DOWNY BRISA SUAVE 350 ML",
    "nombre_cadena": "Suavizante Downy Brisa Suave Rinde 1.4L Perfume Suave de Larga Duracion 350 Ml.",
    "fuente_cadena": "dia"
+  },
+  {
+   "mapeo": "por_sku_nini",
+   "sku": "6149340",
+   "ean": "7790150536285",
+   "nombre_mayorista": "ALICANTE  Nuez Moscada Entera 20 G",
+   "nombre_cadena": "Nuez moscada Alicante entera sobre 50 g.",
+   "fuente_cadena": "carrefour"
+  },
+  {
+   "mapeo": "por_sku_nini",
+   "sku": "7083602",
+   "ean": "7790070100375",
+   "nombre_mayorista": "NOBLEZA GAUCHA  Yerba Mate Cimarron 500 G",
+   "nombre_cadena": "Yerba Mate Nobleza Gaucha Cimarrón 500 Kg",
+   "fuente_cadena": "masonline"
+  },
+  {
+   "mapeo": "por_sku_nini",
+   "sku": "6304893",
+   "ean": "7795930000543",
+   "nombre_mayorista": "NESTLE  Agua S/Gas 2,25 Lts",
+   "nombre_cadena": "Agua Sin Gas Pureza Vital Nestle Pureza Vital 2.25cc",
+   "fuente_cadena": "masonline"
+  },
+  {
+   "mapeo": "por_sku_nini",
+   "sku": "5979455",
+   "ean": "7509552922332",
+   "nombre_mayorista": "FRUCTIS  Shampoo Liso Coco 200 Ml",
+   "nombre_cadena": "Shampoo Liso Coco Hidratación y Frizz 350 Ml Fructis",
+   "fuente_cadena": "jumbo"
+  },
+  {
+   "mapeo": "por_sku_nini",
+   "sku": "3856291",
+   "ean": "7790639003819",
+   "nombre_mayorista": "CUNNINGTON  Gaseosa Cola Suave 2,25 Lts",
+   "nombre_cadena": "Gaseosa Sabor Cola CUNNINGTON Suave 2.25cc",
+   "fuente_cadena": "coto"
+  },
+  {
+   "mapeo": "por_sku_nini",
+   "sku": "6441181",
+   "ean": "7730908401588",
+   "nombre_mayorista": "RINDE DOS  Jugo En Polvo AnanÃ¡ 13 G",
+   "nombre_cadena": "Jugo En Polvo Anana Rinde Dos X 18Grs",
+   "fuente_cadena": "maxicarrefour"
+  },
+  {
+   "mapeo": "por_sku_nini",
+   "sku": "4347994",
+   "ean": "7730908400536",
+   "nombre_mayorista": "RINDE DOS  Jugo En Polvo Mix Frutal 13 G",
+   "nombre_cadena": "Jugo En Polvo Mix Frutal Rinde Dos X 18Grs",
+   "fuente_cadena": "maxicarrefour"
   }
  ],
  "aceptados": [

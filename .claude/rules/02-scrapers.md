@@ -1,6 +1,6 @@
 # Reglas: Scrapers
 
-## Estándar de output (OBLIGATORIO en los 3 scrapers)
+## Estándar de output (OBLIGATORIO en todos los scrapers)
 - Nunca usar `capture_output=True` en wrappers — output siempre en tiempo real
 - Formato por sector: `[X/N] Sector: {nombre}`
 - Progreso cada 5 páginas: `Pag 5/36: 120 unicos acumulados`
@@ -9,7 +9,17 @@
 ## Credenciales
 - Todas en `.env` — nunca hardcodeadas en el código
 - Yaguar: `YAGUAR_USERNAME`, `YAGUAR_PASSWORD`
-- Carrefour: `CARREFOUR_PHPSESSID`, `CARREFOUR_CF_CLEARANCE`
+- **MaxiCarrefour (mayorista B2B)** — el nombre de variable quedó como "CARREFOUR_*" por
+  motivos históricos, NO confundir con Carrefour retail (cadena, sin auth, ver su sección
+  más abajo): `CARREFOUR_PHPSESSID`, `CARREFOUR_CF_CLEARANCE` (sesión) +
+  `CARREFOUR_CUIT`, `CARREFOUR_NOMBRE`, `CARREFOUR_EMAIL`, `CARREFOUR_TELEFONO`,
+  `CARREFOUR_PROVINCIA`, `CARREFOUR_SUCURSAL` (login automático, usadas por
+  `scripts/renovar_cookies_carrefour.py`) + `CAPSOLVER_API_KEY` (opcional, resolución de
+  reCAPTCHA sin click manual — no activada hoy)
+- Maxiconsumo, Coto, Carrefour retail, Dia, Masonline, Jumbo: sin credenciales (APIs
+  públicas, ver sección propia de cada una)
+- **Nini (mayorista, cuenta PRESTADA por un tercero — NUNCA usar para comprar):**
+  `NINI_USERNAME`, `NINI_PASSWORD` — ver sección propia más abajo
 
 ## Oferta (precio_regular/oferta) por fuente — auditado 20/07/2026
 - **MaxiCarrefour: SÍ tiene oferta real, capturada desde 20/07.** El mismo HTML de listado
@@ -109,13 +119,19 @@
   `verificar_precios_real.py` debe correr PEGADO al scrape (por eso vive en `pipeline_local.py`).
 
 ## Pipeline de ejecución
+Orquestador real: **`pipeline_local.py`** — corre las 8 fuentes + `actualizar_catalogo.py`
++ gates de sanidad (`sanidad_outputs()`, verificación en vivo) en una sola corrida.
+Wrappers individuales, para correr una sola fuente suelta:
 ```
 python scrape_yaguar.py         → scraper + actualizar_catalogo.py
 python scrape_maxicarrefour.py  → scraper + actualizar_catalogo.py
 python scrape_maxiconsumo.py    → scraper + enriquecer_precios.py + actualizar_catalogo.py
+python scrape_nini.py           → scraper + actualizar_catalogo.py
 python scrape_coto.py           → scraper + actualizar_catalogo.py
 python scrape_carrefour.py      → scraper + actualizar_catalogo.py
 python scrape_dia.py            → scraper + actualizar_catalogo.py
+python scrape_masonline.py      → scraper + actualizar_catalogo.py
+python scrape_jumbo.py          → scraper + actualizar_catalogo.py
 ```
 
 ## Coto (cadena minorista — API Constructor.io, documentado 05/07/2026)
@@ -287,6 +303,69 @@ python scrape_dia.py            → scraper + actualizar_catalogo.py
   Mundo Bebe, Pastas Frescas — excluye Electro(15), Hogar y textil(16), Tiempo Libre(465,
   deportes/jugueteria), Sin Categoria(9999), Felices Fiestas(10038, estacional).
 
+## Nini Mayorista (API RPC interna vía sesion Playwright, documentado 29/07/2026)
+- **CUENTA PRESTADA POR UN TERCERO — NUNCA usarla para comprar.** El usuario 38620
+  no es de Facu; alguien se la prestó únicamente para consultar precios. El scraper
+  es SOLO LECTURA por diseño (`targets/nini/scraper_pro.py`): whitelist duro
+  (`_METODOS_PERMITIDOS`) de qué combinaciones `daoName/method` puede llamar —
+  cualquier otra levanta excepción antes de armar el request. JAMÁS agregar
+  `onlineOrderDao` (tiene `Confirm`/`Reserve`/`destroy`) ni tocar cantidad de
+  producto, "Confirmar Pedido", "Anular Pedido" ni "Guardar en Borrador" — esos
+  botones existen a un click de donde navega el scraper porque la cuenta tiene
+  un pedido real en curso de su dueño.
+- **La URL de listado no sirve como acceso directo** (`?nini.controllers.listadoDeProductos`
+  redirige al login si se navega sin pasar por el flujo) — el sitio guarda el
+  estado ("pedido en curso") en la sesión del servidor, igual que el form MAXI
+  PEDIDO de MaxiCarrefour. El scraper replica el flujo exacto de un humano:
+  login → Creación de pedido → Continuar → Seguir comprando.
+- **Detrás de la SPA hay una API JSON real** (backend Node.js, `POST /nodejs/{daoName}/{method}`,
+  body urlencoded estilo PHP): `onlineDeparmentDao/findFacets` (8 departamentos),
+  `onlineSectorDao/findAll` (135 sectores en una sola llamada, id con prefijo de
+  departamento: `210040` = depto `210` + sector), `onlineProductDao/findAllWithOrder`
+  (productos con precio, paginado `offsetProducts`/`limit=50`, ya filtrado a
+  `withStock=true` por el propio sitio — no hace falta filtrar sin-stock como en
+  Maxiconsumo).
+- **El id del "pedido en curso" (`currentOrder.id`) es obligatorio para pedir
+  precios pero no vive en ningún global de JS accesible.** Se captura
+  interceptando el primer request real que dispara el propio sitio al llegar al
+  listado (`page.on("request")` de Playwright, sin JS inyectado) — nunca se
+  hardcodea, porque si el dueño real de la cuenta confirma/anula su pedido ese
+  id puede cambiar de un día para el otro.
+- **Bug de encoding real (no cosmético) — el backend responde en ISO-8859-1
+  sin declararlo:** `fetch().text()` asume UTF-8 y corrompía "CAÑUELAS" en
+  "CA�UELAS" (nombres/marcas con ñ/é quedaban con caracteres de reemplazo en
+  el JSON final, no solo en la consola). Fix en `_fetch_dao()`: leer
+  `arrayBuffer()` y decodificar con el charset real del header (`iso-8859-1`
+  si no viene declarado).
+- **Nini NO tiene EAN accesible, y no es por falta de investigar.** La API
+  cliente (`onlineProductDao`) no lo expone en ningún campo. Existe un concepto
+  interno (`Nini.Models.Barcode`, `Product.findByBarcode` → `productDao`, no
+  `onlineProductDao`) pero devolvió 500 al probarlo — es un DAO fuera del rol
+  "cliente" de esta cuenta. Se decidió NO insistir: forzar variantes de un
+  endpoint admin que ya rechazó el acceso, usando una cuenta prestada, cruza la
+  línea de "scrapear como cliente" a "forzar accesos internos ajenos". Matchea
+  por nombre exactamente igual que Yaguar/Maxiconsumo (fuzzy contra el Maestro +
+  aprendizaje contra cadenas vía `expandir_mapeo_con_cadenas`, persistido en
+  `mapeo_brujula.json["por_sku_nini"]`) — sin hoja propia en CODIGOS.xlsx.
+- **Integración completa en `actualizar_catalogo.py` verificada en vivo
+  (29/07/2026):** primera corrida real, sin arranque en frío — 7.239 productos
+  válidos scrapeados, 7.148 entraron al catálogo, 402 matcheados contra
+  MaxiCarrefour vía aprendizaje + 343 vía Maestro en la misma corrida. La API de
+  Nini ya filtra `withStock=true`, así que no aplica la trampa de precios-sin-stock
+  de la regla 08.
+- La API no trae imagen ni link de producto usable — esos campos quedan vacíos
+  en `fuentes.nini` (a diferencia de Yaguar/MaxiCarrefour/Maxiconsumo).
+- **NO se agregó Nini al gate de verificación en vivo** (`scripts/verificar_precios_real.py`).
+  A diferencia de Yaguar (ficha pública) o MaxiCarrefour (sesión ya cacheada), Nini no
+  tiene una vía de verificación liviana sin repetir todo el login — y repetirlo
+  solo para verificar sumaría accesos automáticos innecesarios a una cuenta
+  prestada. Decisión deliberada, no un olvido.
+- `MIN_PRODUCTS_EXPECTED = 3500` calibrado sobre la primera corrida real (7.248
+  scrapeados). El pipeline NO tiene un mínimo de matches en `pipeline_local.py`
+  todavía (`minimos_fuente`) — a propósito: sin EAN propio, el número de matches
+  crece con cada corrida (aprendizaje), fijar un piso ahora bloquearía
+  publicaciones válidas mientras converge.
+
 ## Cada scraper debe
 - Guardar output con timestamp: `output_{mayorista}_{YYYYMMDD_HHMMSS}.json`
 - Loguear errores por sector sin detener los demás
@@ -333,8 +412,9 @@ python scrape_dia.py            → scraper + actualizar_catalogo.py
 
 ## Anti-bloqueo — reglas permanentes
 - Yaguar (Store API): delay 0.5s de cortesía entre requests; sin throttle detectado en la API
-- MaxiCarrefour (Cloudflare): cookies PHPSESSID + cf_clearance, renovar cada ~30 días. Si devuelve `data-price="private"` → cookies expiradas, no tocar el código
-- MaxiCarrefour (Cloudflare): cookies PHPSESSID + cf_clearance, renovar cada ~30 días. Si devuelve `data-price="private"` → cookies expiradas, no tocar el código
+- MaxiCarrefour (Cloudflare): cookies PHPSESSID + cf_clearance — mueren en HORAS por
+  inactividad, no en 30 días (ver sección de cookies arriba, la renovación es automática).
+  Si devuelve `data-price="private"` → cookies expiradas, no tocar el código
 - MaxiCarrefour LINKS: no hay URLs de producto individuales sin login. El buscador `/search/{ean}` da 1 resultado exacto PERO solo para ~48% de los EANs: Carrefour rota EANs y el del catálogo no siempre está indexado (medido 14/06/2026 sobre 50 productos). SOLUCIÓN HÍBRIDA (`_carrefour_links_hibrido` en `actualizar_catalogo.py`): verifica cada EAN contra la API del buscador `…/products?currentUrl=search/{ean}&method=productsList` (si la respuesta tiene `item_card` el EAN existe) → `/search/{ean}` directo; si no → `/search/{nombre_url_encoded}` (muestra resultados relacionados, nunca pantalla vacía). Es ~4853 requests, +~2min al pipeline; robusto: ante error de red conserva `/search/{ean}`. NO usar solo nombre (decenas de resultados) ni solo EAN (54% pantalla vacía). El endpoint `/busca/?q=` da 404 y la VTEX API requiere auth. La ficha `/p/{ean}` existe pero usa el EAN interno del buscador (≠ EAN físico del catálogo), no sirve desde el catálogo.
 - Maxiconsumo (Magento): curl_cffi con `impersonate="safari15_3"` — NUNCA usar requests normal, Cloudflare lo bloquea
 - Si scraper devuelve 0 productos: primero sospechar bloqueo/cookies, no tocar código

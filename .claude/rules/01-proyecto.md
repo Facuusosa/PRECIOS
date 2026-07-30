@@ -8,8 +8,11 @@ El selector "Uso la app como" (perfil) define cuál ve primero cada uno.
 
 ## MVP — incluye (rediseño completo 26/04/2026)
 - Calculador de margen funcional
-- 3 mayoristas: Yaguar, Maxicarrefour, Maxiconsumo + 5 cadenas: Coto, Carrefour, Dia, Masonline, Jumbo (sumadas 20/07/2026)
-- 6 vistas: Inicio, Catálogo, Detalle, Comparativa, Herramientas, Perfil
+- 4 mayoristas: Yaguar, Maxicarrefour, Maxiconsumo, Nini (sumado 29/07/2026, cuenta prestada — ver `.claude/rules/02-scrapers.md`) + 5 cadenas: Coto, Carrefour, Dia, Masonline, Jumbo (sumadas 20/07/2026)
+- 6 vistas: Inicio ("Para Ti"), Catálogo, Detalle, Mi Lista (id interno `herramientas`),
+  Perfil, Planes (verificado en `bottom-nav.tsx` y `app/page.tsx` 29/07/2026 — "Comparativa"
+  NO es una vista propia: es `onVerComparativa` en `vista-detalle.tsx`, un handler vacío
+  `() => {}` sin implementar, no confundir con una feature que funciona)
 
 ## MVP — NO incluye
 - FEATURE GATING real (FREE/PRO): hoy TODAS las fuentes están abiertas para todos, sin
