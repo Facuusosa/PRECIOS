@@ -19,8 +19,10 @@ Uso manual:  python pipeline_local.py
 """
 import json
 import os
+import re
 import subprocess
 import sys
+import time
 from datetime import datetime
 from pathlib import Path
 
@@ -40,7 +42,7 @@ CAIDA_MAX = 0.15  # si el total de productos cae mas que esto, no se publica
 # NTFY_TOPIC (push al celular) vive en .env, no en el ambiente del task scheduler
 try:
     from dotenv import load_dotenv
-    load_dotenv(RAIZ / ".env")
+    load_dotenv(RAIZ / ".env", override=True)
 except ImportError:
     pass
 
@@ -318,17 +320,29 @@ def frescura_por_fuente():
     return dias
 
 
-def run_scraper(wrapper):
-    log(f"Corriendo {wrapper}...")
-    inicio = datetime.now()
-    ok = run(f"python {wrapper}", cwd=RAIZ).returncode == 0
-    seg = int((datetime.now() - inicio).total_seconds())
-    log(f"{'OK' if ok else 'FALLO'} {wrapper} ({seg}s)")
-    return ok
+def run_scraper(wrapper, reintentos=1):
+    """Reintenta ante falla en vez de dejar el catalogo con datos viejos hasta que
+    alguien lo note a mano. Investigacion previa (gstack /investigate, 04/08/2026)
+    descarto timeout de codigo y no encontro causa raiz reproducible -- el patron
+    (^C, sin traceback) es intermitente y raro (5 veces en meses, en Yaguar y
+    Maxiconsumo), asi que reintentar es la mitigacion correcta ante algo no
+    determinista, no un fix especulativo sobre una causa que no se pudo confirmar."""
+    for intento in range(reintentos + 1):
+        etiqueta = f"Corriendo {wrapper}..." if intento == 0 else f"Reintentando {wrapper} (intento {intento + 1}/{reintentos + 1})..."
+        log(etiqueta)
+        inicio = datetime.now()
+        ok = run(f"python {wrapper}", cwd=RAIZ).returncode == 0
+        seg = int((datetime.now() - inicio).total_seconds())
+        log(f"{'OK' if ok else 'FALLO'} {wrapper} ({seg}s)")
+        if ok:
+            return True
+        if intento < reintentos:
+            time.sleep(30)
+    return False
 
 
 def limpiar_automatico():
-    """Limpieza silenciosa post-scrape: pycache + outputs viejos (>30 dias, conserva el ultimo)."""
+    """Limpieza silenciosa post-scrape: pycache + outputs viejos (>10 dias, conserva el ultimo)."""
     import shutil
     from datetime import timedelta
 
@@ -340,22 +354,30 @@ def limpiar_automatico():
             borrados_cache += 1
 
     # Outputs viejos de scrapers: conservar el mas reciente de cada mayorista
-    limite = datetime.now() - timedelta(days=30)
+    # 10 dias alcanza para debugging reciente; el historico real vive en data/history/
+    limite = datetime.now() - timedelta(days=10)
     borrados_outputs = 0
     mb_liberados = 0.0
     for mayorista in ("yaguar", "maxicarrefour", "maxiconsumo", "nini", "coto", "carrefour", "dia", "masonline", "jumbo"):
         carpeta = RAIZ / "targets" / mayorista
         if not carpeta.exists():
             continue
-        outputs = sorted(carpeta.glob("output_*.json"))
-        if len(outputs) <= 1:
-            continue
-        for f in outputs[:-1]:  # conservar el ultimo siempre
+        # Regex en vez de split posicional: nombres con segmentos extra (ej.
+        # "output_maxiconsumo_raw_20260621_011058.json") rompian el split y el archivo
+        # nunca se evaluaba para borrado (excepcion silenciosa, bug real hasta 31/07/2026).
+        con_fecha = []
+        for f in carpeta.glob("output_*.json"):
+            m = re.search(r"(\d{8}_\d{6})", f.stem)
+            if not m:
+                continue
             try:
-                ts_str = f.stem.split("_", 2)[-1]  # YYYYMMDD_HHMMSS
-                fecha = datetime.strptime(ts_str, "%Y%m%d_%H%M%S")
+                con_fecha.append((f, datetime.strptime(m.group(1), "%Y%m%d_%H%M%S")))
             except ValueError:
                 continue
+        if len(con_fecha) <= 1:
+            continue
+        con_fecha.sort(key=lambda par: par[1])
+        for f, fecha in con_fecha[:-1]:  # conservar el mas reciente por fecha real, siempre
             if fecha < limite:
                 mb = f.stat().st_size / 1_000_000
                 f.unlink()
@@ -379,6 +401,12 @@ def hay_cambios():
 def main():
     import atexit
     atexit.register(escribir_veredicto)
+    # Cada wrapper (scrape_X.py) reconstruye el catalogo completo por su cuenta al
+    # terminar (fuzzy matching sobre 25k+ productos, ~3-5 min); encadenados aca son
+    # 9 reconstrucciones redundantes + la final de este archivo (linea ~466) = 10
+    # cuando solo la ultima importa. Los wrappers respetan esta env var (heredada
+    # por los subprocesos via run()) y se saltean su reconstruccion individual.
+    os.environ["PIPELINE_SKIP_CATALOGO"] = "1"
     log("=== PIPELINE LOCAL BRUJULA ===")
     antes = contar_por_fuente()
     log(f"Catalogo actual: {antes['total']} prods "
@@ -386,22 +414,40 @@ def main():
         f"C={antes['coto']} CF={antes['carrefour']} D={antes['dia']} "
         f"MAS={antes['masonline']} JUM={antes['jumbo']})")
 
-    ok = {
-        # MaxiCarrefour primero: es el unico que puede pedir un click manual
-        # (renovacion de cookies) — asi Facu lo resuelve al toque y deja el resto
-        # de los scrapers (sin intervencion humana) corriendo desatendido.
-        "maxicarrefour": run_scraper("scrape_maxicarrefour.py"),
-        "yaguar":        run_scraper("scrape_yaguar.py"),
-        "maxiconsumo":   run_scraper("scrape_maxiconsumo.py"),
-        # Nini: cuenta PRESTADA por un tercero (ver .claude/rules/02-scrapers.md) --
-        # scraper de SOLO LECTURA, nunca confirma/anula pedidos.
-        "nini":          run_scraper("scrape_nini.py"),
-        "coto":          run_scraper("scrape_coto.py"),
-        "carrefour":     run_scraper("scrape_carrefour.py"),
-        "dia":           run_scraper("scrape_dia.py"),
-        "masonline":     run_scraper("scrape_masonline.py"),
-        "jumbo":         run_scraper("scrape_jumbo.py"),
-    }
+    ok = {}
+    # MaxiCarrefour primero: es el unico que puede pedir un click manual
+    # (renovacion de cookies) — asi Facu lo resuelve al toque y deja el resto
+    # de los scrapers (sin intervencion humana) corriendo desatendido.
+    # reintentos=0: ya tiene su propio retry-y-rescate interno bien afinado
+    # (scrape_maxicarrefour.py + renovar_cookies_diario.bat) -- el reintento
+    # generico de run_scraper() duplicaria tiempo de espera sin agregar nada.
+    ok["maxicarrefour"] = run_scraper("scrape_maxicarrefour.py", reintentos=0)
+
+    # Verificacion temprana MCF (31/07/2026): la sesion PHP muere en horas por
+    # inactividad. El gate de siempre (verificar_precios_real.py, al final del
+    # pipeline) llegaba demasiado tarde -- 8 corridas seguidas dieron sesion
+    # muerta en el 100% de los intentos (ver ALERTA.md 21-31/07). Verificar
+    # aca, pegado al scrape, mientras la sesion todavia esta viva.
+    if ok["maxicarrefour"]:
+        log("Verificando MaxiCarrefour en vivo (temprano, sesion recien scrapeada)...")
+        r_mcf = run("python scripts/verificar_mcf_temprano.py 20", cwd=RAIZ)
+        if r_mcf.returncode == 1:
+            alertar("MaxiCarrefour DIVERGENTE en vivo (chequeo temprano): >20% de precios no coinciden",
+                    "revisar data/quality/verificacion_mcf_temprano_*.json mas reciente")
+        elif r_mcf.returncode == 2:
+            alertar("MaxiCarrefour verificacion temprana INCONCLUSA (sesion expirada u otro problema)",
+                    "revisar data/quality/verificacion_mcf_temprano_*.json — probar renovar cookies")
+
+    ok["yaguar"]      = run_scraper("scrape_yaguar.py")
+    ok["maxiconsumo"] = run_scraper("scrape_maxiconsumo.py")
+    # Nini: cuenta PRESTADA por un tercero (ver .claude/rules/02-scrapers.md) --
+    # scraper de SOLO LECTURA, nunca confirma/anula pedidos.
+    ok["nini"]      = run_scraper("scrape_nini.py")
+    ok["coto"]      = run_scraper("scrape_coto.py")
+    ok["carrefour"] = run_scraper("scrape_carrefour.py")
+    ok["dia"]       = run_scraper("scrape_dia.py")
+    ok["masonline"] = run_scraper("scrape_masonline.py")
+    ok["jumbo"]     = run_scraper("scrape_jumbo.py")
     log(f"Scrapers OK: {sum(ok.values())}/{len(ok)}")
     _corrida["fase"] = "scrapers"
     _corrida["scrapers"] = dict(ok)

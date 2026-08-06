@@ -136,6 +136,21 @@ def _get_con_guardian(session, url, timeout_total=25):
 def extraer_precio_detalle(session, url: str) -> tuple[float, str]:
     try:
         r = _get_con_guardian(session, url)
+    except TimeoutError:
+        # El thread daemon del guardian queda abandonado usando ESTA MISMA sesion
+        # (thread-local, reusada a proposito para evitar handshake TLS por producto
+        # -- ver _get_session()). Si el proximo request de este mismo hilo reusa
+        # la sesion, compite por el mismo socket con el zombie y tambien se cuelga:
+        # degradacion en cascada verificada 05/08/2026 (corrida real clavada en
+        # 1800/4040 con CPU alta y cero avance durante minutos). Se descarta la
+        # sesion del hilo: el proximo _get_session() crea una limpia en vez de
+        # heredar la potencialmente rota.
+        if hasattr(_thread_local, "session"):
+            del _thread_local.session
+        return 0.0, ""
+    except Exception:
+        return 0.0, ""
+    try:
         if r.status_code != 200:
             return 0.0, ""
         html = r.text
