@@ -256,11 +256,16 @@ la misma familia de bug antes de asumir que es "aleatorio otra vez" — verifica
 ## Masonline (cadena minorista — API VTEX legacy, documentado 20/07/2026)
 - Sitio sobre VTEX (CloudFront, sin Cloudflare, sin auth) — mismo perfil que Coto/
   Carrefour/Dia. Usa el legacy Catalog System igual que Dia (`fq=C:{id}`).
-- **El arbol de categorias NO tiene agrupador "super"**: a diferencia de Dia/Jumbo,
-  cada nodo del arbol (`/api/catalog_system/pub/category/tree/2`) ya es una categoria
-  especifica de grano fino (ids 200xxx, ej "Aceites, Vinagres y Aderezos"). El scraper
-  agrupa manualmente varios ids bajo un mismo sector display (Almacen=12 ids, Perfumeria=
-  14 ids, etc.) — ver `CATEGORIAS` en `targets/masonline/scraper_pro.py`.
+- **RE-MAPEO 07/10/2026: el sitio reorganizo su arbol de categorias.** Los ids viejos
+  200xxx quedaron casi vacios -> el scrape cayo a 326 productos (fallo el 07/10). Arbol
+  nuevo: raices 1000xxx (Almacen=1000038, Perfumeria=1000037, etc.). Las subcategorias
+  SOLO devuelven productos con formato RUTA `fq=C:/{raiz}/{hijo}/` (el id de subcategoria
+  suelto da 0). Almacen y Perfumeria superan el cap de 2.500/fq -> se barren por subcategoria;
+  el resto por raiz directa. Mapa actual en `CATEGORIAS` de `targets/masonline/scraper_pro.py`.
+  Corrida real post-fix: 9.067 scrapeados / 3.445 con match. Si vuelve a caer a pocos cientos,
+  el arbol cambio otra vez: pedir `/api/catalog_system/pub/category/tree/2` y re-mapear.
+- (Historico, pre-07/10) El arbol viejo eran ids 200xxx de grano fino agrupados a mano por
+  sector display — ver historial de git si hace falta.
 - **ListPrice SI es confiable** (a diferencia de Jumbo, ver abajo): ratios medidos entre
   Price y ListPrice van de 1.18x a 2.5x maximo — ofertas reales, ~8% del catalogo.
 - **Volumen:** 7.433 scrapeados / 2.726 con match EAN contra el catalogo (medido
