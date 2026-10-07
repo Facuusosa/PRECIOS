@@ -603,9 +603,16 @@ def cargar_yaguar():
                     sku_to_mejor[sku] = p
                 else:
                     precio_ex = existing.get("precio", 0)
-                    if precio > 200 and precio_ex < 200:
+                    # Umbral <100 (no <200): solo reemplazar el fresco por un viejo cuando el
+                    # fresco parece ROTO por escala (precio minusculo que la pasada x100/x1000
+                    # no corrigio). Con <200 se prefería el viejo sobre el fresco en productos
+                    # baratos LEGITIMOS de $100-200 (sachets, golosinas) -- staleness real que
+                    # el detector de frescura cazó el 07/10/2026 (Shampoo Pantene sachet: catalogo
+                    # $219 viejo vs scrape fresco $185). Yaguar usa la Store API desde 10/07/2026
+                    # (precios exactos), asi que un precio fresco de $100-200 es real, no un glitch.
+                    if precio > 200 and precio_ex < 100:
                         sku_to_mejor[sku] = p
-                    elif precio > 200 and precio_ex > 200:
+                    elif precio > 200 and precio_ex >= 100:
                         # Ambos válidos — existing es más reciente (archivos ordenados desc)
                         # Si el más antiguo (p) tiene imagen real y el más reciente no, heredar imagen
                         def _img_real(prod):
@@ -816,8 +823,15 @@ def cargar_nini():
                     p["fecha"] = fecha_archivo
                 if es_reciente:
                     sku_tiene_reciente.add(sku)
-                existing = sku_to_mejor.get(sku)
-                if existing is None or precio > existing.get("precio", 0):
+                # Freshest wins: los archivos vienen ordenados por mtime descendente
+                # (mas nuevo primero), asi que la PRIMERA aparicion de un SKU es la del
+                # scrape mas reciente -- mismo criterio que cargar_yaguar()/cargar_maxiconsumo().
+                # Antes se quedaba con el precio MAS ALTO, lo que ignoraba ofertas y bajas
+                # de precio reales y heredaba la fecha del archivo viejo (bug 07/10/2026:
+                # Branca 750 en oferta a $15.299 hoy quedaba pisado por $15.943 del 05/10 y
+                # se mostraba "hace 2 dias"). No sobreescribir si ya se vio desde un archivo
+                # mas nuevo.
+                if sku not in sku_to_mejor:
                     sku_to_mejor[sku] = p
         except Exception:
             pass
@@ -1662,6 +1676,8 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
             entry["fuentes"]["nini"] = {
                 "nombre": nini_p.get("nombre", ""),
                 "sku":    nini_sku,
+                "precio_regular": nini_p.get("precio_regular", 0),
+                "oferta":         nini_p.get("oferta", ""),
                 "fecha_scraping": nini_p.get("fecha_scraping") or nini_p.get("fecha", ""),
             }
             nini_merged.add(nini_sku)
@@ -1766,7 +1782,9 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
 
         if ean and ean in catalogo:
             catalogo[ean]["precios"]["nini"] = precio
-            catalogo[ean]["fuentes"]["nini"] = {"nombre": nombre, "sku": sku, "fecha_scraping": p.get("fecha_scraping") or p.get("fecha", "")}
+            catalogo[ean]["fuentes"]["nini"] = {"nombre": nombre, "sku": sku,
+                "precio_regular": p.get("precio_regular", 0), "oferta": p.get("oferta", ""),
+                "fecha_scraping": p.get("fecha_scraping") or p.get("fecha", "")}
             if ean in nombre_norm_to_ean.values():
                 stats_nini["match_ean_catalogo"] += 1
         else:
@@ -1778,7 +1796,9 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
                 stats_nini["nuevo"] += 1
 
             catalogo[prod_id]["precios"]["nini"] = precio
-            catalogo[prod_id]["fuentes"]["nini"] = {"nombre": nombre, "sku": sku, "fecha_scraping": p.get("fecha_scraping") or p.get("fecha", "")}
+            catalogo[prod_id]["fuentes"]["nini"] = {"nombre": nombre, "sku": sku,
+                "precio_regular": p.get("precio_regular", 0), "oferta": p.get("oferta", ""),
+                "fecha_scraping": p.get("fecha_scraping") or p.get("fecha", "")}
             if ean:
                 stats_nini["match_nombre_maestro"] += 1
 
@@ -2653,6 +2673,59 @@ def construir_catalogo(yaguar_data, maxicarre_data, maxiconsumo_data,
     return lista_final, _aprendizaje_yag, _aprendizaje_mco, _aprendizaje_nini
 
 
+def auditar_frescura_combinados(catalogo):
+    """Guardrail anti-regresion (agregado 07/10/2026 tras el bug de Branca).
+
+    Las 3 fuentes que COMBINAN varios archivos historicos (Yaguar, Maxiconsumo,
+    Nini) tienen que quedarse con el precio del scrape MAS RECIENTE para cada SKU.
+    Un bug en el criterio de desempate (cargar_nini se quedaba con el precio mas
+    ALTO en vez del mas fresco) dejo el Fernet Branca 750 publicado a $15.943 del
+    05/10 cuando el scrape de hoy lo tenia en oferta a $15.299 -- invisible hasta
+    que Facu lo vio a ojo. Este chequeo lo detecta SOLO: si el catalogo tiene, para
+    un SKU que SI aparece en el output mas fresco de su fuente, un precio distinto
+    al de ese output, es que no tomo el dato fresco. Costo cero (no toca la web,
+    solo compara archivos ya scrapeados).
+
+    Devuelve lista de divergencias (dicts) -- vacia si todo esta sano.
+    """
+    fuentes_combinadas = {
+        "yaguar": YAGUAR_DIR, "maxiconsumo": MAXICONSUMO_DIR, "nini": NINI_DIR,
+    }
+    divergencias = []
+    for fuente, directorio in fuentes_combinadas.items():
+        archivos = glob.glob(os.path.join(directorio, f"output_{fuente}_*.json"))
+        if not archivos:
+            continue
+        fresco = max(archivos, key=os.path.getmtime)
+        try:
+            with open(fresco, encoding="utf-8") as fh:
+                data = json.load(fh)
+        except (OSError, json.JSONDecodeError):
+            continue
+        precio_fresco = {}
+        for p in data:
+            sku = str(p.get("sku", "")).strip()
+            precio = p.get("precio", 0)
+            if sku and precio > 0:
+                precio_fresco[sku] = precio
+        for prod in catalogo:
+            f = prod.get("fuentes", {}).get(fuente)
+            if not isinstance(f, dict):
+                continue
+            sku = str(f.get("sku", "")).strip()
+            cat_precio = prod.get("precios", {}).get(fuente, 0)
+            if sku not in precio_fresco or cat_precio <= 0:
+                continue  # SKU no esta en el scrape de hoy -> carryover legitimo, se saltea
+            ref = precio_fresco[sku]
+            if abs(cat_precio - ref) / ref > 0.01:  # >1% de diferencia = no tomo el fresco
+                divergencias.append({
+                    "fuente": fuente, "sku": sku,
+                    "nombre": prod.get("nombre_display", ""),
+                    "precio_catalogo": cat_precio, "precio_scrape_fresco": ref,
+                })
+    return divergencias
+
+
 # ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
@@ -2853,6 +2926,23 @@ def main():
 
     # Links Carrefour: verificar cada EAN y caer a busqueda por nombre si el buscador da 0.
     _carrefour_links_hibrido(catalogo)
+
+    # Guardrail anti-regresion: el catalogo tomo el precio del scrape mas fresco?
+    # (ver auditar_frescura_combinados -- caso Branca 07/10/2026).
+    divergencias = auditar_frescura_combinados(catalogo)
+    quality_dir = os.path.join(BASE_DIR, "data", "quality")
+    os.makedirs(quality_dir, exist_ok=True)
+    with open(os.path.join(quality_dir, "consistencia_fuentes.json"), "w", encoding="utf-8") as f:
+        json.dump({"fecha": datetime.now().isoformat(timespec="seconds"),
+                   "divergencias": divergencias}, f, ensure_ascii=False, indent=2)
+    if divergencias:
+        print(f"\n  [ALERTA CONSISTENCIA] {len(divergencias)} precios NO tomaron el scrape mas fresco "
+              f"(ver data/quality/consistencia_fuentes.json):")
+        for dv in divergencias[:5]:
+            print(f"    - {dv['fuente']} {dv['nombre']}: catalogo ${dv['precio_catalogo']} "
+                  f"vs scrape fresco ${dv['precio_scrape_fresco']}")
+    else:
+        print("\n  [OK consistencia] todas las fuentes combinadas tomaron su scrape mas fresco")
 
     os.makedirs(os.path.dirname(OUTPUT_FILE), exist_ok=True)
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:

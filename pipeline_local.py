@@ -473,6 +473,21 @@ def main():
         log("ERROR: actualizar_catalogo.py fallo")
         sys.exit(1)
 
+    # Guardrail anti-regresion (07/10/2026, caso Branca): que el catalogo haya tomado
+    # el precio del scrape mas fresco en Yaguar/Maxiconsumo/Nini. actualizar_catalogo.py
+    # ya escribio el resultado -- aca solo se eleva a ALERTA visible en el veredicto.
+    try:
+        cons = json.loads((RAIZ / "data" / "quality" / "consistencia_fuentes.json").read_text(encoding="utf-8"))
+        divs = cons.get("divergencias", [])
+        if divs:
+            ejemplo = divs[0]
+            alertar(f"CONSISTENCIA: {len(divs)} precios no tomaron el scrape mas fresco "
+                    f"(ej: {ejemplo['fuente']} {ejemplo['nombre']} catalogo ${ejemplo['precio_catalogo']} "
+                    f"vs fresco ${ejemplo['precio_scrape_fresco']})",
+                    "revisar data/quality/consistencia_fuentes.json -- un loader cargar_X() dejo de tomar el mas reciente")
+    except (OSError, json.JSONDecodeError, KeyError):
+        pass
+
     log("Enriqueciendo imagenes (URLs Yaguar por SKU)...")
     run("python enriquecer_imagenes.py", cwd=RAIZ)
 

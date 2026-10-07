@@ -119,7 +119,7 @@
   `verificar_precios_real.py` debe correr PEGADO al scrape (por eso vive en `pipeline_local.py`).
 
 ## Pipeline de ejecución
-Orquestador real: **`pipeline_local.py`** — corre las 8 fuentes + `actualizar_catalogo.py`
+Orquestador real: **`pipeline_local.py`** — corre las 9 fuentes + `actualizar_catalogo.py`
 + gates de sanidad (`sanidad_outputs()`, verificación en vivo) en una sola corrida.
 Wrappers individuales, para correr una sola fuente suelta:
 ```
@@ -133,6 +133,37 @@ python scrape_dia.py            → scraper + actualizar_catalogo.py
 python scrape_masonline.py      → scraper + actualizar_catalogo.py
 python scrape_jumbo.py          → scraper + actualizar_catalogo.py
 ```
+
+**Reintento automático + pipeline más rápido (05/08/2026):** `run_scraper()` en
+`pipeline_local.py` reintenta 1 vez (30s de espera) cualquier scraper que falle sin causa
+reproducible — mitigación ante fallos raros e intermitentes, no un fix especulativo.
+MaxiCarrefour queda afuera (`reintentos=0`): ya tiene su propio retry/rescate afinado, duplicarlo
+alargaría el tiempo sin sumar nada. Además, `pipeline_local.py` setea
+`os.environ["PIPELINE_SKIP_CATALOGO"]="1"` en `main()`, y cada wrapper de arriba chequea esa env
+var para saltear su `actualizar_catalogo.py` individual cuando corre encadenado desde el
+pipeline — antes eran 10 reconstrucciones completas del catálogo por corrida (una por cada uno
+de los 9 wrappers + la final del propio pipeline), cuando solo la última importa
+(~3-5 min c/u, ~30-40 min de ahorro real). Uso manual de un wrapper suelto (tabla de arriba)
+sigue reconstruyendo el catálogo normal, sin cambios — el flag solo se propaga desde
+`pipeline_local.py`.
+
+## Maxiconsumo — causa raíz del cuelgue intermitente RESUELTA (05/08/2026)
+El fallo `^C` sin traceback que afectó a Maxiconsumo (y alguna vez a Yaguar) cada varias
+semanas, siempre catalogado como "raro e intermitente" sin diagnóstico, tenía causa real:
+`_get_con_guardian()` en `targets/maxiconsumo/enriquecer_precios.py` usa un thread daemon
+con timeout de 25s contra Cloudflare — pero al vencer el timeout el thread queda abandonado
+usando la MISMA sesión HTTP thread-local que el próximo request "normal" del mismo worker
+reusa (por diseño, para evitar handshake TLS por producto). Compiten por el mismo socket y
+degradan en cascada. Reproducido en vivo el 05/08: corrida clavada en 1800/4040 con 14 min
+de CPU anómala en el proceso, sin avanzar.
+
+**Fix en `extraer_precio_detalle()`:** ante `TimeoutError` del guardian, se descarta la
+sesión del hilo (`del _thread_local.session`) para que el próximo `_get_session()` cree una
+limpia en vez de heredar la potencialmente rota. Verificado con una corrida real completa
+post-fix (4039/4040, sin colgarse) y de nuevo dentro del pipeline completo del mismo día.
+Si el síntoma reaparece (proceso vivo, sin avance, alta CPU pero sin red real): sospechar
+la misma familia de bug antes de asumir que es "aleatorio otra vez" — verificar con
+`tasklist`/CPU time del proceso, no solo esperar a que termine.
 
 ## Coto (cadena minorista — API Constructor.io, documentado 05/07/2026)
 - **Sin credenciales:** API JSON pública `ac.cnstrc.com/browse/group_id/{catv}` con key
@@ -304,6 +335,26 @@ python scrape_jumbo.py          → scraper + actualizar_catalogo.py
   deportes/jugueteria), Sin Categoria(9999), Felices Fiestas(10038, estacional).
 
 ## Nini Mayorista (API RPC interna vía sesion Playwright, documentado 29/07/2026)
+- **PRECIO = `priceWithTax` DECODIFICADO (precio FINAL con IVA que muestra la web),
+  NO `price` (fix 07/10/2026).** El `price` crudo de la API es el NETO sin IVA —
+  usarlo hacía ver a Nini ~17% más barato de lo real (caso que atrapó Facu: Aceite
+  Natura 900 mostraba $3.402 cuando la web cobra $4.175). Los campos `priceWithTax`
+  (precio efectivo mostrado) y `listPrice` (regular tachado) vienen OFUSCADOS: cada
+  grupo de 3 dígitos es un código ASCII; las letras **C→0, D→1, E→2 … L→9** y la
+  **'A' es la coma decimal** (ej. "071068074072065070070072" → `GDJHAFFH` → 4175.335).
+  Verificado exacto contra la ficha renderizada en varios productos. `_decode_precio_web()`
+  lo implementa. **Oferta: la señal es `priceWithTax` < `listPrice`, NO el campo
+  `discountPercentage`** (viene 0 aun con oferta activa). El scraper guarda
+  `precio`/`precio_regular`/`oferta` (texto "%") igual que las cadenas.
+- **Fecha de entrega: esperar a que sea futura ANTES de clickear "Continuar" (`#next`)
+  (fix 07/10/2026).** El datepicker autocompleta la fecha válida por JS unos ms después
+  de montar el form; si se clickea `#next` antes, se manda con la fecha vencida del
+  pedido anterior y salta el popup "la fecha de entrega debe ser posterior a la actual"
+  → el scraper no pasa de esa pantalla. Era la causa real de las fallas SALTEADAS de
+  Nini (26/09, 27/09, 06/10, 07/10): un race de tiempo, no un cambio del sitio. El fix
+  espera en un loop a que `#deliveryDate` tenga una fecha > hoy. NO es tocar el pedido
+  del dueño: `#crearPedido` abre un pedido de navegación propio y efímero; `#next` solo
+  navega al catálogo, nunca confirma.
 - **CUENTA PRESTADA POR UN TERCERO — NUNCA usarla para comprar.** El usuario 38620
   no es de Facu; alguien se la prestó únicamente para consultar precios. El scraper
   es SOLO LECTURA por diseño (`targets/nini/scraper_pro.py`): whitelist duro
@@ -355,6 +406,16 @@ python scrape_jumbo.py          → scraper + actualizar_catalogo.py
   de la regla 08.
 - La API no trae imagen ni link de producto usable — esos campos quedan vacíos
   en `fuentes.nini` (a diferencia de Yaguar/MaxiCarrefour/Maxiconsumo).
+- **Por eso el botón "Ver" no aparece para Nini en `vista-detalle.tsx`** (la
+  condición es `{precio.link && (...)}`, genérica — no hace falta ni conviene
+  tocarla). Decisión consciente (29/07/2026), no completar `fuentes.nini.link`
+  con ningún valor: Nini no tiene fichas de producto públicas — TODO producto
+  vive detrás del login de la cuenta prestada, así que cualquier link posible
+  o (a) cae en la pantalla de login sin mostrar nada (mala UX, rompe la
+  expectativa de "Ver" en toda la app) o (b) requeriría reusar la sesión de la
+  cuenta prestada de alguna forma, exponiendo su acceso a cualquier visitante
+  de Brújula. Ninguna de las dos vale la pena — Nini aporta el precio, no el
+  link de verificación manual.
 - **NO se agregó Nini al gate de verificación en vivo** (`scripts/verificar_precios_real.py`).
   A diferencia de Yaguar (ficha pública) o MaxiCarrefour (sesión ya cacheada), Nini no
   tiene una vía de verificación liviana sin repetir todo el login — y repetirlo

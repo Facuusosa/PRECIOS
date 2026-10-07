@@ -1,5 +1,33 @@
 # Regla: Calidad de datos del catálogo
 
+## Los 3 loaders que COMBINAN históricos deben quedarse con el scrape MÁS FRESCO (07/10/2026 — caso Branca)
+
+`cargar_yaguar()`, `cargar_maxiconsumo()` y `cargar_nini()` combinan hasta 12 archivos
+históricos por SKU para maximizar cobertura (un SKU que no aparece hoy conserva su último
+precio conocido con su fecha real). Al desempatar un SKU presente en varios archivos, SIEMPRE
+gana el del scrape más reciente (los archivos se iteran ordenados por mtime descendente, así
+que la PRIMERA aparición del SKU es la más fresca). Dos bugs reales por no respetar esto:
+
+- **Nini se quedaba con el precio MÁS ALTO, no el más fresco** (`cargar_nini`, fix 07/10/2026):
+  cualquier producto que entrara en oferta o bajara de precio quedaba pisado por el valor viejo
+  más caro. Caso: Fernet Branca 750 publicado a $15.943 del 05/10 y marcado "MÁS BARATO" cuando
+  el scrape de hoy lo tenía en oferta a $15.299 — invisible hasta que Facu lo vio a ojo. Fix:
+  `if sku not in sku_to_mejor` (freshest-wins), igual que las otras dos.
+- **Yaguar prefería un precio viejo ≥$200 sobre uno fresco de $100-200** (`cargar_yaguar`, fix
+  07/10/2026): el guard anti-escala usaba umbral `<200`, pero desde que Yaguar usa la Store API
+  (10/07/2026, precios exactos) un precio de $100-200 es real (sachets, golosinas), no un glitch
+  de escala. Bajado a `<100` (solo precios realmente rotos por la pasada x100/x1000).
+
+**Guardrail automático que lo detecta solo — `auditar_frescura_combinados()`** (agregado
+07/10/2026): tras cada rebuild compara el catálogo contra el output más fresco de cada una de
+las 3 fuentes; si un SKU que SÍ está en el scrape de hoy quedó en el catálogo con otro precio
+(>1% de diferencia), escribe la divergencia en `data/quality/consistencia_fuentes.json` y
+`pipeline_local.py` la eleva a ALERTA en el veredicto diario. Costo cero (no toca la web, solo
+compara archivos ya scrapeados). Habría cazado Branca al instante. Si vuelve a aparecer una
+divergencia aquí, el culpable es un `cargar_X()` que dejó de tomar el más reciente — no tocar
+el detector, arreglar el loader. (Las cadenas y MaxiCarrefour usan `encontrar_mejor()` = un solo
+archivo fresco, no pueden tener este bug; por eso el detector solo cubre las 3 que combinan.)
+
 ## Fusiones fuzzy: dos EANs reales distintos NUNCA se fusionan (14/07/2026 — caso Playadito)
 
 El Paso 6c de `actualizar_catalogo.py` fusionaba variantes DISTINTAS de una misma marca
@@ -132,6 +160,27 @@ distintos. Resultado: 103 fuentes incompatibles eliminadas, casos fuente-vs-fuen
   pero el `nombre_display` está mal escrito (ej. Quitamanchas "1.5 ml" debió ser "1.5 L") o
   expresa la cantidad distinto (Bon o Bon "18u x 15g" = 270g). Es cosmético, no de precio.
 
+## Gap NO cubierto por cantidad canónica: pack de N unidades con el MISMO EAN que la unidad (auditoría 31/07/2026)
+
+`_cantidad_canonica()` normaliza volumen/peso (ml, g) pero **no detecta multiplicadores de
+pack** ("X6", "6 Unidades", "Pack X4", "CAJON"). Cuando el fabricante (o el catálogo interno de
+una cadena) reutiliza el MISMO EAN para el pack completo y para la unidad suelta, el match por
+EAN se trata como verdad absoluta y nunca pasa por el filtro del 6d — quedan publicadas
+comparaciones de precio incorrectas (pack vs unidad, mismo EAN, mismo producto en el catálogo).
+
+Casos confirmados en producción (auditoría 31/07/2026, `data/quality/auditoria_catalogo_20260731.md`):
+Cerveza Budweiser/Brahma lata 473-710ml (coto "Pack Latas 6 Unidades" / jumbo "X 6 Un" con el
+mismo EAN que la lata suelta de maxiconsumo/nini/dia, ratio 5.5x-9.1x), Chicle Beldent 20u
+(maxiconsumo caja completa vs masonline una unidad, 11.1x), Dulce Arcor/Esnaola "CAJON 5 KG"
+(maxiconsumo caja sin dividir vs coto precio por 1kg, 3.3x-3.8x).
+
+**Pendiente de implementar:** extender `_cantidad_canonica()` (o agregar un filtro nuevo en el
+Paso 6d) para detectar `\bX?\d+\s*(UN|UNI|UNIDADES)\b` / `\bPACK\b` / `\bCAJON\b` en el nombre
+crudo de cada fuente y multiplicar la cantidad base por ese factor antes de comparar. Si el
+factor detectado difiere entre fuentes que comparten EAN, descartar la comparación con el mismo
+criterio que ya usa el 6d para tamaños físicos distintos (>10% de diferencia en la misma
+dimensión) — en vez de mostrarla como si fuera una oferta real.
+
 ## Regla de oro (12/06/2026): ningún fallback puede alterar metadata de frescura
 
 `_fallback_mc_desde_catalogo()` pisaba `fecha_scraping` con la fecha de hoy "para que el
@@ -159,9 +208,9 @@ Productos con precio de hace >30 días aparecían como información vigente en e
 Ejemplo: Cerveza Quilmes Yaguar $1.410 del 20/04 (38 días viejo) mostrada como precio actual.
 **Fix aplicado:** `actualizar_catalogo.py` ahora agrega `precio_stale: true` y
 `dias_desde_scraping: N` en la fuente del producto. **Actualizado 16/07/2026: el umbral real
-en código es `STALE_DIAS = 14`** (`actualizar_catalogo.py:2555`), no 30 — bajado en algún
-punto sin actualizar esta regla. Verificar el valor en código ante cualquier duda, no confiar
-en este número.
+en código es `STALE_DIAS = 14`** (`actualizar_catalogo.py:2569`, verificado 29/07/2026 — el
+número de línea se corre con cada refactor del archivo), no 30. Verificar el valor en código
+ante cualquier duda, no confiar en este número.
 
 ## Cómo se usa precio_stale/dias_desde_scraping en el frontend (verificado 16/07/2026)
 
@@ -171,6 +220,25 @@ días (dorado), viejo >14 días (rojo) — con label exacto "Hoy"/"Ayer"/"N día
 `components/frescura-pill.tsx` lo renderiza (punto de color + texto, title con fecha exacta
 al hover) y se consume en `bomba-list-item.tsx`, `vista-lista.tsx`, `vista-detalle.tsx` y
 `vista-catalogo.tsx`. Un precio de 3-4 días SÍ se distingue visualmente de uno de hoy.
+
+## Bombas de Inicio: filtro de frescura para no contaminar "Bombas de hoy" (05/08/2026)
+
+El título de Inicio (`"Bombas de hoy"` / `"Bombas actualizadas hace N días"`, en
+`vista-inicio.tsx`) toma el PEOR caso (mayor antigüedad) entre TODOS los precios mayoristas
+de las bombas visibles, no un promedio — un solo producto viejo en el pool contaminaba el
+título entero aunque el resto fuera de hoy. Causa de que hubiera productos viejos pese a
+scrapers OK: el catálogo combina hasta 12 archivos históricos de Yaguar para maximizar
+cobertura (`02-scrapers.md`); un producto que no aparece en el scrape de HOY conserva su
+último precio conocido con fecha REAL (no falseada) — comportamiento correcto, no bug.
+
+**Fix:** `calcularBombas()` en `lib/data.ts` excluye del pool cualquier producto donde algún
+precio mayorista supere `BOMBA_DIAS_MAX = 3` días de antigüedad — filtrado en el origen
+(la función que arma TODAS las bombas), no solo en el texto del título, así tampoco se puede
+mostrar una bomba individual con datos viejos. Umbral elegido con datos reales del catálogo:
+deja 273/314 candidatos ABC=A (87%), pool sigue grande para el shuffle de rotación (ver
+[[project_bombas_rotacion]] en memoria). Si el título vuelve a mostrar "hace N días" con
+N>3 de forma consistente (no solo una visita aislada), sospechar que el umbral quedó
+desactualizado o que una fuente mayorista viene degradando su frescura real.
 
 ## Señales de alerta para detectar precios incorrectos
 

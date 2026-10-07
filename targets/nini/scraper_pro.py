@@ -139,6 +139,24 @@ def login_y_resolver_pedido(page) -> str:
 
     page.click("#crearPedido")
     page.wait_for_selector("#next", timeout=15000)
+    # Esperar a que el sitio autocomplete una fecha de entrega VALIDA (futura) antes
+    # de Continuar. El datepicker la carga por JS unos ms despues de montar el form;
+    # si se clickea #next antes, se manda con la fecha vencida del pedido anterior y
+    # salta el popup "la fecha de entrega debe ser posterior a la actual" -> el scraper
+    # no pasa de esta pantalla. Causa real de las fallas salteadas de Nini (26/09, 27/09,
+    # 06/10, 07/10): un race de tiempo, no un cambio del sitio. Diagnosticado 07/10/2026.
+    hoy = datetime.now().date()
+    for _ in range(30):
+        valor = page.eval_on_selector("#deliveryDate", "e => e.value") or ""
+        m = re.match(r"(\d{2})/(\d{2})/(\d{4})", valor)
+        if m:
+            d, mo, y = int(m.group(1)), int(m.group(2)), int(m.group(3))
+            try:
+                if datetime(y, mo, d).date() > hoy:
+                    break
+            except ValueError:
+                pass
+        page.wait_for_timeout(300)
     page.click("#next")
     page.wait_for_selector("#goToHome", timeout=15000)
     page.click("#goToHome")
@@ -180,6 +198,36 @@ def _limpiar_precio(valor) -> float:
     if not (PRECIO_MIN <= precio <= PRECIO_MAX):
         return 0.0
     return precio
+
+
+def _decode_precio_web(enc) -> float:
+    """Descifra el precio FINAL que Nini muestra en pantalla (con IVA, y con la
+    oferta ya aplicada). Los campos `priceWithTax`/`listPrice` vienen ofuscados:
+    cada grupo de 3 digitos es un codigo ASCII; las letras C..L mapean a 0..9
+    (C=0, D=1, ... L=9) y la 'A' es la coma decimal. Verificado 07/10/2026 contra
+    la ficha renderizada (Aceite Natura 900: "071068074072065070070072" -> 4175.335
+    = exactamente el $4.175,33 que muestra la web). El `price` crudo de la API es el
+    NETO sin IVA -- usarlo hacia ver a Nini ~17% mas barato de lo real. NUNCA volver
+    a usar `price` como precio de catalogo; ese campo es solo el fallback de ultimo
+    recurso si el descifrado falla."""
+    if enc is None:
+        return 0.0
+    enc = str(enc)
+    if not enc.isdigit() or len(enc) % 3 != 0:
+        return 0.0
+    out = []
+    for i in range(0, len(enc), 3):
+        ch = chr(int(enc[i:i + 3]))
+        if ch == 'A':
+            out.append('.')
+        elif 'C' <= ch <= 'L':
+            out.append(str(ord(ch) - 67))
+        else:
+            return 0.0  # caracter fuera del alfabeto conocido -> descifrado invalido
+    try:
+        return float("".join(out))
+    except ValueError:
+        return 0.0
 
 
 def obtener_productos_sector(page, order_id: str, departamento_id: str, sector_id: str,
@@ -226,9 +274,20 @@ def obtener_productos_sector(page, order_id: str, departamento_id: str, sector_i
         if total is None:
             total = int(data[0].get("totalProducts", len(data)) or len(data))
         for p in data:
-            precio = _limpiar_precio(p.get("price", 0))
+            # Precio FINAL que muestra la web (con IVA + oferta aplicada). Si el
+            # descifrado falla, caer al neto crudo para no perder el producto, pero
+            # eso es el ultimo recurso -- el neto se ve ~17% mas barato de lo real.
+            precio = _decode_precio_web(p.get("priceWithTax")) or _limpiar_precio(p.get("price", 0))
             if precio <= 0:
                 continue
+            regular = _decode_precio_web(p.get("listPrice"))
+            # Oferta real = el precio mostrado es menor al regular tachado. OJO: el
+            # campo discountPercentage viene 0 aun con oferta activa (verificado
+            # 07/10/2026), por eso la senal es precio < regular, no ese campo.
+            en_oferta = regular > precio + 0.5
+            # Texto de oferta como las cadenas ("23%"): el frontend ya antepone
+            # "OFERTA", asi que guardar "OFERTA" aca daria "OFERTA OFERTA".
+            pct_oferta = f"{round((regular - precio) / regular * 100)}%" if en_oferta else ""
             nombre = f"{p.get('smallDescription', '').strip()} {p.get('presentationOrder', '').strip()}".strip()
             sku = str(p.get("id", "")).strip()
             if not nombre or not sku:
@@ -237,6 +296,8 @@ def obtener_productos_sector(page, order_id: str, departamento_id: str, sector_i
                 "nombre": nombre,
                 "sku": sku,
                 "precio": precio,
+                "precio_regular": regular if en_oferta else 0,
+                "oferta": pct_oferta,
                 "marca": p.get("trademark", "") or "",
                 "stock": p.get("stock", ""),
                 "categoria": categoria_nombre,

@@ -54,78 +54,38 @@ HEADERS = {
 # Textil, Bazar y Cocina, Jugueteria, Herramientas/Pintureria, Patio y
 # Jardin, Climatizacion, TV/Audio/Informatica/Celulares/Gaming, Camping/
 # Deportes/Viaje, Libreria y Arte, Accesorios para Auto, Indumentaria).
-# IDs obtenidos de /api/catalog_system/pub/category/tree/2 (20/07/2026).
+# IDs obtenidos de /api/catalog_system/pub/category/tree/2 (re-mapeado 07/10/2026:
+# Masonline reorganizo el arbol -- los ids 200xxx viejos quedaron casi vacios y
+# el scrape cayo a ~326 productos). Raices nuevas 1000xxx. Las que superan el cap
+# de 2.500 por fq (Almacen 3.930, Perfumeria 5.522) se barren por subcategoria con
+# formato ruta "/raiz/hijo/" -- el id de subcategoria SOLO devuelve 0 en este sitio.
+def _sub(raiz, *hijos):
+    return [f"/{raiz}/{h}/" for h in hijos]
+
+
 CATEGORIAS = [
     ("Almacen", [
-        200005,  # Aceites, Vinagres y Aderezos
-        200009,  # Arroz, Legumbres y Pastas
-        200019,  # Caldos, Sopas y Pure
-        200027,  # Condimentos y Especias
-        200029,  # Conservas y Enlatados
-        200039,  # Desayunos y Meriendas
-        200053,  # Harinas
-        200064,  # Kiosco
-        200043,  # Panaderia
-        200079,  # Panificados
-        200094,  # Reposteria
-        200100,  # Snacks
+        *_sub(1000038, 2000160, 2000161, 2000162, 2000163, 2000164,
+              2000165, 2000166, 2000167, 2000168),
+        1000045,  # Desayunos y Meriendas
+        1000036,  # Panaderia
     ]),
     ("Frescos", [
-        200022,  # Carniceria
-        200088,  # Pescaderia
-        200057,  # Huevos
-        200103,  # Verduras
-        200048,  # Frutas
-        200066,  # Lacteos
-        200093,  # Quesos
-        200046,  # Fiambres y Embutidos
-        200084,  # Pastas y Tapas
+        1000049,  # Frescos
+        1000050,  # Frutas y Verduras
+        1000042,  # Carniceria y Pescaderia
     ]),
-    ("Congelados", [200028]),
-    ("Bebidas", [
-        200023,  # Cervezas
-        200104,  # Vinos y Espumantes
-        200044,  # Fernet y Aperitivos
-        200015,  # Bebidas Blancas, Licores y Whiskys
-        200051,  # Gaseosas
-        200006,  # Aguas
-        200062,  # Jugos
-        200016,  # Bebidas Isotonicas y Energizantes
-        200001,  # A Base de Hierbas
-    ]),
+    ("Congelados", [1000043]),
+    ("Bebidas", [1000041]),
     ("Perfumeria", [
-        200031,  # Cuidado de la Piel
-        200032,  # Cuidado del Adulto
-        200012,  # Pañales e Higiene
-        200030,  # Cuidado de la Mama
-        200034,  # Cuidado del Cabello
-        200035,  # Cuidado Oral
-        200036,  # Cuidado Personal
-        200076,  # Nutricion
-        200092,  # Farmacia
-        200047,  # Fragancias
-        200038,  # Dermocosmetica
-        200033,  # Maquillaje
-        200042,  # Electro Belleza
-        200112,  # Proteccion Femenina
+        *_sub(1000037, 2000351, 2000352, 2000353, 2000354, 2000355,
+              2000356, 2000357, 2000358),
+        1000047,  # Farmacia
     ]),
-    ("Limpieza", [
-        200002,  # Accesorios de Limpieza
-        200011,  # Baño
-        200040,  # Desodorante de Ambientes
-        200060,  # Insecticidas
-        200068,  # Lavandinas
-        200082,  # Papeles, Bolsas y Films
-        200090,  # Pisos y Muebles
-        200113,  # Limpieza de Baño
-        200067,  # Lavado de la Ropa
-        200086,  # Limpieza del Hogar
-    ]),
-    ("Mascotas", [
-        200087,  # Perros
-        200052,  # Gatos
-    ]),
-    ("Bebe", [200065]),  # Lactancia y Alimentacion
+    ("Limpieza", [1000034]),
+    ("Mascotas", [1000035]),
+    # Bebes y Ninos sin Jugueteria/Dormitorios/Paseo/Seguridad (no es surtido super)
+    ("Bebe", _sub(1000040, 2000178, 2000190, 2000191)),
 ]
 
 PRECIO_MIN = 50
