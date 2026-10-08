@@ -120,7 +120,13 @@
     "7791293036069": "7791293032498",
     "7790975000183": "7790975198613",
     "7794490610346": "7794640173110",
-    "7790010959780": "7790010002943"
+    "7790010959780": "7790010002943",
+    "7702018053476": "7702018053469",
+    "7790520007988": "7790520998262",
+    "7790078000011": "7790070336576",
+    "7798062543469": "7798062547559",
+    "7790070936493": "7790070933645",
+    "7792640000245": "7792640007749"
   },
   "_historial": [
     {
@@ -422,6 +428,42 @@
       "canonico": "7790740000455",
       "producto": "SHAMPOO PLUSBELLE ESENCIA LARGO SALUD 970 ml <-> Shampoo PLUSBELLE ESEN Saludable X970 ml (fuente maxicarrefour)",
       "aprobado": "Facu 17/07/2026 (revision_alias.html, 2da tanda)"
+    },
+    {
+      "alias": "7702018053476",
+      "canonico": "7702018053469",
+      "producto": "ESPUMA DE AFEITAR GILLETTE FOAMY MENTHOL 179 ML (maxiconsumo) <-> Espuma De Afeitar Mentol Gillette X 179 Cc (maxicarrefour)",
+      "aprobado": "Claude revision en lote 07/10/2026 (metodo: Claude revisa, Facu audita) - marca+variante+cantidad exactas"
+    },
+    {
+      "alias": "7790520007988",
+      "canonico": "7790520998262",
+      "producto": "DESODORANTE GLADE CAMPOS DE LAVANDA 360 CC (maxiconsumo) <-> Desodorante Amb Campos Lavanda Glade Aero X 360 Cc (maxicarrefour)",
+      "aprobado": "Claude revision en lote 07/10/2026 (metodo: Claude revisa, Facu audita) - marca+variante+cantidad exactas"
+    },
+    {
+      "alias": "7790078000011",
+      "canonico": "7790070336576",
+      "producto": "FIDEOS DON VICENTE TALLARIN 500GR (yaguar) <-> Fideos Tallarines Don Vicente Bolsa X 500 Grs (maxicarrefour)",
+      "aprobado": "Claude revision en lote 07/10/2026 (metodo: Claude revisa, Facu audita) - marca+variante+cantidad exactas"
+    },
+    {
+      "alias": "7798062543469",
+      "canonico": "7798062547559",
+      "producto": "AGUA VILLA DEL SUR 2,25 LT (maxiconsumo) <-> Agua Mineral Sin Gas Villa Del Sur X 2.25 Lt (maxicarrefour)",
+      "aprobado": "Claude revision en lote 07/10/2026 (metodo: Claude revisa, Facu audita) - marca+variante+cantidad exactas"
+    },
+    {
+      "alias": "7790070936493",
+      "canonico": "7790070933645",
+      "producto": "CAFE ARLISTAN SUAVE 100 GR (maxiconsumo) <-> Infusion A Base De Cafe Arlistan Frasco X 100 Grs (maxicarrefour)",
+      "aprobado": "Facu 07/10/2026 (dudoso confirmado, revision con links)"
+    },
+    {
+      "alias": "7792640000245",
+      "canonico": "7792640007749",
+      "producto": "SHAMPOO CAPILATIS ORTIGA + PURO 420ML (yaguar) <-> Shampoo Ortiga Anticaspa Capilatis X 420Cc (maxicarrefour)",
+      "aprobado": "Facu 07/10/2026 (dudoso confirmado, revision con links)"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "fecha": "2026-07-16",
+  "fecha": "2026-10-07T00:00:00",
   "metodo": "Grupo A = precio SOLO en yaguar/maxiconsumo (ABC A/B o precio>percentil70 de su sector, excluye lo ya cubierto en matches_pendientes.json/mapeos_sospechosos.json). Grupo B = precio SOLO en maxicarrefour/coto/carrefour/dia (mismo filtro). Match = token de marca compartido que sea INFRECUENTE en su sector (rareza = indicio de nombre propio, no de categoria/varietal/adjetivo) + cantidad canonica compatible (tolerancia 12%) + similitud de caracteres sobre clave_nombre. Complementa, no reemplaza, matches_pendientes.json y mapeos_sospechosos.json.",
   "limitaciones_conocidas": "Revisar SIEMPRE los dos nombres completos antes de fusionar, no solo la marca detectada. Dos patrones de falso positivo residuales pese a los filtros aplicados: (1) mismo fabricante/apellido de marca pero variante de producto distinta cuando la cadena solo tiene UNA variante en catalogo (ej. vino del mismo productor pero varietal distinto: Cabernet vs Espumante; o 'Johnnie Walker' vs 'Hiram Walker' -- comparten 'walker' pero son marcas distintas); (2) sectores con mucha jerga de producto (vinos/licores) tienen mas ruido que Almacen/Limpieza/Cuidado Personal.",
   "grupo_a_total": 4642,
@@ -23978,7 +23978,14 @@
     ":7798048720259",
     ":7798052362179",
     ":7798113300010",
-    ":7798141718177"
+    ":7798141718177",
+    "7790740508814:7790740000448",
+    "7613033918704:7613287614971",
+    "7793253189204:7793253001186",
+    "7790463000084:7790520028907",
+    "7790387003659:7790387015614",
+    "7790520997005:7790520028723",
+    "7791290007697:7791290795648"
   ],
   "aprobados": [
     "4005808315680:4006000120294",
@@ -24108,6 +24115,12 @@
     ":7790550000171",
     ":7790580138721",
     ":7791905023777",
-    ":9002490100070"
+    ":9002490100070",
+    "7702018053476:7702018053469",
+    "7790520007988:7790520998262",
+    "7790078000011:7790070336576",
+    "7798062543469:7798062547559",
+    "7790070936493:7790070933645",
+    "7792640000245:7792640007749"
   ]
 }
