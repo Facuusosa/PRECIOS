@@ -2880,6 +2880,24 @@ def main():
         for nombre, may, precio, ref in sospechosos[:5]:
             print(f"    - {nombre[:45]}: {may} ${precio:.0f} vs otra ~${ref:.0f}")
 
+    # Imagen principal: elegir la de MEJOR CALIDAD entre todas las fuentes ya mergeadas.
+    # Las cadenas (Carrefour/Jumbo/Coto/Masonline/Dia son VTEX de alta resolucion) ganan a
+    # tupedido.carrefour (MaxiCarrefour B2B: fotos chicas y borrosas). Antes la imagen
+    # principal salia solo del pool MCF/Maxiconsumo/Yaguar y las fotos nitidas de las
+    # cadenas no se usaban nunca -- 6500+ productos mostraban la borrosa teniendo la buena.
+    _PRIORIDAD_IMG = ("carrefour", "jumbo", "coto", "masonline", "dia", "maxiconsumo", "yaguar", "maxicarrefour")
+    _reasignadas = 0
+    for _p in catalogo:
+        _fs = _p.get("fuentes", {})
+        for _src in _PRIORIDAD_IMG:
+            _fi = _fs.get(_src)
+            if _fi and not _es_placeholder(_fi.get("imagen", "")):
+                if _p.get("imagen") != _fi["imagen"]:
+                    _p["imagen"] = _fi["imagen"]
+                    _reasignadas += 1
+                break
+    print(f"  Imagen principal reasignada a mejor fuente: {_reasignadas}")
+
     # Stats
     con_yag  = sum(1 for p in catalogo if p["precios"]["yaguar"] > 0)
     con_mc   = sum(1 for p in catalogo if p["precios"]["maxicarrefour"] > 0)
